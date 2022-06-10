@@ -4,6 +4,7 @@ import 'package:ms_store/gen/assets.gen.dart';
 import '../../../app/app_refs.dart';
 import '../../../app/di.dart';
 import '../../../domain/models/on_boarding_model.dart';
+import '../../resources/routes_manger.dart';
 import '../../resources/strings_manager.dart';
 
 class OnBoardingController extends GetxController with DataScreen {
@@ -18,8 +19,8 @@ class OnBoardingController extends GetxController with DataScreen {
     Future<bool> showedOnBoarding = AppPrefs.getOnBoarding(onBoarding);
     showedOnBoarding.then((bool value) {
       if (value) {
-        //  initHomeModel();
-        //  return Get.offNamed(Routes.homeRoute);
+        initHomeModel();
+        return Get.offNamed(Routes.homeRoute);
       }
     });
     super.onReady();

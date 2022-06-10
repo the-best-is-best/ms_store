@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../../../../app/components.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
 import '../../../../../domain/models/home_models/slider_model.dart';
 import '../../../../../domain/use_case/home_use_case.dart';
@@ -30,7 +31,7 @@ class HomeController extends GetxController with BaseController {
         stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
         message: AppStrings.loading);
     var resultHome = await _homeUseCase.execute(null);
-    //  await waitStateChanged(duration: 1800);
+    await waitStateChanged(duration: 1800);
 
     resultHome.fold((failure) {
       flowState.value = ErrorState(

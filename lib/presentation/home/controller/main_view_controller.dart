@@ -1,3 +1,4 @@
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import '../../../app/components.dart';
 
@@ -23,7 +24,9 @@ class MainViewController extends GetxController {
       opacity.value = 0;
       await waitStateChanged(duration: 250);
       currentIndex.value = index;
-      opacity.value = 1;
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        opacity.value = 1;
+      });
     }
   }
 }

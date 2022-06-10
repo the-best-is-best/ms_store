@@ -100,12 +100,13 @@ class _HomePageState extends State<HomePage> {
       return Container();
     } else {
       return Padding(
-        padding: const EdgeInsets.only(top: 60.0),
+        padding: const EdgeInsets.only(top: 50.0),
         child: CarouselSlider(
             items: sliders
                 .map((slider) => SizedBox(
                       width: double.infinity,
                       child: Card(
+                        color: ColorManager.primaryColor,
                         elevation: AppSpacing.ap1_5,
                         shape: RoundedRectangleBorder(
                             borderRadius:
@@ -118,14 +119,14 @@ class _HomePageState extends State<HomePage> {
                               BorderRadius.circular(AppSpacing.ap12.r),
                           child: Image.network(
                             locale == "en" ? slider.imageEN : slider.imageAR,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
                     ))
                 .toList(),
             options: CarouselOptions(
-              height: AppSize.s300.h,
+              height: 250.h,
               autoPlay: true,
               enableInfiniteScroll: true,
               enlargeCenterPage: true,
