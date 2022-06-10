@@ -119,7 +119,7 @@ class PViewState extends State<OnBoardingView> {
                           },
                           child: Text(
                             "Sign In",
-                            style: themeData.textTheme.labelLarge!,
+                            style: themeData.textTheme.labelMedium!,
                           ),
                         ),
                         const Spacer(),
@@ -137,7 +137,7 @@ class PViewState extends State<OnBoardingView> {
                           },
                           child: Text(
                             "Sign Up",
-                            style: themeData.textTheme.labelLarge!,
+                            style: themeData.textTheme.labelMedium!,
                           ),
                         ),
                       ],
@@ -150,7 +150,7 @@ class PViewState extends State<OnBoardingView> {
                     },
                     child: Text(
                       "Skip",
-                      style: themeData.textTheme.labelLarge!,
+                      style: themeData.textTheme.labelMedium!,
                     ),
                   ),
                 ],

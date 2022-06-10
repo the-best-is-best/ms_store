@@ -35,8 +35,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   @override
   void initState() {
     _pinController = TextEditingController();
-    _passwordController = TextEditingController();
-    _passwordAgainController = TextEditingController();
+
     _passwordNode = FocusNode();
     _passwordAgainNode = FocusNode();
     _resetPasswordController = Get.find();
@@ -49,10 +48,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   @override
   void dispose() {
     _pinController.dispose();
-    _passwordController.dispose();
-    _passwordAgainController.dispose();
-    _passwordNode.dispose();
-    _passwordAgainNode.dispose();
+
     //Get.delete<LoginViewModelGetX>();
 
     super.dispose();

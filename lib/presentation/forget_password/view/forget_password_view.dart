@@ -35,8 +35,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
 
   @override
   void dispose() {
-    _emailController.dispose();
-
     //Get.delete<LoginViewModelGetX>();
 
     super.dispose();

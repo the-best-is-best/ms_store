@@ -88,8 +88,10 @@ ThemeData get themeDataLight {
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.all(AppSpacing.ap18.w),
       iconColor: ColorManager.darkColor,
-      hintStyle:
-          getRegularStyle(fontSize: FontSize.s16, color: ColorManager.grey),
+      hintStyle: getRegularStyle(
+        fontSize: FontSize.s16,
+        color: ColorManager.grey,
+      ),
       labelStyle:
           getMediumStyle(fontSize: FontSize.s16, color: ColorManager.grey),
       errorStyle:
