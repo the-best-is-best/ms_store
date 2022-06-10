@@ -11,19 +11,8 @@ class OnBoardingController extends GetxController with DataScreen {
   @override
   void onInit() {
     super.onInit();
-    super.pageViewData.value = super._getSliderData();
-  }
 
-  @override
-  void onReady() {
-    Future<bool> showedOnBoarding = AppPrefs.getOnBoarding(onBoarding);
-    showedOnBoarding.then((bool value) {
-      if (value) {
-        initHomeModel();
-        return Get.offNamed(Routes.homeRoute);
-      }
-    });
-    super.onReady();
+    super.pageViewData.value = super._getSliderData();
   }
 
   @override

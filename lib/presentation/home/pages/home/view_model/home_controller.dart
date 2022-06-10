@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../../../app/components.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
-import '../../../../../domain/models/home_models/slider_model.dart';
+import '../../../../../domain/models/home_models/home_data_model.dart';
 import '../../../../../domain/use_case/home_use_case.dart';
 import '../../../../base/base_controller.dart';
 import '../../../../common/state_renderer/state_renderer.dart';
@@ -12,8 +12,7 @@ import '../../../../resources/strings_manager.dart';
 class HomeController extends GetxController with BaseController {
   final HomeUseCase _homeUseCase;
   HomeController(this._homeUseCase);
-  RxList<SliderModel> sliderModel = <SliderModel>[].obs;
-  RxList<DataHomeModel> dataHome = <DataHomeModel>[].obs;
+  Rxn<HomeDataModel> homeModel = Rxn<HomeDataModel>();
   @override
   void onInit() {
     startFlow();
@@ -38,9 +37,8 @@ class HomeController extends GetxController with BaseController {
           stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,
           message: failure.messages);
     }, (homeObject) {
-      sliderModel.value = homeObject.data.slider;
-      dataHome.value = homeObject.data.dataHome;
-      if (sliderModel.isEmpty || dataHome.isEmpty) {
+      homeModel.value = homeObject.data;
+      if (homeModel.value == null) {
         flowState.value = EmptyState(message: AppStrings.noProducts);
       } else {
         flowState.value = ContentState();

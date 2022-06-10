@@ -144,8 +144,8 @@ class PViewState extends State<OnBoardingView> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      initHomeModel();
+                    onPressed: () async {
+                      await initHomeModel();
                       Get.offAllNamed(Routes.homeRoute);
                     },
                     child: Text(

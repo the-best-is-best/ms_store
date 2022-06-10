@@ -4,7 +4,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import '../../../../../app/components.dart';
+import '../../../../../domain/models/home_models/data_home_model.dart';
 import '../../../../../domain/models/home_models/product_model_home.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 
@@ -26,9 +28,18 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   String locale = Get.locale!.languageCode;
   final HomeController _homeController = Get.find();
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    //Do whatever you want in background
+
+    if (state == AppLifecycleState.resumed) {
+      _homeController.getHomeData();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
@@ -67,13 +78,16 @@ class _HomePageState extends State<HomePage> {
       children: [
         _getSliderCarousel(),
         _getSection(AppStrings.latestProducts),
-        _getProducts(themeData),
+        _getProducts(
+            themeData,
+            _homeController.homeModel.value?.dataHome ??
+                const Iterable.empty().cast<DataHomeModel>().toList()),
       ],
     );
   }
 
   Widget _getSliderCarousel() {
-    return Obx(() => _getSliderWidget(_homeController.sliderModel));
+    return Obx(() => _getSliderWidget(_homeController.homeModel.value?.slider));
   }
 
   Widget _getSection(String text) {
@@ -135,18 +149,19 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _getProducts(ThemeData themeData) {
+  Widget _getProducts(ThemeData themeData, List<DataHomeModel> dataHome) {
     return Obx(() => BuildCondition(
-          condition: _homeController.dataHome.isNotEmpty,
+          condition: _homeController.homeModel.value?.dataHome.isNotEmpty ??
+              const Iterable.empty().cast<DataHomeModel>().toList().isEmpty,
           builder: (context) => ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
-            itemCount: _homeController.dataHome.length,
+            itemCount: _homeController.homeModel.value?.dataHome.length ?? 0,
             itemBuilder: (context, indexCat) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildCategory(_homeController.dataHome[indexCat].categoryModel),
+                buildCategory(dataHome[indexCat].categoryModel),
                 SizedBox(
                   height: (AppSize.s300 + 5).h,
                   child: ListView.separated(
@@ -154,18 +169,15 @@ class _HomePageState extends State<HomePage> {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, indexPro) {
-                      return buildProductsItem(_homeController
-                          .dataHome[indexCat].productModel[indexPro]);
+                      return buildProductsItem(
+                          dataHome[indexCat].productModel[indexPro]);
                     },
                     separatorBuilder: (context, index) => SizedBox(
                       width: 0.0.w,
                     ),
-                    itemCount:
-                        _homeController.dataHome[indexCat].productModel.length >
-                                4
-                            ? 4
-                            : _homeController
-                                .dataHome[indexCat].productModel.length,
+                    itemCount: dataHome[indexCat].productModel.length > 4
+                        ? 4
+                        : dataHome[indexCat].productModel.length,
                   ),
                 ),
                 const Divider(

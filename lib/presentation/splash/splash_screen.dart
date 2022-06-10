@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          navigateRoute: const OnBoardingView(),
+          navigateRoute: _splashController.nextPage ?? const OnBoardingView(),
         )));
   }
 }

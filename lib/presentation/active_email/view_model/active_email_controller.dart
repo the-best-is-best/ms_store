@@ -80,8 +80,8 @@ class ActiveEmailController extends GetxController
             message: failure.messages);
       }
     }, (data) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        initHomeModel();
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
+        await initHomeModel();
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
     });

@@ -7,6 +7,8 @@ import '../data/network/app_api.dart';
 import '../data/network/dio_manager.dart';
 import '../data/network/network_info.dart';
 import '../data/repository/repository_impl.dart';
+import '../domain/models/home_models/home_data_model.dart';
+import '../domain/models/users_model.dart';
 import '../domain/repository/repository.dart';
 import '../domain/use_case/home_use_case.dart';
 import '../domain/use_case/users_case/active_email_case.dart';
@@ -27,7 +29,7 @@ Future<void> initAppModel() async {
   await Hive.initFlutter();
   settings = await Hive.openBox(AppPrefs.settings);
   onBoarding = await Hive.openBox(AppPrefs.onBoarding);
-  //Hive.registerAdapter(UserModelAdapter());
+  await Hive.openBox<UserModelAdapter>('UserModel');
 
   // network info
 
@@ -42,7 +44,7 @@ Future<void> initAppModel() async {
   instance.registerLazySingleton<RemoteDataSrc>(
       () => RemoteDataSrcImpl(instance()));
 
-//    repositry
+//    repository
 
   instance.registerLazySingleton<Repository>(
       () => RepositoryImpl(instance(), instance()));
@@ -55,7 +57,14 @@ void initLoginModel() {
   }
 }
 
-void initHomeModel() {
+Future initHomeModel() async {
+  if (Hive.isAdapterRegistered(1)) {
+    await Hive.openBox<HomeModelAdapter>('HomeModel');
+    if (Hive.box('HomeModel').isNotEmpty) {
+      Hive.box('HomeModel').clear();
+    }
+  }
+
   if (!GetIt.I.isRegistered<HomeUseCase>()) {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
   }
