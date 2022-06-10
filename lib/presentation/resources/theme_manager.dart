@@ -62,7 +62,7 @@ ThemeData get themeDataLight {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSpacing.ap12.r)),
         textStyle: getRegularStyle(
-            color: ColorManager.textColor, fontSize: FontSize.s24),
+            color: ColorManager.textColor, fontSize: FontSize.s16),
       ),
     ),
 
@@ -73,15 +73,15 @@ ThemeData get themeDataLight {
     ),
     textTheme: TextTheme(
       displayLarge:
-          getLightStyle(color: ColorManager.textColor, fontSize: FontSize.s32),
+          getBoldStyle(color: ColorManager.textColor, fontSize: FontSize.s32),
       headlineLarge: getSemiBoldStyle(
-          color: ColorManager.textColor, fontSize: FontSize.s32),
+          color: ColorManager.textColor, fontSize: FontSize.s30),
       labelLarge:
           getMediumStyle(color: ColorManager.textColor, fontSize: FontSize.s28),
       labelMedium:
-          getMediumStyle(fontSize: FontSize.s20, color: ColorManager.textColor),
+          getMediumStyle(fontSize: FontSize.s18, color: ColorManager.textColor),
       labelSmall: getRegularStyle(
-          color: ColorManager.textColor, fontSize: FontSize.s24),
+          color: ColorManager.textColor, fontSize: FontSize.s16),
       titleLarge: getRegularStyle(
           color: ColorManager.textColor, fontSize: FontSize.s20),
     ),
@@ -89,9 +89,9 @@ ThemeData get themeDataLight {
       contentPadding: EdgeInsets.all(AppSpacing.ap18.w),
       iconColor: ColorManager.darkColor,
       hintStyle:
-          getRegularStyle(fontSize: FontSize.s24, color: ColorManager.grey),
+          getRegularStyle(fontSize: FontSize.s16, color: ColorManager.grey),
       labelStyle:
-          getMediumStyle(fontSize: FontSize.s20, color: ColorManager.grey),
+          getMediumStyle(fontSize: FontSize.s16, color: ColorManager.grey),
       errorStyle:
           getRegularStyle(fontSize: FontSize.s16, color: ColorManager.error),
       enabledBorder: OutlineInputBorder(

@@ -120,7 +120,7 @@ flutter:
       fonts:
         - asset: assets/fonts/SF-Pro-Display-Heavy.ttf
           weight: 900
-        - asset: assets/fonts/SF-Pro-Display-SF-Pro-Display-HeavyItalic.ttf
+        - asset: assets/fonts/SF-Pro-Display-HeavyItalic.ttf
           weight: 900
           style: italic
         - asset: assets/fonts/SF-Pro-Display-Black.ttf
