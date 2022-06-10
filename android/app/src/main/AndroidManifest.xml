@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ms_store">
+    package="com.tbib.demo.ms_store">
    <application
         android:label="ms_store"
         android:name="${applicationName}"

@@ -1,4 +1,4 @@
-package com.example.ms_store
+package com.tbib.demo.ms_store
 
 import io.flutter.embedding.android.FlutterActivity
 
