@@ -6,13 +6,13 @@ import 'package:get/get.dart';
 import '../../../app/di.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../resources/routes_manger.dart';
+import '../../../resources/routes_manger.dart';
 import '../view_model/register_controller.dart';
 
 import '../../../app/components.dart';
-import '../../resources/icons_manger.dart';
-import '../../resources/strings_manager.dart';
-import '../../resources/values_manager.dart';
+import '../../../resources/icons_manger.dart';
+import '../../../resources/strings_manager.dart';
+import '../../../resources/values_manager.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);

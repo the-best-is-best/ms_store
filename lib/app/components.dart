@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../presentation/resources/values_manager.dart';
+
+import '../resources/values_manager.dart';
 
 Image logo({double? logoHeight, required bool isDark}) {
   return Image(

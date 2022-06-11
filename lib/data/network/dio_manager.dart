@@ -18,7 +18,6 @@ class DioManger {
           'ACCEPT': Constants.contentType,
           "AUTHORIZATION": Constants.token,
         }));
-
     if (!kReleaseMode) {
       dioApi.interceptors.add(PrettyDioLogger(
           requestHeader: true, requestBody: true, responseHeader: true));

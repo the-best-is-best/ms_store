@@ -4,8 +4,7 @@ import 'package:ms_store/gen/assets.gen.dart';
 import '../../../app/app_refs.dart';
 import '../../../app/di.dart';
 import '../../../domain/models/on_boarding_model.dart';
-import '../../resources/routes_manger.dart';
-import '../../resources/strings_manager.dart';
+import '../../../resources/strings_manager.dart';
 
 class OnBoardingController extends GetxController with DataScreen {
   @override
@@ -17,7 +16,7 @@ class OnBoardingController extends GetxController with DataScreen {
 
   @override
   void onClose() {
-    AppPrefs.updateOnBoarding(onBoarding);
+    AppPrefs.updateOnBoarding();
     super.onClose();
   }
 }

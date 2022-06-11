@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../active_email/view/active_email_view.dart';
-import '../forget_password/view/forget_password_view.dart';
-import '../home/main_view.dart';
-import '../login/view/login_view.dart';
-import '../register/view/register_view.dart';
-import '../rest_password/view/rest_password_view.dart';
-import '../splash/splash_screen.dart';
+import 'package:ms_store/presentation/active_email/view/active_email_view.dart';
+import 'package:ms_store/presentation/forget_password/view/forget_password_view.dart';
+import 'package:ms_store/presentation/home/main_view.dart';
+import 'package:ms_store/presentation/login/view/login_view.dart';
+import 'package:ms_store/presentation/register/view/register_view.dart';
+import 'package:ms_store/presentation/rest_password/view/rest_password_view.dart';
+import 'package:ms_store/presentation/splash/splash_screen.dart';
 
 class Routes {
-  static const non = "/";
+  static const non = "/lala";
 
   static const splashRoute = "/splash";
   static const loginRoute = "/login";
@@ -24,10 +23,6 @@ class Routes {
 
 class RouteGeneratorGetX {
   static List<GetPage> getRoutes() => <GetPage>[
-        GetPage(
-          name: Routes.non,
-          page: () => unDefinedRoute(),
-        ),
         GetPage(
           name: Routes.splashRoute,
           page: () => const SplashScreen(),
@@ -57,12 +52,13 @@ class RouteGeneratorGetX {
           page: () => const HomeView(),
         ),
       ];
-  static Widget unDefinedRoute() {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('404'),
-      ),
-      body: const Center(child: Text('404')),
-    );
-  }
+}
+
+Widget unDefinedRoute() {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('404'),
+    ),
+    body: const Center(child: Text('404')),
+  );
 }

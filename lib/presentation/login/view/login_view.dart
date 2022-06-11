@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import '../../../app/di.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../login_view_model/login_view_model.dart';
-import '../../resources/icons_manger.dart';
-import '../../resources/routes_manger.dart';
-import '../../resources/values_manager.dart';
+import '../../../resources/icons_manger.dart';
+import '../../../resources/routes_manger.dart';
+import '../../../resources/values_manager.dart';
 
 import '../../../app/components.dart';
-import '../../resources/strings_manager.dart';
+import '../../../resources/strings_manager.dart';
 
 class LoginView extends StatefulWidget {
   final bool fromForgetPassword = Get.arguments['fromForgetPassword'];

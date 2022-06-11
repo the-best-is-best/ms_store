@@ -6,11 +6,11 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../gen/assets.gen.dart';
-import '../../resources/color_manager.dart';
-import '../../resources/font_manger.dart';
-import '../../resources/strings_manager.dart';
-import '../../resources/styles_manger.dart';
-import '../../resources/values_manager.dart';
+import '../../../resources/color_manager.dart';
+import '../../../resources/font_manger.dart';
+import '../../../resources/strings_manager.dart';
+import '../../../resources/styles_manger.dart';
+import '../../../resources/values_manager.dart';
 
 enum StateRendererType {
   POPUP_LOADING_STATE,

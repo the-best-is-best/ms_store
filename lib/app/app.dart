@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import '../l10n/lang_controller.dart';
-import '../presentation/resources/language_manager.dart';
-import '../presentation/resources/routes_manger.dart';
-import '../presentation/resources/strings_manager.dart';
-import '../presentation/resources/theme_manager.dart';
+
+import '../resources/routes_manger.dart';
+import '../resources/strings_manager.dart';
+import '../resources/theme_manager.dart';
 import 'app_binding.dart';
+import 'extensions.dart';
 
 // ignore: must_be_immutable
 class MyApp extends StatefulWidget {
@@ -65,6 +66,10 @@ class _MyAppState extends State<MyApp> {
               theme: Get.isDarkMode ? themeDataDark : themeDataLight,
               getPages: RouteGeneratorGetX.getRoutes(),
               initialRoute: '/splash',
+              unknownRoute: GetPage(
+                name: '/',
+                page: () => unDefinedRoute(),
+              ),
             );
           }),
     );

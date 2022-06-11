@@ -1,11 +1,11 @@
 import '../../../app/extensions.dart';
 
-import '../../../domain/models/home_models/product_model_home.dart';
+import '../../../domain/models/store/product_model.dart';
 import '../../responses/home_response/product_home_response.dart';
 
 extension ProductHomeResponseMapper on ProductHomeResponse? {
-  ProductModeHome toDomain() {
-    return ProductModeHome(
+  ProductModel toDomain() {
+    return ProductModel(
         id: this?.id?.orEmpty() ?? 0,
         nameEN: this?.nameEN?.orEmpty() ?? "",
         nameAR: this?.nameAR?.orEmpty() ?? "",

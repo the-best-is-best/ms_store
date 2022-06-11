@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-
 import 'font_manger.dart';
 
 TextStyle _getTextStyle(

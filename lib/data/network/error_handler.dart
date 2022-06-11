@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:dio/dio.dart';
+import '../../resources/strings_manager.dart';
 import 'error_response.dart';
-import '../../presentation/resources/strings_manager.dart';
 import 'failure.dart';
 
 class ErrorHandler implements Exception {

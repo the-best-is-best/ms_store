@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../../gen/fonts.gen.dart';
+import 'package:ms_store/gen/fonts.gen.dart';
 
 class FontConstants {
   static const String mainFontFamily = FontFamily.sFProDisplay;

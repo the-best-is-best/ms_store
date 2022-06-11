@@ -1,3 +1,5 @@
+import 'package:ms_store/data/data_src/local_data_source.dart';
+
 import '../../domain/models/home_models/home_data_model.dart';
 import '../../domain/models/store/category_model.dart';
 import 'home_data_repository.dart';
@@ -20,8 +22,9 @@ import 'users_repository/repository_impl_forget_password.dart';
 class RepositoryImpl extends Repository {
   final RemoteDataSrc _remoteDataSrc;
   final NetworkInfo _networkInfo;
+  final LocalDataSource _localDataSource;
 
-  RepositoryImpl(this._remoteDataSrc, this._networkInfo);
+  RepositoryImpl(this._remoteDataSrc, this._networkInfo, this._localDataSource);
   @override
   Future<Either<Failure, bool>> register(RegisterRequests registerRequests) {
     return RepositoryImplRegister.call(
@@ -57,7 +60,8 @@ class RepositoryImpl extends Repository {
 
   @override
   Future<Either<Failure, HomeModel>> getHomeData() {
-    return RepositoryImpGetHomeData.call(_remoteDataSrc, _networkInfo);
+    return RepositoryImpGetHomeData.call(
+        _remoteDataSrc, _networkInfo, _localDataSource);
   }
 
   @override

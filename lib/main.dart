@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:ms_store/app/app_refs.dart';
 
 import 'app/app.dart';
 import 'app/di.dart';
@@ -12,6 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initAppModel();
+  await AppPrefs.checkBox();
 
   runApp(MyApp());
 }

@@ -6,11 +6,13 @@ import '../pages/cart/view/cart_page.dart';
 import '../pages/category/view/category_page.dart';
 import '../pages/fav/view/fav_page.dart';
 import '../pages/home/view/home_page.dart';
+import '../pages/home/view_model/home_controller.dart';
 import '../pages/settings/view/settings_page.dart';
 
 class MainViewController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxDouble opacity = 1.0.obs;
+  final HomeController _homeController = Get.find();
   Map<int, Map<String, dynamic>> pages = {
     0: {"page": const HomePage(), "pageTitle": "Home"},
     1: {"page": const CategoryPage(), "pageTitle": "Category"},
@@ -23,6 +25,9 @@ class MainViewController extends GetxController {
     if (index != currentIndex.value) {
       opacity.value = 0;
       await waitStateChanged(duration: 250);
+      if (index == 0) {
+        _homeController.getHomeData();
+      }
       currentIndex.value = index;
       SchedulerBinding.instance.addPostFrameCallback((_) {
         opacity.value = 1;

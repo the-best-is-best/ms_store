@@ -4,21 +4,20 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import '../../../../../app/components.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
-import '../../../../../domain/models/home_models/product_model_home.dart';
+import '../../../../../domain/models/store/product_model.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 
 import '../../../../../domain/models/home_models/slider_model.dart';
 import '../../../../../domain/models/store/category_model.dart';
 import '../../../../components/products/components.dart';
-import '../../../../resources/color_manager.dart';
-import '../../../../resources/font_manger.dart';
-import '../../../../resources/icons_manger.dart';
-import '../../../../resources/strings_manager.dart';
-import '../../../../resources/styles_manger.dart';
-import '../../../../resources/values_manager.dart';
+import '../../../../../resources/color_manager.dart';
+import '../../../../../resources/font_manger.dart';
+import '../../../../../resources/icons_manger.dart';
+import '../../../../../resources/strings_manager.dart';
+import '../../../../../resources/styles_manger.dart';
+import '../../../../../resources/values_manager.dart';
 import '../view_model/home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -80,14 +79,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         _getSection(AppStrings.latestProducts),
         _getProducts(
             themeData,
-            _homeController.homeModel.value?.dataHome ??
+            _homeController.homeModel.value?.data.dataHome ??
                 const Iterable.empty().cast<DataHomeModel>().toList()),
       ],
     );
   }
 
   Widget _getSliderCarousel() {
-    return Obx(() => _getSliderWidget(_homeController.homeModel.value?.slider));
+    return Obx(
+        () => _getSliderWidget(_homeController.homeModel.value?.data.slider));
   }
 
   Widget _getSection(String text) {
@@ -151,13 +151,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   Widget _getProducts(ThemeData themeData, List<DataHomeModel> dataHome) {
     return Obx(() => BuildCondition(
-          condition: _homeController.homeModel.value?.dataHome.isNotEmpty ??
-              const Iterable.empty().cast<DataHomeModel>().toList().isEmpty,
+          condition:
+              _homeController.homeModel.value?.data.dataHome.isNotEmpty ??
+                  const Iterable.empty().cast<DataHomeModel>().toList().isEmpty,
           builder: (context) => ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
-            itemCount: _homeController.homeModel.value?.dataHome.length ?? 0,
+            itemCount:
+                _homeController.homeModel.value?.data.dataHome.length ?? 0,
             itemBuilder: (context, indexCat) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -219,7 +221,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           ],
         ),
       );
-  Widget buildProductsItem(ProductModeHome productModel) {
+  Widget buildProductsItem(ProductModel productModel) {
     return InkWell(
       onTap: () {},
       child: SizedBox(

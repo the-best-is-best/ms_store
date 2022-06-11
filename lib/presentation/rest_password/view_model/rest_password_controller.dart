@@ -7,7 +7,7 @@ import '../../base/base_controller.dart';
 import '../../base/base_users_controller.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../resources/strings_manager.dart';
+import '../../../resources/strings_manager.dart';
 
 class ResetPasswordController extends GetxController
     with BaseController, BaseUserController {

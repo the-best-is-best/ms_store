@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../app/di.dart';
-import '../../resources/routes_manger.dart';
+import '../../../resources/routes_manger.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../resources/color_manager.dart';
-import '../../resources/values_manager.dart';
+import '../../../resources/color_manager.dart';
+import '../../../resources/values_manager.dart';
 import '../on_boarding_view_model/on_boarding_view_model_getx.dart';
 
 class OnBoardingView extends StatefulWidget {

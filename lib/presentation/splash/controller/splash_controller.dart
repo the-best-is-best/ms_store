@@ -5,19 +5,18 @@ import 'package:ms_store/presentation/on_boarding/view/on_boarding_view.dart';
 
 import '../../../app/app_refs.dart';
 import '../../../app/di.dart';
-import '../../resources/routes_manger.dart';
 
 class SplashController extends GetxController {
   RxBool loaded = false.obs;
   @override
   void onInit() async {
-    bool isDark = await AppPrefs.getThemeMode(settings);
+    bool isDark = await AppPrefs.getThemeMode();
     if (isDark) {
       Get.changeThemeMode(ThemeMode.dark);
     } else {
       Get.changeThemeMode(ThemeMode.light);
     }
-    String? language = await AppPrefs.getLanguage(settings);
+    String? language = await AppPrefs.getLanguage();
     if (language != null) {
       Get.updateLocale(Locale(language));
     }
@@ -27,9 +26,10 @@ class SplashController extends GetxController {
   Widget? nextPage;
   @override
   void onReady() async {
-    Future<bool> showedOnBoarding = AppPrefs.getOnBoarding(onBoarding);
+    Future<bool> showedOnBoarding = AppPrefs.getOnBoarding();
     showedOnBoarding.then((bool value) async {
       if (value) {
+        AppPrefs.closeOnBoarding();
         await initHomeModel();
         nextPage = const HomeView();
         return;

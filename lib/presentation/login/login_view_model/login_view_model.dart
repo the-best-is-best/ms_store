@@ -1,14 +1,17 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/app_refs.dart';
 import '../../../app/components.dart';
+import '../../../app/di.dart';
 import '../../../domain/use_case/users_case/login_use_case.dart';
+import '../../../resources/routes_manger.dart';
 import '../../base/base_controller.dart';
 import '../../base/base_users_controller.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../resources/color_manager.dart';
-import '../../resources/strings_manager.dart';
+import '../../../resources/color_manager.dart';
+import '../../../resources/strings_manager.dart';
 
 class LoginViewModel extends GetxController
     with BaseController, BaseUserController {
@@ -54,13 +57,13 @@ class LoginViewModel extends GetxController
             stateRendererType: StateRendererType.POPUP_ERROR_STATE,
             message: failure.messages);
       }
-    }, (data) {
-      /*  flowState.value = ContentState();
-      print(data.email);
+    }, (data) async {
+      flowState.value = ContentState();
+      initHomeModel();
+      await AppPrefs.updateUserData(data);
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        initHomeModel();
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
-      });*/
+      });
     });
   }
 
