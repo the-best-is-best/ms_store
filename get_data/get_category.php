@@ -25,15 +25,11 @@ if ($_SERVER['REQUEST_METHOD']  !== 'GET') {
 
 
 try {
-    $query = $writeDB->prepare("SELECT * FROM category_" . DB::$AppName);
+    $row['category'] = array();
+    $query = $writeDB->prepare("SELECT * FROM category_" . DB::$AppName .  ' WHERE parent=0');
     $query->execute();
-    $row = $query->fetchAll();
-    for ($i = 0; $i < count($row); $i++) {
-        if (!empty($row[$i]['image'])) {
-            $row[$i]['image'] = DB::$urlSite .  $row[$i]['image'];
-        }
-    }
-    if (empty($row)) {
+    $rowMainCat = $query->fetchAll();
+    if (empty($rowMainCat)) {
 
         $response = new Response();
         $response->setHttpStatusCode(201);
@@ -42,6 +38,25 @@ try {
         $response->send();
         exit;
     }
+
+    $row['category'] = $rowMainCat;
+    $query = $writeDB->prepare("SELECT * FROM category_" . DB::$AppName . ' WHERE parent!=0');
+    $query->execute();
+    $rowCat = $query->fetchAll();
+    for ($i = 0; $i < count($rowMainCat); $i++) {
+        $row['category'][$i]['childCat'] = array();
+        for ($j = 0; $j < count($rowCat); $j++) {
+            if ($rowCat[$j]['parent'] ==  $rowMainCat[$i]['id']) {
+                $rowCat[$j]['image'] = DB::$urlSite .  $rowCat[$j]['image'];
+                array_push($row['category'][$i]['childCat'], $rowCat[$j]);
+            }
+        }
+    }
+    // for ($i = 0; $i < count($row); $i++) {
+    //     if (!empty($row[$i]['image'])) {
+    //         $row[$i]['image'] = DB::$urlSite .  $row[$i]['image'];
+    //     }
+    // }
 
     $returnData = $row;
     $response = new Response();

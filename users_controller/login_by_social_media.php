@@ -50,14 +50,13 @@ if (!$jsonData = json_decode($rowPostData)) {
 $tokenSocial = trim($jsonData->tokenSocial);
 $loginBySocial = $jsonData->loginBySocial;
 
-$query = $writeDB->prepare("SELECT * FROM users_" . DB::$AppName . " WHERE tokenSocial = :tokenSocial AND loginBySocial=$loginBySocial");
-$query->bindParam(':tokenSocial', $tokenSocial, PDO::PARAM_STR);
+$query = $writeDB->prepare("SELECT * FROM users_" . DB::$AppName . " WHERE tokenSocial = $tokenSocial AND loginBySocial=$loginBySocial");
 
 $query->execute();
 $row = $query->fetch();
 if (empty($row)) {
 
-    
+
 
     $userName = trim($jsonData->userName);
     $email = trim($jsonData->email);
@@ -69,27 +68,26 @@ if (empty($row)) {
     $email_active = 1;
 
     try {
-        $query = $writeDB->prepare("SELECT id FROM users_" . DB::$AppName . " WHERE email = :email AND loginBySocial=$loginBySocial");
-        $query->bindParam(':email', $email, PDO::PARAM_STR);
-        $query->execute();
+        // $query = $writeDB->prepare("SELECT id FROM users_" . DB::$AppName . " WHERE email = :email AND loginBySocial=$loginBySocial");
+        // $query->bindParam(':email', $email, PDO::PARAM_STR);
+        // $query->execute();
 
-        $rowCount = $query->rowCount();
-        if ($rowCount !== 0) {
-            $response = new Response();
-            $response->setHttpStatusCode(409);
-            $response->setSuccess(false);
-            $response->addMessage('Email already exists');
-            $response->send();
-            exit;
-        }
-       
-       
-        $query = $writeDB->prepare("INSERT into users_" . DB::$AppName . "(userName , password , phone , email , email_active , loginBySocial , tokenSocial)
-        VALUES (:userName , :password , :phone , :email , :email_active , :loginBySocial , :tokenSocial)");
+        // $rowCount = $query->rowCount();
+        // if ($rowCount !== 0) {
+        //     $response = new Response();
+        //     $response->setHttpStatusCode(409);
+        //     $response->setSuccess(false);
+        //     $response->addMessage('Email already exists');
+        //     $response->send();
+        //     exit;
+        // }
+
+
+        $query = $writeDB->prepare("INSERT into users_" . DB::$AppName . "(userName , password , email , email_active , loginBySocial , tokenSocial)
+        VALUES (:userName , :password  , :email , :email_active , :loginBySocial , :tokenSocial)");
 
         $query->bindParam(':userName', $userName, PDO::PARAM_STR);
         $query->bindParam(':password', $passwordHash, PDO::PARAM_STR);
-        $query->bindParam(':phone', $phone, PDO::PARAM_STR);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':email_active', $email_active, PDO::PARAM_STR);
         $query->bindParam(':loginBySocial', $loginBySocial, PDO::PARAM_STR);
@@ -116,22 +114,12 @@ if (empty($row)) {
 
         $query->execute();
         $row = $query->fetch();
-        if (empty($row)) {
-
-            $response = new Response();
-            $response->setHttpStatusCode(409);
-            $response->setSuccess(false);
-            $response->addMessage('Check your email');
-            $response->send();
-            exit;
-        }
 
 
         $response = new Response();
         $response->setHttpStatusCode(200);
         $response->setSuccess(true);
         $response->setData($row);
-
         $response->addMessage('Users Created By Social Login');
         $response->send();
 

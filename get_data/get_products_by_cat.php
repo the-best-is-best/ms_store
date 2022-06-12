@@ -75,7 +75,7 @@ try {
         $response->send();
         exit;
     }
-    $row['totalpages'] = $totalpages;
+    $row['totalPages'] = $totalpages;
     $response = new Response();
     $response->setHttpStatusCode(200);
     $response->setSuccess(true);
