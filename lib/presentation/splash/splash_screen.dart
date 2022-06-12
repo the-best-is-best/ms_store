@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import '../on_boarding/view/on_boarding_view.dart';
 import 'controller/splash_controller.dart';
-import '../../../resources/color_manager.dart';
+import '../../../core/resources/color_manager.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 
 class SplashScreen extends StatefulWidget {

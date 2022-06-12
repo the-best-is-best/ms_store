@@ -21,6 +21,8 @@ mixin _$UserDataObject {
   String get passwordAgin => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get pin => throw _privateConstructorUsedError;
+  String get tokenSocial => throw _privateConstructorUsedError;
+  int get loginBySocial => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserDataObjectCopyWith<UserDataObject> get copyWith =>
@@ -37,7 +39,9 @@ abstract class $UserDataObjectCopyWith<$Res> {
       String password,
       String passwordAgin,
       String userName,
-      String pin});
+      String pin,
+      String tokenSocial,
+      int loginBySocial});
 }
 
 /// @nodoc
@@ -56,6 +60,8 @@ class _$UserDataObjectCopyWithImpl<$Res>
     Object? passwordAgin = freezed,
     Object? userName = freezed,
     Object? pin = freezed,
+    Object? tokenSocial = freezed,
+    Object? loginBySocial = freezed,
   }) {
     return _then(_value.copyWith(
       email: email == freezed
@@ -78,6 +84,14 @@ class _$UserDataObjectCopyWithImpl<$Res>
           ? _value.pin
           : pin // ignore: cast_nullable_to_non_nullable
               as String,
+      tokenSocial: tokenSocial == freezed
+          ? _value.tokenSocial
+          : tokenSocial // ignore: cast_nullable_to_non_nullable
+              as String,
+      loginBySocial: loginBySocial == freezed
+          ? _value.loginBySocial
+          : loginBySocial // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -94,7 +108,9 @@ abstract class _$$_UserDataObjectCopyWith<$Res>
       String password,
       String passwordAgin,
       String userName,
-      String pin});
+      String pin,
+      String tokenSocial,
+      int loginBySocial});
 }
 
 /// @nodoc
@@ -115,6 +131,8 @@ class __$$_UserDataObjectCopyWithImpl<$Res>
     Object? passwordAgin = freezed,
     Object? userName = freezed,
     Object? pin = freezed,
+    Object? tokenSocial = freezed,
+    Object? loginBySocial = freezed,
   }) {
     return _then(_$_UserDataObject(
       email == freezed
@@ -137,6 +155,14 @@ class __$$_UserDataObjectCopyWithImpl<$Res>
           ? _value.pin
           : pin // ignore: cast_nullable_to_non_nullable
               as String,
+      tokenSocial == freezed
+          ? _value.tokenSocial
+          : tokenSocial // ignore: cast_nullable_to_non_nullable
+              as String,
+      loginBySocial == freezed
+          ? _value.loginBySocial
+          : loginBySocial // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -144,8 +170,8 @@ class __$$_UserDataObjectCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UserDataObject implements _UserDataObject {
-  _$_UserDataObject(
-      this.email, this.password, this.passwordAgin, this.userName, this.pin);
+  _$_UserDataObject(this.email, this.password, this.passwordAgin, this.userName,
+      this.pin, this.tokenSocial, this.loginBySocial);
 
   @override
   final String email;
@@ -157,10 +183,14 @@ class _$_UserDataObject implements _UserDataObject {
   final String userName;
   @override
   final String pin;
+  @override
+  final String tokenSocial;
+  @override
+  final int loginBySocial;
 
   @override
   String toString() {
-    return 'UserDataObject(email: $email, password: $password, passwordAgin: $passwordAgin, userName: $userName, pin: $pin)';
+    return 'UserDataObject(email: $email, password: $password, passwordAgin: $passwordAgin, userName: $userName, pin: $pin, tokenSocial: $tokenSocial, loginBySocial: $loginBySocial)';
   }
 
   @override
@@ -173,7 +203,11 @@ class _$_UserDataObject implements _UserDataObject {
             const DeepCollectionEquality()
                 .equals(other.passwordAgin, passwordAgin) &&
             const DeepCollectionEquality().equals(other.userName, userName) &&
-            const DeepCollectionEquality().equals(other.pin, pin));
+            const DeepCollectionEquality().equals(other.pin, pin) &&
+            const DeepCollectionEquality()
+                .equals(other.tokenSocial, tokenSocial) &&
+            const DeepCollectionEquality()
+                .equals(other.loginBySocial, loginBySocial));
   }
 
   @override
@@ -183,7 +217,9 @@ class _$_UserDataObject implements _UserDataObject {
       const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(passwordAgin),
       const DeepCollectionEquality().hash(userName),
-      const DeepCollectionEquality().hash(pin));
+      const DeepCollectionEquality().hash(pin),
+      const DeepCollectionEquality().hash(tokenSocial),
+      const DeepCollectionEquality().hash(loginBySocial));
 
   @JsonKey(ignore: true)
   @override
@@ -197,7 +233,9 @@ abstract class _UserDataObject implements UserDataObject {
       final String password,
       final String passwordAgin,
       final String userName,
-      final String pin) = _$_UserDataObject;
+      final String pin,
+      final String tokenSocial,
+      final int loginBySocial) = _$_UserDataObject;
 
   @override
   String get email => throw _privateConstructorUsedError;
@@ -209,6 +247,10 @@ abstract class _UserDataObject implements UserDataObject {
   String get userName => throw _privateConstructorUsedError;
   @override
   String get pin => throw _privateConstructorUsedError;
+  @override
+  String get tokenSocial => throw _privateConstructorUsedError;
+  @override
+  int get loginBySocial => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_UserDataObjectCopyWith<_$_UserDataObject> get copyWith =>

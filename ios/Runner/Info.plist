@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Ms Store</string>
+	<string>MS Store</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -45,5 +45,38 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-</dict>
+
+    <!-- Google Sign-in Section -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <!-- TODO Replace this value: -->
+                <!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+                <string>com.googleusercontent.apps.780487203873-f7c99ilt72rb58uisei2knjag7nsec0t</string>
+            </array>
+        </dict>
+    </array>
+     <!-- End of the Google Sign-in Section -->
+
+     <!-- facebook -->    
+    <key>CFBundleURLTypes</key>
+    <array>
+    <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+        <string>fb1103080110243174</string>
+    </array>
+    </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>1103080110243174</string>
+    <key>FacebookClientToken</key>
+    <string>c65177f95cc17dee5ae6d3b468dd5d74</string>
+    <key>FacebookDisplayName</key>
+    <string>MS Store</string>
+  </dict>
 </plist>

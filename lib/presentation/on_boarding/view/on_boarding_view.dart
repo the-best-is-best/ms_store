@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../app/di.dart';
-import '../../../resources/routes_manger.dart';
+import '../../../core/resources/routes_manger.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../resources/color_manager.dart';
-import '../../../resources/values_manager.dart';
+import '../../../core/resources/color_manager.dart';
+import '../../../core/resources/values_manager.dart';
 import '../on_boarding_view_model/on_boarding_view_model_getx.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -26,6 +26,7 @@ class PViewState extends State<OnBoardingView> {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
+
     return GetX<OnBoardingController>(
       builder: (data) {
         return _getContent(data.pageViewData, themeData);
@@ -93,10 +94,9 @@ class PViewState extends State<OnBoardingView> {
             ),
           ),
           Align(
-            alignment: const Alignment(0, 1),
+            alignment: const Alignment(0, .95),
             child: RSizedBox(
               width: MediaQuery.of(context).size.width / 2.w,
-              height: 180,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -119,7 +119,7 @@ class PViewState extends State<OnBoardingView> {
                           },
                           child: Text(
                             "Sign In",
-                            style: themeData.textTheme.labelMedium!,
+                            style: themeData.textTheme.labelMedium,
                           ),
                         ),
                         const Spacer(),
@@ -137,7 +137,7 @@ class PViewState extends State<OnBoardingView> {
                           },
                           child: Text(
                             "Sign Up",
-                            style: themeData.textTheme.labelMedium!,
+                            style: themeData.textTheme.labelMedium,
                           ),
                         ),
                       ],
@@ -150,7 +150,7 @@ class PViewState extends State<OnBoardingView> {
                     },
                     child: Text(
                       "Skip",
-                      style: themeData.textTheme.labelMedium!,
+                      style: themeData.textTheme.labelMedium,
                     ),
                   ),
                 ],

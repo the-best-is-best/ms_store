@@ -9,6 +9,7 @@ import '../responses/users_response/responses_users.dart';
 
 abstract class RemoteDataSrc {
   Future<UsersResponse> login(LoginRequests loginRequests);
+  Future<UsersResponse> loginBySocial(LoginBySocialRequests loginRequests);
   Future<RegisterResponse> register(RegisterRequests registerRequests);
   Future<UsersResponse> activeEmail(ActiveEmailRequests registerRequests);
   Future<ForgetPasswordResponse> forgetPassword(
@@ -27,6 +28,16 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
   Future<UsersResponse> login(LoginRequests loginRequests) async {
     return await _appServicesClient.login(
         loginRequests.email, loginRequests.password);
+  }
+
+  @override
+  Future<UsersResponse> loginBySocial(
+      LoginBySocialRequests loginRequests) async {
+    return await _appServicesClient.loginBySocial(
+        email: loginRequests.email,
+        loginBySocial: loginRequests.loginBySocial,
+        tokenSocial: loginRequests.tokenSocial,
+        userName: loginRequests.userName);
   }
 
   @override

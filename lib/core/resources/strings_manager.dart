@@ -30,6 +30,7 @@ class AppStrings {
   static String get ok => 'ok'.tr;
   static String get errorTryAgain => 'error_try_again'.tr;
   static String get checkEmail => 'see_u_email'.tr;
+  static String get orTitle => "or_title".tr;
 
   static String get checkYourEmailOrPassword =>
       'check_your_email_or_password'.tr;
@@ -50,7 +51,7 @@ class AppStrings {
   static String get homeTitle => "home_nav_bar".tr;
   static String get latestProducts => "latest_products".tr;
   static String get categoryTitle => "category_nav_bar".tr;
-  static String get cartTitle => "home_nav_bar".tr;
+  static String get cartTitle => "cart_nav_bar".tr;
   static String get favTitle => "fav_nav_bar".tr;
   static String get setting => "setting_nav_bar".tr;
   static String get addToCartButton => "Add_to_cart_button".tr;

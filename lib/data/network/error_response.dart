@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../resources/strings_manager.dart';
+import '../../core/resources/strings_manager.dart';
 import 'error_handler.dart';
 import 'failure.dart';
 

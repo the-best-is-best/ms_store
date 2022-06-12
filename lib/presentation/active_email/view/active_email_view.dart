@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 
 import '../../../app/components.dart';
-import '../../../resources/icons_manger.dart';
-import '../../../resources/strings_manager.dart';
-import '../../../resources/values_manager.dart';
+import '../../../core/resources/icons_manger.dart';
+import '../../../core/resources/strings_manager.dart';
+import '../../../core/resources/values_manager.dart';
 import '../view_model/active_email_controller.dart';
 
 class ActiveEmailView extends StatefulWidget {
@@ -60,7 +60,6 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
           children: [
             Center(
               child: logo(
-                logoHeight: 150.h,
                 isDark: Get.isDarkMode,
               ),
             ),

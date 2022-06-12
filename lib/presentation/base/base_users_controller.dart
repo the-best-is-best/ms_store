@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:get/get.dart';
 import '../common/freezed/freezed_data.dart';
-import '../../../resources/strings_manager.dart';
+import '../../../core/resources/strings_manager.dart';
 
 abstract class BaseUserController {
   void setEmailEvent(String email) {
@@ -69,6 +69,7 @@ abstract class BaseUserController {
     }
   }
 
-  Rx<UserDataObject> userDataObject = UserDataObject("", "", "", '', ',').obs;
+  Rx<UserDataObject> userDataObject =
+      UserDataObject("", "", "", '', ',', '', 0).obs;
   Rx<bool> isAllFieldsValid = false.obs;
 }

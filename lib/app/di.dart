@@ -5,6 +5,7 @@ import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
 import 'package:ms_store/domain/models/home_models/slider_model.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
+import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
 
 import '../data/data_src/remote_data_src.dart';
 import '../data/network/app_api.dart';
@@ -64,6 +65,10 @@ Future<void> initAppModel() async {
 void initLoginModel() {
   if (!Hive.isAdapterRegistered(0)) {
     Hive.registerAdapter(UserModelAdapter());
+  }
+  if (!GetIt.I.isRegistered<LoginBySocialUserCase>()) {
+    instance.registerFactory<LoginBySocialUserCase>(
+        () => LoginBySocialUserCase(instance()));
   }
   if (!GetIt.I.isRegistered<LoginUserCase>()) {
     instance.registerFactory<LoginUserCase>(() => LoginUserCase(instance()));

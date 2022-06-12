@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:dio/dio.dart';
-import '../../resources/strings_manager.dart';
+import '../../core/resources/strings_manager.dart';
 import 'error_response.dart';
 import 'failure.dart';
 

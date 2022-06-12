@@ -21,6 +21,13 @@ abstract class AppServicesClient {
   @GET(Constants.loginUrl)
   Future<UsersResponse> login(
       @Query("email") String email, @Query("password") String password);
+  @POST(Constants.loginBySocialUrl)
+  Future<UsersResponse> loginBySocial({
+    @Field("email") required String email,
+    @Field("userName") required String userName,
+    @Field("tokenSocial") required String tokenSocial,
+    @Field("loginBySocial") required int loginBySocial,
+  });
   @POST(Constants.registerUrl)
   Future<RegisterResponse> register({
     @Field("email") required String email,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'state_renderer.dart';
-import '../../../resources/color_manager.dart';
+import '../../../core/resources/color_manager.dart';
 
 abstract class FlowState {
   StateRendererType getStateRendererType();

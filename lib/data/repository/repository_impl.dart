@@ -1,4 +1,5 @@
 import 'package:ms_store/data/data_src/local_data_source.dart';
+import 'package:ms_store/data/repository/users_repository/repository_impl_loginBySocial.dart';
 
 import '../../domain/models/home_models/home_data_model.dart';
 import '../../domain/models/store/category_model.dart';
@@ -34,6 +35,13 @@ class RepositoryImpl extends Repository {
   @override
   Future<Either<Failure, UserModel>> login(LoginRequests loginRequests) async {
     return RepositoryImplLogin.call(
+        _remoteDataSrc, _networkInfo, loginRequests);
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> loginBySocial(
+      LoginBySocialRequests loginRequests) {
+    return RepositoryImplLoginBySocial.call(
         _remoteDataSrc, _networkInfo, loginRequests);
   }
 

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/presentation/active_email/view/active_email_view.dart';
 import 'package:ms_store/presentation/forget_password/view/forget_password_view.dart';
-import 'package:ms_store/presentation/home/main_view.dart';
 import 'package:ms_store/presentation/login/view/login_view.dart';
 import 'package:ms_store/presentation/register/view/register_view.dart';
 import 'package:ms_store/presentation/rest_password/view/rest_password_view.dart';
 import 'package:ms_store/presentation/splash/splash_screen.dart';
+
+import '../../presentation/main/main_view.dart';
 
 class Routes {
   static const non = "/lala";
@@ -49,7 +50,7 @@ class RouteGeneratorGetX {
         ),
         GetPage(
           name: Routes.homeRoute,
-          page: () => const HomeView(),
+          page: () => const MainView(),
         ),
       ];
 }

@@ -8,6 +8,8 @@ import '../models/users_model.dart';
 
 abstract class Repository {
   Future<Either<Failure, UserModel>> login(LoginRequests loginRequests);
+  Future<Either<Failure, UserModel>> loginBySocial(
+      LoginBySocialRequests loginRequests);
   Future<Either<Failure, bool>> register(RegisterRequests registerRequests);
   Future<Either<Failure, UserModel>> activeEmail(
       ActiveEmailRequests activeEmailRequests);

@@ -9,6 +9,9 @@ class Constants {
       "http://192.168.1.6/tbib_store_2022/large_store";
 
   static const String loginUrl = '/get_data/get_users.php';
+  static const String loginBySocialUrl =
+      '/users_controller/login_by_social_media.php';
+
   static const String registerUrl = '/insert_data/create_users.php';
   static const String activeEmail = '/users_controller/active_email.php';
 

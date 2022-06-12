@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/core/resources/font_manger.dart';
 
-import '../../../resources/icons_manger.dart';
-import '../../../resources/strings_manager.dart';
-import '../../../resources/values_manager.dart';
+import '../../../core/resources/icons_manger.dart';
+import '../../../core/resources/strings_manager.dart';
+import '../../../core/resources/values_manager.dart';
 import 'controller/main_view_controller.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+class MainView extends StatefulWidget {
+  const MainView({Key? key}) : super(key: key);
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<MainView> createState() => _MainViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _MainViewState extends State<MainView> {
   late final MainViewController _mainController;
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
               .pages[_mainController.currentIndex.value]!['page']),
         ),
         bottomNavigationBar: Container(
-            height: AppSize.s80.h,
+            height: AppSize.ap80.h,
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -45,19 +46,34 @@ class _HomeViewState extends State<HomeView> {
               onTap: onTap,
               items: [
                 BottomNavigationBarItem(
-                    icon: const Icon(IconsManger.home),
+                    icon: Icon(
+                      IconsManger.home,
+                      size: FontSize.s20,
+                    ),
                     label: AppStrings.homeTitle),
                 BottomNavigationBarItem(
-                    icon: const Icon(IconsManger.category),
+                    icon: Icon(
+                      IconsManger.category,
+                      size: FontSize.s20,
+                    ),
                     label: AppStrings.categoryTitle),
                 BottomNavigationBarItem(
-                    icon: const Icon(IconsManger.cart),
+                    icon: Icon(
+                      IconsManger.cart,
+                      size: FontSize.s20,
+                    ),
                     label: AppStrings.cartTitle),
                 BottomNavigationBarItem(
-                    icon: const Icon(IconsManger.heart),
+                    icon: Icon(
+                      IconsManger.heart,
+                      size: FontSize.s20,
+                    ),
                     label: AppStrings.favTitle),
                 BottomNavigationBarItem(
-                    icon: const Icon(IconsManger.settings),
+                    icon: Icon(
+                      IconsManger.settings,
+                      size: FontSize.s20,
+                    ),
                     label: AppStrings.setting),
               ],
             )),

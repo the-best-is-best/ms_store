@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ms_store/core/util/get_device_type.dart';
 
-import '../resources/values_manager.dart';
+import '../core/resources/values_manager.dart';
 
 Image logo({double? logoHeight, required bool isDark}) {
   return Image(
@@ -9,7 +10,7 @@ Image logo({double? logoHeight, required bool isDark}) {
         ? "assets/images/logo_in_light.png"
         : "assets/images/logo_in_dark.png"),
     fit: BoxFit.cover,
-    height: logoHeight ?? 150.h,
+    height: logoHeight ?? 100,
   );
 }
 
@@ -73,7 +74,12 @@ class _InputFieldState extends State<InputField> {
               size: AppSize.ap30.sp,
             ),
           ),
-          suffixIcon: widget.suffixWidget,
+          suffixIcon: Device.get().isTablet
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 60),
+                  child: widget.suffixWidget,
+                )
+              : widget.suffixWidget,
           label: Padding(
             padding: EdgeInsets.symmetric(horizontal: AppSpacing.ap8.w),
             child: Text(widget.label),

@@ -8,10 +8,10 @@ import '../view_model/rest_password_controller.dart';
 
 import '../../../app/components.dart';
 import '../../common/state_renderer/state_renderer.dart';
-import '../../../resources/icons_manger.dart';
-import '../../../resources/routes_manger.dart';
-import '../../../resources/strings_manager.dart';
-import '../../../resources/values_manager.dart';
+import '../../../core/resources/icons_manger.dart';
+import '../../../core/resources/routes_manger.dart';
+import '../../../core/resources/strings_manager.dart';
+import '../../../core/resources/values_manager.dart';
 
 class ResetPasswordView extends StatefulWidget {
   final String email = Get.arguments['email'];
@@ -90,7 +90,6 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             children: [
               Center(
                 child: logo(
-                  logoHeight: 150.h,
                   isDark: Get.isDarkMode,
                 ),
               ),

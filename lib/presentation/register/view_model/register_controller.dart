@@ -8,8 +8,8 @@ import '../../base/base_users_controller.dart';
 import '../../common/freezed/freezed_data.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../../resources/color_manager.dart';
-import '../../../resources/strings_manager.dart';
+import '../../../core/resources/color_manager.dart';
+import '../../../core/resources/strings_manager.dart';
 
 class RegisterController extends GetxController
     with BaseController, BaseUserController {

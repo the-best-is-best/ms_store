@@ -5,6 +5,20 @@ class LoginRequests {
   final String password;
 }
 
+class LoginBySocialRequests {
+  final String email;
+  final String userName;
+  final String tokenSocial;
+  final int loginBySocial;
+
+  LoginBySocialRequests({
+    required this.email,
+    required this.userName,
+    required this.tokenSocial,
+    required this.loginBySocial,
+  });
+}
+
 class RegisterRequests {
   RegisterRequests({
     required this.email,

@@ -37,6 +37,32 @@ class _AppServicesClient implements AppServicesClient {
   }
 
   @override
+  Future<UsersResponse> loginBySocial(
+      {required email,
+      required userName,
+      required tokenSocial,
+      required loginBySocial}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'email': email,
+      'userName': userName,
+      'tokenSocial': tokenSocial,
+      'loginBySocial': loginBySocial
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UsersResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(
+                    _dio.options, '/users_controller/login_by_social_media.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UsersResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<RegisterResponse> register(
       {required email, required password, required userName}) async {
     const _extra = <String, dynamic>{};

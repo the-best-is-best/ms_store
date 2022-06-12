@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../resources/strings_manager.dart';
+import '../../../core/resources/strings_manager.dart';
 
 Widget addToCartButton(int productId) {
   return SizedBox(

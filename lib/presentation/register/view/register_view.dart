@@ -6,13 +6,13 @@ import 'package:get/get.dart';
 import '../../../app/di.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../../resources/routes_manger.dart';
+import '../../../core/resources/routes_manger.dart';
 import '../view_model/register_controller.dart';
 
 import '../../../app/components.dart';
-import '../../../resources/icons_manger.dart';
-import '../../../resources/strings_manager.dart';
-import '../../../resources/values_manager.dart';
+import '../../../core/resources/icons_manger.dart';
+import '../../../core/resources/strings_manager.dart';
+import '../../../core/resources/values_manager.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -88,7 +88,6 @@ class _RegisterViewState extends State<RegisterView> {
           children: [
             Center(
               child: logo(
-                logoHeight: 150.h,
                 isDark: Get.isDarkMode,
               ),
             ),
@@ -147,7 +146,7 @@ class _RegisterViewState extends State<RegisterView> {
                         !_registerController.obscure.value
                             ? IconsManger.visibility
                             : IconsManger.visibilityOff,
-                        size: AppSpacing.ap30.w,
+                        size: AppSpacing.ap30.sp,
                       ),
                     ),
                     label: "${AppStrings.password} *",
@@ -178,7 +177,7 @@ class _RegisterViewState extends State<RegisterView> {
                         !_registerController.obscureAgain.value
                             ? IconsManger.visibility
                             : IconsManger.visibilityOff,
-                        size: AppSpacing.ap30.w,
+                        size: AppSpacing.ap30.sp,
                       ),
                     ),
                     onChanged: (String? val) {
@@ -212,7 +211,7 @@ class _RegisterViewState extends State<RegisterView> {
                 //     },
                 //     child: Text(
                 //       AppStrings.forgetPassword,
-                //       style: themeData.textTheme.titleSmall,
+                //       style: themeData.textTheme.labelSmall,
                 //     ),
                 //   ),
                 // ),
@@ -221,7 +220,7 @@ class _RegisterViewState extends State<RegisterView> {
                 //     onPressed: () {},
                 //     child: Text(
                 //       AppStrings.notHaveAccount,
-                //       style: themeData.textTheme.titleSmall,
+                //       style: themeData.textTheme.labelSmall,
                 //     ),
                 //   ),
                 // ),

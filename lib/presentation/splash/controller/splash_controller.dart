@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/presentation/home/main_view.dart';
 import 'package:ms_store/presentation/on_boarding/view/on_boarding_view.dart';
 
 import '../../../app/app_refs.dart';
 import '../../../app/di.dart';
+import '../../main/main_view.dart';
 
 class SplashController extends GetxController {
   RxBool loaded = false.obs;
@@ -31,7 +31,7 @@ class SplashController extends GetxController {
       if (value) {
         AppPrefs.closeOnBoarding();
         await initHomeModel();
-        nextPage = const HomeView();
+        nextPage = const MainView();
         return;
       }
     });

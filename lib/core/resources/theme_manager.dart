@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/utils.dart';
 
+import '../util/get_device_type.dart';
 import 'color_manager.dart';
 import 'font_manger.dart';
 import 'styles_manger.dart';
@@ -37,6 +39,7 @@ ThemeData get themeDataLight {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedItemColor: ColorManager.darkColor,
       unselectedItemColor: ColorManager.primaryColor,
+      showUnselectedLabels: false,
       type: BottomNavigationBarType.fixed,
       unselectedLabelStyle:
           getBoldStyle(color: ColorManager.textColor, fontSize: FontSize.s18),
@@ -86,7 +89,8 @@ ThemeData get themeDataLight {
           color: ColorManager.textColor, fontSize: FontSize.s20),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: EdgeInsets.all(AppSpacing.ap18.w),
+      contentPadding: EdgeInsets.all(
+          Device.get().isTablet ? AppSize.ap30 : AppSpacing.ap12),
       iconColor: ColorManager.darkColor,
       hintStyle: getRegularStyle(
         fontSize: FontSize.s16,

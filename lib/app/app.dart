@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 
+import '../core/resources/theme_manager.dart';
 import '../l10n/lang_controller.dart';
 
-import '../resources/routes_manger.dart';
-import '../resources/strings_manager.dart';
-import '../resources/theme_manager.dart';
+import '../core/resources/routes_manger.dart';
+import '../core/resources/strings_manager.dart';
 import 'app_binding.dart';
 import 'extensions.dart';
 
@@ -33,7 +33,6 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
-      designSize: const Size(480, 960),
       builder: (ctx, child) => ValueListenableBuilder(
           valueListenable: Hive.box('settings').listenable(),
           builder: (context, Box box, widgetHive) {

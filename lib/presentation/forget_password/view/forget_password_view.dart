@@ -8,10 +8,10 @@ import '../view_model/forget_password_controller.dart';
 
 import '../../../app/components.dart';
 import '../../../app/di.dart';
-import '../../../resources/icons_manger.dart';
-import '../../../resources/routes_manger.dart';
-import '../../../resources/strings_manager.dart';
-import '../../../resources/values_manager.dart';
+import '../../../core/resources/icons_manger.dart';
+import '../../../core/resources/routes_manger.dart';
+import '../../../core/resources/strings_manager.dart';
+import '../../../core/resources/values_manager.dart';
 
 class ForgetPasswordView extends StatefulWidget {
   const ForgetPasswordView({Key? key}) : super(key: key);
@@ -83,7 +83,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
             children: [
               Center(
                 child: logo(
-                  logoHeight: 150.h,
                   isDark: Get.isDarkMode,
                 ),
               ),
