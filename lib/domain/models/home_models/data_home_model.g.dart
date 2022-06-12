@@ -17,7 +17,7 @@ class DataHomeModelAdapter extends TypeAdapter<DataHomeModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return DataHomeModel(
-      fields[0] as CategoryModel,
+      fields[0] as CategoryHomeModel,
       (fields[1] as List).cast<ProductModel>(),
     );
   }

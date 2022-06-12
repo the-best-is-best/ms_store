@@ -12,17 +12,6 @@ class HomeController extends GetxController with BaseController {
   final HomeUseCase _homeUseCase;
   HomeController(this._homeUseCase);
   Rxn<HomeModel> homeModel = Rxn<HomeModel>();
-  @override
-  void onInit() {
-    startFlow();
-    super.onInit();
-  }
-
-  @override
-  void onReady() async {
-    await getHomeData();
-    super.onReady();
-  }
 
   Future getHomeData() async {
     flowState.value = LoadingState(

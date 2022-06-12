@@ -6,12 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import '../../../../../app/components.dart';
+import '../../../../../domain/models/home_models/category_home_model.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
 import '../../../../../domain/models/store/product_model.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 
 import '../../../../../domain/models/home_models/slider_model.dart';
-import '../../../../../domain/models/store/category_model.dart';
 import '../../../../components/products/components.dart';
 import '../../../../../core/resources/color_manager.dart';
 import '../../../../../core/resources/font_manger.dart';
@@ -31,18 +31,35 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   String locale = Get.locale!.languageCode;
 
-  final HomeController _homeController = Get.find();
+  late final HomeController _homeController;
+  @override
+  void initState() {
+    _homeController = Get.find();
+    _homeController.getHomeData();
+
+    WidgetsBinding.instance.addObserver(this);
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _homeController.homeModel.value = null;
+    WidgetsBinding.instance.addObserver(this);
+    super.dispose();
+  }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    //Do whatever you want in background
-
+    if (state == AppLifecycleState.paused) {
+      _homeController.homeModel.value = null;
+    }
     if (state == AppLifecycleState.resumed) {
       _homeController.getHomeData();
     }
   }
 
-  Widget buildCategory(CategoryModel mainCatModel) => Container(
+  Widget buildCategory(CategoryHomeModel mainCatModel) => Container(
         color: ColorManager.darkColor,
         child: Row(
           children: [

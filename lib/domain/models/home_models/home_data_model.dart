@@ -22,7 +22,5 @@ class HomeDataModel {
 class HomeModel {
   @HiveField(0)
   final HomeDataModel data;
-  @HiveField(1)
-  final int cacheTime = DateTime.now().millisecondsSinceEpoch;
   HomeModel(this.data);
 }

@@ -10,11 +10,15 @@ class SplashController extends GetxController {
   RxBool loaded = false.obs;
   @override
   void onInit() async {
-    bool isDark = await AppPrefs.getThemeMode();
-    if (isDark) {
-      Get.changeThemeMode(ThemeMode.dark);
+    bool? isDark = await AppPrefs.getThemeMode();
+    if (isDark == null) {
+      Get.changeThemeMode(ThemeMode.system);
     } else {
-      Get.changeThemeMode(ThemeMode.light);
+      if (isDark == true) {
+        Get.changeThemeMode(ThemeMode.dark);
+      } else {
+        Get.changeThemeMode(ThemeMode.light);
+      }
     }
     String? language = await AppPrefs.getLanguage();
     if (language != null) {

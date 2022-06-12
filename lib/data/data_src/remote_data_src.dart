@@ -16,8 +16,8 @@ abstract class RemoteDataSrc {
       ForgetPasswordRequests forgetPasswordRequests);
   Future<ResetPasswordResponse> resetPassword(
       ResetPasswordRequests resetPasswordRequests);
-  Future<CategoriesResponse> getCategoryData();
   Future<HomeResponse> getHomeData();
+  Future<CategoriesResponse> getCategoryData();
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {

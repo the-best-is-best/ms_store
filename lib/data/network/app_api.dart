@@ -46,8 +46,9 @@ abstract class AppServicesClient {
       {@Field("pin") required String pin,
       @Field("email") required String email,
       @Field("password") required String password});
-  @GET(Constants.categoryUrl)
-  Future<CategoriesResponse> getCategoryData();
+
   @GET(Constants.homeUrl)
   Future<HomeResponse> getHomeData();
+  @GET(Constants.categoryUrl)
+  Future<CategoriesResponse> getCategoryData();
 }

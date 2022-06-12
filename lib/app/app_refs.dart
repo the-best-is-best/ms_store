@@ -46,8 +46,8 @@ class AppPrefs {
           Box settings, LangType newLanguage) async =>
       await _settingsBox.put(_settingsLanguageKey, newLanguage);
 
-  static Future<bool> getThemeMode() async =>
-      await _settingsBox.get(_settingsIsDarkKey, defaultValue: false);
+  static Future<bool?> getThemeMode() async =>
+      await _settingsBox.get(_settingsIsDarkKey);
 
   static Future<void> updateThemeMode() async =>
       await _settingsBox.put(_settingsIsDarkKey, Get.isDarkMode ? false : true);

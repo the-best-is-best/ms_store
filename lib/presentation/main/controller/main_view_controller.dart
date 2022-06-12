@@ -1,5 +1,6 @@
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
 import '../../../app/components.dart';
 
 import '../pages/cart/view/cart_page.dart';
@@ -12,7 +13,7 @@ import '../pages/settings/view/settings_page.dart';
 class MainViewController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxDouble opacity = 1.0.obs;
-  final HomeController _homeController = Get.find();
+
   Map<int, Map<String, dynamic>> pages = {
     0: {"page": const HomePage(), "pageTitle": "Home"},
     1: {"page": const CategoryPage(), "pageTitle": "Category"},
@@ -25,9 +26,7 @@ class MainViewController extends GetxController {
     if (index != currentIndex.value) {
       opacity.value = 0;
       await waitStateChanged(duration: 250);
-      if (index == 0) {
-        _homeController.getHomeData();
-      }
+
       currentIndex.value = index;
       SchedulerBinding.instance.addPostFrameCallback((_) {
         opacity.value = 1;

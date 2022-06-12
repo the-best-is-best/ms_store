@@ -13,6 +13,7 @@ class EnLang {
       "error_try_again": "try again",
       "ok": "OK",
       "no_products": "No Products",
+      "no_category": "No Categories",
       "success": "Success",
       "internet_error": "Please Check Your Internet server",
       "loading": "Loading...",

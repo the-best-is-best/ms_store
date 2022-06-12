@@ -42,9 +42,9 @@ ThemeData get themeDataLight {
       showUnselectedLabels: false,
       type: BottomNavigationBarType.fixed,
       unselectedLabelStyle:
-          getBoldStyle(color: ColorManager.textColor, fontSize: FontSize.s18),
-      selectedLabelStyle:
-          getBoldStyle(color: ColorManager.textColor, fontSize: FontSize.s20),
+          getLightStyle(color: ColorManager.textColor, fontSize: FontSize.s16),
+      selectedLabelStyle: getRegularStyle(
+          color: ColorManager.textColor, fontSize: FontSize.s18),
     ),
 // button Theme
     buttonTheme: const ButtonThemeData(

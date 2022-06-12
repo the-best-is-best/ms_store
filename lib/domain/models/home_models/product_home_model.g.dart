@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product_model.dart';
+part of 'product_home_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ProductModelAdapter extends TypeAdapter<ProductModel> {
+class ProductHomeModelAdapter extends TypeAdapter<ProductHomeModel> {
   @override
-  final int typeId = 5;
+  final int typeId = 6;
 
   @override
-  ProductModel read(BinaryReader reader) {
+  ProductHomeModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ProductModel(
+    return ProductHomeModel(
       id: fields[0] as int,
       nameEN: fields[1] as String,
       nameAR: fields[2] as String,
@@ -31,7 +31,7 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
   }
 
   @override
-  void write(BinaryWriter writer, ProductModel obj) {
+  void write(BinaryWriter writer, ProductHomeModel obj) {
     writer
       ..writeByte(10)
       ..writeByte(0)
@@ -62,7 +62,7 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ProductModelAdapter &&
+      other is ProductHomeModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

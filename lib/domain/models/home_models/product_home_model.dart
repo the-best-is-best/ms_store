@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 
-part 'product_model.g.dart';
+part 'product_home_model.g.dart';
 
-@HiveType(typeId: 5)
-class ProductModel {
+@HiveType(typeId: 6)
+class ProductHomeModel {
   @HiveField(0)
   final int id;
   @HiveField(1)
@@ -24,7 +24,7 @@ class ProductModel {
   final int categoryId;
   @HiveField(9)
   final int offers;
-  ProductModel(
+  ProductHomeModel(
       {required this.id,
       required this.nameEN,
       required this.nameAR,

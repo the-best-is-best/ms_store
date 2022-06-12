@@ -5,12 +5,12 @@ import '../../models/store/category_model.dart';
 import '../../repository/repository.dart';
 import '../use_case.dart';
 
-class CategoryUseCase implements BaseCase<Function?, List<CategoryModel>> {
+class CategoryUseCase implements BaseCase<Function?, CategoryModel> {
   final Repository _repository;
 
   CategoryUseCase(this._repository);
   @override
-  Future<Either<Failure, List<CategoryModel>>> execute(Function? input) async {
+  Future<Either<Failure, CategoryModel>> execute(Function? input) async {
     return await _repository.getCategoryData();
   }
 }

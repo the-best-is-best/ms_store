@@ -46,7 +46,8 @@ class AppStrings {
   static String get userName => "full_name_title".tr;
   static String get registerTitle => "register_title".tr;
   static String get continueTitle => "continue_title".tr;
-  static String get noProducts => "continue_title".tr;
+  static String get noProducts => "no_products".tr;
+  static String get noCategory => "no_category".tr;
 
   static String get homeTitle => "home_nav_bar".tr;
   static String get latestProducts => "latest_products".tr;

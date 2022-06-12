@@ -3,6 +3,7 @@ import 'package:ms_store/data/repository/users_repository/repository_impl_loginB
 
 import '../../domain/models/home_models/home_data_model.dart';
 import '../../domain/models/store/category_model.dart';
+import '../responses/store_responses/categories_responses.dart';
 import 'home_data_repository.dart';
 import 'store/repository_impl_category.dart';
 import 'users_repository/repository_impl_active_email.dart';
@@ -73,7 +74,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, List<CategoryModel>>> getCategoryData() {
+  Future<Either<Failure, CategoryModel>> getCategoryData() {
     return RepositoryImplCategory.call(_remoteDataSrc, _networkInfo);
   }
 }

@@ -15,6 +15,7 @@ class ArLang {
       "loading": "...تحميل",
       "ok": "حسناً",
       "no_products": "لا يوجد منتجات",
+      "no_category": "لا يوجد اقسام",
       "success": "نجح",
       "email_title": "البريد الالكتروني",
       "password_title": "الباسورد",

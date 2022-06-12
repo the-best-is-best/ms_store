@@ -17,6 +17,6 @@ abstract class Repository {
       ForgetPasswordRequests forgetPasswordRequests);
   Future<Either<Failure, bool>> resetPassword(
       ResetPasswordRequests resetPasswordRequests);
-  Future<Either<Failure, List<CategoryModel>>> getCategoryData();
   Future<Either<Failure, HomeModel>> getHomeData();
+  Future<Either<Failure, CategoryModel>> getCategoryData();
 }

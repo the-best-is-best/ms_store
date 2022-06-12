@@ -33,44 +33,31 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (ctx, child) => ValueListenableBuilder(
-          valueListenable: Hive.box('settings').listenable(),
-          builder: (context, Box box, widgetHive) {
-            bool? darkMode = box.get('darkMode');
-            String? language = box.get('language') != null
-                ? (box.get('language') as LangType).getValue()
-                : null;
-            language ??= Get.deviceLocale!.languageCode;
-            return GetMaterialApp(
-              localizationsDelegates: const [
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: const [
-                Locale('en', ''),
-                Locale('ar', ''),
-              ],
-              fallbackLocale: const Locale('en', ''),
-              initialBinding: AppBinding(),
-              debugShowCheckedModeBanner: false,
-              translations: LangController(),
-              themeMode: darkMode == null
-                  ? ThemeMode.system
-                  : darkMode
-                      ? ThemeMode.dark
-                      : ThemeMode.light,
-              locale: Locale(language),
-              onGenerateTitle: (BuildContext context) => AppStrings.appTitle,
-              theme: Get.isDarkMode ? themeDataDark : themeDataLight,
-              getPages: RouteGeneratorGetX.getRoutes(),
-              initialRoute: '/splash',
-              unknownRoute: GetPage(
-                name: '/',
-                page: () => unDefinedRoute(),
-              ),
-            );
-          }),
+      builder: (ctx, child) => GetMaterialApp(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', ''),
+          Locale('ar', ''),
+        ],
+        fallbackLocale: const Locale('en', ''),
+        initialBinding: AppBinding(),
+        debugShowCheckedModeBanner: false,
+        translations: LangController(),
+        themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        locale: Locale(Get.deviceLocale!.languageCode),
+        onGenerateTitle: (BuildContext context) => AppStrings.appTitle,
+        theme: Get.isDarkMode ? themeDataDark : themeDataLight,
+        getPages: RouteGeneratorGetX.getRoutes(),
+        initialRoute: '/splash',
+        unknownRoute: GetPage(
+          name: '/',
+          page: () => unDefinedRoute(),
+        ),
+      ),
     );
   }
 }

@@ -129,22 +129,6 @@ class _AppServicesClient implements AppServicesClient {
   }
 
   @override
-  Future<CategoriesResponse> getCategoryData() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<CategoriesResponse>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/get_data/get_category.php',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CategoriesResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<HomeResponse> getHomeData() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -157,6 +141,22 @@ class _AppServicesClient implements AppServicesClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = HomeResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CategoriesResponse> getCategoryData() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CategoriesResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/get_data/get_category.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CategoriesResponse.fromJson(_result.data!);
     return value;
   }
 

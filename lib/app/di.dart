@@ -5,6 +5,7 @@ import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
 import 'package:ms_store/domain/models/home_models/slider_model.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
+import 'package:ms_store/domain/use_case/store/category_use_case.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
 
 import '../data/data_src/remote_data_src.dart';
@@ -12,8 +13,10 @@ import '../data/network/app_api.dart';
 import '../data/network/dio_manager.dart';
 import '../data/network/network_info.dart';
 import '../data/repository/repository_impl.dart';
+import '../domain/models/home_models/category_home_model.dart';
 import '../domain/models/home_models/data_home_model.dart';
 import '../domain/models/home_models/home_data_model.dart';
+import '../domain/models/home_models/product_home_model.dart';
 import '../domain/models/store/category_model.dart';
 import '../domain/models/store/product_model.dart';
 import '../domain/models/users_model.dart';
@@ -31,11 +34,16 @@ Future<void> initAppModel() async {
   DioManger.init();
 
   await Hive.initFlutter();
+  //user
   Hive.registerAdapter(UserModelAdapter());
+  //home
   Hive.registerAdapter(HomeModelAdapter());
   Hive.registerAdapter(HomeDataModelAdapter());
   Hive.registerAdapter(SliderModelAdapter());
+  Hive.registerAdapter(CategoryHomeModelAdapter());
+  Hive.registerAdapter(ProductHomeModelAdapter());
   Hive.registerAdapter(DataHomeModelAdapter());
+  //category
   Hive.registerAdapter(CategoryModelAdapter());
   Hive.registerAdapter(ProductModelAdapter());
   Hive.registerAdapter(CachedDataAdapter());
@@ -78,6 +86,8 @@ void initLoginModel() {
 Future initHomeModel() async {
   if (!GetIt.I.isRegistered<HomeUseCase>()) {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
+    instance
+        .registerFactory<CategoryUseCase>(() => CategoryUseCase(instance()));
   }
 }
 

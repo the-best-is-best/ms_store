@@ -61,11 +61,9 @@ class HomeModelAdapter extends TypeAdapter<HomeModel> {
   @override
   void write(BinaryWriter writer, HomeModel obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.data)
       ..writeByte(1)
-      ..write(obj.cacheTime);
+      ..writeByte(0)
+      ..write(obj.data);
   }
 
   @override
