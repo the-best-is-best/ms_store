@@ -13,7 +13,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initAppModel();
-  await AppPrefs.checkBox();
-
+  await AppPrefs().initBox();
   runApp(MyApp());
 }

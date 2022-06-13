@@ -1,12 +1,14 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:ms_store/app/app_refs.dart';
 import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
 import 'package:ms_store/domain/models/home_models/slider_model.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/use_case/store/category_use_case.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
+import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 
 import '../data/data_src/remote_data_src.dart';
 import '../data/network/app_api.dart';
@@ -22,6 +24,7 @@ import '../domain/models/store/product_model.dart';
 import '../domain/models/users_model.dart';
 import '../domain/repository/repository.dart';
 import '../domain/use_case/home_use_case.dart';
+import '../domain/use_case/store/add_favorite_use_case.dart';
 import '../domain/use_case/users_case/active_email_case.dart';
 import '../domain/use_case/users_case/forget_password_case.dart';
 import '../domain/use_case/users_case/login_use_case.dart';
@@ -71,15 +74,10 @@ Future<void> initAppModel() async {
 }
 
 void initLoginModel() {
-  if (!Hive.isAdapterRegistered(0)) {
-    Hive.registerAdapter(UserModelAdapter());
-  }
-  if (!GetIt.I.isRegistered<LoginBySocialUserCase>()) {
-    instance.registerFactory<LoginBySocialUserCase>(
-        () => LoginBySocialUserCase(instance()));
-  }
   if (!GetIt.I.isRegistered<LoginUserCase>()) {
     instance.registerFactory<LoginUserCase>(() => LoginUserCase(instance()));
+    instance.registerFactory<LoginBySocialUserCase>(
+        () => LoginBySocialUserCase(instance()));
   }
 }
 
@@ -88,13 +86,12 @@ Future initHomeModel() async {
     instance.registerFactory<HomeUseCase>(() => HomeUseCase(instance()));
     instance
         .registerFactory<CategoryUseCase>(() => CategoryUseCase(instance()));
+    instance.registerFactory<AddFavoriteUseCase>(
+        () => AddFavoriteUseCase(instance()));
   }
 }
 
 void initRegisterModel() {
-  if (!Hive.isAdapterRegistered(0)) {
-    Hive.registerAdapter(UserModelAdapter());
-  }
   if (!GetIt.I.isRegistered<RegisterUserCase>()) {
     instance
         .registerFactory<RegisterUserCase>(() => RegisterUserCase(instance()));

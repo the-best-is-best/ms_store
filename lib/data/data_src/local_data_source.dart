@@ -17,7 +17,7 @@ abstract class LocalDataSource {
 class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<HomeModel> getHomeData() async {
-    CachedData? cachedData = await AppPrefs.getCacheData(CACHE_HOME_KEY);
+    CachedData? cachedData = await AppPrefs().getCacheData(CACHE_HOME_KEY);
     if (cachedData != null && cachedData.isValid(CACHE_INTERVAL)) {
       return (cachedData.data) as HomeModel;
     } else {
@@ -27,12 +27,12 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<void> saveHomeDataCache(HomeModel homeResponse) async {
-    await AppPrefs.updateCacheData<CachedData>(CACHE_HOME_KEY,
+    await AppPrefs().updateCacheData<CachedData>(CACHE_HOME_KEY,
         CachedData(homeResponse, DateTime.now().millisecondsSinceEpoch));
   }
 
   @override
   void removeFromCacheByKey(String key) {
-    AppPrefs.clearByKeyCacheData(key);
+    AppPrefs().clearByKeyCacheData(key);
   }
 }

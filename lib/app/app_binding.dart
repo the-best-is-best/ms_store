@@ -1,5 +1,6 @@
 import 'package:get/instance_manager.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
+import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 import '../presentation/main/pages/home/view_model/home_controller.dart';
 import '../presentation/main/controller/main_view_controller.dart';
 import '../presentation/on_boarding/on_boarding_view_model/on_boarding_view_model_getx.dart';
@@ -33,6 +34,9 @@ class AppBinding implements Bindings {
     getHomeViewController();
     // category
     getCategoryViewController();
+
+    // setting
+    getSettingViewController();
   }
 
   void getOnBoardingController() {
@@ -64,10 +68,14 @@ class AppBinding implements Bindings {
   }
 
   void getHomeViewController() {
-    Get.lazyPut(() => HomeController(instance()));
+    Get.lazyPut(() => HomeController(instance(), instance()));
   }
 
   void getCategoryViewController() {
     Get.lazyPut(() => CategoryController(instance()));
+  }
+
+  void getSettingViewController() {
+    Get.lazyPut(() => SettingsController());
   }
 }

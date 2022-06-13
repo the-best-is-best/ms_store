@@ -115,7 +115,7 @@ class PViewState extends State<OnBoardingView> {
                           onPressed: () {
                             initLoginModel();
                             Get.toNamed(Routes.loginRoute,
-                                arguments: {'fromForgetPassword': false});
+                                arguments: {'canBack': true});
                           },
                           child: Text(
                             "Sign In",

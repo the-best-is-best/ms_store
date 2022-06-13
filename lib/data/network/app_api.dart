@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ms_store/data/responses/store_responses/favorite_add_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../app/constants.dart';
@@ -51,4 +52,7 @@ abstract class AppServicesClient {
   Future<HomeResponse> getHomeData();
   @GET(Constants.categoryUrl)
   Future<CategoriesResponse> getCategoryData();
+  @POST(Constants.addToFavorite)
+  Future<FavoriteAddResponse> addToFavorite(
+      @Field('userId') int userId, @Field('productId') int productId);
 }

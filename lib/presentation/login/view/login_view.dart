@@ -18,7 +18,7 @@ import '../../../app/components.dart';
 import '../../../core/resources/strings_manager.dart';
 
 class LoginView extends StatefulWidget {
-  final bool fromForgetPassword = Get.arguments['fromForgetPassword'];
+  final bool canBack = Get.arguments['canBack'];
   LoginView({Key? key}) : super(key: key);
 
   @override
@@ -52,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.fromForgetPassword
+      appBar: !widget.canBack
           ? null
           : AppBar(
               leading: IconButton(

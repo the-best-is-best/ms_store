@@ -22,4 +22,5 @@ class Constants {
   static const String categoryUrl = '/get_data/get_category.php';
 
   static const String productByCatUrl = '/get_data/get_products_by_cat.php';
+  static const String addToFavorite = '/update_data/update_favorite.php';
 }

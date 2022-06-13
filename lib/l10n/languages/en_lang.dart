@@ -15,7 +15,7 @@ class EnLang {
       "no_products": "No Products",
       "no_category": "No Categories",
       "success": "Success",
-      "internet_error": "Please Check Your Internet server",
+      "internet_error": "Please Check Your Internet",
       "loading": "Loading...",
       "email_title": "Email",
       "password_title": "Password",

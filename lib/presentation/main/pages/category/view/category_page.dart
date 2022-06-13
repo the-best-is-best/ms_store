@@ -1,4 +1,3 @@
-import 'package:auto_animated/auto_animated.dart';
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +11,6 @@ import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 
-import '../../../../../app/components.dart';
 import '../../../../../domain/models/store/category_model.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -116,18 +114,23 @@ class _CategoryPageState extends State<CategoryPage>
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color: ColorManager.white,
-                child: AnimateIfVisibleWrapper(
-                  showItemInterval: const Duration(milliseconds: 150),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 20.0.h,
-                          ),
-                          BuildCondition(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 20.0.h,
+                        ),
+                        AnimatedOpacity(
+                          opacity:
+                              _categoryController.selectedCategoryItem.value ==
+                                      _categoryController.animateContainer.value
+                                  ? 1
+                                  : 0,
+                          duration: const Duration(milliseconds: 250),
+                          child: BuildCondition(
                             condition: _categoryController
                                     .categoryModel
                                     .value
@@ -136,38 +139,34 @@ class _CategoryPageState extends State<CategoryPage>
                                     .childCat
                                     .isNotEmpty ??
                                 false,
-                            builder: (context) => GridView.count(
+                            builder: (context) => GridView.builder(
                               shrinkWrap:
                                   true, //بقولة سيح مع باقي الصفحة كلها كلكو علي بعضوكو كونوا حاجة واحدة
                               physics: const NeverScrollableScrollPhysics(),
-                              crossAxisCount:
-                                  3, //الشبكة علي شكل مربعين جنب بعض كل ما هتزود كل ما عدد المربعات هتزيد
-                              mainAxisSpacing: 10.0,
-                              crossAxisSpacing: 10.0,
-                              childAspectRatio: 1 / 2, //   العرض/الطول
-                              children: List.generate(
-                                _categoryController
-                                        .categoryModel
-                                        .value
-                                        ?.data?[_categoryController
-                                            .selectedCategoryItem.value]
-                                        .childCat
-                                        .length ??
-                                    0,
-                                (index) => AnimateIfVisible(
-                                  key: Key('$index'),
-                                  builder: animationBuilder(
-                                    buildGridCat(
-                                        themeData,
-                                        _categoryController
-                                            .categoryModel
-                                            .value
-                                            ?.data?[_categoryController
-                                                .selectedCategoryItem.value]
-                                            .childCat[index]),
-                                  ),
-                                ),
+                              itemCount: _categoryController
+                                      .categoryModel
+                                      .value
+                                      ?.data?[_categoryController
+                                          .selectedCategoryItem.value]
+                                      .childCat
+                                      .length ??
+                                  0,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount:
+                                    3, //الشبكة علي شكل مربعين جنب بعض كل ما هتزود كل ما عدد المربعات هتزيد
+                                mainAxisSpacing: 10.0,
+                                crossAxisSpacing: 10.0,
+                                childAspectRatio: 1 / 2, //   العرض/الطول
                               ),
+                              itemBuilder: (context, index) => buildGridCat(
+                                  themeData,
+                                  _categoryController
+                                      .categoryModel
+                                      .value
+                                      ?.data?[_categoryController
+                                          .selectedCategoryItem.value]
+                                      .childCat[index]),
                             ),
                             fallback: (context) => Column(
                               children: [
@@ -179,8 +178,8 @@ class _CategoryPageState extends State<CategoryPage>
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -208,7 +207,7 @@ class _CategoryPageState extends State<CategoryPage>
             _categoryController.selectCategoryItem(index);
           },
           child: Text(
-            locale == "ar" ? data.nameEN : data.nameEN,
+            locale == "ar" ? data.nameAR : data.nameEN,
             style: _categoryController.selectedCategoryItem.value == index
                 ? themeData.textTheme.labelMedium
                     ?.copyWith(color: ColorManager.greyLight)
@@ -233,11 +232,13 @@ class _CategoryPageState extends State<CategoryPage>
             SizedBox(
               height: 5.0.h,
             ),
-            Text(
-              locale == "ar" ? categoryModel.nameAR : categoryModel.nameEN,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-              style: themeData.textTheme.labelSmall,
+            Flexible(
+              child: Text(
+                locale == "ar" ? categoryModel.nameAR : categoryModel.nameEN,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: themeData.textTheme.labelSmall,
+              ),
             ),
           ],
         ),

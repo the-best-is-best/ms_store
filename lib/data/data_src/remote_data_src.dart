@@ -1,3 +1,6 @@
+import 'package:ms_store/data/network/requests/favorites_requests.dart';
+import 'package:ms_store/data/responses/store_responses/favorite_add_response.dart';
+
 import '../network/app_api.dart';
 import '../network/requests/users_requests.dart';
 import '../responses/home_response/home_response.dart';
@@ -18,6 +21,8 @@ abstract class RemoteDataSrc {
       ResetPasswordRequests resetPasswordRequests);
   Future<HomeResponse> getHomeData();
   Future<CategoriesResponse> getCategoryData();
+  Future<FavoriteAddResponse> favoriteAdd(
+      AddFavoriteRequests addFavoriteRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -80,5 +85,12 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
   @override
   Future<CategoriesResponse> getCategoryData() async {
     return await _appServicesClient.getCategoryData();
+  }
+
+  @override
+  Future<FavoriteAddResponse> favoriteAdd(
+      AddFavoriteRequests addFavoriteRequests) async {
+    return await _appServicesClient.addToFavorite(
+        addFavoriteRequests.userId, addFavoriteRequests.productId);
   }
 }

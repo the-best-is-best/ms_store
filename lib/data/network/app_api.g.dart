@@ -160,6 +160,22 @@ class _AppServicesClient implements AppServicesClient {
     return value;
   }
 
+  @override
+  Future<FavoriteAddResponse> addToFavorite(userId, productId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'userId': userId, 'productId': productId};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FavoriteAddResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/update_data/update_favorite.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FavoriteAddResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

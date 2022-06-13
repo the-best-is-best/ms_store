@@ -151,34 +151,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               right: 15,
               child: addToCartButton(productModel.id),
             ),
-            Positioned(
-              top: 20,
-              right: 20,
-              child: CircleAvatar(
-                radius: Device.get().isTablet ? 40 : 27,
-                backgroundColor: Colors.grey[400],
-                child: IconButton(
-                  onPressed: () {
-                    /* if (LoginCubit.get(context).loginModel != null &&
-                        LoginCubit.get(context).loginModel!.data != null) {
-                      ShopCubit.get(context).updateFavorite(context,
-                          userId: LoginCubit.get(context).loginModel!.data!.id!,
-                          productId: dataModel.id!);
-                    } else {
-                      navigateTo(context, LoginScreen());
-                    }*/
-                  },
-                  icon: Icon(
-                    //  inFav == 1
-                    //   ? Icons.favorite_sharp
-                    Icons.favorite_border_outlined,
-                    // color: inFav == 1 ? Colors.red : Colors.white,
-                    color: Colors.white,
-                    size: Device.get().isTablet ? 40 : 33.0,
-                  ),
-                ),
-              ),
-            ),
+            addToFavoriteButton(
+                () => _homeController.addToFavorite(productModel.id)),
             //  displaySaleText(dataModel),
           ],
         ),
@@ -242,7 +216,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       return Container();
     } else {
       return Padding(
-        padding: const EdgeInsets.only(top: 50.0),
+        padding: const EdgeInsets.only(top: 20.0),
         child: CarouselSlider(
             items: sliders
                 .map((slider) => SizedBox(

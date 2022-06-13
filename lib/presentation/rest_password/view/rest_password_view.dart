@@ -68,7 +68,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         SchedulerBinding.instance.addPostFrameCallback((_) {
                           initLoginModel();
                           Get.offNamedUntil(Routes.loginRoute, (route) => false,
-                              arguments: {'fromForgetPassword': true});
+                              arguments: {'canBack': false});
                         });
                       }
                     : null)

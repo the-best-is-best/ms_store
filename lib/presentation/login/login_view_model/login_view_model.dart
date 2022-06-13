@@ -69,7 +69,7 @@ class LoginViewModel extends GetxController
     }, (data) async {
       flowState.value = ContentState();
       initHomeModel();
-      await AppPrefs.updateUserData(data);
+      await AppPrefs().updateUserData(data);
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
@@ -142,7 +142,7 @@ class LoginViewModel extends GetxController
       await waitStateChanged(duration: 1000);
 
       initHomeModel();
-      await AppPrefs.updateUserData(data);
+      await AppPrefs().updateUserData(data);
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
@@ -195,7 +195,7 @@ class LoginViewModel extends GetxController
           loadingSignButtonController.onSuccess();
           await waitStateChanged(duration: 1000);
           initHomeModel();
-          await AppPrefs.updateUserData(data);
+          await AppPrefs().updateUserData(data);
           SchedulerBinding.instance.addPostFrameCallback((_) {
             Get.offNamedUntil(Routes.homeRoute, (route) => false);
           });

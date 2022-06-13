@@ -10,7 +10,7 @@ class SplashController extends GetxController {
   RxBool loaded = false.obs;
   @override
   void onInit() async {
-    bool? isDark = await AppPrefs.getThemeMode();
+    bool? isDark = await AppPrefs().getThemeMode();
     if (isDark == null) {
       Get.changeThemeMode(ThemeMode.system);
     } else {
@@ -20,7 +20,7 @@ class SplashController extends GetxController {
         Get.changeThemeMode(ThemeMode.light);
       }
     }
-    String? language = await AppPrefs.getLanguage();
+    String? language = await AppPrefs().getLanguage();
     if (language != null) {
       Get.updateLocale(Locale(language));
     }
@@ -30,10 +30,10 @@ class SplashController extends GetxController {
   Widget? nextPage;
   @override
   void onReady() async {
-    Future<bool> showedOnBoarding = AppPrefs.getOnBoarding();
+    Future<bool> showedOnBoarding = AppPrefs().getOnBoarding();
     showedOnBoarding.then((bool value) async {
       if (value) {
-        AppPrefs.closeOnBoarding();
+        AppPrefs().closeOnBoarding();
         await initHomeModel();
         nextPage = const MainView();
         return;

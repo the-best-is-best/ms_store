@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../data/network/failure.dart';
+import '../../data/network/requests/favorites_requests.dart';
 import '../../data/network/requests/users_requests.dart';
 import '../models/home_models/home_data_model.dart';
 import '../models/store/category_model.dart';
@@ -19,4 +20,6 @@ abstract class Repository {
       ResetPasswordRequests resetPasswordRequests);
   Future<Either<Failure, HomeModel>> getHomeData();
   Future<Either<Failure, CategoryModel>> getCategoryData();
+  Future<Either<Failure, bool>> addProductToFavorite(
+      AddFavoriteRequests addFavoriteRequests);
 }

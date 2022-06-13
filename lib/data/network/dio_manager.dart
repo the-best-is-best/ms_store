@@ -1,14 +1,17 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-
 import '../../app/constants.dart';
 
 class DioManger {
   static late Dio dioApi;
 
-  static init() {
-    dioApi = Dio(BaseOptions(
+  static init() async {
+    dioApi = Dio(
+      BaseOptions(
         receiveDataWhenStatusError: true,
         // validateStatus: (v) => v! < 500,
         connectTimeout: Constants.timeOut,
@@ -17,7 +20,10 @@ class DioManger {
           'CONTENT-TYPE': Constants.contentType,
           'ACCEPT': Constants.contentType,
           "AUTHORIZATION": Constants.token,
-        }));
+        },
+      ),
+    );
+
     if (!kReleaseMode) {
       dioApi.interceptors.add(PrettyDioLogger(
           requestHeader: true, requestBody: true, responseHeader: true));
