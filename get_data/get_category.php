@@ -39,16 +39,16 @@ try {
         exit;
     }
 
-    $row['category'] = $rowMainCat;
+    $row = $rowMainCat;
     $query = $writeDB->prepare("SELECT * FROM category_" . DB::$AppName . ' WHERE parent!=0');
     $query->execute();
     $rowCat = $query->fetchAll();
     for ($i = 0; $i < count($rowMainCat); $i++) {
-        $row['category'][$i]['childCat'] = array();
+        $row[$i]['childCat'] = array();
         for ($j = 0; $j < count($rowCat); $j++) {
             if ($rowCat[$j]['parent'] ==  $rowMainCat[$i]['id']) {
                 $rowCat[$j]['image'] = DB::$urlSite .  $rowCat[$j]['image'];
-                array_push($row['category'][$i]['childCat'], $rowCat[$j]);
+                array_push($row[$i]['childCat'], $rowCat[$j]);
             }
         }
     }

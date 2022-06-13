@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2022 at 09:04 PM
+-- Generation Time: Jun 13, 2022 at 11:59 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -82,8 +82,7 @@ INSERT INTO `category_tbib_store` (`id`, `nameEN`, `nameAR`, `parent`, `image`, 
 (7, 'Sneakers', 'أحذية رياضية', 4, 'storage/category/img/629a548a644398.55741015.png', 0),
 (8, 'Bags', 'شنط', 0, '', 1),
 (9, 'Woman Bags', 'شنط حريمي', 8, 'storage/category/img/629a587aaf2684.98211010.png', 0),
-(10, 'Dress', 'فستان', 1, 'storage/category/img/62a3a678ac0f71.90370374.png', 0),
-(11, 'Steve Madden', 'ستيف مادن', 8, 'storage/category/img/62a3a8f12ebdb1.34274201.jpg', 0);
+(10, 'Dress', 'فستان', 1, 'storage/category/img/62a3a678ac0f71.90370374.png', 0);
 
 -- --------------------------------------------------------
 
@@ -118,6 +117,13 @@ CREATE TABLE `favorite_tbib_store` (
   `productId` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `favorite_tbib_store`
+--
+
+INSERT INTO `favorite_tbib_store` (`id`, `userId`, `productId`, `status`) VALUES
+(2, 1, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -156,7 +162,7 @@ INSERT INTO `products_tbib_store` (`id`, `nameEN`, `nameAR`, `image`, `price`, `
 (10, 'AKAI Cotton Printed T-Shirt - Light Grey', 'AKAI تي شيرت قطن مطبوع - رمادي فاتح', 'storage/products/img/62a3a32dc1e5b7.65160173.png', 149, 0, 'Made of pure cotton and non-blended with transfer printing to withstand the harshest conditions of consumption and washing.', 'مصنوع من القطن الخالص وغير مخلوط بطباعة منقولة لتحمل أقسى ظروف الاستهلاك والغسيل.', 2, 0, 0),
 (11, 'Ho Holland Round Neck White T-shirt - 2 Line', 'تيشيرت أبيض بياقة دائرية من هو هولاند - خطان', 'storage/products/img/62a48d33bb1bb6.28172256.png', 199, 0, 'In Ho Holland Marketplace we have a collection of the best product that are made of the best quality pure cotton.', 'في سوق Ho Holland ، لدينا مجموعة من أفضل المنتجات المصنوعة من أفضل أنواع القطن الخالص.', 2, 0, 0),
 (12, 'Lumex Sea And Sand Baby Dress Embroidered', 'فستان أطفال من Lumex Sea And Sand مطرز', 'storage/products/img/62a3a706d034b4.65981603.png', 199, 0, 'Baby Girl dress \n baby straps dress \n embroidery sea star \n sea creatures print \n Dark blue baby dress \n Sea star embroidery on the back.', 'فستان طفلة \n فستان بأشرطة للأطفال \n مطرز بنجمة البحر \n طباعة مخلوقات بحرية \n فستان أطفال أزرق داكن \n مطرز بنجمة البحر على الظهر.', 10, 0, 0),
-(14, 'BBRITTA BLACK', 'أسود ببريتا', 'storage/products/img/62a3a963e1b603.00531584.png', 199, 0, 'Puff quilted shoulder bag \n Synthetic materials \n 9.25 H x 12.5 W x 5 D \n 11 Shoulder chain drop \n Front flap closure.', 'حقيبة كتف مبطنة منفوخة \n مواد اصطناعية \n 9.25 ارتفاع × 12.5 عرض × 5 عمق \n 11 إسقاط سلسلة الكتف \n إغلاق بغطاء أمامي..', 11, 0, 0);
+(14, 'BBRITTA BLACK', 'أسود ببريتا', 'storage/products/img/62a3a963e1b603.00531584.png', 199, 0, 'Puff quilted shoulder bag\n Synthetic materials \n 9.25 H x 12.5 W x 5 D \n 11 Shoulder chain drop \n Front flap closure.', 'حقيبة كتف مبطنة منفوخة \n  مواد اصطناعية \n 9.25 ارتفاع × 12.5 عرض × 5 عمق \n  11 إسقاط سلسلة الكتف \n إغلاق بغطاء أمامي.', 9, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -223,10 +229,10 @@ CREATE TABLE `users_tbib_store` (
 --
 
 INSERT INTO `users_tbib_store` (`id`, `userName`, `email`, `password`, `phone`, `rule`, `email_active`, `code`, `tokenSocial`, `loginBySocial`) VALUES
-(8, 'mesho 1', 'mes@mes.com', '$2y$10$X/d0CBkcKBTAXVi0PpiFsOfu2i9ily5Cg3oS0/BwEmOL.KgDyqfK6', '', 2, 1, '', NULL, 0),
-(14, 'mesho raouf', 'meshoraouf515@gmail.com', '$2y$10$4SzDuiA2bVWXZAjOb3YYkeJANSpnD56lhPL38iZadZVjzzC6rqaIW', NULL, 2, 1, '0', '116517405042981778152', 1),
-(15, 'mesho raouf', 'meshoraouf515@gmail.com', '$2y$10$Ajq0oUlf5Y3AK79VNVLgvOJMzuvmjqO.4Z2Zf4m9r0hlui4Llzvcu', NULL, 2, 1, '0', '', 0),
-(18, 'Michelle Raouf', 'eng.michelle.raouf@gmail.com', '$2y$10$Av/HPEmV6pSZEEoNd/0baezr6SCRbuL3YBXnvkbyF1rZQxcskDkWS', NULL, 2, 1, '0', NULL, 0);
+(1, 'mesho 1', 'mes@mes.com', '$2y$10$X/d0CBkcKBTAXVi0PpiFsOfu2i9ily5Cg3oS0/BwEmOL.KgDyqfK6', '', 2, 1, '', NULL, 0),
+(2, 'mesho raouf', 'meshoraouf515@gmail.com', '$2y$10$4SzDuiA2bVWXZAjOb3YYkeJANSpnD56lhPL38iZadZVjzzC6rqaIW', NULL, 2, 1, '0', '116517405042981778152', 1),
+(3, 'mesho raouf', 'meshoraouf515@gmail.com', '$2y$10$Ajq0oUlf5Y3AK79VNVLgvOJMzuvmjqO.4Z2Zf4m9r0hlui4Llzvcu', NULL, 2, 1, '0', '', 0),
+(4, 'Michelle Raouf', 'eng.michelle.raouf@gmail.com', '$2y$10$Av/HPEmV6pSZEEoNd/0baezr6SCRbuL3YBXnvkbyF1rZQxcskDkWS', NULL, 2, 1, '0', NULL, 0);
 
 --
 -- Indexes for dumped tables
@@ -329,7 +335,7 @@ ALTER TABLE `contact_us_tbib_store`
 -- AUTO_INCREMENT for table `favorite_tbib_store`
 --
 ALTER TABLE `favorite_tbib_store`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products_tbib_store`
@@ -353,7 +359,7 @@ ALTER TABLE `slider_tbib_store`
 -- AUTO_INCREMENT for table `users_tbib_store`
 --
 ALTER TABLE `users_tbib_store`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
