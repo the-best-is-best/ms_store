@@ -1,3 +1,4 @@
+import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/extensions.dart';
@@ -50,36 +51,62 @@ class _SettingsPageState extends State<SettingsPage> {
                       height: AppSize.ap12,
                     ),
                     ListTile(
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: AppSize.ap12,
+                        title: Obx(
+                          () => BuildCondition(
+                            condition:
+                                _settingsController.userModel.value != null,
+                            builder: (context) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: AppSize.ap12,
+                                  ),
+                                  Text(
+                                    _settingsController
+                                        .userModel.value!.userName,
+                                    style: themeData.textTheme.labelMedium,
+                                  ),
+                                  const SizedBox(
+                                    height: AppSize.ap12,
+                                  ),
+                                  Text(
+                                    _settingsController.userModel.value!.email,
+                                    style: themeData.textTheme.labelSmall,
+                                  ),
+                                  const SizedBox(
+                                    height: AppSize.ap12,
+                                  ),
+                                ],
+                              );
+                            },
+                            fallback: (_) => SizedBox(
+                              width: double.infinity,
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Login',
+                                    style: themeData.textTheme.labelMedium,
+                                  )),
+                            ),
                           ),
-                          Text(
-                            'Michelle Raouf',
-                            style: themeData.textTheme.labelMedium,
-                          ),
-                          const SizedBox(
-                            height: AppSize.ap12,
-                          ),
-                          Text(
-                            'michelle.raouf@outlook.com',
-                            style: themeData.textTheme.labelSmall,
-                          ),
-                          const SizedBox(
-                            height: AppSize.ap12,
-                          ),
-                        ],
-                      ),
-                      trailing: Padding(
-                        padding: const EdgeInsets.only(top: AppSize.ap16),
-                        child: Obx(() => Icon(
-                            _settingsController.language.value != "en"
-                                ? IconsManger.arrowLeft
-                                : IconsManger.arrowRight)),
-                      ),
-                    ),
+                        ),
+                        trailing: Obx(
+                          () => BuildCondition(
+                              condition:
+                                  _settingsController.userModel.value != null,
+                              builder: (context) {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: AppSize.ap16),
+                                  child: Obx(() => Icon(
+                                      _settingsController.language.value != "en"
+                                          ? IconsManger.arrowLeft
+                                          : IconsManger.arrowRight)),
+                                );
+                              },
+                              fallback: (_) => const SizedBox()),
+                        )),
                     const SizedBox(
                       height: AppSize.ap30,
                     ),
