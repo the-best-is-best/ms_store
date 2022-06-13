@@ -37,8 +37,6 @@ class CategoryController extends GetxController with BaseController {
   RxInt selectedCategoryItem = 0.obs;
   RxInt animateContainer = 0.obs;
   void selectCategoryItem(int index) async {
-    animateContainer.value = index;
-    await waitStateChanged(duration: 500);
     selectedCategoryItem.value = index;
   }
 }

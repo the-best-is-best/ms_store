@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   analyzer: ^3.3.1
+  auto_animated: ^3.0.1
   buildcondition: ^0.0.4
   cached_network_image: ^3.2.1
   carousel_slider: ^4.1.1

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
+import 'package:ms_store/gen/assets.gen.dart';
+import 'package:tbib_splash_screen/splash_screen_view.dart';
 import '../../../../../app/components.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
@@ -59,7 +61,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
   }
 
-  Widget buildCategory(CategoryHomeModel mainCatModel) => Container(
+  Widget buildCategory(int index, CategoryHomeModel mainCatModel) => Container(
         color: ColorManager.darkColor,
         child: Row(
           children: [
@@ -74,7 +76,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
             const Spacer(),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  _homeController.goCategory(index);
+                },
                 icon: Icon(
                   locale == "ar"
                       ? IconsManger.arrowLeft
@@ -183,16 +187,29 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   Widget _getContentWidget(ThemeData themeData) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _getSliderCarousel(),
-        _getSection(AppStrings.latestProducts),
-        _getProducts(
-            themeData,
-            _homeController.homeModel.value?.data.dataHome ??
-                const Iterable.empty().cast<DataHomeModel>().toList()),
-      ],
+    return BuildCondition(
+      condition:
+          _homeController.homeModel.value?.data.dataHome.isNotEmpty ?? false,
+      builder: (context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _getSliderCarousel(),
+          _getSection(AppStrings.latestProducts),
+          _getProducts(
+              themeData,
+              _homeController.homeModel.value?.data.dataHome ??
+                  const Iterable.empty().cast<DataHomeModel>().toList()),
+        ],
+      ),
+      fallback: (_) => Column(
+        children: [
+          Lottie.asset(const $AssetsJsonGen().empty),
+          Text(
+            AppStrings.noProducts,
+            style: themeData.textTheme.titleMedium,
+          ),
+        ],
+      ),
     );
   }
 
@@ -261,49 +278,39 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   Widget _getProducts(ThemeData themeData, List<DataHomeModel> dataHome) {
-    return Obx(() => BuildCondition(
-          condition:
-              _homeController.homeModel.value?.data.dataHome.isNotEmpty ??
-                  const Iterable.empty().cast<DataHomeModel>().toList().isEmpty,
-          builder: (context) => ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount:
-                _homeController.homeModel.value?.data.dataHome.length ?? 0,
-            itemBuilder: (context, indexCat) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildCategory(dataHome[indexCat].categoryModel),
-                SizedBox(
-                  height: Device.get().isTablet ? AppSize.ap350 : AppSize.ap300,
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, indexPro) {
-                      return buildProductsItem(
-                          dataHome[indexCat].productModel[indexPro], themeData);
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(),
-                    itemCount: dataHome[indexCat].productModel.length > 4
-                        ? 4
-                        : dataHome[indexCat].productModel.length,
-                  ),
-                ),
-                const Divider(
-                  thickness: 0,
-                ),
-              ],
+    return Obx(
+      () => ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        itemCount: _homeController.homeModel.value?.data.dataHome.length ?? 0,
+        itemBuilder: (context, indexCat) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildCategory(indexCat, dataHome[indexCat].categoryModel),
+            SizedBox(
+              height: Device.get().isTablet ? AppSize.ap350 : AppSize.ap300,
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, indexPro) {
+                  return buildProductsItem(
+                      dataHome[indexCat].productModel[indexPro], themeData);
+                },
+                separatorBuilder: (context, index) => const SizedBox(),
+                itemCount: dataHome[indexCat].productModel.length > 4
+                    ? 4
+                    : dataHome[indexCat].productModel.length,
+              ),
             ),
-          ),
-          fallback: (_) => Center(
-            child: Text(
-              AppStrings.noProducts,
-              style: themeData.textTheme.titleMedium,
+            const Divider(
+              thickness: 0,
             ),
-          ),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 
   @override

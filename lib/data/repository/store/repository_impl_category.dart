@@ -11,22 +11,22 @@ class RepositoryImplCategory {
   static Future<Either<Failure, CategoryModel>> call(
       RemoteDataSrc remoteDataSrc, NetworkInfo networkInfo) async {
     if (await networkInfo.isConnected) {
-      // try {
-      CategoriesResponse response = await remoteDataSrc.getCategoryData();
+      try {
+        CategoriesResponse response = await remoteDataSrc.getCategoryData();
 
-      if (response.statusCode! >= 200 && response.statusCode! <= 299) {
-        //success
-        // return either right
-        // return data
-        return Right(response.toDomain());
-      } else {
-        //failure
-        // return either left
-        return left(Failure(response.statusCode ?? 500, "Error server"));
-      }
-      /* } catch (error) {
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+          //success
+          // return either right
+          // return data
+          return Right(response.toDomain());
+        } else {
+          //failure
+          // return either left
+          return left(Failure(response.statusCode ?? 500, "Error server"));
+        }
+      } catch (error) {
         return Left(ErrorHandler.handle(error).failure);
-      }*/
+      }
     } else {
       //failure
       // return either left

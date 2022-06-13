@@ -1,3 +1,4 @@
+import 'package:auto_animated/auto_animated.dart';
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 
+import '../../../../../app/components.dart';
 import '../../../../../domain/models/store/category_model.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -109,14 +111,13 @@ class _CategoryPageState extends State<CategoryPage>
           ),
           Expanded(
             flex: 2,
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 500),
-              width: 10,
-              child: ScrollConfiguration(
-                behavior: const ScrollBehavior(),
-                child: GlowingOverscrollIndicator(
-                  axisDirection: AxisDirection.down,
-                  color: ColorManager.white,
+            child: ScrollConfiguration(
+              behavior: const ScrollBehavior(),
+              child: GlowingOverscrollIndicator(
+                axisDirection: AxisDirection.down,
+                color: ColorManager.white,
+                child: AnimateIfVisibleWrapper(
+                  showItemInterval: const Duration(milliseconds: 150),
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -126,9 +127,16 @@ class _CategoryPageState extends State<CategoryPage>
                           SizedBox(
                             height: 20.0.h,
                           ),
-                          Container(
-                            color: Colors.white,
-                            child: GridView.count(
+                          BuildCondition(
+                            condition: _categoryController
+                                    .categoryModel
+                                    .value
+                                    ?.data?[_categoryController
+                                        .selectedCategoryItem.value]
+                                    .childCat
+                                    .isNotEmpty ??
+                                false,
+                            builder: (context) => GridView.count(
                               shrinkWrap:
                                   true, //بقولة سيح مع باقي الصفحة كلها كلكو علي بعضوكو كونوا حاجة واحدة
                               physics: const NeverScrollableScrollPhysics(),
@@ -146,15 +154,29 @@ class _CategoryPageState extends State<CategoryPage>
                                         .childCat
                                         .length ??
                                     0,
-                                (index) => buildGridCat(
-                                    themeData,
-                                    _categoryController
-                                        .categoryModel
-                                        .value
-                                        ?.data?[_categoryController
-                                            .selectedCategoryItem.value]
-                                        .childCat[index]),
+                                (index) => AnimateIfVisible(
+                                  key: Key('$index'),
+                                  builder: animationBuilder(
+                                    buildGridCat(
+                                        themeData,
+                                        _categoryController
+                                            .categoryModel
+                                            .value
+                                            ?.data?[_categoryController
+                                                .selectedCategoryItem.value]
+                                            .childCat[index]),
+                                  ),
+                                ),
                               ),
+                            ),
+                            fallback: (context) => Column(
+                              children: [
+                                Lottie.asset(const $AssetsJsonGen().empty),
+                                Text(
+                                  AppStrings.noProducts,
+                                  style: themeData.textTheme.titleMedium,
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -184,7 +206,6 @@ class _CategoryPageState extends State<CategoryPage>
         child: TextButton(
           onPressed: () {
             _categoryController.selectCategoryItem(index);
-            // add it here (m)
           },
           child: Text(
             locale == "ar" ? data.nameEN : data.nameEN,
@@ -202,35 +223,23 @@ class _CategoryPageState extends State<CategoryPage>
       InkWell(
         // onTap: () =>
         //     navigateTo(context, ProductsByCat(categoryModel: categoryModel)),
-        child: BuildCondition(
-          condition: categoryModel != null,
-          builder: (context) => Column(
-            children: [
-              Image(
-                image: NetworkImage(categoryModel!.image),
-                width: double.infinity.w,
-                height: 100.h,
-              ),
-              SizedBox(
-                height: 5.0.h,
-              ),
-              Text(
-                locale == "ar" ? categoryModel.nameAR : categoryModel.nameEN,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: themeData.textTheme.labelSmall,
-              ),
-            ],
-          ),
-          fallback: (context) => Column(
-            children: [
-              Lottie.asset(const $AssetsJsonGen().empty),
-              Text(
-                AppStrings.noCategory,
-                style: themeData.textTheme.labelSmall,
-              )
-            ],
-          ),
+        child: Column(
+          children: [
+            Image(
+              image: NetworkImage(categoryModel!.image),
+              width: double.infinity.w,
+              height: 100.h,
+            ),
+            SizedBox(
+              height: 5.0.h,
+            ),
+            Text(
+              locale == "ar" ? categoryModel.nameAR : categoryModel.nameEN,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: themeData.textTheme.labelSmall,
+            ),
+          ],
         ),
       );
 }
