@@ -108,7 +108,7 @@ class _CategoryPageState extends State<CategoryPage>
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: ScrollConfiguration(
               behavior: const ScrollBehavior(),
               child: GlowingOverscrollIndicator(

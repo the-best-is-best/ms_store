@@ -1,5 +1,6 @@
 import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/data/network/requests/favorites_requests.dart';
+import 'package:ms_store/data/repository/store/repository_impl_add_favorite.dart';
 import 'package:ms_store/data/repository/users_repository/repository_impl_loginBySocial.dart';
 
 import '../../domain/models/home_models/home_data_model.dart';
@@ -76,13 +77,14 @@ class RepositoryImpl extends Repository {
 
   @override
   Future<Either<Failure, CategoryModel>> getCategoryData() {
-    return RepositoryImplCategory.call(_remoteDataSrc, _networkInfo);
+    return RepositoryImplCategory.call(
+        _remoteDataSrc, _networkInfo, _localDataSource);
   }
 
   @override
   Future<Either<Failure, bool>> addProductToFavorite(
       AddFavoriteRequests addFavoriteRequests) {
-    // TODO: implement addProductToFavorite
-    throw UnimplementedError();
+    return RepositoryImplAddFavorite.call(
+        _remoteDataSrc, _networkInfo, addFavoriteRequests);
   }
 }

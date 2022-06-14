@@ -48,6 +48,9 @@ Future<void> initAppModel() async {
   Hive.registerAdapter(DataHomeModelAdapter());
   //category
   Hive.registerAdapter(CategoryModelAdapter());
+  Hive.registerAdapter(CategoryDataModelAdapter());
+  Hive.registerAdapter(CategoryDataWithChildModelAdapter());
+
   Hive.registerAdapter(ProductModelAdapter());
   Hive.registerAdapter(CachedDataAdapter());
 

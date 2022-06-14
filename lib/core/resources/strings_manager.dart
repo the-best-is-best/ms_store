@@ -45,6 +45,9 @@ class AppStrings {
   static String get userNameLength => "username_length_error".tr;
   static String get userName => "full_name_title".tr;
   static String get registerTitle => "register_title".tr;
+  static String get facebookTitle => "facebook_title".tr;
+  static String get googleTitle => "google_title".tr;
+
   static String get accountTitle => 'account_title'.tr;
 
   static String get continueTitle => "continue_title".tr;

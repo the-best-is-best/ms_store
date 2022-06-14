@@ -58,14 +58,14 @@ class HomeController extends GetxController with BaseController {
       Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
     } else {
       flowState.value = LoadingState(
-          stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
+          stateRendererType: StateRendererType.POPUP_LOADING_STATE,
           message: AppStrings.loading);
       var result = await _addFavoriteUseCase
           .execute(AddFavoriteUseCaseInput(userModel.id, productId));
       await waitStateChanged(duration: 1800);
       result.fold((failure) {
         flowState.value = ErrorState(
-            stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,
+            stateRendererType: StateRendererType.POPUP_ERROR_STATE,
             message: failure.messages);
       }, (_) {
         flowState.value = ContentState();

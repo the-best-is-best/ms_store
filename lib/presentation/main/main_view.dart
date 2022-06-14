@@ -48,31 +48,31 @@ class _MainViewState extends State<MainView> {
                 BottomNavigationBarItem(
                     icon: Icon(
                       IconsManger.home,
-                      size: FontSize.s20,
+                      size: FontSize.s24,
                     ),
                     label: AppStrings.homeTitle),
                 BottomNavigationBarItem(
                     icon: Icon(
                       IconsManger.category,
-                      size: FontSize.s20,
+                      size: FontSize.s24,
                     ),
                     label: AppStrings.categoryTitle),
                 BottomNavigationBarItem(
                     icon: Icon(
                       IconsManger.cart,
-                      size: FontSize.s20,
+                      size: FontSize.s24,
                     ),
                     label: AppStrings.cartTitle),
                 BottomNavigationBarItem(
                     icon: Icon(
                       IconsManger.heart,
-                      size: FontSize.s20,
+                      size: FontSize.s24,
                     ),
                     label: AppStrings.favTitle),
                 BottomNavigationBarItem(
                     icon: Icon(
                       IconsManger.settings,
-                      size: FontSize.s20,
+                      size: FontSize.s24,
                     ),
                     label: AppStrings.setting),
               ],

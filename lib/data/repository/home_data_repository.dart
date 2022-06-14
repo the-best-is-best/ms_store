@@ -11,11 +11,11 @@ import '../network/network_info.dart';
 class RepositoryImpGetHomeData {
   static Future<Either<Failure, HomeModel>> call(RemoteDataSrc remoteDataSrc,
       NetworkInfo networkInfo, LocalDataSource _localDataSource) async {
-    try {
-      final response = await _localDataSource.getHomeData();
-      return Right(response);
-    } catch (cacheError) {
-      if (await networkInfo.isConnected) {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await _localDataSource.getHomeData();
+        return Right(response);
+      } catch (cacheError) {
         try {
           var response = await remoteDataSrc.getHomeData();
           if (response.statusCode! >= 200 && response.statusCode! <= 299) {
@@ -32,11 +32,11 @@ class RepositoryImpGetHomeData {
         } catch (error) {
           return Left(ErrorHandler.handle(error).failure);
         }
-      } else {
-        //failure
-        // return either left
-        return Left(DataRes.NO_INTERNET_CONNECTION.getFailure());
       }
+    } else {
+      //failure
+      // return either left
+      return Left(DataRes.NO_INTERNET_CONNECTION.getFailure());
     }
   }
 }

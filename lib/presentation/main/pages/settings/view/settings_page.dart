@@ -1,9 +1,11 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/di.dart';
 import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
+import 'package:ms_store/core/resources/routes_manger.dart';
 import 'package:ms_store/core/resources/strings_manager.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
@@ -82,7 +84,11 @@ class _SettingsPageState extends State<SettingsPage> {
                             fallback: (_) => SizedBox(
                               width: double.infinity,
                               child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    initLoginModel();
+                                    Get.toNamed(Routes.loginRoute,
+                                        arguments: {'canBack': true});
+                                  },
                                   child: Text(
                                     AppStrings.login,
                                     style: themeData.textTheme.labelMedium,

@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
     return ScreenUtilInit(
       minTextAdapt: true,
       splitScreenMode: true,
+      designSize: const Size(480, 960),
       builder: (ctx, child) => GetMaterialApp(
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
