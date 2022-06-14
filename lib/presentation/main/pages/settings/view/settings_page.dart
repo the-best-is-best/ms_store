@@ -4,10 +4,9 @@ import 'package:get/get.dart';
 import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
+import 'package:ms_store/core/resources/strings_manager.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
-
-import '../../../../../app/app_refs.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -44,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: ListView(
                   children: [
                     Text(
-                      "Account",
+                      AppStrings.accountTitle,
                       style: themeData.textTheme.labelLarge,
                     ),
                     const SizedBox(
@@ -85,7 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               child: TextButton(
                                   onPressed: () {},
                                   child: Text(
-                                    'Login',
+                                    AppStrings.login,
                                     style: themeData.textTheme.labelMedium,
                                   )),
                             ),
@@ -111,7 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       height: AppSize.ap30,
                     ),
                     Text(
-                      "About",
+                      AppStrings.aboutTitle,
                       style: themeData.textTheme.labelLarge,
                     ),
                     const SizedBox(
@@ -119,7 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     ListTile(
                       title: Text(
-                        'About Us',
+                        AppStrings.aboutUsTitle,
                         style: themeData.textTheme.labelMedium,
                       ),
                       trailing: Obx(() => Icon(
@@ -132,7 +131,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     ListTile(
                         title: Text(
-                          'Contact Us',
+                          AppStrings.contactUsTitle,
                           style: themeData.textTheme.labelMedium,
                         ),
                         trailing: Obx(() => Icon(
@@ -143,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       height: AppSize.ap30,
                     ),
                     Text(
-                      "Settings",
+                      AppStrings.setting,
                       style: themeData.textTheme.labelLarge,
                     ),
                     const SizedBox(
@@ -168,7 +167,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                             LangType.values[index]);
                                       },
                                 title: Text(
-                                  LangType.values[index].name,
+                                  LangType.values[index].name.tr,
                                   style: LangType.values[index]
                                               .getValue()
                                               .toUpperCase() ==
@@ -184,7 +183,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         }), backgroundColor: ColorManager.white);
                       },
                       title: Text(
-                        'Language',
+                        AppStrings.languageTitle,
                         style: themeData.textTheme.labelMedium,
                       ),
                       trailing: SizedBox(
@@ -194,7 +193,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 Expanded(
                                   child: Text(
                                     _settingsController.language.value
-                                        .toUpperCase(),
+                                        .toUpperCase()
+                                        .tr,
                                     style: themeData.textTheme.labelSmall,
                                   ),
                                 ),

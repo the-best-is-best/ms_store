@@ -57,6 +57,7 @@ class EnLang {
       "password_changed_title": "Password Changed",
       "email_not_found": "Email Not Found",
       "check_your_email_or_password": "Check your email or password",
+      "account_title": "Account",
       "update_profile": "Update Profile",
       "note_let_password":
           "if you don't want change password let the fields empty.",
@@ -67,6 +68,13 @@ class EnLang {
       "cart_nav_bar": "Cart",
       "fav_nav_bar": "WishList",
       "setting_nav_bar": "Settings",
+      "about_title": "About",
+      "about_us_title": "About Us",
+      "contact_Us_title": "Contact Us",
+      "language": "Language",
+      "ENGLISH": "ENGLISH",
+      "ARABIC": "ARABIC",
+      "EN": "EN",
       "Add_to_cart_button": "Add to cart",
     };
   }

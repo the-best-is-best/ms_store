@@ -45,6 +45,8 @@ class AppStrings {
   static String get userNameLength => "username_length_error".tr;
   static String get userName => "full_name_title".tr;
   static String get registerTitle => "register_title".tr;
+  static String get accountTitle => 'account_title'.tr;
+
   static String get continueTitle => "continue_title".tr;
   static String get noProducts => "no_products".tr;
   static String get noCategory => "no_category".tr;
@@ -55,5 +57,11 @@ class AppStrings {
   static String get cartTitle => "cart_nav_bar".tr;
   static String get favTitle => "fav_nav_bar".tr;
   static String get setting => "setting_nav_bar".tr;
+  static String get languageTitle => "language".tr;
+
+  static String get aboutTitle => "about_title".tr;
+  static String get aboutUsTitle => "about_us_title".tr;
+  static String get contactUsTitle => "contact_Us_title".tr;
+
   static String get addToCartButton => "Add_to_cart_button".tr;
 }

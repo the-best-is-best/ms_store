@@ -57,6 +57,7 @@ class ArLang {
       "password_changed_title": "تم تغيير كلمة السر",
       "email_not_found": "الايميل غير متاح",
       "check_your_email_or_password": "تحقق من بريدك الإلكتروني أو كلمة المرور",
+      "account_title": "الملف الشخصي",
       "update_profile": "تحديث الملف الشخصي",
       "note_let_password":
           "إذا كنت لا تريد تغيير كلمة المرور ، اترك الحقول فارغة",
@@ -67,6 +68,13 @@ class ArLang {
       "cart_nav_bar": "السلة",
       "fav_nav_bar": "المفضلة",
       "setting_nav_bar": "الاعدادات",
+      "about_title": "حول",
+      "about_us_title": "معلومات عنا",
+      "contact_Us_title": "اتصل بنا",
+      "language": "اللغة",
+      "ENGLISH": "الانجليزية",
+      "ARABIC": "العربية",
+      "AR": "AR",
       "Add_to_cart_button": "اضف الي السلة",
     };
   }
