@@ -60,7 +60,7 @@ if (empty($row)) {
 
     $userName = trim($jsonData->userName);
     $email = trim($jsonData->email);
-    require_once '../controller/generate_password.php';
+    require_once '../controller/generate_key.php';
 
     $password = trim(randomKey());
 
