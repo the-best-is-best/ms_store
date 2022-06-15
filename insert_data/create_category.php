@@ -1,6 +1,7 @@
 <?php
 require_once('../controller/db.php');
 require_once('../models/response.php');
+require_once '../controller/generate_key.php';
 
 try {
     $writeDB = DB::connectionDB();
@@ -87,26 +88,40 @@ $nameEN = trim($jsonData->nameEN);
 $nameAR = trim($jsonData->nameAR);
 
 $parent = trim($jsonData->parent ?? 0);
-if($parent !=0){
-    if(!isset($jsonData->image)){
+if ($parent != 0) {
+    if (!isset($jsonData->image)) {
         $response = new Response();
         $response->setHttpStatusCode(400);
         $response->setSuccess(false);
-    
+
         (!isset($jsonData->image) ?  $response->addMessage("image not supplied") : false);
-    
+
         $response->send();
         exit;
     }
-}else{
-    $jsonData->image="";
+} else {
+    $jsonData->image = "";
 }
 $image =  $jsonData->image;
+
+try {
+
+    $json['cacheKeyServer'] =  randomKey();
+
+    file_put_contents('../cache/cache.json', json_encode($json));
+} catch (Exception $ex) {
+    $response = new Response();
+    $response->setHttpStatusCode(500);
+    $response->setSuccess(false);
+    $response->addMessage('File save error' . $ex);
+    $response->send();
+    exit;
+}
 try {
     $query = $writeDB->prepare("SELECT nameEN FROM category_" . DB::$AppName . " WHERE nameEN= :nameEN");
     $query->bindParam(':nameEN', $nameEN, PDO::PARAM_STR);
 
-   $query->execute();
+    $query->execute();
     $rowCount = $query->rowCount();
     if ($rowCount !== 0) {
         $response = new Response();
@@ -119,7 +134,7 @@ try {
 
 
     $query = $writeDB->prepare("INSERT into category_" . DB::$AppName .  " (nameEN , nameAR , parent , image  )
-                                VALUES (:nameEN , :nameAR , :parent , :image )"); 
+                                VALUES (:nameEN , :nameAR , :parent , :image )");
 
     $query->bindParam(':nameEN', $nameEN, PDO::PARAM_STR);
     $query->bindParam(':nameAR', $nameAR, PDO::PARAM_STR);
@@ -143,7 +158,7 @@ try {
     $response = new Response();
     $response->setHttpStatusCode(200);
     $response->setSuccess(true);
-    $response->setData(["id"=> $writeDB->lastInsertId()]);
+    $response->setData(["id" => $writeDB->lastInsertId()]);
     $response->addMessage('Category Created');
     $response->send();
     exit;

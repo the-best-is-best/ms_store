@@ -1,6 +1,7 @@
 <?php
 require_once('../controller/db.php');
 require_once('../models/response.php');
+require_once '../controller/generate_key.php';
 
 try {
     $writeDB = DB::connectionDB();
@@ -108,7 +109,7 @@ if ($price_after_dis > $jsonData->price) {
     $response = new Response();
     $response->setHttpStatusCode(500);
     $response->setSuccess(false);
-    $response->addMessage('How price after descount > original price');
+    $response->addMessage('How price after discount > original price');
     $response->send();
     exit;
 }
@@ -123,7 +124,21 @@ $price = trim($jsonData->price);
 $price_after_dis = trim($price_after_dis);
 $categoryId = trim($jsonData->categoryId);
 $sale = $jsonData->sale ?? 0;
-$offers =$jsonData->offers ?? 0;
+$offers = $jsonData->offers ?? 0;
+
+try {
+
+    $json['cacheKeyServer'] =  randomKey();
+
+    file_put_contents('../cache/cache.json', json_encode($json));
+} catch (Exception $ex) {
+    $response = new Response();
+    $response->setHttpStatusCode(500);
+    $response->setSuccess(false);
+    $response->addMessage('File save error' . $ex);
+    $response->send();
+    exit;
+}
 try {
     $query = $writeDB->prepare("INSERT into products_" . DB::$AppName .  " (nameEN , nameAR , image 
     , descriptionEN , descriptionAR , price , price_after_dis , categoryId , offers , sale )
@@ -140,7 +155,7 @@ VALUES (:nameEN , :nameAR , :image , :descriptionEN , :descriptionAR,  :price , 
     $query->bindParam(':price', $price, PDO::PARAM_STR);
     $query->bindParam(':price_after_dis', $price_after_dis, PDO::PARAM_STR);
     $query->bindParam(':categoryId', $categoryId, PDO::PARAM_STR);
-    
+
     $query->bindParam(':offers', $offers, PDO::PARAM_STR);
 
     $query->bindParam(':sale', $sale, PDO::PARAM_STR);

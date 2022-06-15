@@ -62,7 +62,7 @@ if (empty($row)) {
     $email = trim($jsonData->email);
     require_once '../controller/generate_password.php';
 
-    $password = trim(randomPassword());
+    $password = trim(randomKey());
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
     $email_active = 1;

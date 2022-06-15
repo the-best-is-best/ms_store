@@ -1,6 +1,7 @@
 <?php
 require_once('../controller/db.php');
 require_once('../models/response.php');
+require_once '../controller/generate_key.php';
 
 try {
     $writeDB = DB::connectionDB();
@@ -83,7 +84,7 @@ if (
     exit;
 }
 
-if (is_null($jsonData->open_category_id ) && is_null($jsonData->open_product_id)) {
+if (is_null($jsonData->open_category_id) && is_null($jsonData->open_product_id)) {
     $response = new Response();
     $response->setHttpStatusCode(400);
     $response->setSuccess(false);
@@ -106,7 +107,19 @@ $open_category_id = $jsonData->open_category_id != null ? trim($jsonData->open_c
 $open_product_id  = $jsonData->open_product_id != null ? trim($jsonData->open_product_id) : null;
 
 
+try {
 
+    $json['cacheKeyServer'] =  randomKey();
+
+    file_put_contents('../cache/cache.json', json_encode($json));
+} catch (Exception $ex) {
+    $response = new Response();
+    $response->setHttpStatusCode(500);
+    $response->setSuccess(false);
+    $response->addMessage('File save error' . $ex);
+    $response->send();
+    exit;
+}
 try {
     $query = $writeDB->prepare("INSERT into slider_" . DB::$AppName .  " (imageEN , imageAR , open_category_id 
     , open_product_id )
@@ -135,7 +148,7 @@ VALUES (:imageEN , :imageAR , :open_category_id , :open_product_id )");
     $response->setHttpStatusCode(200);
     $response->setSuccess(true);
     $response->addMessage('Slider Created');
-    $response->setData(["id"=> $writeDB->lastInsertId()]);
+    $response->setData(["id" => $writeDB->lastInsertId()]);
     $response->send();
     exit;
 } catch (PDOException $ex) {
