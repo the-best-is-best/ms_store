@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/gen/assets.gen.dart';
+import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 import '../../../../../app/components.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
@@ -34,11 +35,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   String locale = Get.locale!.languageCode;
 
   late final HomeController _homeController;
+  late final FavController _favController;
+
   @override
   void initState() {
     _homeController = Get.find();
     _homeController.getHomeData();
-
+    _favController = Get.find();
     WidgetsBinding.instance.addObserver(this);
 
     super.initState();
@@ -152,7 +155,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               child: addToCartButton(productModel.id),
             ),
             addToFavoriteButton(
-                () => _homeController.addToFavorite(productModel.id)),
+                () => _homeController.addToFavoriteEvent(productModel.id),
+                productModel.id),
             //  displaySaleText(dataModel),
           ],
         ),
@@ -233,8 +237,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         child: ClipRRect(
                           borderRadius:
                               BorderRadius.circular(AppSpacing.ap12.r),
-                          child: Image.network(
-                            locale == "en" ? slider.imageEN : slider.imageAR,
+                          child: CachedNetworkImage(
+                            progressIndicatorBuilder:
+                                (context, url, downloadProgress) => Center(
+                              child: CircularProgressIndicator(
+                                  color: ColorManager.primaryColor,
+                                  value: downloadProgress.progress),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.error),
+                            imageUrl: locale == "en"
+                                ? slider.imageEN
+                                : slider.imageAR,
                             fit: BoxFit.contain,
                           ),
                         ),

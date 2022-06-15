@@ -1,25 +1,34 @@
 import 'package:dartz/dartz.dart';
-import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
+import 'package:ms_store/data/mapper/store/favorite_response_mapper.dart';
+import 'package:ms_store/domain/models/store/favorite_model.dart';
 
+import '../../data_src/local_data_source.dart';
 import '../../data_src/remote_data_src.dart';
 import '../../network/error_handler.dart';
 import '../../network/failure.dart';
 import '../../network/network_info.dart';
 import '../../network/requests/favorites_requests.dart';
 
-class RepositoryImplAddFavorite {
-  static Future<Either<Failure, bool>> call(RemoteDataSrc remoteDataSrc,
-      NetworkInfo networkInfo, AddFavoriteRequests addFavoriteRequests) async {
+class RepositoryImplGetFavorite {
+  static Future<Either<Failure, FavoriteModel>> call(
+      RemoteDataSrc remoteDataSrc,
+      NetworkInfo networkInfo,
+      LocalDataSource _localDataSource,
+      GetFavoriteRequests getFavoriteRequests) async {
     if (await networkInfo.isConnected) {
+      // try {
+      //   final response = await _localDataSource.getFavoriteData();
+      //   return Right(response);
+      // } catch (cacheError) {
       try {
-        FavoriteAddResponse response =
-            await remoteDataSrc.favoriteAdd(addFavoriteRequests);
-
+        var response = await remoteDataSrc
+            .getFavorite(GetFavoriteRequests(getFavoriteRequests.userId));
         if (response.statusCode! >= 200 && response.statusCode! <= 299) {
           //success
           // return either right
           // return data
-          return const Right(true);
+          _localDataSource.saveFavoriteDataCache(response.toDomain());
+          return Right(response.toDomain());
         } else {
           //failure
           // return either left
@@ -28,6 +37,7 @@ class RepositoryImplAddFavorite {
       } catch (error) {
         return Left(ErrorHandler.handle(error).failure);
       }
+      //}
     } else {
       //failure
       // return either left

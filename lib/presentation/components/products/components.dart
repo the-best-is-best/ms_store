@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ms_store/app/app_refs.dart';
-import 'package:ms_store/presentation/main/pages/home/view_model/home_controller.dart';
+import 'package:get/get.dart';
+import 'package:ms_store/core/resources/color_manager.dart';
+import 'package:ms_store/core/resources/icons_manger.dart';
 
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/util/get_device_type.dart';
+import '../../../domain/models/store/favorite_model.dart';
+import '../../main/pages/fav/view_model/fav_controller.dart';
 
 Widget addToCartButton(int productId) {
   return SizedBox(
@@ -15,7 +18,12 @@ Widget addToCartButton(int productId) {
   );
 }
 
-Widget addToFavoriteButton(Function() onPressed) {
+Widget addToFavoriteButton(Function fun, int productId) {
+  FavController favController = Get.find();
+  print(favController.favoriteModel[productId] != null);
+  bool inFav = favController.favoriteModel[productId] != null &&
+      favController.favoriteModel[productId]!.status;
+  print("productId: $productId - fav $inFav");
   return Positioned(
     top: 20,
     right: 20,
@@ -23,13 +31,12 @@ Widget addToFavoriteButton(Function() onPressed) {
       radius: Device.get().isTablet ? 40 : 27,
       backgroundColor: Colors.grey[400],
       child: IconButton(
-        onPressed: onPressed,
+        onPressed: () {
+          fun();
+        },
         icon: Icon(
-          //  inFav == 1
-          //   ? Icons.favorite_sharp
-          Icons.favorite_border_outlined,
-          // color: inFav == 1 ? Colors.red : Colors.white,
-          color: Colors.white,
+          inFav ? IconsManger.addedToFavorite : IconsManger.addToFavorite,
+          color: inFav ? ColorManager.error : Colors.white,
           size: Device.get().isTablet ? 40 : 33.0,
         ),
       ),

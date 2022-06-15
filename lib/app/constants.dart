@@ -8,6 +8,8 @@ class Constants {
   static const String baseUrl =
       "http://192.168.1.6/tbib_store_2022/large_store";
 
+  static const String cacheUrl = '/cache/get_cache.php';
+
   static const String loginUrl = '/get_data/get_users.php';
   static const String loginBySocialUrl =
       '/users_controller/login_by_social_media.php';
@@ -23,4 +25,5 @@ class Constants {
 
   static const String productByCatUrl = '/get_data/get_products_by_cat.php';
   static const String addToFavorite = '/update_data/update_favorite.php';
+  static const String getFavorite = '/get_data/get_favorite.php';
 }

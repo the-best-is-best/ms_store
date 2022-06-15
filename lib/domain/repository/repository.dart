@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:ms_store/domain/models/cache/cache_data.dart';
+import 'package:ms_store/domain/models/store/favorite_model.dart';
 
 import '../../data/network/failure.dart';
 import '../../data/network/requests/favorites_requests.dart';
@@ -8,6 +10,8 @@ import '../models/store/category_model.dart';
 import '../models/users_model.dart';
 
 abstract class Repository {
+  Future<Either<Failure, CheckCachedDataServer>> cache();
+
   Future<Either<Failure, UserModel>> login(LoginRequests loginRequests);
   Future<Either<Failure, UserModel>> loginBySocial(
       LoginBySocialRequests loginRequests);
@@ -22,4 +26,6 @@ abstract class Repository {
   Future<Either<Failure, CategoryModel>> getCategoryData();
   Future<Either<Failure, bool>> addProductToFavorite(
       AddFavoriteRequests addFavoriteRequests);
+  Future<Either<Failure, FavoriteModel>> getProductToFavorite(
+      GetFavoriteRequests getFavoriteRequests);
 }

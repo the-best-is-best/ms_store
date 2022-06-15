@@ -7,3 +7,11 @@ class AddFavoriteRequests {
     required this.productId,
   });
 }
+
+class GetFavoriteRequests {
+  final int userId;
+
+  GetFavoriteRequests(
+    this.userId,
+  );
+}

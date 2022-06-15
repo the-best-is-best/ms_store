@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../common/freezed/freezed_data.dart';
 import '../../../core/resources/strings_manager.dart';
 
-abstract class BaseUserController {
+mixin BaseUserController {
   void setEmailEvent(String email) {
     userDataObject.value = userDataObject.value.copyWith(email: email);
     alertEmailValid.value = isEmailValidEvent(email);

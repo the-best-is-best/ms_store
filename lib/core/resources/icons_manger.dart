@@ -17,7 +17,9 @@ class IconsManger {
   static const IconData settings = FeatherIcons.settings;
   static const IconData album = FeatherIcons.image;
 
-  static const IconData addedToFavorite = CommunityMaterialIcons.star_box;
+  static const IconData addedToFavorite = Icons.favorite_sharp;
+  static const IconData addToFavorite = Icons.favorite_border_outlined;
+
   static const IconData brightness = CommunityMaterialIcons.brightness_4;
   static const IconData arrowRightOutline =
       CommunityMaterialIcons.arrow_right_bold_outline;

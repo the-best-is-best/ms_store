@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/di.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import '../on_boarding/view/on_boarding_view.dart';
 import 'controller/splash_controller.dart';
@@ -15,13 +16,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final SplashController _splashController = Get.put(SplashController());
+  final SplashController _splashController =
+      Get.put(SplashController(instance()));
   @override
   Widget build(BuildContext context) {
     return Obx((() => SplashScreenView(
           navigateWhere: _splashController.loaded.value,
           backgroundColor: ColorManager.primaryColor,
           imageSrc: const $AssetsImagesGen().logoInLight.keyName,
+          duration: const Duration(milliseconds: 750),
           text: WavyAnimatedText(
             "M Store",
             textStyle: TextStyle(

@@ -18,6 +18,22 @@ class _AppServicesClient implements AppServicesClient {
   String? baseUrl;
 
   @override
+  Future<CacheServerResponse> cache() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CacheServerResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/cache/get_cache.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CacheServerResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<UsersResponse> login(email, password) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -173,6 +189,22 @@ class _AppServicesClient implements AppServicesClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = FavoriteAddResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<FavoriteGetResponse> getFavorite(userId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'userId': userId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FavoriteGetResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/get_data/get_favorite.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = FavoriteGetResponse.fromJson(_result.data!);
     return value;
   }
 

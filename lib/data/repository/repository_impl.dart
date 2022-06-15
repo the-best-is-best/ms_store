@@ -1,11 +1,14 @@
 import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/data/network/requests/favorites_requests.dart';
 import 'package:ms_store/data/repository/store/repository_impl_add_favorite.dart';
+import 'package:ms_store/data/repository/store/repository_impl_get_favorite.dart';
 import 'package:ms_store/data/repository/users_repository/repository_impl_loginBySocial.dart';
+import 'package:ms_store/domain/models/cache/cache_data.dart';
+import 'package:ms_store/domain/models/store/favorite_model.dart';
 
 import '../../domain/models/home_models/home_data_model.dart';
 import '../../domain/models/store/category_model.dart';
-import '../responses/store_responses/categories_responses.dart';
+import 'cache/repository_impl_cache_data_server.dart';
 import 'home_data_repository.dart';
 import 'store/repository_impl_category.dart';
 import 'users_repository/repository_impl_active_email.dart';
@@ -29,6 +32,11 @@ class RepositoryImpl extends Repository {
   final LocalDataSource _localDataSource;
 
   RepositoryImpl(this._remoteDataSrc, this._networkInfo, this._localDataSource);
+  @override
+  Future<Either<Failure, CheckCachedDataServer>> cache() {
+    return RepositoryImplCacheDataServer.call(_remoteDataSrc, _networkInfo);
+  }
+
   @override
   Future<Either<Failure, bool>> register(RegisterRequests registerRequests) {
     return RepositoryImplRegister.call(
@@ -86,5 +94,12 @@ class RepositoryImpl extends Repository {
       AddFavoriteRequests addFavoriteRequests) {
     return RepositoryImplAddFavorite.call(
         _remoteDataSrc, _networkInfo, addFavoriteRequests);
+  }
+
+  @override
+  Future<Either<Failure, FavoriteModel>> getProductToFavorite(
+      GetFavoriteRequests getFavoriteRequests) {
+    return RepositoryImplGetFavorite.call(
+        _remoteDataSrc, _networkInfo, _localDataSource, getFavoriteRequests);
   }
 }

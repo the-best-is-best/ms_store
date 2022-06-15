@@ -1,6 +1,7 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/app_refs.dart';
 import 'package:ms_store/app/di.dart';
 import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
@@ -8,6 +9,7 @@ import 'package:ms_store/core/resources/icons_manger.dart';
 import 'package:ms_store/core/resources/routes_manger.dart';
 import 'package:ms_store/core/resources/strings_manager.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
+import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -19,10 +21,13 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   late final SettingsController _settingsController;
+  late final UserDataController _userDataController;
+
   @override
   void initState() {
-    _settingsController = SettingsController();
-    _settingsController.loadData();
+    _settingsController = Get.find();
+    _userDataController = Get.find();
+    print(_userDataController.userModel);
     super.initState();
   }
 
@@ -52,10 +57,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       height: AppSize.ap12,
                     ),
                     ListTile(
+                        onTap: () {
+                          AppPrefs().clearUserData();
+                          _userDataController.userModel.value = null;
+                        },
                         title: Obx(
                           () => BuildCondition(
                             condition:
-                                _settingsController.userModel.value != null,
+                                _userDataController.userModel.value != null,
                             builder: (context) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     height: AppSize.ap12,
                                   ),
                                   Text(
-                                    _settingsController
+                                    _userDataController
                                         .userModel.value!.userName,
                                     style: themeData.textTheme.labelMedium,
                                   ),
@@ -72,7 +81,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     height: AppSize.ap12,
                                   ),
                                   Text(
-                                    _settingsController.userModel.value!.email,
+                                    _userDataController.userModel.value!.email,
                                     style: themeData.textTheme.labelSmall,
                                   ),
                                   const SizedBox(
@@ -99,7 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         trailing: Obx(
                           () => BuildCondition(
                               condition:
-                                  _settingsController.userModel.value != null,
+                                  _userDataController.userModel.value != null,
                               builder: (context) {
                                 return Padding(
                                   padding:

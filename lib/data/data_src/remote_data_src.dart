@@ -1,5 +1,7 @@
 import 'package:ms_store/data/network/requests/favorites_requests.dart';
-import 'package:ms_store/data/responses/store_responses/favorite_add_response.dart';
+import 'package:ms_store/data/responses/cache/cache_server_response.dart';
+import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
+import 'package:ms_store/domain/models/cache/cache_data.dart';
 
 import '../network/app_api.dart';
 import '../network/requests/users_requests.dart';
@@ -11,6 +13,8 @@ import '../responses/users_response/responses_reset_password.dart';
 import '../responses/users_response/responses_users.dart';
 
 abstract class RemoteDataSrc {
+  Future<CacheServerResponse> getCache();
+
   Future<UsersResponse> login(LoginRequests loginRequests);
   Future<UsersResponse> loginBySocial(LoginBySocialRequests loginRequests);
   Future<RegisterResponse> register(RegisterRequests registerRequests);
@@ -23,11 +27,17 @@ abstract class RemoteDataSrc {
   Future<CategoriesResponse> getCategoryData();
   Future<FavoriteAddResponse> favoriteAdd(
       AddFavoriteRequests addFavoriteRequests);
+  Future<FavoriteGetResponse> getFavorite(
+      GetFavoriteRequests getFavoriteRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
   final AppServicesClient _appServicesClient;
   RemoteDataSrcImpl(this._appServicesClient);
+  @override
+  Future<CacheServerResponse> getCache() async {
+    return await _appServicesClient.cache();
+  }
 
   @override
   Future<UsersResponse> login(LoginRequests loginRequests) async {
@@ -92,5 +102,11 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
       AddFavoriteRequests addFavoriteRequests) async {
     return await _appServicesClient.addToFavorite(
         addFavoriteRequests.userId, addFavoriteRequests.productId);
+  }
+
+  @override
+  Future<FavoriteGetResponse> getFavorite(
+      GetFavoriteRequests getFavoriteRequests) async {
+    return await _appServicesClient.getFavorite(getFavoriteRequests.userId);
   }
 }

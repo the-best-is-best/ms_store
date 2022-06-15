@@ -1,4 +1,5 @@
 import 'package:buildcondition/buildcondition.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -224,10 +225,16 @@ class _CategoryPageState extends State<CategoryPage>
         //     navigateTo(context, ProductsByCat(categoryModel: categoryModel)),
         child: Column(
           children: [
-            Image(
-              image: NetworkImage(categoryModel!.image),
-              width: double.infinity.w,
-              height: 100.h,
+            CachedNetworkImage(
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  Center(
+                child: CircularProgressIndicator(
+                    color: ColorManager.primaryColor,
+                    value: downloadProgress.progress),
+              ),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              imageUrl: categoryModel!.image,
+              fit: BoxFit.contain,
             ),
             SizedBox(
               height: 5.0.h,

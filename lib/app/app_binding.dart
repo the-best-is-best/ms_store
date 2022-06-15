@@ -1,5 +1,8 @@
 import 'package:get/instance_manager.dart';
+import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
+import 'package:ms_store/presentation/common/freezed/freezed_data.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
+import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 import '../presentation/main/pages/home/view_model/home_controller.dart';
 import '../presentation/main/controller/main_view_controller.dart';
@@ -18,6 +21,7 @@ class AppBinding implements Bindings {
     getOnBoardingController();
     //login
     getLoginController();
+    getUserDataController();
     // register
     getRegisterController();
     // active email
@@ -35,6 +39,9 @@ class AppBinding implements Bindings {
     // category
     getCategoryViewController();
 
+    // fav
+    getFavoriteViewController();
+
     // setting
     getSettingViewController();
   }
@@ -45,6 +52,10 @@ class AppBinding implements Bindings {
 
   void getLoginController() {
     Get.lazyPut(() => LoginViewModel(instance(), instance()), fenix: true);
+  }
+
+  void getUserDataController() {
+    Get.lazyPut(() => UserDataController(), fenix: true);
   }
 
   void getRegisterController() {
@@ -73,6 +84,10 @@ class AppBinding implements Bindings {
 
   void getCategoryViewController() {
     Get.lazyPut(() => CategoryController(instance()));
+  }
+
+  void getFavoriteViewController() {
+    Get.lazyPut(() => FavController(instance(), instance()));
   }
 
   void getSettingViewController() {

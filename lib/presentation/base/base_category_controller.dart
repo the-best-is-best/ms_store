@@ -1,1 +1,1 @@
-abstract class BaseCategoryController {}
+// abstract class BaseCategoryController {}

@@ -4,6 +4,8 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
+import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
+import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
 
 import '../../../app/app_refs.dart';
@@ -70,7 +72,12 @@ class LoginViewModel extends GetxController
       flowState.value = ContentState();
       initHomeModel();
       await AppPrefs().updateUserData(data);
+
       SchedulerBinding.instance.addPostFrameCallback((_) {
+        UserDataController userDataController = Get.find();
+        userDataController.loadData(data);
+        FavController favController = Get.find();
+        favController.getFavorite();
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
     });
@@ -143,7 +150,11 @@ class LoginViewModel extends GetxController
 
       initHomeModel();
       await AppPrefs().updateUserData(data);
-      SchedulerBinding.instance.addPostFrameCallback((_) {
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
+        UserDataController userDataController = Get.find();
+        userDataController.loadData(data);
+        FavController favController = Get.find();
+        await favController.getFavorite();
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
     });
@@ -197,6 +208,10 @@ class LoginViewModel extends GetxController
           initHomeModel();
           await AppPrefs().updateUserData(data);
           SchedulerBinding.instance.addPostFrameCallback((_) {
+            UserDataController userDataController = Get.find();
+            userDataController.loadData(data);
+            FavController favController = Get.find();
+            favController.getFavorite();
             Get.offNamedUntil(Routes.homeRoute, (route) => false);
           });
         });

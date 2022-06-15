@@ -9,3 +9,13 @@ class CachedData {
   final int cacheTime;
   CachedData(this.data, this.cacheTime);
 }
+
+class CheckCachedDataServer {
+  final CheckCachedServer data;
+  CheckCachedDataServer(this.data);
+}
+
+class CheckCachedServer {
+  final String cacheKeyServer;
+  CheckCachedServer(this.cacheKeyServer);
+}
