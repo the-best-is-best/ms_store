@@ -6,8 +6,7 @@ class CachedData {
   @HiveField(0)
   final dynamic data;
   @HiveField(1)
-  final int cacheTime;
-  CachedData(this.data, this.cacheTime);
+  CachedData(this.data);
 }
 
 class CheckCachedDataServer {

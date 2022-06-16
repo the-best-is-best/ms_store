@@ -9,9 +9,7 @@ import '../../domain/models/home_models/home_data_model.dart';
 
 const String CACHE_HOME_KEY = "CACHE_HOME";
 const String CACHE_CATEGORY_KEY = "CACHE_CATEGORY";
-const String CACHE_Favorite_KEY = "CACHE_CATEGORY";
-
-const int CACHE_INTERVAL = 60 * 1000 * 60 * 24 * 7;
+const String CACHE_Favorite_KEY = "CACHE_FAVORITE";
 
 abstract class LocalDataSource {
   Future<HomeModel> getHomeData();
@@ -29,7 +27,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<HomeModel> getHomeData() async {
     CachedData? cachedData = await AppPrefs().getCacheData(CACHE_HOME_KEY);
-    if (cachedData != null && cachedData.isValid(CACHE_INTERVAL)) {
+    if (cachedData != null) {
       return (cachedData.data) as HomeModel;
     } else {
       throw ErrorHandler.handle(DataRes.CACHE_ERROR);
@@ -38,8 +36,7 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<void> saveHomeDataCache(HomeModel homeModel) async {
-    await AppPrefs().updateCacheData<CachedData>(CACHE_HOME_KEY,
-        CachedData(homeModel, DateTime.now().millisecondsSinceEpoch));
+    await AppPrefs().saveCacheData(CACHE_HOME_KEY, CachedData(homeModel));
   }
 
   @override
@@ -50,7 +47,7 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<CategoryModel> getCategoryData() async {
     CachedData? cachedData = await AppPrefs().getCacheData(CACHE_CATEGORY_KEY);
-    if (cachedData != null && cachedData.isValid(CACHE_INTERVAL)) {
+    if (cachedData != null) {
       return (cachedData.data) as CategoryModel;
     } else {
       throw ErrorHandler.handle(DataRes.CACHE_ERROR);
@@ -59,20 +56,20 @@ class LocalDataSourceImpl implements LocalDataSource {
 
   @override
   Future<void> saveCategoryDataCache(CategoryModel categoryModel) async {
-    await AppPrefs().updateCacheData<CachedData>(CACHE_CATEGORY_KEY,
-        CachedData(categoryModel, DateTime.now().millisecondsSinceEpoch));
+    await AppPrefs()
+        .saveCacheData(CACHE_CATEGORY_KEY, CachedData(categoryModel));
   }
 
   @override
   Future<void> saveFavoriteDataCache(FavoriteModel favoriteModel) async {
-    await AppPrefs().updateCacheData<CachedData>(CACHE_Favorite_KEY,
-        CachedData(favoriteModel, DateTime.now().millisecondsSinceEpoch));
+    await AppPrefs()
+        .saveCacheData(CACHE_Favorite_KEY, CachedData(favoriteModel));
   }
 
   @override
   Future<FavoriteModel> getFavoriteData() async {
     CachedData? cachedData = await AppPrefs().getCacheData(CACHE_Favorite_KEY);
-    if (cachedData != null && cachedData.isValid(CACHE_INTERVAL)) {
+    if (cachedData != null) {
       return (cachedData.data) as FavoriteModel;
     } else {
       throw ErrorHandler.handle(DataRes.CACHE_ERROR);

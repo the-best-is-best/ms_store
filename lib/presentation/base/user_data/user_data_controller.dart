@@ -6,11 +6,10 @@ import '../../../domain/models/users_model.dart';
 
 class UserDataController extends GetxController {
   Rx<UserModel?> userModel = Rx<UserModel?>(null);
-  @override
-  void onInit() async {
+
+  Future getUserData() async {
     userModel.value = await AppPrefs().getUserData();
     FavController favController = Get.find();
     await favController.getFavorite();
-    super.onInit();
   }
 }

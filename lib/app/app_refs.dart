@@ -62,7 +62,7 @@ class AppPrefs with OnBoardingAppPrefs, SettingsAppPrefs, UserAppPrefs {
 
   Future<void> clearCacheData() async => await _cacheDataLocalBox.clear();
 //home
-  Future<void> updateCacheData<T>(String key, T data) async =>
+  Future<void> saveCacheData(String key, CachedData data) async =>
       await _cacheDataLocalBox.put(key, data);
 
   Future<void> clearByKeyCacheData(String key) async =>

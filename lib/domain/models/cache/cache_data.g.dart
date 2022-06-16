@@ -18,18 +18,15 @@ class CachedDataAdapter extends TypeAdapter<CachedData> {
     };
     return CachedData(
       fields[0] as dynamic,
-      fields[1] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, CachedData obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.data)
       ..writeByte(1)
-      ..write(obj.cacheTime);
+      ..writeByte(0)
+      ..write(obj.data);
   }
 
   @override

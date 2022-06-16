@@ -57,13 +57,6 @@ extension LangTypeExtension on LangType {
   }
 }
 
-extension CacheDataExtension on CachedData {
-  bool isValid(int expirationTimeMilliSecand) {
-    int currentTimeMilliSecand = DateTime.now().millisecondsSinceEpoch;
-    return currentTimeMilliSecand - cacheTime < expirationTimeMilliSecand;
-  }
-}
-
 extension ExtensionGetThemeData on BuildContext {
   double get getHeight => MediaQuery.of(this).size.height;
   double get getWidth => MediaQuery.of(this).size.width;

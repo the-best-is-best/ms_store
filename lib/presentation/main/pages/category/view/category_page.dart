@@ -141,8 +141,7 @@ class _CategoryPageState extends State<CategoryPage>
                                     .isNotEmpty ??
                                 false,
                             builder: (context) => GridView.builder(
-                              shrinkWrap:
-                                  true, //بقولة سيح مع باقي الصفحة كلها كلكو علي بعضوكو كونوا حاجة واحدة
+                              shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: _categoryController
                                       .categoryModel
@@ -154,11 +153,10 @@ class _CategoryPageState extends State<CategoryPage>
                                   0,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount:
-                                    3, //الشبكة علي شكل مربعين جنب بعض كل ما هتزود كل ما عدد المربعات هتزيد
+                                crossAxisCount: 3,
                                 mainAxisSpacing: 10.0,
                                 crossAxisSpacing: 10.0,
-                                childAspectRatio: 1 / 2, //   العرض/الطول
+                                childAspectRatio: 1 / 2,
                               ),
                               itemBuilder: (context, index) => buildGridCat(
                                   themeData,
@@ -234,6 +232,7 @@ class _CategoryPageState extends State<CategoryPage>
               ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
               imageUrl: categoryModel!.image,
+              height: 100,
               fit: BoxFit.contain,
             ),
             SizedBox(

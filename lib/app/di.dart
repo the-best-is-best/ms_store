@@ -50,7 +50,8 @@ Future<void> initAppModel() async {
 //
   instance.registerLazySingleton<RemoteDataSrc>(
       () => RemoteDataSrcImpl(instance()));
-  instance.registerFactory<CacheUserCase>(() => CacheUserCase(instance()));
+  instance
+      .registerLazySingleton<CacheUserCase>(() => CacheUserCase(instance()));
 }
 
 void initLoginModel() {

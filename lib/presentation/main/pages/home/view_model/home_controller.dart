@@ -6,9 +6,9 @@ import 'package:ms_store/presentation/main/pages/category/view_model/category_vi
 
 import '../../../../../app/components.dart';
 import '../../../../../domain/models/home_models/home_data_model.dart';
-import '../../../../../domain/models/store/favorite_model.dart';
 import '../../../../../domain/use_case/home_use_case.dart';
 import '../../../../../domain/use_case/store/add_favorite_use_case.dart';
+import '../../../../base/user_data/user_data_controller.dart';
 import '../../../../common/state_renderer/state_renderer.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 import '../../../../../core/resources/strings_manager.dart';
@@ -30,7 +30,8 @@ class HomeController extends GetxController
         message: AppStrings.loading);
     var resultHome = await _homeUseCase.execute(null);
     await waitStateChanged(duration: 1800);
-
+    UserDataController userDataController = Get.find();
+    userDataController.getUserData();
     resultHome.fold((failure) {
       flowState.value = ErrorState(
           stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,
