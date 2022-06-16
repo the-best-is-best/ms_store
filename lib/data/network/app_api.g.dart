@@ -10,7 +10,7 @@ part of 'app_api.dart';
 
 class _AppServicesClient implements AppServicesClient {
   _AppServicesClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://192.168.1.6/tbib_store_2022/large_store';
+    baseUrl ??= 'http://192.168.1.5/tbib_store_2022/large_store';
   }
 
   final Dio _dio;

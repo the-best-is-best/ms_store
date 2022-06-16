@@ -61,7 +61,6 @@ dependencies:
   json_serializable: ^6.2.0
   lottie: ^1.3.0
   page_transition: ^2.0.5
-  path_provider: ^2.0.11
   phone_form_field: ^6.1.0
   pin_code_fields: ^7.4.0
   pretty_dio_logger: ^1.2.0-beta-1
@@ -137,7 +136,7 @@ flutter:
         #   style: italic
         - asset: assets/fonts/SF-Pro-Display-Bold.ttf
           weight: 700
-        # - asset: assets/fonts/SF-Pro-Display-SemiboldItalic.ttf
+        # - asset: assets/fonts/SF-Pro-Display-SemiBoldItalic.ttf
         #   weight: 600
         #   style: italic
         - asset: assets/fonts/SF-Pro-Display-Semibold.ttf

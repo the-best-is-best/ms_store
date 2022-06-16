@@ -35,7 +35,7 @@ class Device {
         height = size.height;
         screenWidth = width / devicePixelRatio;
         screenHeight = height / devicePixelRatio;
-        screenSize = new ui.Size(screenWidth, screenHeight);
+        screenSize = ui.Size(screenWidth, screenHeight);
 
         onMetricsChange!();
       };

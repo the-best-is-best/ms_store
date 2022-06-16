@@ -6,8 +6,8 @@ import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/base_favorite_controller.dart';
 
 import '../../../../../app/app_refs.dart';
-import '../../../../../app/components.dart';
 import '../../../../../core/resources/strings_manager.dart';
+import '../../../../../data/data_src/local_data_source.dart';
 import '../../../../../domain/models/users_model.dart';
 import '../../../../../domain/use_case/store/add_favorite_use_case.dart';
 import '../../../../../domain/use_case/store/get_favorite_use_case.dart';
@@ -18,17 +18,13 @@ class FavController extends GetxController
     with BaseController, BaseFavoriteController {
   final AddFavoriteUseCase _addFavoriteUseCase;
   final GetFavoriteUseCase _getFavoriteUseCase;
+  final LocalDataSource _localDataSource;
 
-  FavController(this._addFavoriteUseCase, this._getFavoriteUseCase);
+  FavController(this._addFavoriteUseCase, this._getFavoriteUseCase,
+      this._localDataSource);
   RxMap<int, FavoriteDataModel> favoriteModel = RxMap<int, FavoriteDataModel>();
-  @override
-  void onInit() {
-    print("object");
-    super.onInit();
-  }
 
   Future addToFavoriteEvent(int productId) async {
-    print(favoriteModel.keys);
     flowState.value = LoadingState(
         stateRendererType: StateRendererType.POPUP_LOADING_STATE,
         message: AppStrings.loading);
@@ -40,7 +36,6 @@ class FavController extends GetxController
           message: failure.messages);
       return;
     }, (data) {
-      print(favoriteModel.values);
       if (favoriteModel.containsKey(productId)) {
         favoriteModel[productId]!.status = !favoriteModel[productId]!.status;
       } else {
@@ -66,5 +61,15 @@ class FavController extends GetxController
         flowState.value = ContentState();
       });
     }
+  }
+
+  Future saveFav() async {
+    List<FavoriteDataModel> listFav = [];
+    favoriteModel.forEach((key, value) {
+      listFav.add(FavoriteDataModel(favoriteModel[key]!.id,
+          favoriteModel[key]!.productId, favoriteModel[key]!.status));
+    });
+    FavoriteModel saveFav = FavoriteModel(listFav);
+    await _localDataSource.saveFavoriteDataCache(saveFav);
   }
 }

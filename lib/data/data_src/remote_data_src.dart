@@ -1,7 +1,6 @@
 import 'package:ms_store/data/network/requests/favorites_requests.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
-import 'package:ms_store/domain/models/cache/cache_data.dart';
 
 import '../network/app_api.dart';
 import '../network/requests/users_requests.dart';

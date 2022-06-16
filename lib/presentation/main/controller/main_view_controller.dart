@@ -1,13 +1,11 @@
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
 import '../../../app/components.dart';
 
 import '../pages/cart/view/cart_page.dart';
 import '../pages/category/view/category_page.dart';
 import '../pages/fav/view/fav_page.dart';
 import '../pages/home/view/home_page.dart';
-import '../pages/home/view_model/home_controller.dart';
 import '../pages/settings/view/settings_page.dart';
 
 class MainViewController extends GetxController {

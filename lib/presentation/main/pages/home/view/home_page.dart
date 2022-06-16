@@ -4,11 +4,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/gen/assets.gen.dart';
-import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 import '../../../../../app/components.dart';
+import '../../../../../core/resources/styles_manger.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
 import '../../../../../domain/models/store/product_model.dart';
@@ -20,7 +21,6 @@ import '../../../../../core/resources/color_manager.dart';
 import '../../../../../core/resources/font_manger.dart';
 import '../../../../../core/resources/icons_manger.dart';
 import '../../../../../core/resources/strings_manager.dart';
-import '../../../../../core/resources/styles_manger.dart';
 import '../../../../../core/resources/values_manager.dart';
 import '../view_model/home_controller.dart';
 
@@ -35,13 +35,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   String locale = Get.locale!.languageCode;
 
   late final HomeController _homeController;
-  late final FavController _favController;
 
   @override
   void initState() {
     _homeController = Get.find();
     _homeController.getHomeData();
-    _favController = Get.find();
     WidgetsBinding.instance.addObserver(this);
 
     super.initState();
@@ -93,7 +91,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         ),
       );
 
-  Widget buildProductsItem(ProductModel productModel, ThemeData themeData) {
+  Widget buildProductsItem(ProductModel productModel) {
     return InkWell(
       onTap: () {},
       child: SizedBox(
@@ -131,14 +129,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           locale == "ar"
                               ? productModel.nameAR
                               : productModel.nameEN,
-                          style: themeData.textTheme.labelSmall,
+                          style: context.getThemeDataText.labelSmall,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(
                           height: 5.0.h,
                         ),
-                        //     buildPrice(dataModel),
+                        buildPrice(productModel),
                         SizedBox(
                           height: 5.0.h,
                         ),
@@ -164,7 +162,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
-  Widget _getContentWidget(ThemeData themeData) {
+  Widget _getContentWidget() {
     return BuildCondition(
       condition:
           _homeController.homeModel.value?.data.dataHome.isNotEmpty ?? false,
@@ -173,10 +171,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         children: [
           _getSliderCarousel(),
           _getSection(AppStrings.latestProducts),
-          _getProducts(
-              themeData,
-              _homeController.homeModel.value?.data.dataHome ??
-                  const Iterable.empty().cast<DataHomeModel>().toList()),
+          _getProducts(_homeController.homeModel.value?.data.dataHome ??
+              const Iterable.empty().cast<DataHomeModel>().toList()),
         ],
       ),
       fallback: (_) => Column(
@@ -184,7 +180,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           Lottie.asset(const $AssetsJsonGen().empty),
           Text(
             AppStrings.noProducts,
-            style: themeData.textTheme.titleMedium,
+            style: context.getThemeDataText.titleMedium,
           ),
         ],
       ),
@@ -265,7 +261,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
   }
 
-  Widget _getProducts(ThemeData themeData, List<DataHomeModel> dataHome) {
+  Widget _getProducts(List<DataHomeModel> dataHome) {
     return Obx(
       () => ListView.builder(
         shrinkWrap: true,
@@ -284,7 +280,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, indexPro) {
                   return buildProductsItem(
-                      dataHome[indexCat].productModel[indexPro], themeData);
+                      dataHome[indexCat].productModel[indexPro]);
                 },
                 separatorBuilder: (context, index) => const SizedBox(),
                 itemCount: dataHome[indexCat].productModel.length > 4
@@ -303,12 +299,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60,
         title: InputField(
-          themeData: themeData,
+          themeDataText: context.getThemeDataText,
           keyBoardType: TextInputType.text,
           label: 'Search',
           prefixIcon: IconsManger.search,
@@ -323,10 +318,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           child: SingleChildScrollView(
             child: Obx(() => _homeController.flowState.value != null
                 ? _homeController.flowState.value!.getScreenWidget(
-                    _getContentWidget(themeData), retryActionFunction: () {
+                    _getContentWidget(), retryActionFunction: () {
                     _homeController.getHomeData();
                   })
-                : _getContentWidget(themeData)),
+                : _getContentWidget()),
           ),
         ),
       ),

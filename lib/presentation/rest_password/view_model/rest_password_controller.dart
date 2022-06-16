@@ -16,14 +16,11 @@ class ResetPasswordController extends GetxController
   ResetPasswordController(this._resetPasswordCase);
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     startFlow();
   }
 
   Rxn<String?> alertPinValid = Rxn<String>();
-  Rxn<String?> alertPasswordValid = Rxn<String>();
-  Rxn<String?> alertPasswordAgainValid = Rxn<String>();
 
   String? isPinValid(String pin) {
     if (pin.isEmpty) {
@@ -38,25 +35,6 @@ class ResetPasswordController extends GetxController
   void setPinEvent(String pin) {
     userDataObject.value = userDataObject.value.copyWith(pin: pin);
     alertPinValid.value = isPinValid(pin);
-    validPinAndPasswordEvent();
-  }
-
-  @override
-  void setPasswordEvent(String password, {bool isLogin = false}) {
-    super.setPasswordEvent(password);
-    alertPasswordAgainValid.value =
-        isPasswordAginValidEvent(userDataObject.value.passwordAgin);
-
-    validPinAndPasswordEvent();
-  }
-
-  @override
-  void setPasswordAgainEvent(String password) {
-    super.setPasswordEvent(password);
-
-    alertPasswordValid.value =
-        isPasswordAginValidEvent(userDataObject.value.password);
-
     validPinAndPasswordEvent();
   }
 
@@ -108,15 +86,15 @@ class ResetPasswordController extends GetxController
     });
   }
 
-  Rx<bool> obsecure = true.obs;
+  Rx<bool> obscure = true.obs;
 
-  void changeObsecureEvent() {
-    obsecure.value = !obsecure.value;
+  void changeObscureEvent() {
+    obscure.value = !obscure.value;
   }
 
-  Rx<bool> obsecureAgain = true.obs;
+  Rx<bool> obscureAgain = true.obs;
 
-  void changeObsecureAgainEvent() {
-    obsecureAgain.value = !obsecureAgain.value;
+  void changeObscureAgainEvent() {
+    obscureAgain.value = !obscureAgain.value;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import '../../../domain/use_case/users_case/register_use_case.dart';
 
@@ -18,7 +17,6 @@ class RegisterController extends GetxController
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     startFlow();
   }

@@ -22,9 +22,9 @@ class ResetPasswordView extends StatefulWidget {
 }
 
 class _ResetPasswordViewState extends State<ResetPasswordView> {
-  late final TextEditingController _pinController;
+  // late final TextEditingController _pinController;
 
-  late final TextEditingController _passwordController;
+  // late final TextEditingController _passwordController;
   late final FocusNode _passwordNode;
 
   late final TextEditingController _passwordAgainController;
@@ -34,20 +34,19 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
 
   @override
   void initState() {
-    _pinController = TextEditingController();
+    // _pinController = TextEditingController();
 
     _passwordNode = FocusNode();
     _passwordAgainNode = FocusNode();
     _resetPasswordController = Get.find();
     _formKey = GlobalKey<FormState>();
-    // TODO: implement initState
     super.initState();
     _resetPasswordController.setEmailEvent(widget.email);
   }
 
   @override
   void dispose() {
-    _pinController.dispose();
+    // _pinController.dispose();
 
     //Get.delete<LoginViewModelGetX>();
 
@@ -98,31 +97,33 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
               ),
               Column(
                 children: [
-                  TextFormField(
-                    controller: _pinController,
-                    focusNode: _passwordNode,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        IconsManger.pin,
-                        size: AppSpacing.ap30.w,
-                      ),
-                      label: Text("${AppStrings.pinCode} *"),
-                      errorText: _resetPasswordController.alertPinValid.value,
-                    ),
-                    onChanged: (String? val) {
-                      _resetPasswordController.setPinEvent(val ?? "");
-                    },
-                  ),
+                  pinCodeTextField(context, (String? val) {
+                    _resetPasswordController.setPinEvent(val ?? "");
+                  }, onSubmitted: (String? v) => _passwordNode.requestFocus()),
+                  // TextFormField(
+                  //   //  controller: _pinController,
+                  //   keyboardType: TextInputType.number,
+                  //   decoration: InputDecoration(
+                  //     prefixIcon: Icon(
+                  //       IconsManger.pin,
+                  //       size: AppSpacing.ap30.w,
+                  //     ),
+                  //     label: Text("${AppStrings.pinCode} *"),
+                  //     errorText: _resetPasswordController.alertPinValid.value,
+                  //   ),
+                  //   onChanged: (String? val) {
+                  //     _resetPasswordController.setPinEvent(val ?? "");
+                  //   },
+                  // ),
                   SizedBox(
                     height: AppSpacing.ap30.h,
                   ),
                   Obx(() {
                     return TextFormField(
-                      controller: _passwordController,
+                      // controller: _passwordController,
                       keyboardType: TextInputType.visiblePassword,
                       focusNode: _passwordAgainNode,
-                      obscureText: _resetPasswordController.obsecure.value,
+                      obscureText: _resetPasswordController.obscure.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           IconsManger.password,
@@ -130,10 +131,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         ),
                         suffixIcon: IconButton(
                           onPressed: () {
-                            _resetPasswordController.changeObsecureEvent();
+                            _resetPasswordController.changeObscureEvent();
                           },
                           icon: Icon(
-                            !_resetPasswordController.obsecure.value
+                            !_resetPasswordController.obscure.value
                                 ? IconsManger.visibility
                                 : IconsManger.visibilityOff,
                             size: AppSpacing.ap30.w,
@@ -153,9 +154,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                   ),
                   Obx(() {
                     return TextFormField(
-                      controller: _passwordAgainController,
                       keyboardType: TextInputType.visiblePassword,
-                      obscureText: _resetPasswordController.obsecureAgain.value,
+                      obscureText: _resetPasswordController.obscureAgain.value,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           IconsManger.password,
@@ -166,10 +166,10 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                             .alertPasswordAgainValid.value,
                         suffixIcon: IconButton(
                           onPressed: () {
-                            _resetPasswordController.changeObsecureAgainEvent();
+                            _resetPasswordController.changeObscureAgainEvent();
                           },
                           icon: Icon(
-                            !_resetPasswordController.obsecureAgain.value
+                            !_resetPasswordController.obscureAgain.value
                                 ? IconsManger.visibility
                                 : IconsManger.visibilityOff,
                             size: AppSpacing.ap30.w,

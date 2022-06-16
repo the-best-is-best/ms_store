@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/extensions.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 
 import '../../../app/components.dart';
@@ -49,7 +50,6 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
   }
 
   Widget _getContentWidget() {
-    final ThemeData themeData = Theme.of(context);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(
@@ -70,13 +70,9 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
               key: _formKey,
               child: Column(
                 children: [
-                  InputField(
-                    themeData: themeData,
-                    keyBoardType: TextInputType.number,
-                    prefixIcon: IconsManger.pin,
-                    label: "${AppStrings.pinCode} *",
-                    errorText: _activeEmailController.alertPinValid.value,
-                    onChanged: (String? val) {
+                  pinCodeTextField(
+                    context,
+                    (String? val) {
                       _activeEmailController.setPinEvent(val ?? "");
                     },
                   ),

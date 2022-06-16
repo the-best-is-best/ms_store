@@ -5,11 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../core/resources/styles_manger.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../core/resources/color_manager.dart';
 import '../../../core/resources/font_manger.dart';
 import '../../../core/resources/strings_manager.dart';
-import '../../../core/resources/styles_manger.dart';
 import '../../../core/resources/values_manager.dart';
 
 enum StateRendererType {

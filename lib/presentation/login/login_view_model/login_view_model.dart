@@ -74,10 +74,6 @@ class LoginViewModel extends GetxController
       await AppPrefs().updateUserData(data);
 
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        UserDataController userDataController = Get.find();
-        userDataController.loadData(data);
-        FavController favController = Get.find();
-        favController.getFavorite();
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
     });
@@ -151,10 +147,6 @@ class LoginViewModel extends GetxController
       initHomeModel();
       await AppPrefs().updateUserData(data);
       SchedulerBinding.instance.addPostFrameCallback((_) async {
-        UserDataController userDataController = Get.find();
-        userDataController.loadData(data);
-        FavController favController = Get.find();
-        await favController.getFavorite();
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
     });
@@ -208,10 +200,6 @@ class LoginViewModel extends GetxController
           initHomeModel();
           await AppPrefs().updateUserData(data);
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            UserDataController userDataController = Get.find();
-            userDataController.loadData(data);
-            FavController favController = Get.find();
-            favController.getFavorite();
             Get.offNamedUntil(Routes.homeRoute, (route) => false);
           });
         });

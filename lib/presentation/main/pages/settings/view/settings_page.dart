@@ -27,7 +27,6 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     _settingsController = Get.find();
     _userDataController = Get.find();
-    print(_userDataController.userModel);
     super.initState();
   }
 

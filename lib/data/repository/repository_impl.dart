@@ -2,7 +2,7 @@ import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/data/network/requests/favorites_requests.dart';
 import 'package:ms_store/data/repository/store/repository_impl_add_favorite.dart';
 import 'package:ms_store/data/repository/store/repository_impl_get_favorite.dart';
-import 'package:ms_store/data/repository/users_repository/repository_impl_loginBySocial.dart';
+import 'package:ms_store/data/repository/users_repository/repository_impl_login_by_social.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
 import 'package:ms_store/domain/models/store/favorite_model.dart';
 

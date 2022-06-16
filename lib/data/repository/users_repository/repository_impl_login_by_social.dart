@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-
 import '../../../../domain/models/users_model.dart';
 import '../../data_src/remote_data_src.dart';
 import '../../mapper/users_response_mapper.dart';

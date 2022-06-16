@@ -26,7 +26,7 @@ class IconsManger {
   static const IconData arrowLeftOutline =
       CommunityMaterialIcons.arrow_left_bold_outline;
 
-  static const IconData pin = CommunityMaterialIcons.pinwheel;
+  static const IconData pin = CommunityMaterialIcons.lock_check;
 
   static const IconData arrowLeft = CommunityMaterialIcons.arrow_left;
 

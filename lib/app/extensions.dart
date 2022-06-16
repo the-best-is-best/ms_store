@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:flutter/material.dart';
+
 import '../domain/models/cache/cache_data.dart';
 
 extension NonNullString on String? {
@@ -58,4 +62,10 @@ extension CacheDataExtension on CachedData {
     int currentTimeMilliSecand = DateTime.now().millisecondsSinceEpoch;
     return currentTimeMilliSecand - cacheTime < expirationTimeMilliSecand;
   }
+}
+
+extension ExtensionGetThemeData on BuildContext {
+  double get getHeight => MediaQuery.of(this).size.height;
+  double get getWidth => MediaQuery.of(this).size.width;
+  TextTheme get getThemeDataText => Theme.of(this).textTheme;
 }

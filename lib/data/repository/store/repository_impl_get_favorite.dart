@@ -16,28 +16,28 @@ class RepositoryImplGetFavorite {
       LocalDataSource _localDataSource,
       GetFavoriteRequests getFavoriteRequests) async {
     if (await networkInfo.isConnected) {
-      // try {
-      //   final response = await _localDataSource.getFavoriteData();
-      //   return Right(response);
-      // } catch (cacheError) {
       try {
-        var response = await remoteDataSrc
-            .getFavorite(GetFavoriteRequests(getFavoriteRequests.userId));
-        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
-          //success
-          // return either right
-          // return data
-          _localDataSource.saveFavoriteDataCache(response.toDomain());
-          return Right(response.toDomain());
-        } else {
-          //failure
-          // return either left
-          return left(Failure(response.statusCode ?? 500, "Error server"));
+        final response = await _localDataSource.getFavoriteData();
+        return Right(response);
+      } catch (cacheError) {
+        try {
+          var response = await remoteDataSrc
+              .getFavorite(GetFavoriteRequests(getFavoriteRequests.userId));
+          if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+            //success
+            // return either right
+            // return data
+            _localDataSource.saveFavoriteDataCache(response.toDomain());
+            return Right(response.toDomain());
+          } else {
+            //failure
+            // return either left
+            return left(Failure(response.statusCode ?? 500, "Error server"));
+          }
+        } catch (error) {
+          return Left(ErrorHandler.handle(error).failure);
         }
-      } catch (error) {
-        return Left(ErrorHandler.handle(error).failure);
       }
-      //}
     } else {
       //failure
       // return either left

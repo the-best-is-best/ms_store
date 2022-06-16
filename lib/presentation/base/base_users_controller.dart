@@ -45,7 +45,9 @@ mixin BaseUserController {
   void setPasswordEvent(String password) {
     userDataObject.value = userDataObject.value.copyWith(password: password);
 
-    alertPasswordValid.value = isPasswordValidEvent(password);
+    alertPasswordValid.value = isPasswordValidEvent(password, isLogin: false);
+    alertPasswordAgainValid.value =
+        isPasswordAginValidEvent(userDataObject.value.passwordAgin);
   }
 
   Rxn<String?> alertPasswordAgainValid = Rxn<String>();
@@ -54,7 +56,9 @@ mixin BaseUserController {
     userDataObject.value =
         userDataObject.value.copyWith(passwordAgin: password);
 
-    alertPasswordValid.value = isPasswordAginValidEvent(password);
+    alertPasswordAgainValid.value = isPasswordAginValidEvent(password);
+    alertPasswordValid.value =
+        isPasswordValidEvent(userDataObject.value.password, isLogin: false);
   }
 
   String? isPasswordAginValidEvent(String pass) {
@@ -63,6 +67,7 @@ mixin BaseUserController {
     } else if (pass.length < 5) {
       return AppStrings.passwordLengthError;
     } else if (pass != userDataObject.value.password) {
+      print("pass : $pass - again ${userDataObject.value.password}");
       return AppStrings.passwordNotTheSame;
     } else {
       return null;

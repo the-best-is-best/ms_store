@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/extensions.dart';
 import '../../../app/di.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
@@ -41,7 +42,6 @@ class _RegisterViewState extends State<RegisterView> {
     _passwordAgainNode = FocusNode();
     // _controllerGoogle = LoadingSignButtonController();
     // _controllerFacebook = LoadingSignButtonController();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -75,7 +75,6 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Widget _getContentWidget() {
-    final ThemeData themeData = Theme.of(context);
     return SingleChildScrollView(
         child: Padding(
       padding: EdgeInsets.only(
@@ -98,7 +97,7 @@ class _RegisterViewState extends State<RegisterView> {
               children: [
                 Obx(
                   () => InputField(
-                      themeData: themeData,
+                      themeDataText: context.getThemeDataText,
                       keyBoardType: TextInputType.name,
                       nextNode: _emailNode,
                       prefixIcon: IconsManger.user,
@@ -113,7 +112,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 Obx(
                   () => InputField(
-                    themeData: themeData,
+                    themeDataText: context.getThemeDataText,
                     controller: _emailController,
                     keyBoardType: TextInputType.emailAddress,
                     obscureText: _registerController.obscure.value,
@@ -132,7 +131,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 Obx(() {
                   return InputField(
-                    themeData: themeData,
+                    themeDataText: context.getThemeDataText,
                     keyBoardType: TextInputType.visiblePassword,
                     focusNode: _passwordNode,
                     nextNode: _passwordAgainNode,
@@ -161,7 +160,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 Obx(() {
                   return InputField(
-                    themeData: themeData,
+                    themeDataText: context.getThemeDataText,
                     keyBoardType: TextInputType.visiblePassword,
                     obscureText: _registerController.obscureAgain.value,
                     focusNode: _passwordAgainNode,

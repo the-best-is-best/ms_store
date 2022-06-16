@@ -2,8 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ms_store/data/data_src/local_data_source.dart';
-import 'package:ms_store/domain/models/cache/cache_data.dart';
-import 'package:ms_store/domain/models/home_models/slider_model.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
 import 'package:ms_store/domain/use_case/store/category_use_case.dart';

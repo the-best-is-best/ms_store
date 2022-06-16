@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/adapters.dart';
 
 import '../core/resources/theme_manager.dart';
 import '../l10n/lang_controller.dart';
@@ -10,18 +9,9 @@ import '../l10n/lang_controller.dart';
 import '../core/resources/routes_manger.dart';
 import '../core/resources/strings_manager.dart';
 import 'app_binding.dart';
-import 'extensions.dart';
 
-// ignore: must_be_immutable
 class MyApp extends StatefulWidget {
-  MyApp._internal();
-
-  int appState = 0;
-
-  static final MyApp _instance =
-      MyApp._internal(); // singleton or single instance
-
-  factory MyApp() => _instance; // factory
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/domain/models/users_model.dart';
 import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
-import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:ms_store/presentation/on_boarding/view/on_boarding_view.dart';
 
@@ -65,9 +64,7 @@ class SplashController extends GetxController {
     super.onClose();
     UserModel? userModel = await AppPrefs().getUserData();
     if (userModel != null) {
-      UserDataController userDataController = Get.find();
       FavController favController = Get.find();
-      userDataController.loadData(userModel);
       favController.getFavorite();
     }
   }
