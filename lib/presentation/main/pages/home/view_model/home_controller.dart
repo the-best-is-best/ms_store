@@ -31,7 +31,7 @@ class HomeController extends GetxController
     var resultHome = await _homeUseCase.execute(null);
     await waitStateChanged(duration: 1800);
     UserDataController userDataController = Get.find();
-    userDataController.getUserData();
+    await userDataController.getUserData();
     resultHome.fold((failure) {
       flowState.value = ErrorState(
           stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,
@@ -73,7 +73,7 @@ class HomeController extends GetxController
       } else {
         await favController.getFavorite();
       }
-      favController.saveFav();
+      await favController.saveFav();
       flowState.value = ContentState();
     });
   }

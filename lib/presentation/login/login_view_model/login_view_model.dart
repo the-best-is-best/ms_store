@@ -14,6 +14,7 @@ import '../../../app/di.dart';
 import '../../../core/resources/color_manager.dart';
 import '../../../core/resources/routes_manger.dart';
 import '../../../core/resources/strings_manager.dart';
+import '../../../domain/models/users_model.dart';
 import '../../../domain/use_case/users_case/login_use_case.dart';
 import '../../base/base_controller.dart';
 import '../../base/base_users_controller.dart';
@@ -71,11 +72,9 @@ class LoginViewModel extends GetxController
     }, (data) async {
       flowState.value = ContentState();
       initHomeModel();
-      await AppPrefs().updateUserData(data);
+      await getUserData(data);
 
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        UserDataController userDataController = Get.find();
-        userDataController.getUserData();
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
     });
@@ -147,10 +146,8 @@ class LoginViewModel extends GetxController
       await waitStateChanged(duration: 1000);
 
       initHomeModel();
-      await AppPrefs().updateUserData(data);
+      await getUserData(data);
       SchedulerBinding.instance.addPostFrameCallback((_) async {
-        UserDataController userDataController = Get.find();
-        userDataController.getUserData();
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });
     });
@@ -202,10 +199,9 @@ class LoginViewModel extends GetxController
           loadingSignButtonController.onSuccess();
           await waitStateChanged(duration: 1000);
           initHomeModel();
-          await AppPrefs().updateUserData(data);
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            UserDataController userDataController = Get.find();
-            userDataController.getUserData();
+          await getUserData(data);
+
+          SchedulerBinding.instance.addPostFrameCallback((_) async {
             Get.offNamedUntil(Routes.homeRoute, (route) => false);
           });
         });
@@ -225,5 +221,14 @@ class LoginViewModel extends GetxController
 
   void changeObscureEvent() {
     obscure.value = !obscure.value;
+  }
+
+  Future getUserData(UserModel data) async {
+    await AppPrefs().updateUserData(data);
+
+    if (Get.isRegistered<UserDataController>()) {
+      UserDataController userDataController = Get.find();
+      await userDataController.getUserData();
+    }
   }
 }

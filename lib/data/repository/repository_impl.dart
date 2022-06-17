@@ -97,7 +97,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, FavoriteModel>> getProductToFavorite(
+  Future<Either<Failure, Map<int, FavoriteDataModel>>> getProductToFavorite(
       GetFavoriteRequests getFavoriteRequests) {
     return RepositoryImplGetFavorite.call(
         _remoteDataSrc, _networkInfo, _localDataSource, getFavoriteRequests);

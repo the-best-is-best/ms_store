@@ -8,6 +8,7 @@ import '../domain/models/home_models/data_home_model.dart';
 import '../domain/models/home_models/home_data_model.dart';
 import '../domain/models/home_models/product_home_model.dart';
 import '../domain/models/home_models/slider_model.dart';
+import '../domain/models/store/cart_model.dart';
 import '../domain/models/store/category_model.dart';
 import 'extensions.dart';
 
@@ -36,6 +37,8 @@ class AppPrefs with OnBoardingAppPrefs, SettingsAppPrefs, UserAppPrefs {
 // favorite cache
     Hive.registerAdapter(FavoriteDataModelAdapter());
     Hive.registerAdapter(FavoriteModelAdapter());
+    // cart cache
+    Hive.registerAdapter(CartModelAdapter());
 
     // cache local
     //cacheLocal

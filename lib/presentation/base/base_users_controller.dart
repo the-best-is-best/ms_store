@@ -67,7 +67,6 @@ mixin BaseUserController {
     } else if (pass.length < 5) {
       return AppStrings.passwordLengthError;
     } else if (pass != userDataObject.value.password) {
-      print("pass : $pass - again ${userDataObject.value.password}");
       return AppStrings.passwordNotTheSame;
     } else {
       return null;

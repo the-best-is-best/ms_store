@@ -36,11 +36,8 @@ class FavController extends GetxController
           message: failure.messages);
       return;
     }, (data) {
-      if (favoriteModel.containsKey(productId)) {
-        favoriteModel[productId]!.status = !favoriteModel[productId]!.status;
-      } else {
-        getFavorite();
-      }
+      favoriteModel[productId]!.status = !favoriteModel[productId]!.status;
+
       flowState.value = ContentState();
     });
   }
@@ -53,23 +50,18 @@ class FavController extends GetxController
     } else {
       var result = await _getFavoriteUseCase
           .execute(GetFavoriteUseCaseInput(userModel.id));
-      result.fold((failure) {}, (data) {
-        for (var favData in data.data) {
-          favoriteModel[favData.productId] = favData;
-        }
+      result.fold((failure) {}, (data) async {
+        data.forEach((key, value) {
+          favoriteModel[key] = value;
+        });
 
+        await saveFav();
         flowState.value = ContentState();
       });
     }
   }
 
   Future saveFav() async {
-    List<FavoriteDataModel> listFav = [];
-    favoriteModel.forEach((key, value) {
-      listFav.add(FavoriteDataModel(favoriteModel[key]!.id,
-          favoriteModel[key]!.productId, favoriteModel[key]!.status));
-    });
-    FavoriteModel saveFav = FavoriteModel(listFav);
-    await _localDataSource.saveFavoriteDataCache(saveFav);
+    await _localDataSource.saveFavoriteDataCache(favoriteModel.value);
   }
 }

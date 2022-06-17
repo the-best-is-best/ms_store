@@ -7,13 +7,13 @@ import '../../../data/network/requests/favorites_requests.dart';
 import '../../repository/repository.dart';
 
 class GetFavoriteUseCase
-    extends BaseCase<GetFavoriteUseCaseInput, FavoriteModel> {
+    extends BaseCase<GetFavoriteUseCaseInput, Map<int, FavoriteDataModel>> {
   final Repository _repository;
 
   GetFavoriteUseCase(this._repository);
 
   @override
-  Future<Either<Failure, FavoriteModel>> execute(
+  Future<Either<Failure, Map<int, FavoriteDataModel>>> execute(
       GetFavoriteUseCaseInput input) async {
     return await _repository
         .getProductToFavorite(GetFavoriteRequests(input.userId));

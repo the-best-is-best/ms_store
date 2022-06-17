@@ -26,6 +26,6 @@ abstract class Repository {
   Future<Either<Failure, CategoryModel>> getCategoryData();
   Future<Either<Failure, bool>> addProductToFavorite(
       AddFavoriteRequests addFavoriteRequests);
-  Future<Either<Failure, FavoriteModel>> getProductToFavorite(
+  Future<Either<Failure, Map<int, FavoriteDataModel>>> getProductToFavorite(
       GetFavoriteRequests getFavoriteRequests);
 }

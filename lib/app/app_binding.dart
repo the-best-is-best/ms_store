@@ -20,7 +20,8 @@ class AppBinding implements Bindings {
     getOnBoardingController();
     //login
     getLoginController();
-    getUserDataController();
+
+    getUserDataController(); // fav
     // register
     getRegisterController();
     // active email
@@ -37,10 +38,8 @@ class AppBinding implements Bindings {
     getHomeViewController();
     // category
     getCategoryViewController();
-
-    // fav
+// fav
     getFavoriteViewController();
-
     // setting
     getSettingViewController();
   }
@@ -86,7 +85,8 @@ class AppBinding implements Bindings {
   }
 
   void getFavoriteViewController() {
-    Get.lazyPut(() => FavController(instance(), instance(), instance()));
+    Get.lazyPut(() => FavController(instance(), instance(), instance()),
+        fenix: true);
   }
 
   void getSettingViewController() {

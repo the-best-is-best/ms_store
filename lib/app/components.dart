@@ -65,7 +65,6 @@ class _InputFieldState extends State<InputField> {
 
   @override
   void initState() {
-    print(widget.themeDataText.labelMedium);
     super.initState();
   }
 

@@ -15,10 +15,10 @@ abstract class LocalDataSource {
   Future<HomeModel> getHomeData();
   Future<void> saveHomeDataCache(HomeModel homeModel);
   Future<CategoryModel> getCategoryData();
-  Future<FavoriteModel> getFavoriteData();
+  Future<Map<int, FavoriteDataModel>> getFavoriteData();
 
   Future<void> saveCategoryDataCache(CategoryModel categoryModel);
-  Future<void> saveFavoriteDataCache(FavoriteModel favoriteModel);
+  Future<void> saveFavoriteDataCache(Map<int, FavoriteDataModel> favoriteModel);
 
   void removeFromCacheByKey(String key);
 }
@@ -61,16 +61,22 @@ class LocalDataSourceImpl implements LocalDataSource {
   }
 
   @override
-  Future<void> saveFavoriteDataCache(FavoriteModel favoriteModel) async {
+  Future<void> saveFavoriteDataCache(
+      Map<int, FavoriteDataModel> favoriteModel) async {
     await AppPrefs()
         .saveCacheData(CACHE_Favorite_KEY, CachedData(favoriteModel));
   }
 
   @override
-  Future<FavoriteModel> getFavoriteData() async {
+  Future<Map<int, FavoriteDataModel>> getFavoriteData() async {
     CachedData? cachedData = await AppPrefs().getCacheData(CACHE_Favorite_KEY);
     if (cachedData != null) {
-      return (cachedData.data) as FavoriteModel;
+      var dataCache = cachedData.data as Map<dynamic, dynamic>;
+      Map<int, FavoriteDataModel> data = {};
+      dataCache.forEach((key, value) {
+        data[key] = value;
+      });
+      return data;
     } else {
       throw ErrorHandler.handle(DataRes.CACHE_ERROR);
     }

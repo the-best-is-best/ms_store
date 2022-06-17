@@ -66,7 +66,6 @@ class Device {
       final diagonalSizeInches = (math
               .sqrt(math.pow(adjustedWidth, 2) + math.pow(adjustedHeight, 2))) /
           _ppi;
-      //print("Dialog size inches is $diagonalSizeInches");
       if (diagonalSizeInches >= 7) {
         isTablet = true;
         isPhone = false;
@@ -126,7 +125,6 @@ class Device {
 
   static bool _hasTopOrBottomPadding() {
     final padding = ui.window.viewPadding;
-    //print(padding);
     return padding.top > 0 || padding.bottom > 0;
   }
 }

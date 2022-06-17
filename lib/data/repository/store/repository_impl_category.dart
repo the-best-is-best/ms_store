@@ -18,8 +18,6 @@ class RepositoryImplCategory {
         final response = await _localDataSource.getCategoryData();
         return Right(response);
       } catch (e) {
-        print("error $e");
-
         try {
           CategoriesResponse response = await remoteDataSrc.getCategoryData();
 
