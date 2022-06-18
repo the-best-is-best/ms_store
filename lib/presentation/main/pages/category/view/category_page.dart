@@ -51,14 +51,12 @@ class _CategoryPageState extends State<CategoryPage>
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
           AppStrings.categoryTitle,
-          style: themeData.textTheme.labelMedium,
+          style: context.textTheme.displayLarge,
         ),
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(IconsManger.search))
@@ -66,10 +64,10 @@ class _CategoryPageState extends State<CategoryPage>
       ),
       body: Obx(() => _categoryController.flowState.value != null
           ? _categoryController.flowState.value!.getScreenWidget(
-              _getContentWidget(themeData), retryActionFunction: () {
+              _getContentWidget(context.theme), retryActionFunction: () {
               _categoryController.getData();
             })
-          : _getContentWidget(themeData)),
+          : _getContentWidget(context.theme)),
     );
   }
 

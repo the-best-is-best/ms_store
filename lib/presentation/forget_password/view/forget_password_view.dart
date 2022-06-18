@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/app/extensions.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../view_model/forget_password_controller.dart';
@@ -93,7 +92,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                 children: [
                   Obx(() {
                     return InputField(
-                      themeDataText: context.getThemeDataText,
+                      themeDataText: context.textTheme,
                       controller: _emailController,
                       keyBoardType: TextInputType.emailAddress,
                       prefixIcon: IconsManger.email,

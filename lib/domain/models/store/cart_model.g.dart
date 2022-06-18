@@ -17,21 +17,18 @@ class CartModelAdapter extends TypeAdapter<CartModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CartModel(
-      fields[0] as String,
+      fields[0] as int,
       fields[1] as int,
-      fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, CartModel obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.productId)
       ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.productId)
+      ..writeByte(1)
       ..write(obj.quantity);
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ms_store/app/extensions.dart';
+import 'package:get/get.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
@@ -127,7 +127,7 @@ Widget pinCodeTextField(BuildContext context, ValueChanged<String> onChanged,
             borderWidth: AppSpacing.ap1_5.w,
           ),
           length: 5,
-          textStyle: context.getThemeDataText.labelMedium,
+          textStyle: context.textTheme.labelMedium,
           keyboardType: TextInputType.number,
           obscureText: false,
           animationType: AnimationType.fade,

@@ -1,5 +1,6 @@
 import 'package:get/instance_manager.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
+import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
 import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
@@ -40,6 +41,8 @@ class AppBinding implements Bindings {
     getCategoryViewController();
 // fav
     getFavoriteViewController();
+    //cart
+    getCartViewController();
     // setting
     getSettingViewController();
   }
@@ -87,6 +90,10 @@ class AppBinding implements Bindings {
   void getFavoriteViewController() {
     Get.lazyPut(() => FavController(instance(), instance(), instance()),
         fenix: true);
+  }
+
+  void getCartViewController() {
+    Get.lazyPut(() => CartController(instance()), fenix: true);
   }
 
   void getSettingViewController() {

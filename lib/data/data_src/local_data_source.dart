@@ -1,6 +1,6 @@
 import 'package:ms_store/app/app_refs.dart';
-import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/data/network/error_handler.dart';
+import 'package:ms_store/domain/models/store/cart_model.dart';
 import 'package:ms_store/domain/models/store/category_model.dart';
 import 'package:ms_store/domain/models/store/favorite_model.dart';
 
@@ -10,15 +10,18 @@ import '../../domain/models/home_models/home_data_model.dart';
 const String CACHE_HOME_KEY = "CACHE_HOME";
 const String CACHE_CATEGORY_KEY = "CACHE_CATEGORY";
 const String CACHE_Favorite_KEY = "CACHE_FAVORITE";
+const String CACHE_CART_KEY = "CACHE_CART";
 
 abstract class LocalDataSource {
   Future<HomeModel> getHomeData();
   Future<void> saveHomeDataCache(HomeModel homeModel);
   Future<CategoryModel> getCategoryData();
   Future<Map<int, FavoriteDataModel>> getFavoriteData();
+  Future<Map<int, CartModel>> getCartData();
 
   Future<void> saveCategoryDataCache(CategoryModel categoryModel);
   Future<void> saveFavoriteDataCache(Map<int, FavoriteDataModel> favoriteModel);
+  Future<void> saveCartDataCache(Map<int, CartModel> cartModel);
 
   void removeFromCacheByKey(String key);
 }
@@ -80,5 +83,25 @@ class LocalDataSourceImpl implements LocalDataSource {
     } else {
       throw ErrorHandler.handle(DataRes.CACHE_ERROR);
     }
+  }
+
+  @override
+  Future<Map<int, CartModel>> getCartData() async {
+    CachedData? cachedData = await AppPrefs().getCacheData(CACHE_CART_KEY);
+    if (cachedData != null) {
+      var dataCache = cachedData.data as Map<dynamic, dynamic>;
+      Map<int, CartModel> data = {};
+      dataCache.forEach((key, value) {
+        data[key] = value;
+      });
+      return data;
+    } else {
+      throw ErrorHandler.handle(DataRes.CACHE_ERROR);
+    }
+  }
+
+  @override
+  Future<void> saveCartDataCache(Map<int, CartModel> cartModel) async {
+    await AppPrefs().saveCacheData(CACHE_CART_KEY, CachedData(cartModel));
   }
 }

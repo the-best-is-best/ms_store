@@ -4,6 +4,7 @@ import 'package:ms_store/data/repository/store/repository_impl_add_favorite.dart
 import 'package:ms_store/data/repository/store/repository_impl_get_favorite.dart';
 import 'package:ms_store/data/repository/users_repository/repository_impl_login_by_social.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
+import 'package:ms_store/domain/models/store/cart_model.dart';
 import 'package:ms_store/domain/models/store/favorite_model.dart';
 
 import '../../domain/models/home_models/home_data_model.dart';

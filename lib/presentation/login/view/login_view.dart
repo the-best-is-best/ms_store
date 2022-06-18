@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
@@ -97,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     Obx(() {
                       return InputField(
-                          themeDataText: context.getThemeDataText,
+                          themeDataText: context.textTheme,
                           label: "${AppStrings.emailTitle} *",
                           keyBoardType: TextInputType.emailAddress,
                           prefixIcon: IconsManger.email,
@@ -114,7 +113,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     Obx(() {
                       return InputField(
-                          themeDataText: context.getThemeDataText,
+                          themeDataText: context.textTheme,
                           label: "${AppStrings.password} *",
                           keyBoardType: TextInputType.visiblePassword,
                           obscureText: _loginController.obscure.value,
@@ -171,7 +170,7 @@ class _LoginViewState extends State<LoginView> {
                           : null,
                       child: Text(
                         AppStrings.forgetPassword,
-                        style: context.getThemeDataText.labelSmall,
+                        style: context.textTheme.labelSmall,
                       ),
                     ),
                   ),
@@ -185,7 +184,7 @@ class _LoginViewState extends State<LoginView> {
                           : null,
                       child: Text(
                         AppStrings.notHaveAccount,
-                        style: context.getThemeDataText.labelSmall,
+                        style: context.textTheme.labelSmall,
                       ),
                     ),
                   ),
@@ -196,13 +195,13 @@ class _LoginViewState extends State<LoginView> {
               ),
               Text(
                 AppStrings.orTitle,
-                style: context.getThemeDataText.labelMedium,
+                style: context.textTheme.labelMedium,
               ),
               SizedBox(
                 height: AppSpacing.ap12.h,
               ),
               LoadingSignButton(
-                width: context.getWidth,
+                width: context.width,
                 height: 50,
                 buttonType: ButtonType.facebook,
                 btnText: AppStrings.facebookTitle,
@@ -225,7 +224,7 @@ class _LoginViewState extends State<LoginView> {
                 height: AppSpacing.ap16.h,
               ),
               LoadingSignButton(
-                width: context.getWidth,
+                width: context.width,
                 height: 50,
                 buttonType: ButtonType.google,
                 btnText: AppStrings.googleTitle,

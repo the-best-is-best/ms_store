@@ -4,7 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
@@ -129,7 +128,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           locale == "ar"
                               ? productModel.nameAR
                               : productModel.nameEN,
-                          style: context.getThemeDataText.labelSmall,
+                          style: context.textTheme.labelSmall,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -180,7 +179,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           Lottie.asset(const $AssetsJsonGen().empty),
           Text(
             AppStrings.noProducts,
-            style: context.getThemeDataText.titleMedium,
+            style: context.textTheme.titleMedium,
           ),
         ],
       ),
@@ -303,7 +302,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       appBar: AppBar(
         toolbarHeight: 60,
         title: InputField(
-          themeDataText: context.getThemeDataText,
+          themeDataText: context.textTheme,
           keyBoardType: TextInputType.text,
           label: 'Search',
           prefixIcon: IconsManger.search,

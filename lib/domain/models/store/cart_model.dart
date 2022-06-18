@@ -4,11 +4,8 @@ part 'cart_model.g.dart';
 @HiveType(typeId: 14)
 class CartModel {
   @HiveField(0)
-  final String id;
-  @HiveField(1)
   final int productId;
-  @HiveField(2)
-  final int quantity;
-
-  CartModel(this.id, this.productId, this.quantity);
+  @HiveField(1)
+  int quantity;
+  CartModel(this.productId, this.quantity);
 }

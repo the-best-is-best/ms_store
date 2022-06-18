@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
+import 'package:ms_store/domain/models/store/cart_model.dart';
 import 'package:ms_store/domain/models/store/favorite_model.dart';
 
 import '../../data/network/failure.dart';
