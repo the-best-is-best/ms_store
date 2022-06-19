@@ -8,7 +8,6 @@ import '../domain/models/home_models/data_home_model.dart';
 import '../domain/models/home_models/home_data_model.dart';
 import '../domain/models/home_models/product_home_model.dart';
 import '../domain/models/home_models/slider_model.dart';
-import '../domain/models/store/cart_model.dart';
 import '../domain/models/store/category_model.dart';
 import 'extensions.dart';
 
@@ -34,11 +33,9 @@ class AppPrefs with OnBoardingAppPrefs, SettingsAppPrefs, UserAppPrefs {
     Hive.registerAdapter(CategoryModelAdapter());
     Hive.registerAdapter(CategoryDataModelAdapter());
     Hive.registerAdapter(CategoryDataWithChildModelAdapter());
-// favorite cache
-    Hive.registerAdapter(FavoriteDataModelAdapter());
-    Hive.registerAdapter(FavoriteModelAdapter());
-    // cart cache
-    Hive.registerAdapter(CartModelAdapter());
+// // favorite cache
+//     Hive.registerAdapter(FavoriteDataModelAdapter());
+//     Hive.registerAdapter(FavoriteModelAdapter());
 
     // cache local
     //cacheLocal
@@ -46,7 +43,9 @@ class AppPrefs with OnBoardingAppPrefs, SettingsAppPrefs, UserAppPrefs {
     await initBoardingBox();
     await initSettingBox();
     await initUserBox();
-    _cacheDataLocalBox = await Hive.openBox(_cacheDataLocalBoxName);
+    _cacheDataLocalBox = await Hive.openBox(
+      _cacheDataLocalBoxName,
+    );
     _cacheDataServerBox = await Hive.openBox(_cacheDataServerBoxName);
   }
 

@@ -22,20 +22,14 @@ class ResetPasswordView extends StatefulWidget {
 }
 
 class _ResetPasswordViewState extends State<ResetPasswordView> {
-  // late final TextEditingController _pinController;
-
-  // late final TextEditingController _passwordController;
   late final FocusNode _passwordNode;
 
-  late final TextEditingController _passwordAgainController;
   late final FocusNode _passwordAgainNode;
   late final GlobalKey<FormState> _formKey;
   late final ResetPasswordController _resetPasswordController;
 
   @override
   void initState() {
-    // _pinController = TextEditingController();
-
     _passwordNode = FocusNode();
     _passwordAgainNode = FocusNode();
     _resetPasswordController = Get.find();

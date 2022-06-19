@@ -10,7 +10,7 @@ import '../../network/network_info.dart';
 import '../../network/requests/favorites_requests.dart';
 
 class RepositoryImplGetFavorite {
-  static Future<Either<Failure, Map<int, FavoriteDataModel>>> call(
+  static Future<Either<Failure, Map<int, bool>>> call(
       RemoteDataSrc remoteDataSrc,
       NetworkInfo networkInfo,
       LocalDataSource _localDataSource,
@@ -27,10 +27,11 @@ class RepositoryImplGetFavorite {
             //success
             // return either right
             // return data
-            Map<int, FavoriteDataModel> data = {};
+            Map<int, bool> data = {};
             if (response.data != null) {
               for (var productFav in response.data!) {
-                data[productFav.toDomain().productId] = productFav.toDomain();
+                data[productFav.toDomain().productId] =
+                    (productFav.toDomain()).status;
               }
             }
 

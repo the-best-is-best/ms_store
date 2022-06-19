@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import '../../../domain/use_case/users_case/register_use_case.dart';
-
-import '../../../app/components.dart';
 import '../../base/base_controller.dart';
 import '../../base/base_users_controller.dart';
 import '../../common/freezed/freezed_data.dart';

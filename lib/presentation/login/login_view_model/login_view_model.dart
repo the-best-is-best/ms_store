@@ -5,9 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
-import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
-
 import '../../../app/app_refs.dart';
 import '../../../app/components.dart';
 import '../../../app/di.dart';

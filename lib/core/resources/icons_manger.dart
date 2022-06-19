@@ -33,6 +33,7 @@ class IconsManger {
   static const IconData arrowRight = CommunityMaterialIcons.arrow_right;
 
   static const IconData cart = CommunityMaterialIcons.cart;
+  static const IconData delete = CommunityMaterialIcons.delete;
 
   static const IconData email = CommunityMaterialIcons.email;
   static const IconData phone = CommunityMaterialIcons.phone;

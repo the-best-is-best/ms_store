@@ -1,7 +1,5 @@
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-
-import '../../../app/components.dart';
 import '../../../app/di.dart';
 import '../../../domain/use_case/users_case/active_email_case.dart';
 import '../../base/base_controller.dart';

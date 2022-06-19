@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ms_store/app/app_refs.dart';
 import 'package:ms_store/app/di.dart';
-import 'package:ms_store/data/network/failure.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 
@@ -17,9 +16,7 @@ class UserDataController extends GetxController {
     if (userModel.value != null) {
       var result =
           await favController.getFavorite(instance(), userModel.value!.id);
-      result.fold((failure) {
-        print(failure);
-      }, (data) {
+      result.fold((failure) {}, (data) {
         favController.favoriteModel.addAll(data);
       });
       await cartController.getCart();

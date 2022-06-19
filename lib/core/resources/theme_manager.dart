@@ -17,6 +17,7 @@ ThemeData get themeDataLight {
     primaryColorLight: ColorManager.primaryColorLight,
     primaryColorDark: ColorManager.darkColor,
     disabledColor: ColorManager.disabledColor,
+    iconTheme: const IconThemeData(color: ColorManager.primaryColor),
     // card Theme
     cardTheme: CardTheme(
         color: Colors.white,
@@ -65,8 +66,8 @@ ThemeData get themeDataLight {
             horizontal: AppSpacing.ap20, vertical: AppSpacing.ap12),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSpacing.ap12.r)),
-        textStyle: getRegularStyle(
-            color: ColorManager.textColor, fontSize: FontSize.s16),
+        textStyle:
+            getRegularStyle(color: ColorManager.white, fontSize: FontSize.s16),
       ),
     ),
 

@@ -3,8 +3,6 @@ import '../../../domain/use_case/users_case/forget_password_case.dart';
 import '../../base/base_controller.dart';
 import '../../base/base_users_controller.dart';
 import '../../../core/resources/color_manager.dart';
-
-import '../../../app/components.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../../core/resources/strings_manager.dart';

@@ -8,7 +8,6 @@ import '../../app/app_refs.dart';
 import '../../app/di.dart';
 import '../../core/resources/routes_manger.dart';
 import '../../data/network/failure.dart';
-import '../../domain/models/store/favorite_model.dart';
 import '../../domain/models/users_model.dart';
 
 mixin BaseFavoriteController {
@@ -25,7 +24,7 @@ mixin BaseFavoriteController {
     return Left(DataRes.DEFAULT.getFailure());
   }
 
-  Future<Either<Failure, Map<int, FavoriteDataModel>>> getFavorite(
+  Future<Either<Failure, Map<int, bool>>> getFavorite(
       GetFavoriteUseCase getFavoriteUseCase, int userId) async {
     return await getFavoriteUseCase.execute(GetFavoriteUseCaseInput(userId));
   }

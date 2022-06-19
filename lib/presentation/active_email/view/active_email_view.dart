@@ -2,11 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/app/extensions.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-
 import '../../../app/components.dart';
-import '../../../core/resources/icons_manger.dart';
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/resources/values_manager.dart';
 import '../view_model/active_email_controller.dart';

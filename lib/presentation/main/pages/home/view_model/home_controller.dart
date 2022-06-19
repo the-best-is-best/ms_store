@@ -1,13 +1,8 @@
 import 'package:get/get.dart';
-import 'package:ms_store/app/di.dart';
-import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/base_favorite_controller.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
-
-import '../../../../../app/app_refs.dart';
 import '../../../../../app/components.dart';
-import '../../../../../core/resources/routes_manger.dart';
 import '../../../../../domain/models/home_models/home_data_model.dart';
 import '../../../../../domain/models/store/favorite_model.dart';
 import '../../../../../domain/models/users_model.dart';
@@ -35,7 +30,10 @@ class HomeController extends GetxController
         message: AppStrings.loading);
     var resultHome = await _homeUseCase.execute(null);
     UserDataController userDataController = Get.find();
-    await userDataController.getUserData();
+    if (userDataController.userModel.value == null) {
+      await userDataController.getUserData();
+    }
+    await waitStateChanged(duration: 1000);
     resultHome.fold((failure) {
       flowState.value = ErrorState(
           stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,
@@ -76,15 +74,14 @@ class HomeController extends GetxController
 
       if (userModel != null) {
         if (favController.favoriteModel.containsKey(productId)) {
-          favController.favoriteModel[productId]!.status =
-              !favController.favoriteModel[productId]!.status;
+          favController.favoriteModel[productId] =
+              !favController.favoriteModel[productId]!;
         } else {
           if (favController.favoriteModel.containsKey([productId])) {
-            favController.favoriteModel[productId]!.status =
-                !favController.favoriteModel[productId]!.status;
+            favController.favoriteModel[productId] =
+                !favController.favoriteModel[productId]!;
           } else {
-            favController.favoriteModel
-                .addAll({productId: FavoriteDataModel(productId, true)});
+            favController.favoriteModel.addAll({productId: true});
           }
           favController.saveFav();
         }

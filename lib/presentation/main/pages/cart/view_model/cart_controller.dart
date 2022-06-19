@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:ms_store/domain/models/store/cart_model.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 
 import '../../../../../app/components.dart';
@@ -7,23 +6,21 @@ import '../../../../../data/data_src/local_data_source.dart';
 
 class CartController extends GetxController {
   final LocalDataSource _localDataSource;
-  RxMap<int, CartModel> cartModel = RxMap<int, CartModel>();
+  RxMap<int, int> cartModel = RxMap<int, int>();
   RxList<ProductModel> productsInCart = RxList<ProductModel>();
+  RxDouble totalPrice = 0.0.obs;
   CartController(this._localDataSource);
+
   Future getCart() async {
-    try {
-      cartModel.value = await _localDataSource.getCartData();
-    } catch (ex) {
-      await _localDataSource.deleteCartData();
-      await _localDataSource.deleteProductCartData();
-    }
-    try {
-      productsInCart.value = await _localDataSource.getProductCartData();
-    } catch (ex) {
+    cartModel.value = await _localDataSource.getCartData();
+    productsInCart.value = await _localDataSource.getProductCartData();
+    if (cartModel.length != productsInCart.length) {
       cartModel.value = {};
+      productsInCart.value = [];
       await _localDataSource.deleteCartData();
       await _localDataSource.deleteProductCartData();
     }
+    getTotalPrice();
   }
 
   Future saveCart() async {
@@ -37,15 +34,15 @@ class CartController extends GetxController {
     isLoadingCart.value = true;
     productId.value = productData.id;
     if (cartModel.containsKey(productData.id)) {
-      if (increase && cartModel[productData.id]!.quantity < 10) {
-        cartModel[productData.id]!.quantity++;
-      } else if (!increase && cartModel[productData.id]!.quantity > 1) {
-        cartModel[productData.id]!.quantity--;
+      if (increase && cartModel[productData.id]! < 10) {
+        cartModel[productData.id] = cartModel[productData.id]! + 1;
+      } else if (!increase && cartModel[productData.id]! > 1) {
+        cartModel[productData.id] = cartModel[productData.id]! - 1;
       }
       cartModel.refresh();
     } else {
-      Map<int, CartModel> dataToAdd = {
-        productData.id: CartModel(productData.id, 1)
+      Map<int, int> dataToAdd = {
+        productData.id: 1,
       };
       cartModel.addAll(dataToAdd);
       productsInCart.add(productData);
@@ -55,6 +52,30 @@ class CartController extends GetxController {
 
     isLoadingCart.value = false;
     productId.value = null;
-    update();
+    getTotalPrice();
+  }
+
+  void deleteFromCart(ProductModel productData) async {
+    isLoadingCart.value = true;
+    productId.value = productData.id;
+
+    await waitStateChanged(duration: 1000);
+    await saveCart();
+    cartModel.remove(productData.id);
+    productsInCart.remove(productData);
+    isLoadingCart.value = false;
+    productId.value = null;
+    getTotalPrice();
+  }
+
+  void getTotalPrice() {
+    totalPrice.value = 0;
+    totalPrice.value = productsInCart.fold<double>(
+        0,
+        (previousValue, product) =>
+            previousValue +
+            (cartModel[product.id]! * product.priceAfterDis != 0
+                ? product.priceAfterDis * cartModel[product.id]!
+                : product.price * cartModel[product.id]!));
   }
 }

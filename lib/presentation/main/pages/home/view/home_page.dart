@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               bottom: 20,
               left: 15,
               right: 15,
-              child: AddToCartButton(productModel),
+              child: AddToCartButton(productModel, ColorManager.white),
             ),
             addToFavoriteButton(
                 () => _homeController.addToFavoriteEvent(productModel.id),
