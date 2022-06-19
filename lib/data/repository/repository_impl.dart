@@ -6,6 +6,8 @@ import 'package:ms_store/data/repository/users_repository/repository_impl_login_
 import 'package:ms_store/domain/models/cache/cache_data.dart';
 import 'package:ms_store/domain/models/store/cart_model.dart';
 import 'package:ms_store/domain/models/store/favorite_model.dart';
+import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart';
+import 'package:ms_store/domain/models/store/product_model.dart';
 
 import '../../domain/models/home_models/home_data_model.dart';
 import '../../domain/models/store/category_model.dart';
@@ -103,4 +105,10 @@ class RepositoryImpl extends Repository {
     return RepositoryImplGetFavorite.call(
         _remoteDataSrc, _networkInfo, _localDataSource, getFavoriteRequests);
   }
+
+  // @override
+  // Future<Either<Failure, List<ProductModel>>> getProductByIds(GetProductsDetailsCartUseCaseInput getProductByIds) {
+  //   // TODO: implement getProductByIds
+  //   throw UnimplementedError();
+  // }
 }

@@ -12,6 +12,7 @@ import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 
+import '../../../../../app/components.dart';
 import '../../../../../domain/models/store/category_model.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -29,6 +30,7 @@ class _CategoryPageState extends State<CategoryPage>
   void initState() {
     _categoryController = Get.find();
     _categoryController.getData();
+    WidgetsBinding.instance.addObserver(this);
 
     super.initState();
   }
@@ -36,6 +38,8 @@ class _CategoryPageState extends State<CategoryPage>
   @override
   void dispose() {
     _categoryController.categoryModel.value = null;
+    WidgetsBinding.instance.removeObserver(this);
+
     super.dispose();
   }
 
@@ -170,7 +174,7 @@ class _CategoryPageState extends State<CategoryPage>
                                 Lottie.asset(const $AssetsJsonGen().empty),
                                 Text(
                                   AppStrings.noProducts,
-                                  style: themeData.textTheme.titleMedium,
+                                  style: themeData.textTheme.labelLarge,
                                 ),
                               ],
                             ),
@@ -224,9 +228,8 @@ class _CategoryPageState extends State<CategoryPage>
             CachedNetworkImage(
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   Center(
-                child: CircularProgressIndicator(
-                    color: ColorManager.primaryColor,
-                    value: downloadProgress.progress),
+                child: buildCircularProgressIndicatorWithDownload(
+                    downloadProgress),
               ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
               imageUrl: categoryModel!.image,

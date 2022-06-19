@@ -33,7 +33,6 @@ class ForgetPasswordViewGetX extends GetxController
 
     var result = await _forgetPasswordCase
         .execute(ForgetPasswordInput(userDataObject.value.email));
-    await waitStateChanged(duration: 1800);
     result.fold((failure) {
       if (failure.statusCode == -6) {
         flowState.value = ErrorState(

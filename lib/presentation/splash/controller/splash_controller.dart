@@ -65,7 +65,7 @@ class SplashController extends GetxController {
     UserModel? userModel = await AppPrefs().getUserData();
     if (userModel != null) {
       FavController favController = Get.find();
-      favController.getFavorite();
+      favController.getFavorite(instance(), userModel.id);
     }
   }
 }

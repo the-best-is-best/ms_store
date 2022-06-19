@@ -67,7 +67,6 @@ class ActiveEmailController extends GetxController
     UserDataObject value = userDataObject.value;
     var result = await _activeEmailCase
         .execute(ActiveEmailCaseInput(value.email, value.pin));
-    await waitStateChanged(duration: 1800);
     result.fold((failure) {
       if (failure.statusCode == -6) {
         flowState.value = ErrorState(

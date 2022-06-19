@@ -18,20 +18,17 @@ class FavoriteDataModelAdapter extends TypeAdapter<FavoriteDataModel> {
     };
     return FavoriteDataModel(
       fields[0] as int,
-      fields[1] as int,
-      fields[2] as bool,
+      fields[1] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, FavoriteDataModel obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.productId)
       ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.productId)
+      ..writeByte(1)
       ..write(obj.status);
   }
 

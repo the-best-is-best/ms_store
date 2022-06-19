@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
-import 'package:ms_store/domain/models/store/cart_model.dart';
 import 'package:ms_store/domain/models/store/favorite_model.dart';
+import 'package:ms_store/domain/models/store/product_model.dart';
+import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart';
 
 import '../../data/network/failure.dart';
 import '../../data/network/requests/favorites_requests.dart';
@@ -29,4 +30,6 @@ abstract class Repository {
       AddFavoriteRequests addFavoriteRequests);
   Future<Either<Failure, Map<int, FavoriteDataModel>>> getProductToFavorite(
       GetFavoriteRequests getFavoriteRequests);
+//   Future<Either<Failure, List<ProductModel>>> getProductByIds(
+//       GetProductsDetailsCartUseCaseInput getProductByIds);
 }

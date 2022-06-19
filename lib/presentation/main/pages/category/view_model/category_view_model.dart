@@ -19,7 +19,6 @@ class CategoryController extends GetxController with BaseController {
         stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
         message: AppStrings.loading);
     var result = await _categoryUseCase.execute(null);
-    await waitStateChanged(duration: 1800);
     result.fold((failure) {
       flowState.value = ErrorState(
           stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,

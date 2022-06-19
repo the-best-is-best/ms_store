@@ -65,7 +65,6 @@ class ResetPasswordController extends GetxController
       password: userDataObject.value.password,
       email: userDataObject.value.email,
     ));
-    await waitStateChanged(duration: 1800);
     result.fold((failure) {
       if (failure.statusCode == -6) {
         flowState.value = ErrorState(

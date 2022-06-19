@@ -102,7 +102,6 @@ class RegisterController extends GetxController
         email: value.email,
         password: value.password,
         userName: value.userName));
-    await waitStateChanged(duration: 1800);
     result.fold((failure) {
       if (failure.statusCode == -6) {
         flowState.value = ErrorState(

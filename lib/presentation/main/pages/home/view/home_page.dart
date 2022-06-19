@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void dispose() {
     _homeController.homeModel.value = null;
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -111,9 +111,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       imageUrl: productModel.image,
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => Center(
-                        child: CircularProgressIndicator(
-                            color: ColorManager.primaryColor,
-                            value: downloadProgress.progress),
+                        child: buildCircularProgressIndicatorWithDownload(
+                            downloadProgress),
                       ),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
@@ -149,7 +148,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               bottom: 20,
               left: 15,
               right: 15,
-              child: addToCartButton(productModel.id),
+              child: AddToCartButton(productModel),
             ),
             addToFavoriteButton(
                 () => _homeController.addToFavoriteEvent(productModel.id),
@@ -179,7 +178,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           Lottie.asset(const $AssetsJsonGen().empty),
           Text(
             AppStrings.noProducts,
-            style: context.textTheme.titleMedium,
+            style: context.textTheme.labelLarge,
           ),
         ],
       ),
@@ -235,9 +234,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           child: CachedNetworkImage(
                             progressIndicatorBuilder:
                                 (context, url, downloadProgress) => Center(
-                              child: CircularProgressIndicator(
-                                  color: ColorManager.primaryColor,
-                                  value: downloadProgress.progress),
+                              child: buildCircularProgressIndicatorWithDownload(
+                                  downloadProgress),
                             ),
                             errorWidget: (context, url, error) =>
                                 const Icon(Icons.error),

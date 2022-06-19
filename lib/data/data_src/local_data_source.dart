@@ -3,6 +3,7 @@ import 'package:ms_store/data/network/error_handler.dart';
 import 'package:ms_store/domain/models/store/cart_model.dart';
 import 'package:ms_store/domain/models/store/category_model.dart';
 import 'package:ms_store/domain/models/store/favorite_model.dart';
+import 'package:ms_store/domain/models/store/product_model.dart';
 
 import '../../domain/models/cache/cache_data.dart';
 import '../../domain/models/home_models/home_data_model.dart';
@@ -11,6 +12,7 @@ const String CACHE_HOME_KEY = "CACHE_HOME";
 const String CACHE_CATEGORY_KEY = "CACHE_CATEGORY";
 const String CACHE_Favorite_KEY = "CACHE_FAVORITE";
 const String CACHE_CART_KEY = "CACHE_CART";
+const String CACHE_PRODUCT_CART_KEY = "CACHE_PRODUCT_CART";
 
 abstract class LocalDataSource {
   Future<HomeModel> getHomeData();
@@ -18,6 +20,13 @@ abstract class LocalDataSource {
   Future<CategoryModel> getCategoryData();
   Future<Map<int, FavoriteDataModel>> getFavoriteData();
   Future<Map<int, CartModel>> getCartData();
+  Future<void> saveProductCartData(List<ProductModel> products);
+
+  Future<List<ProductModel>> getProductCartData();
+  Future<void> deleteProductCartData();
+
+  Future<void> deleteCartData();
+  Future<void> deleteFavData();
 
   Future<void> saveCategoryDataCache(CategoryModel categoryModel);
   Future<void> saveFavoriteDataCache(Map<int, FavoriteDataModel> favoriteModel);
@@ -103,5 +112,38 @@ class LocalDataSourceImpl implements LocalDataSource {
   @override
   Future<void> saveCartDataCache(Map<int, CartModel> cartModel) async {
     await AppPrefs().saveCacheData(CACHE_CART_KEY, CachedData(cartModel));
+  }
+
+  @override
+  Future<void> deleteCartData() async {
+    await AppPrefs().clearByKeyCacheData(CACHE_CART_KEY);
+  }
+
+  @override
+  Future<void> deleteFavData() async {
+    await AppPrefs().clearByKeyCacheData(CACHE_Favorite_KEY);
+  }
+
+  @override
+  Future<void> saveProductCartData(List<ProductModel> products) async {
+    await AppPrefs()
+        .saveCacheData(CACHE_PRODUCT_CART_KEY, CachedData(products));
+  }
+
+  @override
+  Future<List<ProductModel>> getProductCartData() async {
+    CachedData? cachedData =
+        await AppPrefs().getCacheData(CACHE_PRODUCT_CART_KEY);
+    if (cachedData != null) {
+      print(((cachedData.data) as List).length);
+      return ((cachedData.data) as List<dynamic>).cast<ProductModel>();
+    } else {
+      throw ErrorHandler.handle(DataRes.CACHE_ERROR);
+    }
+  }
+
+  @override
+  Future<void> deleteProductCartData() async {
+    await AppPrefs().clearByKeyCacheData(CACHE_PRODUCT_CART_KEY);
   }
 }

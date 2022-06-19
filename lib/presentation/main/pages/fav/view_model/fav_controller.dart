@@ -34,15 +34,18 @@ class FavController extends GetxController
       flowState.value = ErrorState(
           stateRendererType: StateRendererType.POPUP_ERROR_STATE,
           message: failure.messages);
-      return;
     }, (data) {
-      favoriteModel[productId]!.status = !favoriteModel[productId]!.status;
-
+      if (favoriteModel.containsKey([productId])) {
+        favoriteModel[productId]!.status = !favoriteModel[productId]!.status;
+      } else {
+        favoriteModel.addAll({productId: FavoriteDataModel(productId, true)});
+      }
+      saveFav();
       flowState.value = ContentState();
     });
   }
 
-  Future getFavorite() async {
+  Future getFavoriteEvent() async {
     UserModel? userModel = await AppPrefs().getUserData();
     if (userModel == null) {
       initLoginModel();
@@ -50,8 +53,14 @@ class FavController extends GetxController
     } else {
       var result = await _getFavoriteUseCase
           .execute(GetFavoriteUseCaseInput(userModel.id));
-      result.fold((failure) {}, (data) async {
+      result.fold((failure) {
+        print(failure);
+      }, (data) async {
+        print(data.keys);
         data.forEach((key, value) {
+          if (key == 4) {
+            print("Product data ${value.status}");
+          }
           favoriteModel[key] = value;
         });
 
@@ -62,6 +71,6 @@ class FavController extends GetxController
   }
 
   Future saveFav() async {
-    await _localDataSource.saveFavoriteDataCache(favoriteModel.value);
+    await _localDataSource.saveFavoriteDataCache(favoriteModel);
   }
 }

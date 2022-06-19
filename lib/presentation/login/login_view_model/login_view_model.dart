@@ -57,7 +57,6 @@ class LoginViewModel extends GetxController
 
     var result = await _loginUserCase.execute(LoginUserCaseInput(
         userDataObject.value.email, userDataObject.value.password));
-    await waitStateChanged(duration: 1800);
     result.fold((failure) {
       if (failure.statusCode == -6) {
         super.flowState.value = ErrorState(
@@ -71,12 +70,7 @@ class LoginViewModel extends GetxController
       }
     }, (data) async {
       flowState.value = ContentState();
-      initHomeModel();
       await getUserData(data);
-
-      SchedulerBinding.instance.addPostFrameCallback((_) async {
-        Get.offNamedUntil(Routes.homeRoute, (route) => false);
-      });
     });
   }
 
@@ -143,13 +137,7 @@ class LoginViewModel extends GetxController
       }
     }, (data) async {
       loadingSignButtonController.onSuccess();
-      await waitStateChanged(duration: 1000);
-
-      initHomeModel();
       await getUserData(data);
-      SchedulerBinding.instance.addPostFrameCallback((_) async {
-        Get.offNamedUntil(Routes.homeRoute, (route) => false);
-      });
     });
   }
 
@@ -197,13 +185,7 @@ class LoginViewModel extends GetxController
           }
         }, (data) async {
           loadingSignButtonController.onSuccess();
-          await waitStateChanged(duration: 1000);
-          initHomeModel();
           await getUserData(data);
-
-          SchedulerBinding.instance.addPostFrameCallback((_) async {
-            Get.offNamedUntil(Routes.homeRoute, (route) => false);
-          });
         });
       } else {
         loginBySocial.value = false;
@@ -224,11 +206,17 @@ class LoginViewModel extends GetxController
   }
 
   Future getUserData(UserModel data) async {
+    initHomeModel();
+
     await AppPrefs().updateUserData(data);
 
     if (Get.isRegistered<UserDataController>()) {
       UserDataController userDataController = Get.find();
       await userDataController.getUserData();
+      await waitStateChanged(duration: 900);
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
+        Get.offNamedUntil(Routes.homeRoute, (route) => false);
+      });
     }
   }
 }

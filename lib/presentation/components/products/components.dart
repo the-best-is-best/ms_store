@@ -2,76 +2,124 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/components.dart';
+import 'package:ms_store/app/di.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
+import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
 
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/util/get_device_type.dart';
 import '../../main/pages/fav/view_model/fav_controller.dart';
 
-Widget addToCartButton(int productId) {
-  CartController _cartController = Get.find();
-  return SizedBox(
-    width: double.infinity,
-    child: Obx(
-      () {
-        return BuildCondition(
-          condition: _cartController.cartModel[productId] == null ||
-              _cartController.cartModel[productId]?.quantity == 0,
-          builder: (_) => ElevatedButton(
-            onPressed: () {
-              _cartController.addToCart(productId, false);
-            },
-            child: Text(AppStrings.addToCartButton),
-          ),
-          fallback: (_) =>
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            CircleAvatar(
-              backgroundColor: ColorManager.white,
-              child: IconButton(
-                icon: Icon(
-                  IconsManger.minus,
-                  size: AppSize.ap30.sp,
-                ),
-                onPressed: () {
-                  _cartController.addToCart(productId, false);
-                },
-              ),
-            ),
-            CircleAvatar(
-                backgroundColor: ColorManager.white,
-                child: Builder(builder: (context) {
-                  return Text(
-                      _cartController.cartModel[productId]!.quantity.toString(),
-                      style: context.textTheme.labelMedium!
-                          .copyWith(color: ColorManager.darkColor));
-                })),
-            CircleAvatar(
-              backgroundColor: ColorManager.white,
-              child: IconButton(
-                icon: Icon(
-                  IconsManger.plus,
-                  size: AppSize.ap30.sp,
-                ),
-                onPressed: () {
-                  _cartController.addToCart(productId, true);
-                },
-              ),
-            ),
-          ]),
-        );
-      },
-    ),
-  );
+class AddToCartButton extends StatefulWidget {
+  final ProductModel product;
+  const AddToCartButton(this.product, {Key? key}) : super(key: key);
+
+  @override
+  State<AddToCartButton> createState() => _AddToCartButtonState();
+}
+
+class _AddToCartButtonState extends State<AddToCartButton> {
+  late final CartController _cartController;
+  @override
+  void initState() {
+    _cartController = Get.find();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Obx(
+        () {
+          return BuildCondition(
+              condition: _cartController.cartModel[widget.product.id] == null ||
+                  _cartController.cartModel[widget.product.id]?.quantity == 0,
+              builder: (_) => ElevatedButton(
+                    onPressed: () async {
+                      _cartController.addToCart(widget.product, false);
+                    },
+                    child: Text(
+                      AppStrings.addToCartButton,
+                      style: context.textTheme.labelMedium,
+                    ),
+                  ),
+              fallback: (_) => Obx(
+                    () => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: ColorManager.white,
+                            child: IconButton(
+                              icon: Icon(
+                                IconsManger.minus,
+                                size: AppSize.ap30.sp,
+                              ),
+                              onPressed: _cartController.isLoadingCart.value
+                                  ? null
+                                  : () {
+                                      _cartController.addToCart(
+                                          widget.product, false);
+                                    },
+                            ),
+                          ),
+                          CircleAvatar(
+                              backgroundColor: ColorManager.white,
+                              child: Builder(builder: (context) {
+                                return BuildCondition(
+                                  condition:
+                                      !_cartController.isLoadingCart.value &&
+                                              _cartController.productId.value ==
+                                                  null ||
+                                          _cartController.productId.value !=
+                                              widget.product.id,
+                                  builder: (_) => Text(
+                                      _cartController
+                                          .cartModel[widget.product.id]!
+                                          .quantity
+                                          .toString(),
+                                      style: context.textTheme.labelMedium!
+                                          .copyWith(
+                                              color: ColorManager.darkColor)),
+                                  fallback: (_) => Center(
+                                    child: buildCircularProgressIndicator(),
+                                  ),
+                                );
+                              })),
+                          CircleAvatar(
+                            backgroundColor: ColorManager.white,
+                            child: IconButton(
+                              icon: Icon(
+                                IconsManger.plus,
+                                size: AppSize.ap30.sp,
+                              ),
+                              onPressed: _cartController.isLoadingCart.value
+                                  ? null
+                                  : () {
+                                      _cartController.addToCart(
+                                          widget.product, true);
+                                    },
+                            ),
+                          ),
+                        ]),
+                  ));
+        },
+      ),
+    );
+  }
 }
 
 Widget addToFavoriteButton(Function fun, int productId) {
   FavController _favController = Get.find();
-  bool inFav = _favController.favoriteModel[productId] != null &&
-      _favController.favoriteModel[productId]!.status;
+  bool inFav = _favController.favoriteModel[productId]?.status == true;
+  if (productId == 4) {
+    print(_favController.favoriteModel[productId]?.status);
+  }
   return Positioned(
     top: 20,
     right: 20,

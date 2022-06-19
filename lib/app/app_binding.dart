@@ -76,15 +76,15 @@ class AppBinding implements Bindings {
   }
 
   void getMainViewController() {
-    Get.lazyPut(() => MainViewController());
+    Get.lazyPut(() => MainViewController(), fenix: true);
   }
 
   void getHomeViewController() {
-    Get.lazyPut(() => HomeController(instance(), instance()));
+    Get.lazyPut(() => HomeController(instance(), instance()), fenix: true);
   }
 
   void getCategoryViewController() {
-    Get.lazyPut(() => CategoryController(instance()));
+    Get.lazyPut(() => CategoryController(instance()), fenix: true);
   }
 
   void getFavoriteViewController() {
@@ -97,6 +97,6 @@ class AppBinding implements Bindings {
   }
 
   void getSettingViewController() {
-    Get.lazyPut(() => SettingsController());
+    Get.lazyPut(() => SettingsController(), fenix: true);
   }
 }
