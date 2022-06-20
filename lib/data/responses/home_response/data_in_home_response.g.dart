@@ -13,7 +13,7 @@ DataInHomeResponse _$DataInHomeResponseFromJson(Map<String, dynamic> json) =>
           : CategoryHomeResponse.fromJson(
               json['category'] as Map<String, dynamic>),
       (json['productsInCategory'] as List<dynamic>?)
-          ?.map((e) => ProductHomeResponse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ProductDataResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

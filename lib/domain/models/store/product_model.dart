@@ -24,15 +24,20 @@ class ProductModel {
   final int categoryId;
   @HiveField(9)
   final int offers;
-  ProductModel(
-      {required this.id,
-      required this.nameEN,
-      required this.nameAR,
-      required this.image,
-      required this.price,
-      required this.priceAfterDis,
-      required this.descriptionEN,
-      required this.descriptionAR,
-      required this.categoryId,
-      required this.offers});
+  @HiveField(10)
+  final int stock;
+
+  ProductModel({
+    required this.id,
+    required this.nameEN,
+    required this.nameAR,
+    required this.image,
+    required this.price,
+    required this.priceAfterDis,
+    required this.descriptionEN,
+    required this.descriptionAR,
+    required this.categoryId,
+    required this.offers,
+    required this.stock,
+  });
 }

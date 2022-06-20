@@ -1,11 +1,12 @@
 import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/data/network/requests/favorites_requests.dart';
+import 'package:ms_store/data/network/requests/store_requests.dart';
 import 'package:ms_store/data/repository/store/repository_impl_add_favorite.dart';
 import 'package:ms_store/data/repository/store/repository_impl_get_favorite.dart';
+import 'package:ms_store/data/repository/store/repository_impl_get_products_by_ids.dart';
 import 'package:ms_store/data/repository/users_repository/repository_impl_login_by_social.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
-import 'package:ms_store/domain/models/store/favorite_model.dart';
-
+import 'package:ms_store/domain/models/store/product_model.dart';
 import '../../domain/models/home_models/home_data_model.dart';
 import '../../domain/models/store/category_model.dart';
 import 'cache/repository_impl_cache_data_server.dart';
@@ -15,7 +16,6 @@ import 'users_repository/repository_impl_active_email.dart';
 import 'users_repository/repository_impl_register.dart';
 import 'users_repository/repository_impl_login.dart';
 import 'users_repository/repository_impl_reset_password.dart';
-
 import '../data_src/remote_data_src.dart';
 import '../network/network_info.dart';
 import '../../domain/models/users_model.dart';
@@ -101,5 +101,12 @@ class RepositoryImpl extends Repository {
       GetFavoriteRequests getFavoriteRequests) {
     return RepositoryImplGetFavorite.call(
         _remoteDataSrc, _networkInfo, _localDataSource, getFavoriteRequests);
+  }
+
+  @override
+  Future<Either<Failure, List<ProductModel>>> getProductByIds(
+      GetProductByIdsRequests getProductByIds) {
+    return RepositoryImplGetProductsByIds.call(
+        _remoteDataSrc, _networkInfo, getProductByIds, _localDataSource);
   }
 }

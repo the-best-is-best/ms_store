@@ -3,8 +3,9 @@ import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/base_favorite_controller.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
 import '../../../../../app/components.dart';
+import '../../../../../app/di.dart';
+import '../../../../../core/resources/routes_manger.dart';
 import '../../../../../domain/models/home_models/home_data_model.dart';
-import '../../../../../domain/models/store/favorite_model.dart';
 import '../../../../../domain/models/users_model.dart';
 import '../../../../../domain/use_case/home_use_case.dart';
 import '../../../../../domain/use_case/store/add_favorite_use_case.dart';
@@ -57,22 +58,21 @@ class HomeController extends GetxController
   }
 
   void addToFavoriteEvent(int productId) async {
-    flowState.value = LoadingState(
-        stateRendererType: StateRendererType.POPUP_LOADING_STATE,
-        message: AppStrings.loading);
-    var result = await addToFavorite(_addFavoriteUseCase, productId);
-    await waitStateChanged(duration: 1000);
+    UserDataController userDataController = Get.find();
+    UserModel? userModel = userDataController.userModel.value;
+    FavController favController = Get.find();
 
-    result.fold((failure) {
-      flowState.value = ErrorState(
-          stateRendererType: StateRendererType.POPUP_ERROR_STATE,
-          message: failure.messages);
-    }, (_) async {
-      UserDataController userDataController = Get.find();
-      UserModel? userModel = userDataController.userModel.value;
-      FavController favController = Get.find();
+    if (userModel != null) {
+      flowState.value = LoadingState(
+          stateRendererType: StateRendererType.POPUP_LOADING_STATE,
+          message: AppStrings.loading);
+      var result = await addToFavorite(_addFavoriteUseCase, productId);
 
-      if (userModel != null) {
+      result.fold((failure) {
+        flowState.value = ErrorState(
+            stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+            message: failure.messages);
+      }, (_) async {
         if (favController.favoriteModel.containsKey(productId)) {
           favController.favoriteModel[productId] =
               !favController.favoriteModel[productId]!;
@@ -86,9 +86,12 @@ class HomeController extends GetxController
           favController.saveFav();
         }
         await favController.saveFav();
-      }
+      });
       await waitStateChanged(duration: 900);
       flowState.value = ContentState();
-    });
+    } else {
+      initLoginModel();
+      Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
+    }
   }
 }

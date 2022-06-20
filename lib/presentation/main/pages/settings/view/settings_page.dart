@@ -46,183 +46,182 @@ class _SettingsPageState extends State<SettingsPage> {
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color: Colors.white,
-                child: ListView(
-                  children: [
-                    Text(
-                      AppStrings.accountTitle,
-                      style: themeData.textTheme.labelLarge,
-                    ),
-                    const SizedBox(
-                      height: AppSize.ap12,
-                    ),
-                    ListTile(
+                child: Obx(
+                  () => ListView(
+                    children: [
+                      Text(
+                        AppStrings.accountTitle,
+                        style: themeData.textTheme.labelLarge,
+                      ),
+                      const SizedBox(
+                        height: AppSize.ap12,
+                      ),
+                      ListTile(
                         onTap: () {
                           AppPrefs().clearUserData();
                           _userDataController.userModel.value = null;
                         },
-                        title: Obx(
-                          () => BuildCondition(
+                        title: BuildCondition(
+                          condition:
+                              _userDataController.userModel.value != null,
+                          builder: (context) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: AppSize.ap12,
+                                ),
+                                Text(
+                                  _userDataController.userModel.value!.userName,
+                                  style: themeData.textTheme.labelMedium,
+                                ),
+                                const SizedBox(
+                                  height: AppSize.ap12,
+                                ),
+                                Text(
+                                  _userDataController.userModel.value!.email,
+                                  style: themeData.textTheme.labelSmall,
+                                ),
+                                const SizedBox(
+                                  height: AppSize.ap12,
+                                ),
+                              ],
+                            );
+                          },
+                          fallback: (_) => SizedBox(
+                            width: double.infinity,
+                            child: TextButton(
+                                onPressed: () {
+                                  initLoginModel();
+                                  Get.toNamed(Routes.loginRoute,
+                                      arguments: {'canBack': true});
+                                },
+                                child: Text(
+                                  AppStrings.login,
+                                  style: themeData.textTheme.labelMedium,
+                                )),
+                          ),
+                        ),
+                        trailing: BuildCondition(
                             condition:
                                 _userDataController.userModel.value != null,
                             builder: (context) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: AppSize.ap12,
-                                  ),
-                                  Text(
-                                    _userDataController
-                                        .userModel.value!.userName,
-                                    style: themeData.textTheme.labelMedium,
-                                  ),
-                                  const SizedBox(
-                                    height: AppSize.ap12,
-                                  ),
-                                  Text(
-                                    _userDataController.userModel.value!.email,
-                                    style: themeData.textTheme.labelSmall,
-                                  ),
-                                  const SizedBox(
-                                    height: AppSize.ap12,
-                                  ),
-                                ],
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.only(top: AppSize.ap16),
+                                child: Obx(() => Icon(
+                                    _settingsController.language.value != "en"
+                                        ? IconsManger.arrowLeft
+                                        : IconsManger.arrowRight)),
                               );
                             },
-                            fallback: (_) => SizedBox(
-                              width: double.infinity,
-                              child: TextButton(
-                                  onPressed: () {
-                                    initLoginModel();
-                                    Get.toNamed(Routes.loginRoute,
-                                        arguments: {'canBack': true});
-                                  },
-                                  child: Text(
-                                    AppStrings.login,
-                                    style: themeData.textTheme.labelMedium,
-                                  )),
-                            ),
-                          ),
-                        ),
-                        trailing: Obx(
-                          () => BuildCondition(
-                              condition:
-                                  _userDataController.userModel.value != null,
-                              builder: (context) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: AppSize.ap16),
-                                  child: Obx(() => Icon(
-                                      _settingsController.language.value != "en"
-                                          ? IconsManger.arrowLeft
-                                          : IconsManger.arrowRight)),
-                                );
-                              },
-                              fallback: (_) => const SizedBox()),
-                        )),
-                    const SizedBox(
-                      height: AppSize.ap30,
-                    ),
-                    Text(
-                      AppStrings.aboutTitle,
-                      style: themeData.textTheme.labelLarge,
-                    ),
-                    const SizedBox(
-                      height: AppSize.ap12,
-                    ),
-                    ListTile(
-                      title: Text(
-                        AppStrings.aboutUsTitle,
-                        style: themeData.textTheme.labelMedium,
+                            fallback: (_) => const SizedBox()),
                       ),
-                      trailing: Obx(() => Icon(
-                          _settingsController.language.value != "en"
-                              ? IconsManger.arrowLeft
-                              : IconsManger.arrowRight)),
-                    ),
-                    const SizedBox(
-                      height: AppSize.ap8,
-                    ),
-                    ListTile(
+                      const SizedBox(
+                        height: AppSize.ap30,
+                      ),
+                      Text(
+                        AppStrings.aboutTitle,
+                        style: themeData.textTheme.labelLarge,
+                      ),
+                      const SizedBox(
+                        height: AppSize.ap12,
+                      ),
+                      ListTile(
                         title: Text(
-                          AppStrings.contactUsTitle,
+                          AppStrings.aboutUsTitle,
                           style: themeData.textTheme.labelMedium,
                         ),
                         trailing: Obx(() => Icon(
                             _settingsController.language.value != "en"
                                 ? IconsManger.arrowLeft
-                                : IconsManger.arrowRight))),
-                    const SizedBox(
-                      height: AppSize.ap30,
-                    ),
-                    Text(
-                      AppStrings.setting,
-                      style: themeData.textTheme.labelLarge,
-                    ),
-                    const SizedBox(
-                      height: AppSize.ap12,
-                    ),
-                    ListTile(
-                      onTap: () {
-                        Get.bottomSheet(Builder(builder: (context) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: List.generate(
-                              LangType.values.length,
-                              (index) => ListTile(
-                                onTap: LangType.values[index]
-                                            .getValue()
-                                            .toUpperCase() ==
-                                        _settingsController.language.value
-                                            .toUpperCase()
-                                    ? null
-                                    : () {
-                                        _settingsController.changeLanguage(
-                                            LangType.values[index]);
-                                      },
-                                title: Text(
-                                  LangType.values[index].name.tr,
-                                  style: LangType.values[index]
+                                : IconsManger.arrowRight)),
+                      ),
+                      const SizedBox(
+                        height: AppSize.ap8,
+                      ),
+                      ListTile(
+                          title: Text(
+                            AppStrings.contactUsTitle,
+                            style: themeData.textTheme.labelMedium,
+                          ),
+                          trailing: Icon(
+                              _settingsController.language.value != "en"
+                                  ? IconsManger.arrowLeft
+                                  : IconsManger.arrowRight)),
+                      const SizedBox(
+                        height: AppSize.ap30,
+                      ),
+                      Text(
+                        AppStrings.setting,
+                        style: themeData.textTheme.labelLarge,
+                      ),
+                      const SizedBox(
+                        height: AppSize.ap12,
+                      ),
+                      ListTile(
+                        onTap: () {
+                          Get.bottomSheet(Builder(builder: (context) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: List.generate(
+                                LangType.values.length,
+                                (index) => ListTile(
+                                  onTap: LangType.values[index]
                                               .getValue()
                                               .toUpperCase() ==
                                           _settingsController.language.value
                                               .toUpperCase()
-                                      ? themeData.textTheme.labelMedium!
-                                          .copyWith(color: ColorManager.grey)
-                                      : themeData.textTheme.labelMedium,
-                                ),
-                              ),
-                            ),
-                          );
-                        }), backgroundColor: ColorManager.white);
-                      },
-                      title: Text(
-                        AppStrings.languageTitle,
-                        style: themeData.textTheme.labelMedium,
-                      ),
-                      trailing: SizedBox(
-                        width: 50,
-                        child: Obx(() => Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    _settingsController.language.value
-                                        .toUpperCase()
-                                        .tr,
-                                    style: themeData.textTheme.labelSmall,
+                                      ? null
+                                      : () {
+                                          _settingsController.changeLanguage(
+                                              LangType.values[index]);
+                                        },
+                                  title: Text(
+                                    LangType.values[index].name.tr,
+                                    style: LangType.values[index]
+                                                .getValue()
+                                                .toUpperCase() ==
+                                            _settingsController.language.value
+                                                .toUpperCase()
+                                        ? themeData.textTheme.labelMedium!
+                                            .copyWith(color: ColorManager.grey)
+                                        : themeData.textTheme.labelMedium,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Icon(
-                                      _settingsController.language.value != "en"
-                                          ? IconsManger.arrowLeft
-                                          : IconsManger.arrowRight),
-                                ),
-                              ],
-                            )),
+                              ),
+                            );
+                          }), backgroundColor: ColorManager.white);
+                        },
+                        title: Text(
+                          AppStrings.languageTitle,
+                          style: themeData.textTheme.labelMedium,
+                        ),
+                        trailing: SizedBox(
+                          width: 50,
+                          child: Obx(() => Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      _settingsController.language.value
+                                          .toUpperCase()
+                                          .tr,
+                                      style: themeData.textTheme.labelSmall,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Icon(
+                                        _settingsController.language.value !=
+                                                "en"
+                                            ? IconsManger.arrowLeft
+                                            : IconsManger.arrowRight),
+                                  ),
+                                ],
+                              )),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'product_home_response.dart';
+part of 'product_data_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProductHomeResponse _$ProductHomeResponseFromJson(Map<String, dynamic> json) =>
-    ProductHomeResponse(
+ProductDataResponse _$ProductDataResponseFromJson(Map<String, dynamic> json) =>
+    ProductDataResponse(
       id: json['id'] as int?,
       nameEN: json['nameEN'] as String?,
       nameAR: json['nameAR'] as String?,
@@ -18,10 +18,11 @@ ProductHomeResponse _$ProductHomeResponseFromJson(Map<String, dynamic> json) =>
       descriptionAR: json['descriptionAR'] as String?,
       categoryId: json['categoryId'] as int?,
       offers: json['offers'] as int?,
+      stock: json['stock'] as int?,
     );
 
-Map<String, dynamic> _$ProductHomeResponseToJson(
-        ProductHomeResponse instance) =>
+Map<String, dynamic> _$ProductDataResponseToJson(
+        ProductDataResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'nameEN': instance.nameEN,
@@ -33,4 +34,5 @@ Map<String, dynamic> _$ProductHomeResponseToJson(
       'descriptionAR': instance.descriptionAR,
       'categoryId': instance.categoryId,
       'offers': instance.offers,
+      'stock': instance.stock,
     };

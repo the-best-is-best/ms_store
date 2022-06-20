@@ -1,6 +1,8 @@
 import 'package:ms_store/data/network/requests/favorites_requests.dart';
+import 'package:ms_store/data/network/requests/store_requests.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
+import 'package:ms_store/data/responses/store_responses/get_products_by_ids_responses.dart';
 
 import '../network/app_api.dart';
 import '../network/requests/users_requests.dart';
@@ -28,6 +30,8 @@ abstract class RemoteDataSrc {
       AddFavoriteRequests addFavoriteRequests);
   Future<FavoriteGetResponse> getFavorite(
       GetFavoriteRequests getFavoriteRequests);
+  Future<GetProductByIdsDataResponse> getProductsByIds(
+      GetProductByIdsRequests getProductByIdsRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -107,5 +111,12 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
   Future<FavoriteGetResponse> getFavorite(
       GetFavoriteRequests getFavoriteRequests) async {
     return await _appServicesClient.getFavorite(getFavoriteRequests.userId);
+  }
+
+  @override
+  Future<GetProductByIdsDataResponse> getProductsByIds(
+      GetProductByIdsRequests getProductByIdsRequests) async {
+    return await _appServicesClient
+        .getProductsByIds(getProductByIdsRequests.ids);
   }
 }

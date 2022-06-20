@@ -30,7 +30,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class _HomePageState extends State<HomePage> {
   String locale = Get.locale!.languageCode;
 
   late final HomeController _homeController;
@@ -39,26 +39,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void initState() {
     _homeController = Get.find();
     _homeController.getHomeData();
-    WidgetsBinding.instance.addObserver(this);
-
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _homeController.homeModel.value = null;
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      _homeController.homeModel.value = null;
-    }
-    if (state == AppLifecycleState.resumed) {
-      _homeController.getHomeData();
-    }
   }
 
   Widget buildCategory(int index, CategoryHomeModel mainCatModel) => Container(

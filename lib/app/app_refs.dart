@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:ms_store/domain/models/store/favorite_model.dart';
 import 'package:ms_store/domain/models/users_model.dart';
 import '../domain/models/cache/cache_data.dart';
 import '../domain/models/home_models/category_home_model.dart';

@@ -6,7 +6,8 @@ import '../../../../../app/app_refs.dart';
 
 class SettingsController extends GetxController {
   RxString language = 'en'.obs;
-  void loadData() async {
+  @override
+  void onInit() async {
     language.value = await AppPrefs().getLanguage() ??
         Get.deviceLocale!.languageCode.toString();
 

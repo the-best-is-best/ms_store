@@ -67,4 +67,6 @@ class AppStrings {
   static String get contactUsTitle => "contact_Us_title".tr;
 
   static String get addToCartButton => "Add_to_cart_button".tr;
+  static String get checkout => "checkout".tr;
+  static String get total => "total".tr;
 }

@@ -6,6 +6,7 @@ import 'package:retrofit/retrofit.dart';
 import '../../app/constants.dart';
 import '../responses/home_response/home_response.dart';
 import '../responses/store_responses/categories_responses.dart';
+import '../responses/store_responses/get_products_by_ids_responses.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
@@ -76,4 +77,10 @@ abstract class AppServicesClient {
 
   @GET(Constants.getFavorite)
   Future<FavoriteGetResponse> getFavorite(@Query('userId') int userId);
+
+  // get Products by ids
+
+  @GET(Constants.getProductsByIds)
+  Future<GetProductByIdsDataResponse> getProductsByIds(
+      @Query('id') Map<String, int> id);
 }

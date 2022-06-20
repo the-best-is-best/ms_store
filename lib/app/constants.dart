@@ -26,4 +26,6 @@ class Constants {
   static const String productByCatUrl = '/get_data/get_products_by_cat.php';
   static const String addToFavorite = '/update_data/update_favorite.php';
   static const String getFavorite = '/get_data/get_favorite.php';
+
+  static const String getProductsByIds = '/get_data/get_products_by_ids.php';
 }

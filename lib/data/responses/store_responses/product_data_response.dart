@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'product_home_response.g.dart';
+part 'product_data_response.g.dart';
 
 @JsonSerializable()
-class ProductHomeResponse {
+class ProductDataResponse {
   final int? id;
   final String? nameEN;
   final String? nameAR;
@@ -15,11 +15,12 @@ class ProductHomeResponse {
   final String? descriptionAR;
   final int? categoryId;
   final int? offers;
-  factory ProductHomeResponse.fromJson(Map<String, dynamic> json) {
-    return _$ProductHomeResponseFromJson(json);
+  final int? stock;
+  factory ProductDataResponse.fromJson(Map<String, dynamic> json) {
+    return _$ProductDataResponseFromJson(json);
   }
 
-  ProductHomeResponse(
+  ProductDataResponse(
       {this.id,
       this.nameEN,
       this.nameAR,
@@ -29,5 +30,6 @@ class ProductHomeResponse {
       this.descriptionEN,
       this.descriptionAR,
       this.categoryId,
-      this.offers});
+      this.offers,
+      this.stock});
 }

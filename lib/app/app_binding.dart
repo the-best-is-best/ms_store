@@ -88,7 +88,8 @@ class AppBinding implements Bindings {
   }
 
   void getFavoriteViewController() {
-    Get.lazyPut(() => FavController(instance(), instance()), fenix: true);
+    Get.lazyPut(() => FavController(instance(), instance(), instance()),
+        fenix: true);
   }
 
   void getCartViewController() {

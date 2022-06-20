@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
-import 'package:ms_store/domain/models/store/favorite_model.dart';
-
 import '../../data/network/failure.dart';
 import '../../data/network/requests/favorites_requests.dart';
+import '../../data/network/requests/store_requests.dart';
 import '../../data/network/requests/users_requests.dart';
 import '../models/home_models/home_data_model.dart';
 import '../models/store/category_model.dart';
+import '../models/store/product_model.dart';
 import '../models/users_model.dart';
 
 abstract class Repository {
@@ -28,6 +28,6 @@ abstract class Repository {
       AddFavoriteRequests addFavoriteRequests);
   Future<Either<Failure, Map<int, bool>>> getProductToFavorite(
       GetFavoriteRequests getFavoriteRequests);
-//   Future<Either<Failure, List<ProductModel>>> getProductByIds(
-//       GetProductsDetailsCartUseCaseInput getProductByIds);
+  Future<Either<Failure, List<ProductModel>>> getProductByIds(
+      GetProductByIdsRequests getProductByIds);
 }

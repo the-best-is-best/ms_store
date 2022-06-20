@@ -19,7 +19,8 @@ class UserDataController extends GetxController {
       result.fold((failure) {}, (data) {
         favController.favoriteModel.addAll(data);
       });
-      await cartController.getCart();
+      await favController.getProductsFavorite();
     }
+    await cartController.getCart();
   }
 }

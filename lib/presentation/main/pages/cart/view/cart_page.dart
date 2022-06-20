@@ -26,6 +26,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   late final CartController _cartController;
   late final String codeLanguage;
+  final String language = Get.locale!.languageCode;
 
   @override
   void initState() {
@@ -92,27 +93,36 @@ class _CartPageState extends State<CartPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Total : ",
-                              style: context.textTheme.labelMedium,
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.only(
+                                start: AppSpacing.ap12),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Total : ",
+                                  style: context.textTheme.labelMedium,
+                                ),
+                                SizedBox(
+                                  width: AppSpacing.ap8.w,
+                                ),
+                                Text(
+                                  '${_cartController.totalPrice} EG',
+                                  style: context.textTheme.labelLarge!
+                                      .copyWith(color: ColorManager.darkColor),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              width: AppSpacing.ap8.w,
-                            ),
-                            Text(
-                              '${_cartController.totalPrice} EG',
-                              style: context.textTheme.labelLarge!
-                                  .copyWith(color: ColorManager.darkColor),
-                            ),
-                          ],
+                          ),
                         ),
-                        ElevatedButton(
-                            onPressed: () {},
-                            child: const Text(
-                              "Checkout",
-                            ))
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text(
+                                AppStrings.checkout,
+                              )),
+                        )
                       ],
                     ),
                   ),
@@ -146,7 +156,7 @@ class _CartPageState extends State<CartPage> {
                   )),
             ),
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Container(
                 decoration: BoxDecoration(
                   color: ColorManager.greyLight,
@@ -183,14 +193,13 @@ class _CartPageState extends State<CartPage> {
                       child: Column(
                         children: [
                           SizedBox(
-                            width: 150.w,
                             child: Text(
                               codeLanguage == "ar"
                                   ? cartData.nameAR
                                   : cartData.nameEN,
                               style: context.textTheme.labelMedium,
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
+                              maxLines: 2,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -206,9 +215,12 @@ class _CartPageState extends State<CartPage> {
                         ],
                       ),
                     ),
-                    Positioned(
+                    Positioned.directional(
                       bottom: 0,
-                      left: 15,
+                      start: 15,
+                      textDirection: language == "ar"
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
                       child: Container(
                           decoration: BoxDecoration(
                             color: ColorManager.greyLight,

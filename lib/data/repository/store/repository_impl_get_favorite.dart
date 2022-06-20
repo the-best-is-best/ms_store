@@ -1,7 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:ms_store/data/mapper/store/favorite_response_mapper.dart';
-import 'package:ms_store/domain/models/store/favorite_model.dart';
-
 import '../../data_src/local_data_source.dart';
 import '../../data_src/remote_data_src.dart';
 import '../../network/error_handler.dart';

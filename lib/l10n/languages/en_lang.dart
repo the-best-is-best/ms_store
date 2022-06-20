@@ -76,6 +76,8 @@ class EnLang {
       "ARABIC": "ARABIC",
       "EN": "EN",
       "Add_to_cart_button": "Add to cart",
+      "total": "Total",
+      "checkout": "Checkout"
     };
   }
 }

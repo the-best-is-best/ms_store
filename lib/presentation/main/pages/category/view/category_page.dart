@@ -22,35 +22,15 @@ class CategoryPage extends StatefulWidget {
   State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage>
-    with WidgetsBindingObserver {
+class _CategoryPageState extends State<CategoryPage> {
   String locale = Get.locale!.languageCode;
   late final CategoryController _categoryController;
   @override
   void initState() {
     _categoryController = Get.find();
     _categoryController.getData();
-    WidgetsBinding.instance.addObserver(this);
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _categoryController.categoryModel.value = null;
-    WidgetsBinding.instance.removeObserver(this);
-
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      _categoryController.categoryModel.value = null;
-    }
-    if (state == AppLifecycleState.resumed) {
-      _categoryController.getData();
-    }
   }
 
   @override
