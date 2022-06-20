@@ -95,8 +95,7 @@ class _HomePageState extends State<HomePage> {
                         child: buildCircularProgressIndicatorWithDownload(
                             downloadProgress),
                       ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                      errorWidget: (context, url, error) => errorIcon(),
                     ),
                   ),
                   Padding(
@@ -132,7 +131,7 @@ class _HomePageState extends State<HomePage> {
               child: AddToCartButton(productModel, ColorManager.white),
             ),
             addToFavoriteButton(
-                () => _homeController.addToFavoriteEvent(productModel.id),
+                () => _homeController.addToFavoriteEvent(productModel),
                 productModel.id),
             //  displaySaleText(dataModel),
           ],
@@ -218,8 +217,7 @@ class _HomePageState extends State<HomePage> {
                               child: buildCircularProgressIndicatorWithDownload(
                                   downloadProgress),
                             ),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
+                            errorWidget: (context, url, error) => errorIcon(),
                             imageUrl: locale == "en"
                                 ? slider.imageEN
                                 : slider.imageAR,

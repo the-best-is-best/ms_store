@@ -46,6 +46,9 @@ class $AssetsJsonGen {
   /// File path: assets/json/loading.json
   String get loading => 'assets/json/loading.json';
 
+  /// File path: assets/json/please_login.json
+  String get pleaseLogin => 'assets/json/please_login.json';
+
   /// File path: assets/json/success.json
   String get success => 'assets/json/success.json';
 }

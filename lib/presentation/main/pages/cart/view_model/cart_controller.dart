@@ -12,15 +12,19 @@ class CartController extends GetxController {
   CartController(this._localDataSource);
 
   Future getCart() async {
-    cartModel.value = await _localDataSource.getCartData();
-    productsInCart.value = await _localDataSource.getProductCartData();
-    if (cartModel.length != productsInCart.length) {
-      cartModel.value = {};
-      productsInCart.value = [];
-      await _localDataSource.deleteCartData();
-      await _localDataSource.deleteProductCartData();
+    try {
+      cartModel.value = await _localDataSource.getCartData();
+      productsInCart.value = await _localDataSource.getProductCartData();
+      if (cartModel.length != productsInCart.length) {
+        cartModel.value = {};
+        productsInCart.value = [];
+        await _localDataSource.deleteCartData();
+        await _localDataSource.deleteProductCartData();
+      }
+      getTotalPrice();
+    } catch (ex) {
+      printError(info: '$ex');
     }
-    getTotalPrice();
   }
 
   Future saveCart() async {
@@ -65,6 +69,7 @@ class CartController extends GetxController {
     productsInCart.remove(productData);
     isLoadingCart.value = false;
     productId.value = null;
+
     getTotalPrice();
   }
 

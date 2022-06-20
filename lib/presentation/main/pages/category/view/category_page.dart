@@ -211,7 +211,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 child: buildCircularProgressIndicatorWithDownload(
                     downloadProgress),
               ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
+              errorWidget: (context, url, error) => errorIcon(),
               imageUrl: categoryModel!.image,
               height: 100,
               fit: BoxFit.contain,

@@ -5,6 +5,7 @@ import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/base_favorite_controller.dart';
 
+import '../../../../../app/components.dart';
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../../../data/data_src/local_data_source.dart';
 import '../../../../../domain/use_case/store/add_favorite_use_case.dart';
@@ -25,39 +26,40 @@ class FavController extends GetxController
   RxList<ProductModel> productsInFav = RxList<ProductModel>();
 
   Future getProductsFavorite() async {
-    Map<String, int> data = {};
-    favoriteModel.forEach((k, _) {
-      data.addAll({"id[${k - 1}]": k});
-    });
+    if (favoriteModel.isNotEmpty) {
+      Map<String, int> data = {};
+      favoriteModel.forEach((k, _) {
+        data.addAll({"id[${k - 1}]": k});
+      });
 
-    var result = await _getProductsFavoriteUseCase
-        .execute(GetProductByIdUseCaseInput(data));
-    result.fold((failure) => log(failure.messages),
-        (data) => productsInFav.value = data);
+      var result = await _getProductsFavoriteUseCase
+          .execute(GetProductByIdUseCaseInput(data));
+      result.fold((failure) => log(failure.messages),
+          (data) => productsInFav.value = data);
+      printInfo(info: productsInFav.length.toString());
+    }
   }
 
-  Future addToFavoriteEvent(int productId) async {
+  Future addToFavoriteEvent(ProductModel product) async {
     flowState.value = LoadingState(
         stateRendererType: StateRendererType.POPUP_LOADING_STATE,
         message: AppStrings.loading);
 
-    var result = await addToFavorite(_addFavoriteUseCase, productId);
+    var result = await addToFavorite(_addFavoriteUseCase, product.id);
     result.fold((failure) {
       flowState.value = ErrorState(
           stateRendererType: StateRendererType.POPUP_ERROR_STATE,
           message: failure.messages);
-    }, (data) {
-      if (favoriteModel.containsKey([productId])) {
-        favoriteModel[productId] = !favoriteModel[productId]!;
-      } else {
-        favoriteModel.addAll({productId: true});
-      }
-      saveFav();
+    }, (data) async {
+      updateFavData(Get.find<FavController>(), product);
+      await waitStateChanged(duration: 900);
+
       flowState.value = ContentState();
     });
   }
 
   Future saveFav() async {
     await _localDataSource.saveFavoriteDataCache(favoriteModel);
+    await _localDataSource.saveProductFavData(productsInFav);
   }
 }

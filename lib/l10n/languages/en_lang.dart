@@ -77,7 +77,8 @@ class EnLang {
       "EN": "EN",
       "Add_to_cart_button": "Add to cart",
       "total": "Total",
-      "checkout": "Checkout"
+      "checkout": "Checkout",
+      "please_login": "Please Login",
     };
   }
 }

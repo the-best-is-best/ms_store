@@ -156,3 +156,10 @@ CircularProgressIndicator buildCircularProgressIndicatorWithDownload(
 CircularProgressIndicator buildCircularProgressIndicator() {
   return const CircularProgressIndicator(color: ColorManager.primaryColor);
 }
+
+Widget errorIcon() {
+  return Icon(
+    Icons.error,
+    size: FontSize.s30,
+  );
+}

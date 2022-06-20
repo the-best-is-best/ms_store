@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:ms_store/domain/models/users_model.dart';
 import '../domain/models/cache/cache_data.dart';
 import '../domain/models/home_models/category_home_model.dart';
@@ -8,6 +8,7 @@ import '../domain/models/home_models/home_data_model.dart';
 import '../domain/models/home_models/product_home_model.dart';
 import '../domain/models/home_models/slider_model.dart';
 import '../domain/models/store/category_model.dart';
+import '../domain/models/store/product_model.dart';
 import 'extensions.dart';
 
 class AppPrefs with OnBoardingAppPrefs, SettingsAppPrefs, UserAppPrefs {
@@ -21,6 +22,8 @@ class AppPrefs with OnBoardingAppPrefs, SettingsAppPrefs, UserAppPrefs {
   static final AppPrefs _instance = AppPrefs._internal();
   factory AppPrefs() => _instance; // factory
   Future initBox() async {
+    await Hive.initFlutter();
+
     //home
     Hive.registerAdapter(HomeModelAdapter());
     Hive.registerAdapter(HomeDataModelAdapter());
@@ -32,9 +35,9 @@ class AppPrefs with OnBoardingAppPrefs, SettingsAppPrefs, UserAppPrefs {
     Hive.registerAdapter(CategoryModelAdapter());
     Hive.registerAdapter(CategoryDataModelAdapter());
     Hive.registerAdapter(CategoryDataWithChildModelAdapter());
-// // favorite cache
-//     Hive.registerAdapter(FavoriteDataModelAdapter());
-//     Hive.registerAdapter(FavoriteModelAdapter());
+
+// product
+    Hive.registerAdapter(ProductModelAdapter());
 
     // cache local
     //cacheLocal

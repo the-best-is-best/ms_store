@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/base_favorite_controller.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
@@ -57,7 +58,7 @@ class HomeController extends GetxController
     categoryController.animateContainer.value = index;
   }
 
-  void addToFavoriteEvent(int productId) async {
+  void addToFavoriteEvent(ProductModel product) async {
     UserDataController userDataController = Get.find();
     UserModel? userModel = userDataController.userModel.value;
     FavController favController = Get.find();
@@ -66,26 +67,14 @@ class HomeController extends GetxController
       flowState.value = LoadingState(
           stateRendererType: StateRendererType.POPUP_LOADING_STATE,
           message: AppStrings.loading);
-      var result = await addToFavorite(_addFavoriteUseCase, productId);
+      var result = await addToFavorite(_addFavoriteUseCase, product.id);
 
       result.fold((failure) {
         flowState.value = ErrorState(
             stateRendererType: StateRendererType.POPUP_ERROR_STATE,
             message: failure.messages);
       }, (_) async {
-        if (favController.favoriteModel.containsKey(productId)) {
-          favController.favoriteModel[productId] =
-              !favController.favoriteModel[productId]!;
-        } else {
-          if (favController.favoriteModel.containsKey([productId])) {
-            favController.favoriteModel[productId] =
-                !favController.favoriteModel[productId]!;
-          } else {
-            favController.favoriteModel.addAll({productId: true});
-          }
-          favController.saveFav();
-        }
-        await favController.saveFav();
+        updateFavData(favController, product);
       });
       await waitStateChanged(duration: 900);
       flowState.value = ContentState();

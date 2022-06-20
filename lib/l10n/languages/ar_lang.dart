@@ -77,7 +77,8 @@ class ArLang {
       "AR": "AR",
       "Add_to_cart_button": "اضف الي السلة",
       "total": "الاجمالس",
-      "checkout": "اتمام الطلب"
+      "checkout": "اتمام الطلب",
+      "please_login": "الرجاء تسجيل الدخول",
     };
   }
 }

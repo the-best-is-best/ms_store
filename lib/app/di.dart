@@ -25,13 +25,10 @@ import '../domain/use_case/users_case/reset_password_case.dart';
 
 final instance = GetIt.instance;
 
-Future<void> initAppModel() async {
+void initAppModel() {
   DioManger.init();
-
-  await Hive.initFlutter();
-
-  Hive.registerAdapter(ProductModelAdapter());
-
+  instance
+      .registerLazySingleton<CacheUserCase>(() => CacheUserCase(instance()));
   // network info
 
   instance.registerLazySingleton<NetworkInfo>(
@@ -51,8 +48,6 @@ Future<void> initAppModel() async {
 //
   instance.registerLazySingleton<RemoteDataSrc>(
       () => RemoteDataSrcImpl(instance()));
-  instance
-      .registerLazySingleton<CacheUserCase>(() => CacheUserCase(instance()));
 }
 
 void initLoginModel() {
