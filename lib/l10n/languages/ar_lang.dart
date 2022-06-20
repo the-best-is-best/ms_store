@@ -79,6 +79,7 @@ class ArLang {
       "total": "الاجمالس",
       "checkout": "اتمام الطلب",
       "please_login": "الرجاء تسجيل الدخول",
+      "description": "الوصف"
     };
   }
 }

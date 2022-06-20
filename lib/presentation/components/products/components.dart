@@ -105,7 +105,7 @@ Widget addToFavoriteButton(Function fun, int productId) {
     top: 20,
     right: 20,
     child: CircleAvatar(
-      radius: Device.get().isTablet ? 40 : 27,
+      radius: Device.get().isTablet ? 40 : 20,
       backgroundColor: Colors.grey[400],
       child: IconButton(
         onPressed: () {
@@ -114,7 +114,7 @@ Widget addToFavoriteButton(Function fun, int productId) {
         icon: Icon(
           inFav ? IconsManger.addedToFavorite : IconsManger.addToFavorite,
           color: inFav ? ColorManager.error : Colors.white,
-          size: Device.get().isTablet ? 40 : 33.0,
+          size: Device.get().isTablet ? 40 : 25.0,
         ),
       ),
     ),

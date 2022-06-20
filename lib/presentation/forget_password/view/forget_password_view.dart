@@ -43,11 +43,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () => Navigator.pop(context),
-      )),
+      appBar: AppBar(leading: buttonBack()),
       body: Obx(() {
         return _forgetPasswordController.flowState.value != null
             ? _forgetPasswordController.flowState.value!.getScreenWidget(

@@ -79,6 +79,7 @@ class EnLang {
       "total": "Total",
       "checkout": "Checkout",
       "please_login": "Please Login",
+      "description": "Description"
     };
   }
 }

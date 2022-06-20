@@ -47,11 +47,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-        icon: Icon(GetPlatform.isIOS ? CupertinoIcons.back : Icons.arrow_back),
-        onPressed: () => Navigator.pop(context),
-      )),
+      appBar: AppBar(leading: buttonBack()),
       body: Obx(() {
         return _registerController.flowState.value != null
             ? _registerController.flowState.value!.getScreenWidget(

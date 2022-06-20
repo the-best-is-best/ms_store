@@ -52,14 +52,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: !widget.canBack
-          ? null
-          : AppBar(
-              leading: IconButton(
-              icon: Icon(
-                  GetPlatform.isIOS ? CupertinoIcons.back : Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
-            )),
+      appBar: !widget.canBack ? null : AppBar(leading: buttonBack()),
       body: Obx(() {
         return _loginController.flowState.value != null
             ? _loginController.flowState.value!.getScreenWidget(

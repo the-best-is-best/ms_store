@@ -9,6 +9,7 @@ import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:ms_store/presentation/components/products/functions.dart';
 import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 
 import '../../../../../core/resources/strings_manager.dart';
@@ -117,7 +118,9 @@ class _FavPageState extends State<FavPage> {
 
   Widget buildProductsItem(ProductModel productData) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        goToProductDetails(productData);
+      },
       child: Row(
         children: [
           Expanded(

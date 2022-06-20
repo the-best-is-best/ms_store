@@ -31,11 +31,7 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-        icon: Icon(GetPlatform.isIOS ? CupertinoIcons.back : Icons.arrow_back),
-        onPressed: () => Navigator.pop(context),
-      )),
+      appBar: AppBar(leading: buttonBack()),
       body: Obx(() {
         return _activeEmailController.flowState.value != null
             ? _activeEmailController.flowState.value!.getScreenWidget(

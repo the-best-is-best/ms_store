@@ -21,6 +21,7 @@ import '../../../../../core/resources/font_manger.dart';
 import '../../../../../core/resources/icons_manger.dart';
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../../../core/resources/values_manager.dart';
+import '../../../../components/products/functions.dart';
 import '../view_model/home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -73,7 +74,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildProductsItem(ProductModel productModel) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        goToProductDetails(productModel);
+      },
       child: SizedBox(
         width: Device.get().isTablet ? AppSize.ap400 : AppSize.ap300,
         child: Stack(

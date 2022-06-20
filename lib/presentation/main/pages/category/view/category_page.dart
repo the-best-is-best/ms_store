@@ -193,6 +193,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 ? themeData.textTheme.labelMedium
                     ?.copyWith(color: ColorManager.greyLight)
                 : themeData.textTheme.labelMedium,
+            textAlign: TextAlign.center,
           ),
         ),
       ),
@@ -225,6 +226,7 @@ class _CategoryPageState extends State<CategoryPage> {
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: themeData.textTheme.labelSmall,
+                textAlign: TextAlign.center,
               ),
             ),
           ],

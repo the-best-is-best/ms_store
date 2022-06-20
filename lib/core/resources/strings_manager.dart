@@ -70,4 +70,5 @@ class AppStrings {
   static String get checkout => "checkout".tr;
   static String get total => "total".tr;
   static String get pleaseLogin => 'please_login'.tr;
+  static String get description => 'description'.tr;
 }
