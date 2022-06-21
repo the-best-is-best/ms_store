@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
+import 'package:ms_store/core/resources/strings_manager.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
@@ -83,54 +84,73 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 leading: buttonBack(),
               ),
               SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 15.0.h,
-                    ),
-                    Text(
-                      language == "ar"
-                          ? widget.product.nameAR
-                          : widget.product.nameEN,
-                      style: context.textTheme.labelMedium,
-                    ),
-                    SizedBox(
-                      height: 15.0.h,
-                    ),
-                    ExpandableNotifier(
-                      child: ExpandablePanel(
-                        header: Icon(Icons.abc),
-                        collapsed: Text(
-                          language == "ar"
-                              ? widget.product.descriptionAR
-                              : widget.product.descriptionEN,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: Device.get().isTablet ? 4 : 2,
-                          softWrap: true,
-                          style: context.textTheme.labelSmall,
-                        ),
-                        expanded: Text(
-                          language == "ar"
-                              ? widget.product.descriptionAR
-                              : widget.product.descriptionEN,
-                          style: context.textTheme.labelSmall,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 15.0.h,
+                      ),
+                      Text(
+                        language == "ar"
+                            ? widget.product.nameAR
+                            : widget.product.nameEN,
+                        style: context.textTheme.labelMedium,
+                      ),
+                      SizedBox(
+                        height: 15.0.h,
+                      ),
+                      ExpandableNotifier(
+                        child: ExpandablePanel(
+                          header: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              AppStrings.description,
+                              style: context.textTheme.labelMedium,
+                            ),
+                          ),
+                          collapsed: Text(
+                            language == "ar"
+                                ? widget.product.descriptionAR
+                                : widget.product.descriptionEN,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: Device.get().isTablet ? 4 : 2,
+                            softWrap: true,
+                            style: context.textTheme.labelSmall,
+                          ),
+                          expanded: Text(
+                            language == "ar"
+                                ? widget.product.descriptionAR
+                                : widget.product.descriptionEN,
+                            style: context.textTheme.labelSmall,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
           Positioned(
-            bottom: 0,
+            bottom: 10,
             child: SizedBox(
               width: context.width,
-              height: 100,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  buildPrice(widget.product),
+                  Column(
+                    children: [
+                      Text(
+                        'price',
+                        style: context.textTheme.labelSmall,
+                      ),
+                      SizedBox(
+                        height: AppSpacing.ap4.h,
+                      ),
+                      buildPrice(widget.product),
+                    ],
+                  ),
                   AddToCartButton(widget.product, ColorManager.greyLight),
                 ],
               ),
