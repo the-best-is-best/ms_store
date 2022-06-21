@@ -85,21 +85,19 @@ class _HomePageState extends State<HomePage> {
               clipBehavior: Clip.antiAlias,
               color: ColorManager.greyLight,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width:
-                        Device.get().isTablet ? AppSize.ap400 : AppSize.ap300,
-                    height: 150,
-                    child: CachedNetworkImage(
-                      fit: BoxFit.contain,
-                      imageUrl: productModel.image,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) => Center(
-                        child: buildCircularProgressIndicatorWithDownload(
-                            downloadProgress),
-                      ),
-                      errorWidget: (context, url, error) => errorIcon(),
+                  CachedNetworkImage(
+                    fit: BoxFit.contain,
+                    imageUrl: productModel.image,
+                    height: 120,
+                    width: 200,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Center(
+                      child: buildCircularProgressIndicatorWithDownload(
+                          downloadProgress),
                     ),
+                    errorWidget: (context, url, error) => errorIcon(),
                   ),
                   Padding(
                     padding: EdgeInsets.all(30.0.r),
@@ -133,9 +131,13 @@ class _HomePageState extends State<HomePage> {
               right: 15,
               child: AddToCartButton(productModel, ColorManager.white),
             ),
-            addToFavoriteButton(
-                () => _homeController.addToFavoriteEvent(productModel),
-                productModel.id),
+            Positioned(
+              top: 20,
+              right: 20,
+              child: addToFavoriteButton(
+                  () => _homeController.addToFavoriteEvent(productModel),
+                  productModel.id),
+            ),
             //  displaySaleText(dataModel),
           ],
         ),

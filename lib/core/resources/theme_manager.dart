@@ -41,7 +41,6 @@ ThemeData get themeDataLight {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedItemColor: ColorManager.darkColor,
       unselectedItemColor: ColorManager.primaryColor,
-      showUnselectedLabels: false,
       type: BottomNavigationBarType.fixed,
       unselectedLabelStyle:
           getLightStyle(color: ColorManager.textColor, fontSize: FontSize.s20),

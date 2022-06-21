@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import '../../core/resources/strings_manager.dart';
 import 'error_response.dart';
 import 'failure.dart';
@@ -101,8 +102,10 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static const String _tryAgainLater = "Try again later";
-  static const String _timeOut = "Time Out";
+  static String get _tryAgainLater => "try_again_later".tr;
+  static String get _timeOut => "time_out".tr;
+  static String get _connectSupport => "contact_support".tr;
+  static String get _someThingWentWrong => "some_thing_went_wrong".tr;
   static String getMessage(DataRes codeStatus) {
     switch (codeStatus) {
       case DataRes.SUCCESS:
@@ -110,21 +113,21 @@ class ResponseMessage {
       case DataRes.NO_CONTENT:
         return "";
       case DataRes.BAD_REQUEST:
-        return "bad request , $_tryAgainLater";
+        return "${"bad request".tr} , $_tryAgainLater";
       case DataRes.UNAUTHORIZED:
-        return "Auth error";
+        return "auth_error".tr;
       case DataRes.FORBIDDEN:
-        return "Forbidden request ,  $_tryAgainLater";
+        return "${"forbidden_request".tr} ,  $_tryAgainLater";
       case DataRes.METHOD_NOT_ALLOWED:
-        return "Method not allowed , Contact support";
+        return "${"method_not_allowed".tr} , $_connectSupport";
       case DataRes.NOT_FOUND:
-        return "Page Connection not found ,  $_tryAgainLater";
+        return "${"page_not_found".tr} ,  $_connectSupport";
       case DataRes.INTERNAL_SERVER_ERROR:
-        return "Some thing went wrong , Contact support";
+        return "$_someThingWentWrong , $_connectSupport";
 
 // local
       case DataRes.CONNECT_TIMEOUT:
-        return "Time Out ,  $_tryAgainLater";
+        return "$_timeOut  ,  $_tryAgainLater";
       case DataRes.CANCEL:
         return "Request was cancelled , $_tryAgainLater";
       case DataRes.RECEIVED_TIMEOUT:
@@ -133,12 +136,12 @@ class ResponseMessage {
         return "$_timeOut , $_tryAgainLater";
 
       case DataRes.CACHE_ERROR:
-        return "Cache error , $_tryAgainLater";
+        return "${"cache error".tr} , $_tryAgainLater";
 
       case DataRes.NO_INTERNET_CONNECTION:
         return AppStrings.internetError;
       default:
-        return "Some thing went wrong , Contact support";
+        return "$_someThingWentWrong , $_connectSupport";
     }
   }
 }

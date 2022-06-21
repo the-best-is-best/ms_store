@@ -31,43 +31,60 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          language == "ar" ? widget.product.nameAR : widget.product.nameEN,
-          style: context.textTheme.titleMedium,
-        ),
-        actions: [
-          addToFavoriteButton(() {}, widget.product.id),
-        ],
-        leading: buttonBack(),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSpacing.ap8),
-        child: Stack(
-          children: [
-            SizedBox(
-              height: context.height,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Center(
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(AppSize.ap8),
-                        ),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.product.image,
-                          height: .5.sh,
-                          fit: BoxFit.contain,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) => Center(
-                                  child:
-                                      buildCircularProgressIndicatorWithDownload(
-                                          downloadProgress)),
-                          errorWidget: (context, url, error) => errorIcon(),
-                        ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     language == "ar" ? widget.product.nameAR : widget.product.nameEN,
+      //     style: context.textTheme.titleMedium,
+      //   ),
+      //   actions: [
+      //     addToFavoriteButton(() {}, widget.product.id),
+      //   ],
+      //   leading: buttonBack(),
+      // ),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                expandedHeight: .6.sh,
+                title: Text(
+                    language == "ar"
+                        ? widget.product.nameAR
+                        : widget.product.nameEN,
+                    style: context.textTheme.titleMedium),
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Center(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(AppSize.ap8),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.product.image,
+                        height: .5.sh,
+                        fit: BoxFit.contain,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Center(
+                                child:
+                                    buildCircularProgressIndicatorWithDownload(
+                                        downloadProgress)),
+                        errorWidget: (context, url, error) => errorIcon(),
                       ),
                     ),
+                  ),
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: AppSize.ap12, right: AppSize.ap14),
+                    child: addToFavoriteButton(() {}, widget.product.id),
+                  ),
+                ],
+                leading: buttonBack(),
+              ),
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
                     SizedBox(
                       height: 15.0.h,
                     ),
@@ -103,21 +120,23 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    buildPrice(widget.product),
-                    AddToCartButton(widget.product, ColorManager.greyLight)
-                  ],
-                ),
+            ],
+          ),
+          Positioned(
+            bottom: 0,
+            child: SizedBox(
+              width: context.width,
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buildPrice(widget.product),
+                  AddToCartButton(widget.product, ColorManager.greyLight),
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

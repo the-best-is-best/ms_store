@@ -101,21 +101,17 @@ class _AddToCartButtonState extends State<AddToCartButton> {
 Widget addToFavoriteButton(Function fun, int productId) {
   FavController _favController = Get.find();
   bool inFav = _favController.favoriteModel[productId] == true;
-  return Positioned(
-    top: 20,
-    right: 20,
-    child: CircleAvatar(
-      radius: Device.get().isTablet ? 40 : 20,
-      backgroundColor: Colors.grey[400],
-      child: IconButton(
-        onPressed: () {
-          fun();
-        },
-        icon: Icon(
-          inFav ? IconsManger.addedToFavorite : IconsManger.addToFavorite,
-          color: inFav ? ColorManager.error : Colors.white,
-          size: Device.get().isTablet ? 40 : 25.0,
-        ),
+  return CircleAvatar(
+    radius: Device.get().isTablet ? 40 : 20,
+    backgroundColor: Colors.grey[400],
+    child: IconButton(
+      onPressed: () {
+        fun();
+      },
+      icon: Icon(
+        inFav ? IconsManger.addedToFavorite : IconsManger.addToFavorite,
+        color: inFav ? ColorManager.error : Colors.white,
+        size: Device.get().isTablet ? 40 : 25.0,
       ),
     ),
   );
