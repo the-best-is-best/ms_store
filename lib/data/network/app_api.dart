@@ -7,6 +7,7 @@ import '../../app/constants.dart';
 import '../responses/home_response/home_response.dart';
 import '../responses/store_responses/categories_responses.dart';
 import '../responses/store_responses/get_products_by_ids_responses.dart';
+import '../responses/store_responses/get_products_supplies_response.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
@@ -83,4 +84,10 @@ abstract class AppServicesClient {
   @GET(Constants.getProductsByIds)
   Future<GetProductByIdsDataResponse> getProductsByIds(
       @Query('id') Map<String, int> id);
+
+  // get Products Supplier
+
+  @GET(Constants.getProductsSupplier)
+  Future<GetProductsSuppliesResponse> getProductsSupplier(
+      @Query('categoryId') int categoryId);
 }

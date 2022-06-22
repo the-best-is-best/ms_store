@@ -3,6 +3,7 @@ import 'package:ms_store/data/network/requests/store_requests.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
 import 'package:ms_store/data/responses/store_responses/get_products_by_ids_responses.dart';
+import 'package:ms_store/data/responses/store_responses/get_products_supplies_response.dart';
 
 import '../network/app_api.dart';
 import '../network/requests/users_requests.dart';
@@ -32,6 +33,8 @@ abstract class RemoteDataSrc {
       GetFavoriteRequests getFavoriteRequests);
   Future<GetProductByIdsDataResponse> getProductsByIds(
       GetProductByIdsRequests getProductByIdsRequests);
+  Future<GetProductsSuppliesResponse> getProductsSupplier(
+      GetProductsSupplierRequests getProductsSupplierRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -118,5 +121,12 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
       GetProductByIdsRequests getProductByIdsRequests) async {
     return await _appServicesClient
         .getProductsByIds(getProductByIdsRequests.ids);
+  }
+
+  @override
+  Future<GetProductsSuppliesResponse> getProductsSupplier(
+      GetProductsSupplierRequests getProductsSupplierRequests) async {
+    return await _appServicesClient
+        .getProductsSupplier(getProductsSupplierRequests.categoryId);
   }
 }

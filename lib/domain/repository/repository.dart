@@ -30,4 +30,6 @@ abstract class Repository {
       GetFavoriteRequests getFavoriteRequests);
   Future<Either<Failure, List<ProductModel>>> getProductByIds(
       GetProductByIdsRequests getProductByIds);
+  Future<Either<Failure, List<ProductModel>>> getProductsSupplier(
+      GetProductsSupplierRequests getProductsSupplierRequests);
 }

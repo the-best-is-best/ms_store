@@ -7,6 +7,7 @@ import 'package:ms_store/presentation/on_boarding/view/on_boarding_view.dart';
 
 import '../../../app/app_refs.dart';
 import '../../../app/di.dart';
+import '../../base/favorite_functions.dart';
 import '../../main/main_view.dart';
 
 class SplashController extends GetxController {
@@ -64,8 +65,7 @@ class SplashController extends GetxController {
     super.onClose();
     UserModel? userModel = await AppPrefs().getUserData();
     if (userModel != null) {
-      FavController favController = Get.find();
-      favController.getFavorite(instance(), userModel.id);
+      instance<FavoriteFunctions>().getFavorite(instance(), userModel.id);
     }
   }
 }

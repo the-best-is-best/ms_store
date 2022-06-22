@@ -1,12 +1,9 @@
-import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
-import 'package:ms_store/gen/assets.gen.dart';
-import 'package:tbib_splash_screen/splash_screen_view.dart';
 import '../../../../../app/components.dart';
 import '../../../../../core/resources/styles_manger.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
@@ -72,101 +69,15 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-  Widget buildProductsItem(ProductModel productModel) {
-    return InkWell(
-      onTap: () {
-        goToProductDetails(productModel);
-      },
-      child: SizedBox(
-        width: Device.get().isTablet ? AppSize.ap400 : AppSize.ap300,
-        child: Stack(
-          children: [
-            Card(
-              clipBehavior: Clip.antiAlias,
-              color: ColorManager.greyLight,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CachedNetworkImage(
-                    fit: BoxFit.contain,
-                    imageUrl: productModel.image,
-                    height: 120,
-                    width: 200,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                      child: buildCircularProgressIndicatorWithDownload(
-                          downloadProgress),
-                    ),
-                    errorWidget: (context, url, error) => errorIcon(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(30.0.r),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          locale == "ar"
-                              ? productModel.nameAR
-                              : productModel.nameEN,
-                          style: context.textTheme.labelSmall,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(
-                          height: 5.0.h,
-                        ),
-                        buildPrice(productModel),
-                        SizedBox(
-                          height: 5.0.h,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 15,
-              right: 15,
-              child: AddToCartButton(productModel, ColorManager.white),
-            ),
-            Positioned(
-              top: 20,
-              right: 20,
-              child: addToFavoriteButton(
-                  () => _homeController.addToFavoriteEvent(productModel),
-                  productModel.id),
-            ),
-            //  displaySaleText(dataModel),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _getContentWidget() {
-    return BuildCondition(
-      condition:
-          _homeController.homeModel.value?.data.dataHome.isNotEmpty ?? false,
-      builder: (context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _getSliderCarousel(),
-          _getSection(AppStrings.latestProducts),
-          _getProducts(_homeController.homeModel.value?.data.dataHome ??
-              const Iterable.empty().cast<DataHomeModel>().toList()),
-        ],
-      ),
-      fallback: (_) => Column(
-        children: [
-          Lottie.asset(const $AssetsJsonGen().empty),
-          Text(
-            AppStrings.noProducts,
-            style: context.textTheme.labelLarge,
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _getSliderCarousel(),
+        _getSection(AppStrings.latestProducts),
+        _getProducts(_homeController.homeModel.value?.data.dataHome ??
+            const Iterable.empty().cast<DataHomeModel>().toList()),
+      ],
     );
   }
 
@@ -260,8 +171,15 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, indexPro) {
-                  return buildProductsItem(
-                      dataHome[indexCat].productModel[indexPro]);
+                  return buildProductsItemHorizontal(
+                    productModel: dataHome[indexCat].productModel[indexPro],
+                    context: context,
+                    locale: locale,
+                    favWidget: addToFavoriteButton(
+                        () => _homeController.addToFavoriteEvent(
+                            dataHome[indexCat].productModel[indexPro]),
+                        dataHome[indexCat].productModel[indexPro].id),
+                  );
                 },
                 separatorBuilder: (context, index) => const SizedBox(),
                 itemCount: dataHome[indexCat].productModel.length > 4

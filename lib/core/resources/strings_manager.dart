@@ -20,6 +20,8 @@ class AppStrings {
   static String get passwordAgain => 'password_again_title'.tr;
 
   static String get login => 'login_title'.tr;
+  static String get skip => 'skip_title'.tr;
+
   static String get forgetPassword => 'lost_password_title'.tr;
   static String get required => 'required'.tr;
   static String get emailFormatError => 'invalid_email_format'.tr;
@@ -67,6 +69,8 @@ class AppStrings {
   static String get contactUsTitle => "contact_Us_title".tr;
 
   static String get addToCartButton => "Add_to_cart_button".tr;
+  static String get lastProductFromThisSupplier =>
+      "last_product_from_this_supplier".tr;
   static String get checkout => "checkout".tr;
   static String get total => "total".tr;
   static String get pleaseLogin => 'please_login'.tr;

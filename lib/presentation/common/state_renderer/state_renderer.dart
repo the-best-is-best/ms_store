@@ -194,8 +194,6 @@ class StateRenderer extends StatelessWidget {
           },
           child: Text(
             buttonTitle,
-            style: getRegularStyle(
-                fontSize: FontSize.s18, color: ColorManager.textColor),
           ),
         ),
       ),

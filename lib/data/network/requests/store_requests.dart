@@ -3,3 +3,9 @@ class GetProductByIdsRequests {
 
   GetProductByIdsRequests(this.ids);
 }
+
+class GetProductsSupplierRequests {
+  final int categoryId;
+
+  GetProductsSupplierRequests(this.categoryId);
+}

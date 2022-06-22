@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:get/get.dart';
+import 'package:ms_store/app/di.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/use_case/store/add_favorite_use_case.dart';
 import 'package:ms_store/domain/use_case/store/get_favorite_use_case.dart';
@@ -8,12 +10,11 @@ import '../../app/app_refs.dart';
 import '../../data/network/failure.dart';
 import '../../domain/models/users_model.dart';
 
-mixin BaseFavoriteController {
-  Future<Either<Failure, bool>> addToFavorite(
-      AddFavoriteUseCase addFavoriteUseCase, int productId) async {
+class FavoriteFunctions {
+  Future<Either<Failure, bool>> addToFavorite(int productId) async {
     UserModel? userModel = await AppPrefs().getUserData();
 
-    return await addFavoriteUseCase
+    return await instance<AddFavoriteUseCase>()
         .execute(AddFavoriteUseCaseInput(userModel!.id, productId));
   }
 
@@ -22,20 +23,22 @@ mixin BaseFavoriteController {
     return await getFavoriteUseCase.execute(GetFavoriteUseCaseInput(userId));
   }
 
-  void updateFavData(FavController favController, ProductModel product) {
+  Future updateFavData(ProductModel product) async {
+    FavController favController = Get.find();
+    print(favController.favoriteModel.containsKey(product.id));
     if (favController.favoriteModel.containsKey(product.id)) {
-      favController.favoriteModel[product.id] =
-          !favController.favoriteModel[product.id]!;
       if (favController.favoriteModel[product.id] == true) {
-        favController.productsInFav.add(product);
-      } else {
         favController.productsInFav.remove(product);
+      } else {
+        favController.productsInFav.add(product);
       }
+      favController.favoriteModel[product.id] =
+          favController.favoriteModel[product.id] == true ? false : true;
       favController.favoriteModel.refresh();
     } else {
       favController.favoriteModel.addAll({product.id: true});
       favController.productsInFav.add(product);
     }
-    favController.saveFav();
+    await favController.saveFav();
   }
 }

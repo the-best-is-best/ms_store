@@ -25,12 +25,12 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   late final CartController _cartController;
-  late final String language;
+  late final String _language;
 
   @override
   void initState() {
     _cartController = Get.find();
-    language = Get.locale!.languageCode;
+    _language = Get.locale!.languageCode;
     super.initState();
   }
 
@@ -193,7 +193,7 @@ class _CartPageState extends State<CartPage> {
                         children: [
                           SizedBox(
                             child: Text(
-                              language == "ar"
+                              _language == "ar"
                                   ? cartData.nameAR
                                   : cartData.nameEN,
                               style: context.textTheme.labelMedium,
@@ -217,7 +217,7 @@ class _CartPageState extends State<CartPage> {
                     Positioned.directional(
                       bottom: 0,
                       start: 15,
-                      textDirection: language == "ar"
+                      textDirection: _language == "ar"
                           ? TextDirection.rtl
                           : TextDirection.ltr,
                       child: Container(

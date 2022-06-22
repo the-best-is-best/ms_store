@@ -28,4 +28,5 @@ class Constants {
   static const String getFavorite = '/get_data/get_favorite.php';
 
   static const String getProductsByIds = '/get_data/get_products_by_ids.php';
+  static const String getProductsSupplier = '/get_data/get_last_supplier.php';
 }

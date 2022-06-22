@@ -12,6 +12,7 @@ import '../../domain/models/store/category_model.dart';
 import 'cache/repository_impl_cache_data_server.dart';
 import 'home_data_repository.dart';
 import 'store/repository_impl_category.dart';
+import 'store/repository_impl_get_products_supplier.dart';
 import 'users_repository/repository_impl_active_email.dart';
 import 'users_repository/repository_impl_register.dart';
 import 'users_repository/repository_impl_login.dart';
@@ -108,5 +109,12 @@ class RepositoryImpl extends Repository {
       GetProductByIdsRequests getProductByIds) {
     return RepositoryImplGetProductsByIds.call(
         _remoteDataSrc, _networkInfo, getProductByIds, _localDataSource);
+  }
+
+  @override
+  Future<Either<Failure, List<ProductModel>>> getProductsSupplier(
+      GetProductsSupplierRequests getProductsSupplierRequests) {
+    return RepositoryImplGetProductsSupplier.call(
+        _remoteDataSrc, _networkInfo, getProductsSupplierRequests);
   }
 }

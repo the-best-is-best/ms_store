@@ -5,7 +5,7 @@ import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
 import 'package:ms_store/domain/use_case/store/category_use_case.dart';
-import 'package:ms_store/domain/use_case/store/get_products_by_ids.dart';
+import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
 
 import '../data/data_src/remote_data_src.dart';
@@ -17,11 +17,13 @@ import '../domain/repository/repository.dart';
 import '../domain/use_case/home_use_case.dart';
 import '../domain/use_case/store/add_favorite_use_case.dart';
 import '../domain/use_case/store/get_favorite_use_case.dart';
+import '../domain/use_case/store/get_products_supplier_use_case.dart';
 import '../domain/use_case/users_case/active_email_case.dart';
 import '../domain/use_case/users_case/forget_password_case.dart';
 import '../domain/use_case/users_case/login_use_case.dart';
 import '../domain/use_case/users_case/register_use_case.dart';
 import '../domain/use_case/users_case/reset_password_case.dart';
+import '../presentation/base/favorite_functions.dart';
 
 final instance = GetIt.instance;
 
@@ -69,6 +71,7 @@ Future initHomeModel() async {
         () => GetFavoriteUseCase(instance()));
     instance.registerFactory<GetProductByIdUseCase>(
         () => GetProductByIdUseCase(instance()));
+    instance.registerFactory(() => FavoriteFunctions());
   }
 }
 
@@ -97,5 +100,12 @@ void initActiveEmailModel() {
   if (!GetIt.I.isRegistered<ActiveEmailCase>()) {
     instance
         .registerFactory<ActiveEmailCase>(() => ActiveEmailCase(instance()));
+  }
+}
+
+void initProductDetailsModel() {
+  if (!GetIt.I.isRegistered<GetProductSupplierUseCase>()) {
+    instance.registerFactory<GetProductSupplierUseCase>(
+        () => GetProductSupplierUseCase(instance()));
   }
 }

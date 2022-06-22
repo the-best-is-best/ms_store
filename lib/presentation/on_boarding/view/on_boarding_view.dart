@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/core/resources/strings_manager.dart';
 import '../../../app/di.dart';
 import '../../../core/resources/routes_manger.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -25,16 +26,14 @@ class PViewState extends State<OnBoardingView> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
-
     return GetX<OnBoardingController>(
       builder: (data) {
-        return _getContent(data.pageViewData, themeData);
+        return _getContent(data.pageViewData);
       },
     );
   }
 
-  Widget _getContent(List pageViewData, ThemeData themeData) {
+  Widget _getContent(List pageViewData) {
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: Stack(
@@ -58,7 +57,7 @@ class PViewState extends State<OnBoardingView> {
                                   children: [
                                     Text(
                                       item.title,
-                                      style: themeData.textTheme.displayLarge,
+                                      style: context.textTheme.displayLarge,
                                     ),
                                     const RSizedBox(
                                       height: 10,
@@ -78,7 +77,7 @@ class PViewState extends State<OnBoardingView> {
                                           horizontal: 8.0),
                                       child: Text(
                                         item.description,
-                                        style: themeData.textTheme.titleLarge!,
+                                        style: context.textTheme.titleLarge!,
                                         textAlign: TextAlign.center,
                                         softWrap: true,
                                       ),
@@ -118,8 +117,8 @@ class PViewState extends State<OnBoardingView> {
                                 arguments: {'canBack': true});
                           },
                           child: Text(
-                            "Sign In",
-                            style: themeData.textTheme.labelMedium,
+                            AppStrings.login,
+                            style: context.textTheme.labelMedium,
                           ),
                         ),
                         const Spacer(),
@@ -136,8 +135,8 @@ class PViewState extends State<OnBoardingView> {
                             Get.toNamed(Routes.registerRoute);
                           },
                           child: Text(
-                            "Sign Up",
-                            style: themeData.textTheme.labelMedium,
+                            AppStrings.registerTitle,
+                            style: context.textTheme.labelMedium,
                           ),
                         ),
                       ],
@@ -149,8 +148,8 @@ class PViewState extends State<OnBoardingView> {
                       Get.offAllNamed(Routes.homeRoute);
                     },
                     child: Text(
-                      "Skip",
-                      style: themeData.textTheme.labelMedium,
+                      AppStrings.skip,
+                      style: context.textTheme.labelMedium,
                     ),
                   ),
                 ],

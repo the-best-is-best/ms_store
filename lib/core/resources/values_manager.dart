@@ -21,6 +21,8 @@ class AppSize {
   static const double ap18 = 18;
   static const double ap20 = 20;
   static const double ap30 = 30;
+  static const double ap45 = 45;
+
   static const double ap80 = 80;
   static const double ap100 = 100;
   static const double ap150 = 150;

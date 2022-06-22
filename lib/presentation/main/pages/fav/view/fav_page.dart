@@ -28,11 +28,11 @@ class _FavPageState extends State<FavPage> {
   late final FavController _favController;
   late final UserDataController _userDataController;
 
-  late final String language;
+  late final String _language;
   @override
   void initState() {
     _favController = Get.find();
-    language = Get.locale!.languageCode;
+    _language = Get.locale!.languageCode;
     _userDataController = Get.find();
     super.initState();
   }
@@ -183,7 +183,7 @@ class _FavPageState extends State<FavPage> {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          language == "ar"
+                          _language == "ar"
                               ? productData.nameAR
                               : productData.nameEN,
                           maxLines: 2,
