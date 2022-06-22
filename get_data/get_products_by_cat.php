@@ -34,7 +34,7 @@ try {
         exit;
     }
     $catId = $_GET['catId'];
-    $rowsperpage = 30;
+    $rowsperpage = 20;
     $query = $writeDB->prepare("SELECT id FROM products_" . DB::$AppName . " WHERE categoryId = '$catId' ORDER BY id DESC");
     $query->execute();
     $count = $query->rowCount();
