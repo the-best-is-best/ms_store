@@ -48,7 +48,8 @@ if (!$jsonData = json_decode($rowPostData)) {
 }
 
 if (
-    !isset($jsonData->status) || !isset($jsonData->productId) || !isset($jsonData->userId) || !isset($jsonData->comment)
+    !isset($jsonData->status) || !isset($jsonData->productId) || !isset($jsonData->userId)
+    || !isset($jsonData->comment) || !isset($jsonData->rating)
 ) {
 
     $response = new Response();
@@ -59,6 +60,7 @@ if (
     (!isset($jsonData->status) ?  $response->addMessage("Status  not supplied") : false);
     (!isset($jsonData->productId) ?  $response->addMessage("Product Id  not supplied") : false);
     (!isset($jsonData->comment) ?  $response->addMessage("Comment  not supplied") : false);
+    (!isset($jsonData->rating) ?  $response->addMessage("Rating  not supplied") : false);
 
 
     $response->send();
@@ -69,7 +71,16 @@ $status = trim($jsonData->status);
 $productId = trim($jsonData->productId);
 $userId = trim($jsonData->userId);
 $comment = trim($jsonData->comment);
+$rating = $jsonData->rating;
 
+if ($rating > 5) {
+    $response = new Response();
+    $response->setHttpStatusCode(200);
+    $response->setSuccess(true);
+    $response->addMessage('Add Review');
+    $response->send();
+    exit;
+}
 
 try {
     $query = $writeDB->prepare("SELECT id FROM rating_" . DB::$AppName . " WHERE productId= :productId AND userId =:userId");
@@ -79,33 +90,33 @@ try {
     $query->execute();
     $rowCount = $query->rowCount();
     if ($rowCount !== 0) {
-        $query = $writeDB->prepare("UPDATE rating_" . DB::$AppName . " SET status = :status , comment=: comment WHERE productId=:productId AND userId=:userId ");
+        $query = $writeDB->prepare("UPDATE rating_" . DB::$AppName . " SET status = :status , comment=:comment , rating=:rating WHERE productId=:productId AND userId=:userId ");
 
         $query->bindParam(':status', $status, PDO::PARAM_STR);
         $query->bindParam(':productId', $productId, PDO::PARAM_STR);
         $query->bindParam(':userId', $userId, PDO::PARAM_STR);
         $query->bindParam(':comment', $comment, PDO::PARAM_STR);
-
-
+        $query->bindParam(':rating', $rating, PDO::PARAM_STR);
 
         $query->execute();
 
         $response = new Response();
         $response->setHttpStatusCode(200);
         $response->setSuccess(true);
-        $response->addMessage('Add To Cart');
+        $response->addMessage('Add Review');
         $response->send();
         exit;
     }
 
 
-    $query = $writeDB->prepare("INSERT into cart_" . DB::$AppName .  " (status ,  productId , userId , comment)
-                                VALUES (:status , :productId , :userId , :comment)");
+    $query = $writeDB->prepare("INSERT into rating_" . DB::$AppName .  " (status , rating, productId , userId , comment)
+                                VALUES (:status ,:rating, :productId , :userId , :comment)");
 
-    $query->bindParam(':status', $quantity, PDO::PARAM_STR);
+    $query->bindParam(':status', $status, PDO::PARAM_STR);
     $query->bindParam(':productId', $productId, PDO::PARAM_STR);
     $query->bindParam(':userId', $userId, PDO::PARAM_STR);
     $query->bindParam(':comment', $comment, PDO::PARAM_STR);
+    $query->bindParam(':rating', $rating, PDO::PARAM_STR);
 
 
     $query->execute();
@@ -115,7 +126,7 @@ try {
         $response = new Response();
         $response->setHttpStatusCode(500);
         $response->setSuccess(false);
-        $response->addMessage('There was an issue add to Cart - please try again');
+        $response->addMessage('There was an issue add to Review - please try again');
         $response->send();
         exit;
     }
@@ -124,7 +135,7 @@ try {
     $response = new Response();
     $response->setHttpStatusCode(201);
     $response->setSuccess(true);
-    $response->addMessage('Add to Cart');
+    $response->addMessage('Add Review');
     $response->send();
     exit;
 } catch (PDOException $ex) {
@@ -132,7 +143,7 @@ try {
     $response = new Response();
     $response->setHttpStatusCode(500);
     $response->setSuccess(false);
-    $response->addMessage('There was an issue add to Cart - please try again' . $ex);
+    $response->addMessage('There was an issue add to Review - please try again' . $ex);
     $response->send();
     exit;
 }

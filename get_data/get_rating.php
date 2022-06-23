@@ -33,9 +33,10 @@ try {
         exit;
     }
     $productId = $_GET['productId'];
-    $query = $writeDB->prepare("SELECT id FROM  rating_" . DB::$AppName . " WHERE id = '$productId'");
+    $query = $writeDB->prepare("SELECT userId ,  rating , comment FROM  rating_" . DB::$AppName . " WHERE productId = '$productId'");
     $query->execute();
     $row = $query->fetchAll();
+    $count = $query->rowCount();
 
     if (empty($row)) {
 
@@ -46,10 +47,25 @@ try {
         $response->send();
         exit;
     }
+    $total_rating = 0;
+    foreach ($row as $rowData) {
+        $total_rating += $rowData['rating'];
+    }
+    $product_rating =  $total_rating / $count;
+    $dataRow['product_rating'] = $product_rating;
+    $dataRow['dataReview'] = [];
+    for ($i = 0; $i < count($row); $i++) {
+        $query = $writeDB->prepare('SELECT userName FROM users_' .  DB::$AppName . ' WHERE id =' . $row[$i]['userId']);
+
+        $query->execute();
+        $rowUsers = $query->fetch();
+        $dataRow['dataReview'][$i] = $row[$i];
+        $dataRow['dataReview'][$i]['userName'] = $rowUsers['userName'];
+    }
     $response = new Response();
     $response->setHttpStatusCode(200);
     $response->setSuccess(true);
-    $response->setData($row);
+    $response->setData($dataRow);
     $response->send();
     exit;
 } catch (PDOException $ex) {
