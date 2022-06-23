@@ -5,7 +5,7 @@ import '../../data_src/remote_data_src.dart';
 import '../../network/error_handler.dart';
 import '../../network/failure.dart';
 import '../../network/network_info.dart';
-import '../../network/requests/favorites_requests.dart';
+import '../../network/requests/store_requests.dart';
 
 class RepositoryImplGetFavorite {
   static Future<Either<Failure, Map<int, bool>>> call(

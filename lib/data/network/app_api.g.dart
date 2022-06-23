@@ -240,6 +240,49 @@ class _AppServicesClient implements AppServicesClient {
     return value;
   }
 
+  @override
+  Future<GetReviewsDataModelResponse> getProductsReview(productId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'productId': productId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetReviewsDataModelResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/get_data/get_rating.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetReviewsDataModelResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<UpdateReviewResponse> updateProductsReview(
+      {required userId,
+      required status,
+      required productId,
+      required rating,
+      required comment}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'userId': userId,
+      'status': status,
+      'productId': productId,
+      'rating': rating,
+      'comment': comment
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdateReviewResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/insert_data/get_rating.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UpdateReviewResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

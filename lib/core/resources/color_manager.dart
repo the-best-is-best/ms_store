@@ -8,6 +8,7 @@ class ColorManager {
 
   static const disabledColor = Color.fromRGBO(145, 145, 145, .7);
   static const darkColor = Color.fromARGB(255, 16, 149, 87);
+  static const yellow = Color.fromRGBO(235, 227, 0, 1);
   static const white = Colors.white;
   static const error = Color.fromRGBO(232, 0, 97, 1);
 

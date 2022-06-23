@@ -62,8 +62,8 @@ class HomeController extends GetxController with BaseController {
       flowState.value = LoadingState(
           stateRendererType: StateRendererType.POPUP_LOADING_STATE,
           message: AppStrings.loading);
-      var result =
-          await instance<FavoriteFunctions>().addToFavorite(product.id);
+      var result = await instance<FavoriteFunctions>()
+          .addToFavorite(userDataController.userModel.value!.id, product.id);
 
       result.fold((failure) {
         flowState.value = ErrorState(

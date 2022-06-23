@@ -22,6 +22,8 @@ ThemeData get themeDataLight {
     cardTheme: CardTheme(
         color: Colors.white,
         shadowColor: ColorManager.disabledColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSize.ap12)),
         elevation: AppSpacing.ap4.w),
     appBarTheme: AppBarTheme(
       toolbarHeight: 60.h,
@@ -84,8 +86,8 @@ ThemeData get themeDataLight {
           getMediumStyle(color: ColorManager.textColor, fontSize: FontSize.s28),
       labelMedium:
           getMediumStyle(fontSize: FontSize.s18, color: ColorManager.textColor),
-      labelSmall: getRegularStyle(
-          color: ColorManager.textColor, fontSize: FontSize.s16),
+      labelSmall:
+          getLightStyle(color: ColorManager.textColor, fontSize: FontSize.s16),
       titleLarge: getRegularStyle(
           color: ColorManager.textColor, fontSize: FontSize.s20),
     ),

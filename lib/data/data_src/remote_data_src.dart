@@ -1,14 +1,13 @@
-import 'package:ms_store/data/network/requests/favorites_requests.dart';
 import 'package:ms_store/data/network/requests/store_requests.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
 import 'package:ms_store/data/responses/store_responses/get_products_by_ids_responses.dart';
 import 'package:ms_store/data/responses/store_responses/get_products_supplies_response.dart';
-
 import '../network/app_api.dart';
 import '../network/requests/users_requests.dart';
 import '../responses/home_response/home_response.dart';
 import '../responses/store_responses/categories_responses.dart';
+import '../responses/store_responses/review/get_review_response.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
@@ -35,6 +34,8 @@ abstract class RemoteDataSrc {
       GetProductByIdsRequests getProductByIdsRequests);
   Future<GetProductsSuppliesResponse> getProductsSupplier(
       GetProductsSupplierRequests getProductsSupplierRequests);
+  Future<GetReviewsDataModelResponse> getReview(
+      GetReviewRequests getProductsSupplierRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -128,5 +129,12 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
       GetProductsSupplierRequests getProductsSupplierRequests) async {
     return await _appServicesClient
         .getProductsSupplier(getProductsSupplierRequests.categoryId);
+  }
+
+  @override
+  Future<GetReviewsDataModelResponse> getReview(
+      GetReviewRequests getReviewRequests) async {
+    return await _appServicesClient
+        .getProductsReview(getReviewRequests.productId);
   }
 }

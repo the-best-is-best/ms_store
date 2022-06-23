@@ -1,25 +1,30 @@
 import 'package:dartz/dartz.dart';
-import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
+import 'package:ms_store/data/mapper/store/get_product_review_response_mapper.dart';
 
+import '../../../domain/models/store/reviews_model.dart';
 import '../../data_src/remote_data_src.dart';
 import '../../network/error_handler.dart';
 import '../../network/failure.dart';
 import '../../network/network_info.dart';
 import '../../network/requests/store_requests.dart';
+import '../../responses/store_responses/review/get_review_response.dart';
 
-class RepositoryImplAddFavorite {
-  static Future<Either<Failure, bool>> call(RemoteDataSrc remoteDataSrc,
-      NetworkInfo networkInfo, AddFavoriteRequests addFavoriteRequests) async {
+class RepositoryImplGetReviewRequests {
+  static Future<Either<Failure, ReviewsModel>> call(
+    RemoteDataSrc remoteDataSrc,
+    NetworkInfo networkInfo,
+    GetReviewRequests getReviewRequests,
+  ) async {
     if (await networkInfo.isConnected) {
       try {
-        FavoriteAddResponse response =
-            await remoteDataSrc.favoriteAdd(addFavoriteRequests);
+        GetReviewsDataModelResponse response =
+            await remoteDataSrc.getReview(getReviewRequests);
 
         if (response.statusCode! >= 200 && response.statusCode! <= 299) {
           //success
           // return either right
           // return data
-          return const Right(true);
+          return Right(response.toDomain());
         } else {
           //failure
           // return either left

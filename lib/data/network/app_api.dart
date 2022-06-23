@@ -8,6 +8,8 @@ import '../responses/home_response/home_response.dart';
 import '../responses/store_responses/categories_responses.dart';
 import '../responses/store_responses/get_products_by_ids_responses.dart';
 import '../responses/store_responses/get_products_supplies_response.dart';
+import '../responses/store_responses/review/get_review_response.dart';
+import '../responses/store_responses/review/update_review_response.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
@@ -90,4 +92,21 @@ abstract class AppServicesClient {
   @GET(Constants.getProductsSupplier)
   Future<GetProductsSuppliesResponse> getProductsSupplier(
       @Query('categoryId') int categoryId);
+
+  // get Products Review
+
+  @GET(Constants.getProductsReviews)
+  Future<GetReviewsDataModelResponse> getProductsReview(
+      @Query('productId') int productId);
+
+  // update Products Review
+
+  @POST(Constants.updateProductsReviews)
+  Future<UpdateReviewResponse> updateProductsReview({
+    @Field('userId') required int userId,
+    @Field('status') required bool status,
+    @Field('productId') required int productId,
+    @Field('rating') required double rating,
+    @Field('comment') required String comment,
+  });
 }

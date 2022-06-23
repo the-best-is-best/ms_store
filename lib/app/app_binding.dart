@@ -96,7 +96,8 @@ class AppBinding implements Bindings {
   }
 
   void getProductsController() {
-    Get.lazyPut(() => ProductDetailsController(instance()), fenix: true);
+    Get.lazyPut(() => ProductDetailsController(instance(), instance()),
+        fenix: true);
   }
 
   void getCartViewController() {

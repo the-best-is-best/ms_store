@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
+import 'package:ms_store/domain/models/store/reviews_model.dart';
 import '../../data/network/failure.dart';
-import '../../data/network/requests/favorites_requests.dart';
 import '../../data/network/requests/store_requests.dart';
 import '../../data/network/requests/users_requests.dart';
 import '../models/home_models/home_data_model.dart';
@@ -32,4 +32,6 @@ abstract class Repository {
       GetProductByIdsRequests getProductByIds);
   Future<Either<Failure, List<ProductModel>>> getProductsSupplier(
       GetProductsSupplierRequests getProductsSupplierRequests);
+  Future<Either<Failure, ReviewsModel>> getReview(
+      GetReviewRequests getReviewRequests);
 }

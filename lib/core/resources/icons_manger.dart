@@ -13,7 +13,7 @@ class IconsManger {
   static const IconData heart = FeatherIcons.heart;
   static const IconData user = FeatherIcons.user;
   static const IconData search = FeatherIcons.search;
-  static const IconData stars = FeatherIcons.star;
+  static const IconData stars = CommunityMaterialIcons.star_circle_outline;
   static const IconData settings = FeatherIcons.settings;
   static const IconData album = FeatherIcons.image;
 

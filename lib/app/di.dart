@@ -1,11 +1,10 @@
 import 'package:get_it/get_it.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ms_store/data/data_src/local_data_source.dart';
-import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
 import 'package:ms_store/domain/use_case/store/category_use_case.dart';
 import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart';
+import 'package:ms_store/domain/use_case/store/review/get_review_use_case.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
 
 import '../data/data_src/remote_data_src.dart';
@@ -107,5 +106,7 @@ void initProductDetailsModel() {
   if (!GetIt.I.isRegistered<GetProductSupplierUseCase>()) {
     instance.registerFactory<GetProductSupplierUseCase>(
         () => GetProductSupplierUseCase(instance()));
+    instance
+        .registerFactory<GetReviewUseCase>(() => GetReviewUseCase(instance()));
   }
 }
