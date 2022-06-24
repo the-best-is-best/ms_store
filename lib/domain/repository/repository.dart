@@ -34,4 +34,6 @@ abstract class Repository {
       GetProductsSupplierRequests getProductsSupplierRequests);
   Future<Either<Failure, ReviewsModel>> getReview(
       GetReviewRequests getReviewRequests);
+  Future<Either<Failure, bool>> updateReview(
+      UpdateReviewRequests updateReviewRequests);
 }

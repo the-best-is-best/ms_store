@@ -8,6 +8,7 @@ import '../network/requests/users_requests.dart';
 import '../responses/home_response/home_response.dart';
 import '../responses/store_responses/categories_responses.dart';
 import '../responses/store_responses/review/get_review_response.dart';
+import '../responses/store_responses/review/update_review_response.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
@@ -36,6 +37,8 @@ abstract class RemoteDataSrc {
       GetProductsSupplierRequests getProductsSupplierRequests);
   Future<GetReviewsDataModelResponse> getReview(
       GetReviewRequests getProductsSupplierRequests);
+  Future<UpdateReviewResponse> updateReview(
+      UpdateReviewRequests updateProductsSupplierRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -136,5 +139,16 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
       GetReviewRequests getReviewRequests) async {
     return await _appServicesClient
         .getProductsReview(getReviewRequests.productId);
+  }
+
+  @override
+  Future<UpdateReviewResponse> updateReview(
+      UpdateReviewRequests updateProductsSupplierRequests) async {
+    return await _appServicesClient.updateProductsReview(
+        userId: updateProductsSupplierRequests.userId,
+        status: updateProductsSupplierRequests.status,
+        productId: updateProductsSupplierRequests.productId,
+        rating: updateProductsSupplierRequests.rating,
+        comment: updateProductsSupplierRequests.comment);
   }
 }

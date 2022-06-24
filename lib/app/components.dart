@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
@@ -170,4 +171,19 @@ Widget buttonBack() {
     icon: Icon(GetPlatform.isIOS ? CupertinoIcons.back : Icons.arrow_back),
     onPressed: () => Get.back(),
   );
+}
+
+Future<void> showMyDialog(
+    {required BuildContext context,
+    required String title,
+    required TextStyle textStyle,
+    required EdgeInsetsGeometry paddingTitle,
+    List<Widget>? actions,
+    required List<Widget> content}) async {
+  await context.showAlerts(
+      title: title,
+      textStyle: textStyle,
+      paddingTitle: paddingTitle,
+      content: content,
+      actions: actions);
 }

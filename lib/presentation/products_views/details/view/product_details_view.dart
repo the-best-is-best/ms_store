@@ -1,5 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -12,7 +13,6 @@ import 'package:ms_store/core/resources/strings_manager.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
-import 'package:expandable/expandable.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/components/products/components.dart';
@@ -36,8 +36,11 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   late final String _language;
   late final ProductDetailsController _productDetailsController;
   late final UserDataController _userDataController;
+  late final GlobalKey<FormState> _formKey;
+
   @override
   void initState() {
+    _formKey = GlobalKey<FormState>();
     _language = Get.locale!.languageCode;
     _productDetailsController = Get.find();
     _productDetailsController.currentProduct.add(widget.product);
@@ -102,7 +105,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                 .reviewProduct.value!.productRating
                                 .toString(),
                             style: context.textTheme.labelMedium,
-                          )
+                          ),
                         ]),
                       ),
                     ],
@@ -194,94 +197,104 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       height: AppSize.ap18.h,
                     ),
                     Obx(
-                      () => Row(
+                      () => Column(
                         children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Reviews",
-                                style: context.textTheme.labelLarge,
-                              ),
-                              BuildCondition(
-                                condition:
-                                    _userDataController.userModel.value != null,
-                                builder: (_) => TextButton(
-                                  onPressed: () {
-                                    Get.defaultDialog(
-                                        barrierDismissible: false,
-                                        title: _language == "ar"
-                                            ? _productDetailsController
-                                                .currentProduct[
-                                                    _productDetailsController
-                                                        .currentIndex]
-                                                .nameAR
-                                            : _productDetailsController
-                                                .currentProduct[
-                                                    _productDetailsController
-                                                        .currentIndex]
-                                                .nameEN,
-                                        backgroundColor:
-                                            ColorManager.white.withOpacity(.6),
-                                        content: Column(
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              AppStrings.reviews,
+                              style: context.textTheme.labelLarge,
+                            ),
+                          ),
+                          BuildCondition(
+                            condition:
+                                _userDataController.userModel.value != null,
+                            builder: (_) => TextButton(
+                              onPressed: () async {
+                                await ratingDialog();
+                              },
+                              child: Obx(() => BuildCondition(
+                                    condition: _productDetailsController
+                                                .userReview.value ==
+                                            null &&
+                                        (_productDetailsController
+                                                    .userReview.value?.rating ==
+                                                null ||
+                                            _productDetailsController
+                                                    .userReview.value?.rating ==
+                                                0) &&
+                                        _productDetailsController
+                                                .userReview.value?.comment ==
+                                            null,
+                                    builder: (context) {
+                                      return Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          AppStrings.writeYourReview,
+                                          style: context.textTheme.labelMedium!
+                                              .copyWith(
+                                                  color:
+                                                      ColorManager.darkColor),
+                                        ),
+                                      );
+                                    },
+                                    fallback: (_) {
+                                      return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            RatingBar.builder(
-                                              initialRating:
-                                                  _productDetailsController
-                                                          .reviewProduct
-                                                          .value
-                                                          ?.dataReview
-                                                          .firstWhereOrNull(
-                                                              (element) =>
-                                                                  element
-                                                                      .userId ==
-                                                                  _userDataController
-                                                                      .userModel
-                                                                      .value
-                                                                      ?.id)
-                                                          ?.rating ??
-                                                      0,
-                                              minRating: 1,
-                                              direction: Axis.horizontal,
-                                              allowHalfRating: true,
-                                              itemCount: 5,
-                                              itemSize: FontSize.s40,
+                                            Column(children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: AppSpacing.ap12),
+                                                child: Text(
+                                                  "Your Review",
+                                                  style: context
+                                                      .textTheme.labelMedium,
+                                                ),
+                                              ),
+                                              Text(
+                                                _productDetailsController
+                                                        .userReview
+                                                        .value
+                                                        ?.comment ??
+                                                    "",
+                                                style: context
+                                                    .textTheme.labelSmall,
+                                              ),
+                                            ]),
+                                            RatingBarIndicator(
+                                              rating: _productDetailsController
+                                                      .userReview
+                                                      .value
+                                                      ?.rating ??
+                                                  0,
+                                              itemSize: FontSize.s30,
                                               itemBuilder: (context, _) =>
                                                   const Icon(
                                                 IconsManger.stars,
                                                 color: ColorManager.yellow,
                                               ),
-                                              onRatingUpdate: (rating) {
-                                                print(rating);
-                                              },
+                                              itemCount: 5,
+                                              direction: Axis.horizontal,
                                             ),
-                                          ],
-                                        ));
-                                  },
-                                  child: Text(
-                                    "Write your review",
-                                    style: context.textTheme.labelMedium!
-                                        .copyWith(
-                                            color: ColorManager.darkColor),
-                                  ),
+                                          ]);
+                                    },
+                                  )),
+                            ),
+                            fallback: (_) => Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "${AppStrings.pleaseLogin} to review",
+                                  style: context.textTheme.labelMedium,
                                 ),
-                                fallback: (_) => Center(
-                                    child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      AppStrings.pleaseLogin + " to review",
-                                      style: context.textTheme.labelMedium,
-                                    ),
-                                    Lottie.asset(
-                                        const $AssetsJsonGen().pleaseLogin,
-                                        height: 150.h),
-                                  ],
-                                )),
-                              )
-                            ],
-                          ),
+                                Lottie.asset(const $AssetsJsonGen().pleaseLogin,
+                                    height: 150.h),
+                              ],
+                            )),
+                          )
                         ],
                       ),
                     ),
@@ -401,6 +414,55 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     );
   }
 
+  Future ratingDialog() async {
+    await showMyDialog(
+        context: context,
+        title: _language == "ar"
+            ? _productDetailsController
+                .currentProduct[_productDetailsController.currentIndex].nameAR
+            : _productDetailsController
+                .currentProduct[_productDetailsController.currentIndex].nameEN,
+        textStyle: context.textTheme.labelMedium!,
+        paddingTitle: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.ap12, vertical: AppSpacing.ap8),
+        content: [
+          Builder(builder: (context) {
+            _productDetailsController.addRating(
+                _productDetailsController.userReview.value?.rating ?? 0);
+            return RatingBar.builder(
+              initialRating:
+                  _productDetailsController.userReview.value?.rating ?? 0,
+              minRating: 0,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemSize: FontSize.s40,
+              itemBuilder: (context, _) => const Icon(
+                IconsManger.stars,
+                color: ColorManager.yellow,
+              ),
+              onRatingUpdate: (rating) {
+                _productDetailsController.addRating(rating);
+              },
+            );
+          }),
+          const SizedBox(height: AppSize.ap14),
+          Form(key: _formKey, child: const CommentDialog()),
+        ],
+        actions: [
+          ElevatedButton(
+              onPressed: () async {
+                FocusManager.instance.primaryFocus?.unfocus();
+
+                await waitStateChanged(duration: 540);
+                Get.back();
+
+                _productDetailsController.updateReview();
+              },
+              child: Text(AppStrings.send))
+        ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -448,8 +510,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 ),
                 Expanded(
                   child: RatingBarIndicator(
-                    rating: 2.75,
-                    itemSize: FontSize.s40,
+                    rating: reviews[index].rating,
+                    itemSize: FontSize.s32,
                     itemBuilder: (context, _) => const Icon(
                       IconsManger.stars,
                       color: ColorManager.yellow,
@@ -460,5 +522,41 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 ),
               ],
             ));
+  }
+}
+
+class CommentDialog extends StatefulWidget {
+  const CommentDialog({Key? key}) : super(key: key);
+
+  @override
+  State<CommentDialog> createState() => _CommentDialogState();
+}
+
+class _CommentDialogState extends State<CommentDialog> {
+  late final TextEditingController commentTextEditingController;
+  late final ProductDetailsController productDetailsController;
+  @override
+  void initState() {
+    commentTextEditingController = TextEditingController();
+
+    productDetailsController = Get.find();
+    commentTextEditingController.text =
+        productDetailsController.userReview.value?.comment ?? "";
+    productDetailsController.addComment(commentTextEditingController.text);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InputField(
+      controller: commentTextEditingController,
+      label: 'Tell us your experience ',
+      keyBoardType: TextInputType.text,
+      prefixIcon: IconsManger.comments,
+      themeDataText: context.textTheme,
+      onChanged: (String? value) {
+        productDetailsController.addComment(value ?? "");
+      },
+    );
   }
 }

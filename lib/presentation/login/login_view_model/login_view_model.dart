@@ -208,11 +208,11 @@ class LoginViewModel extends GetxController
 
     await AppPrefs().updateUserData(data);
 
-    if (Get.isRegistered<UserDataController>()) {
-      await waitStateChanged(duration: 900);
-      SchedulerBinding.instance.addPostFrameCallback((_) async {
-        Get.offNamedUntil(Routes.homeRoute, (route) => false);
-      });
-    }
+    UserDataController userDataController = Get.find();
+    await userDataController.getUserData();
+    await waitStateChanged(duration: 900);
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      Get.offNamedUntil(Routes.homeRoute, (route) => false);
+    });
   }
 }

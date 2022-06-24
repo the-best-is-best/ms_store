@@ -92,7 +92,10 @@ class EnLang {
       "total": "Total",
       "checkout": "Checkout",
       "please_login": "Please Login",
-      "description": "Description"
+      "description": "Description",
+      "reviews": "Reviews",
+      "send": "Send",
+      "write_your_review": "Write your review",
     };
   }
 }

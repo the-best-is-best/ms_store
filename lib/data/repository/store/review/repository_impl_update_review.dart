@@ -1,30 +1,29 @@
 import 'package:dartz/dartz.dart';
 import 'package:ms_store/data/mapper/store/get_product_review_response_mapper.dart';
+import '../../../data_src/remote_data_src.dart';
+import '../../../network/error_handler.dart';
+import '../../../network/failure.dart';
+import '../../../network/network_info.dart';
+import '../../../network/requests/store_requests.dart';
+import '../../../responses/store_responses/review/get_review_response.dart';
+import '../../../responses/store_responses/review/update_review_response.dart';
 
-import '../../../domain/models/store/reviews_model.dart';
-import '../../data_src/remote_data_src.dart';
-import '../../network/error_handler.dart';
-import '../../network/failure.dart';
-import '../../network/network_info.dart';
-import '../../network/requests/store_requests.dart';
-import '../../responses/store_responses/review/get_review_response.dart';
-
-class RepositoryImplGetReviewRequests {
-  static Future<Either<Failure, ReviewsModel>> call(
+class RepositoryImplUpdateReviewRequests {
+  static Future<Either<Failure, bool>> call(
     RemoteDataSrc remoteDataSrc,
     NetworkInfo networkInfo,
-    GetReviewRequests getReviewRequests,
+    UpdateReviewRequests updateReviewRequests,
   ) async {
     if (await networkInfo.isConnected) {
       try {
-        GetReviewsDataModelResponse response =
-            await remoteDataSrc.getReview(getReviewRequests);
+        UpdateReviewResponse response =
+            await remoteDataSrc.updateReview(updateReviewRequests);
 
         if (response.statusCode! >= 200 && response.statusCode! <= 299) {
           //success
           // return either right
           // return data
-          return Right(response.toDomain());
+          return const Right(true);
         } else {
           //failure
           // return either left

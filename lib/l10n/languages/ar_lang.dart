@@ -92,7 +92,10 @@ class ArLang {
       "total": "الاجمالس",
       "checkout": "اتمام الطلب",
       "please_login": "الرجاء تسجيل الدخول",
-      "description": "الوصف"
+      "description": "الوصف",
+      "reviews": "المراجعات",
+      "send": "ارسال",
+      "write_your_review": "اكتب مراجعتك",
     };
   }
 }

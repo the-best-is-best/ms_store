@@ -19,6 +19,7 @@ class IconsManger {
 
   static const IconData addedToFavorite = Icons.favorite_sharp;
   static const IconData addToFavorite = Icons.favorite_border_outlined;
+  static const IconData comments = Icons.comment_bank;
 
   static const IconData brightness = CommunityMaterialIcons.brightness_4;
   static const IconData arrowRightOutline =
@@ -45,6 +46,8 @@ class IconsManger {
   static const IconData visibility = Icons.visibility;
 
   static const IconData google = CommunityMaterialIcons.google;
+
+  static const IconData edit = CommunityMaterialIcons.pencil_circle;
 
   static const IconData facebook = CommunityMaterialIcons.facebook;
 

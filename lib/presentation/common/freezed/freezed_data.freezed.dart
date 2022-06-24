@@ -256,3 +256,194 @@ abstract class _UserDataObject implements UserDataObject {
   _$$_UserDataObjectCopyWith<_$_UserDataObject> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$ReviewObject {
+  int get userId => throw _privateConstructorUsedError;
+  bool get status => throw _privateConstructorUsedError;
+  int get productId => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
+  String get comment => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ReviewObjectCopyWith<ReviewObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ReviewObjectCopyWith<$Res> {
+  factory $ReviewObjectCopyWith(
+          ReviewObject value, $Res Function(ReviewObject) then) =
+      _$ReviewObjectCopyWithImpl<$Res>;
+  $Res call(
+      {int userId, bool status, int productId, double rating, String comment});
+}
+
+/// @nodoc
+class _$ReviewObjectCopyWithImpl<$Res> implements $ReviewObjectCopyWith<$Res> {
+  _$ReviewObjectCopyWithImpl(this._value, this._then);
+
+  final ReviewObject _value;
+  // ignore: unused_field
+  final $Res Function(ReviewObject) _then;
+
+  @override
+  $Res call({
+    Object? userId = freezed,
+    Object? status = freezed,
+    Object? productId = freezed,
+    Object? rating = freezed,
+    Object? comment = freezed,
+  }) {
+    return _then(_value.copyWith(
+      userId: userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productId: productId == freezed
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as int,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_ReviewObjectCopyWith<$Res>
+    implements $ReviewObjectCopyWith<$Res> {
+  factory _$$_ReviewObjectCopyWith(
+          _$_ReviewObject value, $Res Function(_$_ReviewObject) then) =
+      __$$_ReviewObjectCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int userId, bool status, int productId, double rating, String comment});
+}
+
+/// @nodoc
+class __$$_ReviewObjectCopyWithImpl<$Res>
+    extends _$ReviewObjectCopyWithImpl<$Res>
+    implements _$$_ReviewObjectCopyWith<$Res> {
+  __$$_ReviewObjectCopyWithImpl(
+      _$_ReviewObject _value, $Res Function(_$_ReviewObject) _then)
+      : super(_value, (v) => _then(v as _$_ReviewObject));
+
+  @override
+  _$_ReviewObject get _value => super._value as _$_ReviewObject;
+
+  @override
+  $Res call({
+    Object? userId = freezed,
+    Object? status = freezed,
+    Object? productId = freezed,
+    Object? rating = freezed,
+    Object? comment = freezed,
+  }) {
+    return _then(_$_ReviewObject(
+      userId == freezed
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int,
+      status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as bool,
+      productId == freezed
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as int,
+      rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
+      comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ReviewObject implements _ReviewObject {
+  _$_ReviewObject(
+      this.userId, this.status, this.productId, this.rating, this.comment);
+
+  @override
+  final int userId;
+  @override
+  final bool status;
+  @override
+  final int productId;
+  @override
+  final double rating;
+  @override
+  final String comment;
+
+  @override
+  String toString() {
+    return 'ReviewObject(userId: $userId, status: $status, productId: $productId, rating: $rating, comment: $comment)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ReviewObject &&
+            const DeepCollectionEquality().equals(other.userId, userId) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
+            const DeepCollectionEquality().equals(other.productId, productId) &&
+            const DeepCollectionEquality().equals(other.rating, rating) &&
+            const DeepCollectionEquality().equals(other.comment, comment));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(userId),
+      const DeepCollectionEquality().hash(status),
+      const DeepCollectionEquality().hash(productId),
+      const DeepCollectionEquality().hash(rating),
+      const DeepCollectionEquality().hash(comment));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_ReviewObjectCopyWith<_$_ReviewObject> get copyWith =>
+      __$$_ReviewObjectCopyWithImpl<_$_ReviewObject>(this, _$identity);
+}
+
+abstract class _ReviewObject implements ReviewObject {
+  factory _ReviewObject(
+      final int userId,
+      final bool status,
+      final int productId,
+      final double rating,
+      final String comment) = _$_ReviewObject;
+
+  @override
+  int get userId => throw _privateConstructorUsedError;
+  @override
+  bool get status => throw _privateConstructorUsedError;
+  @override
+  int get productId => throw _privateConstructorUsedError;
+  @override
+  double get rating => throw _privateConstructorUsedError;
+  @override
+  String get comment => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ReviewObjectCopyWith<_$_ReviewObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}

@@ -39,7 +39,7 @@ class Constants {
   static const String getProductsSupplier =
       '/$_getDataUrlPath/get_last_supplier.php';
 
-  static const String getProductsReviews = '/$_getDataUrlPath/get_rating.php';
+  static const String getProductsReviews = '/$_getDataUrlPath/get_review.php';
   static const String updateProductsReviews =
-      '/$_postDataUrlPath/get_rating.php';
+      '/$_postDataUrlPath/add_review.php';
 }

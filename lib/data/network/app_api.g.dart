@@ -249,7 +249,7 @@ class _AppServicesClient implements AppServicesClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<GetReviewsDataModelResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/get_data/get_rating.php',
+                .compose(_dio.options, '/get_data/get_review.php',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = GetReviewsDataModelResponse.fromJson(_result.data!);
@@ -276,7 +276,7 @@ class _AppServicesClient implements AppServicesClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<UpdateReviewResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/insert_data/get_rating.php',
+                .compose(_dio.options, '/insert_data/add_review.php',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UpdateReviewResponse.fromJson(_result.data!);

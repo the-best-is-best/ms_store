@@ -13,7 +13,8 @@ import 'cache/repository_impl_cache_data_server.dart';
 import 'home_data_repository.dart';
 import 'store/repository_impl_category.dart';
 import 'store/repository_impl_get_products_supplier.dart';
-import 'store/repository_impl_get_review.dart';
+import 'store/review/repository_impl_get_review.dart';
+import 'store/review/repository_impl_update_review.dart';
 import 'users_repository/repository_impl_active_email.dart';
 import 'users_repository/repository_impl_register.dart';
 import 'users_repository/repository_impl_login.dart';
@@ -35,94 +36,103 @@ class RepositoryImpl extends Repository {
 
   RepositoryImpl(this._remoteDataSrc, this._networkInfo, this._localDataSource);
   @override
-  Future<Either<Failure, CheckCachedDataServer>> cache() {
-    return RepositoryImplCacheDataServer.call(_remoteDataSrc, _networkInfo);
+  Future<Either<Failure, CheckCachedDataServer>> cache() async {
+    return await RepositoryImplCacheDataServer.call(
+        _remoteDataSrc, _networkInfo);
   }
 
   @override
-  Future<Either<Failure, bool>> register(RegisterRequests registerRequests) {
-    return RepositoryImplRegister.call(
+  Future<Either<Failure, bool>> register(
+      RegisterRequests registerRequests) async {
+    return await RepositoryImplRegister.call(
         _remoteDataSrc, _networkInfo, registerRequests);
   }
 
   @override
   Future<Either<Failure, UserModel>> login(LoginRequests loginRequests) async {
-    return RepositoryImplLogin.call(
+    return await RepositoryImplLogin.call(
         _remoteDataSrc, _networkInfo, loginRequests);
   }
 
   @override
   Future<Either<Failure, UserModel>> loginBySocial(
-      LoginBySocialRequests loginRequests) {
-    return RepositoryImplLoginBySocial.call(
+      LoginBySocialRequests loginRequests) async {
+    return await RepositoryImplLoginBySocial.call(
         _remoteDataSrc, _networkInfo, loginRequests);
   }
 
   @override
   Future<Either<Failure, bool>> forgetPassword(
-      ForgetPasswordRequests forgetPasswordRequests) {
-    return RepositoryImplForgetPassword.call(
+      ForgetPasswordRequests forgetPasswordRequests) async {
+    return await RepositoryImplForgetPassword.call(
         _remoteDataSrc, _networkInfo, forgetPasswordRequests);
   }
 
   @override
   Future<Either<Failure, bool>> resetPassword(
-      ResetPasswordRequests resetPasswordRequests) {
-    return RepositoryImplResetPassword.call(
+      ResetPasswordRequests resetPasswordRequests) async {
+    return await RepositoryImplResetPassword.call(
         _remoteDataSrc, _networkInfo, resetPasswordRequests);
   }
 
   @override
   Future<Either<Failure, UserModel>> activeEmail(
-      ActiveEmailRequests activeEmailRequests) {
-    return RepositoryImplActiveEmail.call(
+      ActiveEmailRequests activeEmailRequests) async {
+    return await RepositoryImplActiveEmail.call(
         _remoteDataSrc, _networkInfo, activeEmailRequests);
   }
 
   @override
-  Future<Either<Failure, HomeModel>> getHomeData() {
-    return RepositoryImpGetHomeData.call(
+  Future<Either<Failure, HomeModel>> getHomeData() async {
+    return await RepositoryImpGetHomeData.call(
         _remoteDataSrc, _networkInfo, _localDataSource);
   }
 
   @override
-  Future<Either<Failure, CategoryModel>> getCategoryData() {
-    return RepositoryImplCategory.call(
+  Future<Either<Failure, CategoryModel>> getCategoryData() async {
+    return await RepositoryImplCategory.call(
         _remoteDataSrc, _networkInfo, _localDataSource);
   }
 
   @override
   Future<Either<Failure, bool>> addProductToFavorite(
-      AddFavoriteRequests addFavoriteRequests) {
-    return RepositoryImplAddFavorite.call(
+      AddFavoriteRequests addFavoriteRequests) async {
+    return await RepositoryImplAddFavorite.call(
         _remoteDataSrc, _networkInfo, addFavoriteRequests);
   }
 
   @override
   Future<Either<Failure, Map<int, bool>>> getProductToFavorite(
-      GetFavoriteRequests getFavoriteRequests) {
-    return RepositoryImplGetFavorite.call(
+      GetFavoriteRequests getFavoriteRequests) async {
+    return await RepositoryImplGetFavorite.call(
         _remoteDataSrc, _networkInfo, _localDataSource, getFavoriteRequests);
   }
 
   @override
   Future<Either<Failure, List<ProductModel>>> getProductByIds(
-      GetProductByIdsRequests getProductByIds) {
-    return RepositoryImplGetProductsByIds.call(
+      GetProductByIdsRequests getProductByIds) async {
+    return await RepositoryImplGetProductsByIds.call(
         _remoteDataSrc, _networkInfo, getProductByIds, _localDataSource);
   }
 
   @override
   Future<Either<Failure, List<ProductModel>>> getProductsSupplier(
-      GetProductsSupplierRequests getProductsSupplierRequests) {
-    return RepositoryImplGetProductsSupplier.call(
+      GetProductsSupplierRequests getProductsSupplierRequests) async {
+    return await RepositoryImplGetProductsSupplier.call(
         _remoteDataSrc, _networkInfo, getProductsSupplierRequests);
   }
 
   @override
   Future<Either<Failure, ReviewsModel>> getReview(
-      GetReviewRequests getReviewRequests) {
-    return RepositoryImplGetReviewRequests.call(
+      GetReviewRequests getReviewRequests) async {
+    return await RepositoryImplGetReviewRequests.call(
         _remoteDataSrc, _networkInfo, getReviewRequests);
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateReview(
+      UpdateReviewRequests updateReviewRequests) async {
+    return await RepositoryImplUpdateReviewRequests.call(
+        _remoteDataSrc, _networkInfo, updateReviewRequests);
   }
 }

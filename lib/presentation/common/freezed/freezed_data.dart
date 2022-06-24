@@ -14,3 +14,14 @@ class UserDataObject with _$UserDataObject {
     int loginBySocial,
   ) = _UserDataObject;
 }
+
+@freezed
+class ReviewObject with _$ReviewObject {
+  factory ReviewObject(
+    int userId,
+    bool status,
+    int productId,
+    double rating,
+    String comment,
+  ) = _ReviewObject;
+}

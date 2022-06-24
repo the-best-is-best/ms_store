@@ -75,4 +75,7 @@ class AppStrings {
   static String get total => "total".tr;
   static String get pleaseLogin => 'please_login'.tr;
   static String get description => 'description'.tr;
+  static String get reviews => 'reviews'.tr;
+  static String get send => 'send'.tr;
+  static String get writeYourReview => 'write_your_review'.tr;
 }

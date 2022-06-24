@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 extension NonNullString on String? {
   String orEmpty() {
     if (this == null) {
@@ -51,8 +53,44 @@ extension LangTypeExtension on LangType {
   }
 }
 
-// extension ExtensionGetThemeData on BuildContext {
-//   double get getHeight => MediaQuery.of(this).size.height;
-//   double get getWidth => MediaQuery.of(this).size.width;
-//   TextTheme get getThemeDataText => Theme.of(this).textTheme;
-// }
+extension ExtensionDialog on BuildContext {
+  Future<void> showAlerts<T>(
+      {required String title,
+      required TextStyle textStyle,
+      TextStyle? contentTextStyle,
+      required EdgeInsetsGeometry paddingTitle,
+      required List<Widget> content,
+      bool barrierDismissible = false,
+      List<Widget>? actions,
+      Color? backgroundColor}) {
+    return showDialog<T>(
+      context: this,
+      barrierDismissible: barrierDismissible,
+      builder: (BuildContext context) => AlertDialog(
+        titlePadding: paddingTitle,
+        titleTextStyle: textStyle,
+        contentTextStyle: contentTextStyle ?? textStyle,
+        backgroundColor: backgroundColor,
+        title: Center(
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        content: SizedBox(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: content,
+          ),
+        ),
+        actions: actions,
+      ),
+    );
+  }
+}
+
+extension ExtensionBuildContext on BuildContext {
+  void back() {
+    Navigator.of(this).pop();
+  }
+}
