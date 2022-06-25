@@ -3,6 +3,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
 import 'package:ms_store/domain/use_case/store/category_use_case.dart';
+import 'package:ms_store/domain/use_case/store/get_product_by_cat_id_use_case.dart';
 import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart';
 import 'package:ms_store/domain/use_case/store/review/get_review_use_case.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
@@ -111,5 +112,12 @@ void initProductDetailsModel() {
         .registerFactory<GetReviewUseCase>(() => GetReviewUseCase(instance()));
     instance.registerFactory<UpdateReviewUseCase>(
         () => UpdateReviewUseCase(instance()));
+  }
+}
+
+void initProductByCatId() {
+  if (!GetIt.I.isRegistered<GetProductByCatIdUseCase>()) {
+    instance.registerFactory<GetProductByCatIdUseCase>(
+        () => GetProductByCatIdUseCase(instance()));
   }
 }

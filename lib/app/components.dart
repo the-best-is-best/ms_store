@@ -23,7 +23,7 @@ Image logo({double? logoHeight, required bool isDark}) {
 }
 
 Future<void> waitStateChanged({int? duration}) async {
-  await Future.delayed(Duration(milliseconds: duration ?? 1));
+  await Future.delayed(Duration(milliseconds: duration ?? 1000));
 }
 
 class InputField extends StatefulWidget {
@@ -149,14 +149,17 @@ Widget pinCodeTextField(BuildContext context, ValueChanged<String> onChanged,
   );
 }
 
-CircularProgressIndicator buildCircularProgressIndicatorWithDownload(
+Widget buildCircularProgressIndicatorWithDownload(
     DownloadProgress downloadProgress) {
-  return CircularProgressIndicator(
-      color: ColorManager.primaryColor, value: downloadProgress.progress);
+  return Center(
+    child: CircularProgressIndicator(
+        color: ColorManager.primaryColor, value: downloadProgress.progress),
+  );
 }
 
-CircularProgressIndicator buildCircularProgressIndicator() {
-  return const CircularProgressIndicator(color: ColorManager.primaryColor);
+Widget buildCircularProgressIndicator() {
+  return const Center(
+      child: CircularProgressIndicator(color: ColorManager.primaryColor));
 }
 
 Widget errorIcon() {

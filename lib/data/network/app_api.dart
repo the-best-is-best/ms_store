@@ -6,6 +6,7 @@ import 'package:retrofit/retrofit.dart';
 import '../../app/constants.dart';
 import '../responses/home_response/home_response.dart';
 import '../responses/store_responses/categories_responses.dart';
+import '../responses/store_responses/get_products_by_cat_id_response.dart';
 import '../responses/store_responses/get_products_by_ids_responses.dart';
 import '../responses/store_responses/get_products_supplies_response.dart';
 import '../responses/store_responses/review/get_review_response.dart';
@@ -109,4 +110,10 @@ abstract class AppServicesClient {
     @Field('rating') required double rating,
     @Field('comment') required String comment,
   });
+
+  // get Products By CatId
+
+  @GET(Constants.getProductsByCatId)
+  Future<GetProductCatIdDataResponse> getProductsByCatId(
+      @Query('catId') int catId);
 }

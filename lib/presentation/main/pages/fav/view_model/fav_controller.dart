@@ -8,22 +8,18 @@ import 'package:ms_store/presentation/base/favorite_functions.dart';
 import '../../../../../app/components.dart';
 import '../../../../../app/di.dart';
 import '../../../../../core/resources/routes_manger.dart';
-import '../../../../../core/resources/strings_manager.dart';
 import '../../../../../data/data_src/local_data_source.dart';
-import '../../../../../domain/use_case/store/add_favorite_use_case.dart';
 import '../../../../../domain/use_case/store/get_products_by_ids_use_case.dart';
 import '../../../../base/user_data/user_data_controller.dart';
 import '../../../../common/state_renderer/state_renderer.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 
 class FavController extends GetxController with BaseController {
-  final AddFavoriteUseCase _addFavoriteUseCase;
   final GetProductByIdUseCase _getProductsFavoriteUseCase;
 
   final LocalDataSource _localDataSource;
 
-  FavController(this._addFavoriteUseCase, this._localDataSource,
-      this._getProductsFavoriteUseCase);
+  FavController(this._localDataSource, this._getProductsFavoriteUseCase);
   RxMap<int, bool> favoriteModel = RxMap<int, bool>();
   RxList<ProductModel> productsInFav = RxList<ProductModel>();
 
@@ -42,15 +38,14 @@ class FavController extends GetxController with BaseController {
     }
   }
 
+  Rx<int?> productId = Rx<int?>(null);
   Future addToFavoriteEvent(ProductModel product) async {
     UserDataController userDataController = Get.find();
     if (userDataController.userModel.value == null) {
       initLoginModel();
       Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
     } else {
-      flowState.value = LoadingState(
-          stateRendererType: StateRendererType.POPUP_LOADING_STATE,
-          message: AppStrings.loading);
+      productId.value = product.id;
 
       var result = await instance<FavoriteFunctions>()
           .addToFavorite(userDataController.userModel.value!.id, product.id);
@@ -59,12 +54,31 @@ class FavController extends GetxController with BaseController {
             stateRendererType: StateRendererType.POPUP_ERROR_STATE,
             message: failure.messages);
       }, (data) async {
-        await instance<FavoriteFunctions>().updateFavData(product);
-        await waitStateChanged(duration: 900);
+        await updateFavData(product);
+        await waitStateChanged();
+        productId.value = null;
 
         flowState.value = ContentState();
       });
     }
+  }
+
+  Future updateFavData(ProductModel product) async {
+    FavController favController = Get.find();
+    if (favController.favoriteModel.containsKey(product.id)) {
+      if (favController.favoriteModel[product.id] == true) {
+        favController.productsInFav.remove(product);
+      } else {
+        favController.productsInFav.add(product);
+      }
+      favController.favoriteModel[product.id] =
+          favController.favoriteModel[product.id] == true ? false : true;
+      favController.favoriteModel.refresh();
+    } else {
+      favController.favoriteModel.addAll({product.id: true});
+      favController.productsInFav.add(product);
+    }
+    await favController.saveFav();
   }
 
   Future saveFav() async {

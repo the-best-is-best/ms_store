@@ -56,7 +56,7 @@ class ProductDetailsController extends GetxController with BaseController {
         message: AppStrings.loading);
     var result = await _getReviewUseCase
         .execute(GetReviewUseCaseInput(currentProduct[currentIndex].id));
-    await waitStateChanged(duration: 1000);
+    await waitStateChanged();
 
     result.fold((failure) {
       flowState.value = ErrorState(
@@ -80,10 +80,10 @@ class ProductDetailsController extends GetxController with BaseController {
         message: AppStrings.loading);
     var result = await _getProductSupplierUseCase
         .execute(GetProductSupplierUseCaseInput(productCat));
+    await waitStateChanged();
+
     reviewObject.value =
         reviewObject.value.copyWith(productId: currentProduct[currentIndex].id);
-
-    await waitStateChanged(duration: 1000);
 
     result.fold((failure) {
       flowState.value = ErrorState(
@@ -93,7 +93,7 @@ class ProductDetailsController extends GetxController with BaseController {
       productSupplier.value = data;
       var result = await _getReviewUseCase
           .execute(GetReviewUseCaseInput(currentProduct[currentIndex].id));
-      await waitStateChanged(duration: 1000);
+      await waitStateChanged();
 
       result.fold((failure) {
         flowState.value = ErrorState(
@@ -102,7 +102,6 @@ class ProductDetailsController extends GetxController with BaseController {
       }, (data) {
         reviewProduct.value = data;
         UserDataController userDataController = Get.find();
-        printInfo(info: "user id ${userDataController.userModel.value?.id}");
         if (userDataController.userModel.value != null) {
           userReview.value =
               reviewProduct.value?.dataReview.firstWhereOrNull((element) {
@@ -114,30 +113,31 @@ class ProductDetailsController extends GetxController with BaseController {
     });
   }
 
-  void addToFavorite(ProductModel product) async {
-    UserDataController userDataController = Get.find();
-    if (userDataController.userModel.value == null) {
-      initLoginModel();
-      Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
-    } else {
-      flowState.value = LoadingState(
-          stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
-          message: AppStrings.loading);
-      var result = await instance<FavoriteFunctions>()
-          .addToFavorite(userDataController.userModel.value!.id, product.id);
+  // void addToFavorite(ProductModel product) async {
+  //   UserDataController userDataController = Get.find();
+  //   if (userDataController.userModel.value == null) {
+  //     initLoginModel();
+  //     Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
+  //   } else {
+  //     flowState.value = LoadingState(
+  //         stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
+  //         message: AppStrings.loading);
+  //     var result = await instance<FavoriteFunctions>()
+  //         .addToFavorite(userDataController.userModel.value!.id, product.id);
+  //     await waitStateChanged();
 
-      result.fold((failure) {
-        flowState.value = ErrorState(
-            stateRendererType: StateRendererType.POPUP_ERROR_STATE,
-            message: failure.messages);
-      }, (data) async {
-        await instance<FavoriteFunctions>().updateFavData(product);
-        await waitStateChanged(duration: 1000);
+  //     result.fold((failure) {
+  //       flowState.value = ErrorState(
+  //           stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+  //           message: failure.messages);
+  //     }, (data) async {
+  //       await instance<FavoriteFunctions>().updateFavData(product);
+  //       await waitStateChanged();
 
-        flowState.value = ContentState();
-      });
-    }
-  }
+  //       flowState.value = ContentState();
+  //     });
+  //   }
+  // }
 
   Rx<ReviewObject> reviewObject = ReviewObject(0, false, 0, 0, "").obs;
   void addRating(double rate) {
@@ -162,6 +162,7 @@ class ProductDetailsController extends GetxController with BaseController {
       ReviewObject reviewObjectData = reviewObject.value;
       reviewObjectData = reviewObjectData.copyWith(
           userId: userDataController.userModel.value!.id);
+      await waitStateChanged();
 
       flowState.value = LoadingState(
           stateRendererType: StateRendererType.POPUP_LOADING_STATE,
@@ -172,14 +173,18 @@ class ProductDetailsController extends GetxController with BaseController {
           rating: reviewObjectData.rating,
           productId: reviewObjectData.productId,
           comment: reviewObjectData.comment));
+      await waitStateChanged();
+
       result.fold((failure) {
         flowState.value = ErrorState(
             stateRendererType: StateRendererType.POPUP_ERROR_STATE,
             message: failure.messages);
       }, (data) async {
-        await waitStateChanged(duration: 1000);
+        await waitStateChanged();
         var result = await _getReviewUseCase
             .execute(GetReviewUseCaseInput(currentProduct[currentIndex].id));
+        await waitStateChanged();
+
         result.fold((failure) {
           flowState.value = ErrorState(
               stateRendererType: StateRendererType.POPUP_ERROR_STATE,

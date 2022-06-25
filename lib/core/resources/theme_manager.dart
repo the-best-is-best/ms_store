@@ -79,11 +79,11 @@ ThemeData get themeDataLight {
     ),
     textTheme: TextTheme(
       displayLarge:
-          getBoldStyle(color: ColorManager.textColor, fontSize: FontSize.s32),
+          getBoldStyle(color: ColorManager.textColor, fontSize: FontSize.s30),
       headlineLarge: getSemiBoldStyle(
-          color: ColorManager.textColor, fontSize: FontSize.s30),
+          color: ColorManager.textColor, fontSize: FontSize.s28),
       labelLarge:
-          getMediumStyle(color: ColorManager.textColor, fontSize: FontSize.s28),
+          getMediumStyle(color: ColorManager.textColor, fontSize: FontSize.s24),
       labelMedium:
           getMediumStyle(fontSize: FontSize.s18, color: ColorManager.textColor),
       labelSmall:

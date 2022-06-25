@@ -5,6 +5,7 @@ import 'package:ms_store/presentation/main/pages/category/view_model/category_vi
 import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 import 'package:ms_store/presentation/products_views/details/controller/product_details_controller.dart';
+import 'package:ms_store/presentation/products_views/product_by_cat/controller/product_by_cat_controller.dart';
 import '../presentation/main/pages/home/view_model/home_controller.dart';
 import '../presentation/main/controller/main_view_controller.dart';
 import '../presentation/on_boarding/on_boarding_view_model/on_boarding_view_model_getx.dart';
@@ -48,6 +49,8 @@ class AppBinding implements Bindings {
     getCartViewController();
     // setting
     getSettingViewController();
+    // get product by cat id
+    getProductByCatId();
   }
 
   void getOnBoardingController() {
@@ -83,7 +86,7 @@ class AppBinding implements Bindings {
   }
 
   void getHomeViewController() {
-    Get.lazyPut(() => HomeController(instance()), fenix: true);
+    Get.lazyPut(() => HomeController(instance(), instance()), fenix: true);
   }
 
   void getCategoryViewController() {
@@ -91,8 +94,7 @@ class AppBinding implements Bindings {
   }
 
   void getFavoriteViewController() {
-    Get.lazyPut(() => FavController(instance(), instance(), instance()),
-        fenix: true);
+    Get.lazyPut(() => FavController(instance(), instance()), fenix: true);
   }
 
   void getProductsController() {
@@ -107,5 +109,9 @@ class AppBinding implements Bindings {
 
   void getSettingViewController() {
     Get.lazyPut(() => SettingsController(), fenix: true);
+  }
+
+  void getProductByCatId() {
+    Get.lazyPut(() => ProductByCatController(instance()), fenix: true);
   }
 }

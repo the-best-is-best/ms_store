@@ -42,4 +42,7 @@ class Constants {
   static const String getProductsReviews = '/$_getDataUrlPath/get_review.php';
   static const String updateProductsReviews =
       '/$_postDataUrlPath/add_review.php';
+
+  static const String getProductsByCatId =
+      '/$_getDataUrlPath/get_products_by_cat.php';
 }

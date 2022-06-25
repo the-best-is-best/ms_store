@@ -2,9 +2,11 @@ import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/data/network/requests/store_requests.dart';
 import 'package:ms_store/data/repository/store/repository_impl_add_favorite.dart';
 import 'package:ms_store/data/repository/store/repository_impl_get_favorite.dart';
+import 'package:ms_store/data/repository/store/repository_impl_get_product_by_cat_id.dart';
 import 'package:ms_store/data/repository/store/repository_impl_get_products_by_ids.dart';
 import 'package:ms_store/data/repository/users_repository/repository_impl_login_by_social.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
+import 'package:ms_store/domain/models/store/product_cat_id_model.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/models/store/reviews_model.dart';
 import '../../domain/models/home_models/home_data_model.dart';
@@ -134,5 +136,12 @@ class RepositoryImpl extends Repository {
       UpdateReviewRequests updateReviewRequests) async {
     return await RepositoryImplUpdateReviewRequests.call(
         _remoteDataSrc, _networkInfo, updateReviewRequests);
+  }
+
+  @override
+  Future<Either<Failure, ProductCatIdModel>> getProductsByCatId(
+      GetProductsByCatIdRequests getProductsByCatIdRequests) async {
+    return await RepositoryImplGetProductByCatId.call(
+        _remoteDataSrc, _networkInfo, getProductsByCatIdRequests);
   }
 }

@@ -136,10 +136,9 @@ class _FavPageState extends State<FavPage> {
                         imageUrl: productData.image,
                         fit: BoxFit.contain,
                         progressIndicatorBuilder:
-                            (context, url, downloadProgress) => Center(
-                                child:
-                                    buildCircularProgressIndicatorWithDownload(
-                                        downloadProgress)),
+                            (context, url, downloadProgress) =>
+                                buildCircularProgressIndicatorWithDownload(
+                                    downloadProgress),
                         errorWidget: (context, url, error) => errorIcon(),
                       ),
                     ),
@@ -195,15 +194,26 @@ class _FavPageState extends State<FavPage> {
                         child: CircleAvatar(
                           radius: 25.0.r,
                           backgroundColor: Colors.grey[400],
-                          child: IconButton(
-                            onPressed: () {
-                              _favController.addToFavoriteEvent(productData);
+                          child: BuildCondition(
+                            condition: _favController.productId.value !=
+                                productData.id,
+                            builder: (context) {
+                              return IconButton(
+                                onPressed: _favController.productId.value !=
+                                        null
+                                    ? null
+                                    : () {
+                                        _favController
+                                            .addToFavoriteEvent(productData);
+                                      },
+                                icon: Icon(
+                                  Icons.favorite_sharp,
+                                  color: Colors.red,
+                                  size: 30.0.sp,
+                                ),
+                              );
                             },
-                            icon: Icon(
-                              Icons.favorite_sharp,
-                              color: Colors.red,
-                              size: 30.0.sp,
-                            ),
+                            fallback: (_) => buildCircularProgressIndicator(),
                           ),
                         ),
                       ),

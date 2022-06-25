@@ -147,7 +147,7 @@ class _CartPageState extends State<CartPage> {
                       color: Colors.red,
                       size: FontSize.s30,
                     ),
-                    onPressed: _cartController.isLoadingCart.value
+                    onPressed: _cartController.productId.value != null
                         ? null
                         : () async {
                             _cartController.deleteFromCart(cartData);
@@ -168,9 +168,8 @@ class _CartPageState extends State<CartPage> {
                     fit: BoxFit.contain,
                     height: 130,
                     progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                      child: buildCircularProgressIndicator(),
-                    ),
+                        (context, url, downloadProgress) =>
+                            buildCircularProgressIndicator(),
                     errorWidget: (context, url, error) => Icon(
                       Icons.error,
                       size: FontSize.s30,

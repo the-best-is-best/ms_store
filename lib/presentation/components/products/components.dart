@@ -57,7 +57,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                     IconsManger.minus,
                     size: AppSize.ap30.sp,
                   ),
-                  onPressed: _cartController.isLoadingCart.value
+                  onPressed: _cartController.productId.value != null
                       ? null
                       : () {
                           _cartController.addToCart(widget.product, false);
@@ -68,8 +68,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
             backgroundColor: widget.circleColor,
             child: Obx(
               () => BuildCondition(
-                condition: !_cartController.isLoadingCart.value &&
-                        _cartController.productId.value == null ||
+                condition: _cartController.productId.value == null ||
                     _cartController.productId.value != widget.product.id,
                 builder: (_) => Text(
                     _cartController.cartModel[widget.product.id]!.toString(),
@@ -88,7 +87,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                     IconsManger.plus,
                     size: AppSize.ap30.sp,
                   ),
-                  onPressed: _cartController.isLoadingCart.value
+                  onPressed: _cartController.productId.value != null
                       ? null
                       : () {
                           _cartController.addToCart(widget.product, true);
@@ -101,23 +100,55 @@ class _AddToCartButtonState extends State<AddToCartButton> {
   }
 }
 
-Widget addToFavoriteButton(Function fun, int productId) {
-  FavController _favController = Get.find();
-  bool inFav = _favController.favoriteModel[productId] == true;
-  return CircleAvatar(
-    radius: Device.get().isTablet ? 40 : 20,
-    backgroundColor: Colors.grey[400],
-    child: IconButton(
-      onPressed: () {
-        fun();
-      },
-      icon: Icon(
-        inFav ? IconsManger.addedToFavorite : IconsManger.addToFavorite,
-        color: inFav ? ColorManager.error : Colors.white,
-        size: Device.get().isTablet ? 40 : 25.0,
-      ),
-    ),
-  );
+class AddToFavoriteButton extends StatefulWidget {
+  final ProductModel product;
+  const AddToFavoriteButton({Key? key, required this.product})
+      : super(key: key);
+
+  @override
+  State<AddToFavoriteButton> createState() => _AddToFavoriteButtonState();
+}
+
+class _AddToFavoriteButtonState extends State<AddToFavoriteButton> {
+  late final FavController _favController;
+  late bool inFav;
+  @override
+  void initState() {
+    _favController = Get.find();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+        radius: Device.get().isTablet ? 40 : 20,
+        backgroundColor: Colors.grey[400],
+        child: Obx(() => BuildCondition(
+              condition: _favController.productId.value != widget.product.id,
+              builder: (context) {
+                return IconButton(
+                  onPressed: _favController.productId.value != null
+                      ? null
+                      : () {
+                          _favController.addToFavoriteEvent(widget.product);
+                        },
+                  icon: Builder(builder: (context) {
+                    inFav =
+                        _favController.favoriteModel[widget.product.id] == true;
+
+                    return Icon(
+                      inFav
+                          ? IconsManger.addedToFavorite
+                          : IconsManger.addToFavorite,
+                      color: inFav ? ColorManager.error : Colors.white,
+                      size: Device.get().isTablet ? 40 : 25.0,
+                    );
+                  }),
+                );
+              },
+              fallback: (_) => Center(child: buildCircularProgressIndicator()),
+            )));
+  }
 }
 
 Widget buildPrice(ProductModel productModel) {
@@ -165,21 +196,15 @@ Widget buildPrice(ProductModel productModel) {
   });
 }
 
-Widget buildProductsItemHorizontal(
-    {required BuildContext context,
-    required ProductModel productModel,
-    required String locale,
-    required Widget favWidget,
-    bool fromProductDetails = false}) {
+Widget buildProductsItem({
+  required BuildContext context,
+  required ProductModel productModel,
+  required String locale,
+  required Widget favWidget,
+  required Function() onTap,
+}) {
   return InkWell(
-    onTap: () {
-      if (fromProductDetails) {
-        ProductDetailsController productDetailsController = Get.find();
-        productDetailsController.setCurrentPage(nextProduct: productModel);
-      } else {
-        goToProductDetails(productModel);
-      }
-    },
+    onTap: onTap,
     child: SizedBox(
       width: Device.get().isTablet ? AppSize.ap400 : AppSize.ap300,
       child: Stack(
@@ -196,10 +221,8 @@ Widget buildProductsItemHorizontal(
                   height: 120,
                   width: 200,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: buildCircularProgressIndicatorWithDownload(
-                        downloadProgress),
-                  ),
+                      buildCircularProgressIndicatorWithDownload(
+                          downloadProgress),
                   errorWidget: (context, url, error) => errorIcon(),
                 ),
                 Padding(

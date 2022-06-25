@@ -51,3 +51,11 @@ class UpdateReviewRequests {
     required this.comment,
   });
 }
+
+class GetProductsByCatIdRequests {
+  final int catId;
+
+  GetProductsByCatIdRequests(
+    this.catId,
+  );
+}

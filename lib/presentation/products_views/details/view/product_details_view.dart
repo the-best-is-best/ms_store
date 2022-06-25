@@ -69,21 +69,21 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(AppSize.ap8),
                               ),
-                              child: CachedNetworkImage(
-                                imageUrl: _productDetailsController
-                                    .currentProduct[
-                                        _productDetailsController.currentIndex]
-                                    .image,
-                                fit: BoxFit.contain,
-                                width: .55.sw,
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) => Center(
-                                        child:
-                                            buildCircularProgressIndicatorWithDownload(
-                                                downloadProgress)),
-                                errorWidget: (context, url, error) =>
-                                    errorIcon(),
-                              ),
+                              child: Obx(() => CachedNetworkImage(
+                                    imageUrl: _productDetailsController
+                                        .currentProduct[
+                                            _productDetailsController
+                                                .currentIndex]
+                                        .image,
+                                    fit: BoxFit.contain,
+                                    width: .55.sw,
+                                    progressIndicatorBuilder: (context, url,
+                                            downloadProgress) =>
+                                        buildCircularProgressIndicatorWithDownload(
+                                            downloadProgress),
+                                    errorWidget: (context, url, error) =>
+                                        errorIcon(),
+                                  )),
                             ),
                           ),
                         ),
@@ -115,15 +115,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: AppSize.ap12, right: AppSize.ap14),
-                    child: addToFavoriteButton(() {
-                      _productDetailsController.addToFavorite(
-                          _productDetailsController.currentProduct[
-                              _productDetailsController.currentIndex]);
-                    },
-                        _productDetailsController
-                            .currentProduct[
-                                _productDetailsController.currentIndex]
-                            .id),
+                    child: AddToFavoriteButton(
+                        product: _productDetailsController.currentProduct[
+                            _productDetailsController.currentIndex]),
                   ),
                 ],
                 leading: IconButton(
@@ -345,19 +339,19 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return buildProductsItemHorizontal(
+                          return buildProductsItem(
                             productModel: _productDetailsController
                                 .productSupplier[index],
                             context: context,
                             locale: _language,
-                            fromProductDetails: true,
-                            favWidget: addToFavoriteButton(() {
-                              _productDetailsController.addToFavorite(
-                                  _productDetailsController
+                            onTap: () {
+                              _productDetailsController.setCurrentPage(
+                                  nextProduct: _productDetailsController
                                       .productSupplier[index]);
                             },
-                                _productDetailsController
-                                    .productSupplier[index].id),
+                            favWidget: AddToFavoriteButton(
+                                product: _productDetailsController
+                                    .productSupplier[index]),
                           );
                         },
                         itemCount:
@@ -485,43 +479,57 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
 
   Widget buildReviews(List<ReviewsProductModel> reviews) {
     return ListView.builder(
-        itemCount: reviews.length,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (_, index) => Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        reviews[index].userName,
-                        style: context.textTheme.labelLarge,
+      itemCount: reviews.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (_, index) => Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: context.width * 1 / 3,
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          reviews[index].userName,
+                          //style: context.textTheme.labelLarge,
+                        ),
                       ),
-                      const SizedBox(
-                        height: AppSpacing.ap12,
-                      ),
-                      Text(
-                        reviews[index].comment,
-                        style: context.textTheme.labelMedium,
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: RatingBarIndicator(
-                    rating: reviews[index].rating,
-                    itemSize: FontSize.s32,
-                    itemBuilder: (context, _) => const Icon(
-                      IconsManger.stars,
-                      color: ColorManager.yellow,
                     ),
-                    itemCount: 5,
-                    direction: Axis.horizontal,
-                  ),
+                    const SizedBox(
+                      height: AppSpacing.ap12,
+                    ),
+                    Text(
+                      reviews[index].comment,
+                      style: context.textTheme.labelMedium,
+                    ),
+                  ],
                 ),
-              ],
-            ));
+              ),
+              Expanded(
+                child: RatingBarIndicator(
+                  rating: reviews[index].rating,
+                  itemSize: FontSize.s32,
+                  itemBuilder: (context, _) => const Icon(
+                    IconsManger.stars,
+                    color: ColorManager.yellow,
+                  ),
+                  itemCount: 5,
+                  direction: Axis.horizontal,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: AppSpacing.ap16,
+          ),
+        ],
+      ),
+    );
   }
 }
 

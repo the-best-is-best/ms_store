@@ -1,7 +1,11 @@
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
+import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/favorite_functions.dart';
+import 'package:ms_store/presentation/components/products/functions.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
 import '../../../../../app/components.dart';
 import '../../../../../app/di.dart';
@@ -17,10 +21,11 @@ import '../../../controller/main_view_controller.dart';
 
 class HomeController extends GetxController with BaseController {
   final HomeUseCase _homeUseCase;
+  final GetProductByIdUseCase _getProductByIdUseCase;
 
   Rxn<HomeModel> homeModel = Rxn<HomeModel>();
 
-  HomeController(this._homeUseCase);
+  HomeController(this._homeUseCase, this._getProductByIdUseCase);
 
   Future getHomeData() async {
     flowState.value = LoadingState(
@@ -31,7 +36,7 @@ class HomeController extends GetxController with BaseController {
     if (userDataController.userModel.value == null) {
       await userDataController.getUserData();
     }
-    await waitStateChanged(duration: 1000);
+    await waitStateChanged();
     resultHome.fold((failure) {
       flowState.value = ErrorState(
           stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,
@@ -54,29 +59,51 @@ class HomeController extends GetxController with BaseController {
     categoryController.animateContainer.value = index;
   }
 
-  void addToFavoriteEvent(ProductModel product) async {
-    UserDataController userDataController = Get.find();
-    UserModel? userModel = userDataController.userModel.value;
+  // void addToFavoriteEvent(ProductModel product) async {
+  //   UserDataController userDataController = Get.find();
+  //   UserModel? userModel = userDataController.userModel.value;
 
-    if (userModel != null) {
-      flowState.value = LoadingState(
-          stateRendererType: StateRendererType.POPUP_LOADING_STATE,
-          message: AppStrings.loading);
-      var result = await instance<FavoriteFunctions>()
-          .addToFavorite(userDataController.userModel.value!.id, product.id);
+  //   if (userModel != null) {
+  //     flowState.value = LoadingState(
+  //         stateRendererType: StateRendererType.POPUP_LOADING_STATE,
+  //         message: AppStrings.loading);
+  //     var result = await instance<FavoriteFunctions>()
+  //         .addToFavorite(userDataController.userModel.value!.id, product.id);
 
-      result.fold((failure) {
-        flowState.value = ErrorState(
-            stateRendererType: StateRendererType.POPUP_ERROR_STATE,
-            message: failure.messages);
-      }, (_) async {
-        await instance<FavoriteFunctions>().updateFavData(product);
-        await waitStateChanged(duration: 900);
-        flowState.value = ContentState();
+  //     result.fold((failure) {
+  //       flowState.value = ErrorState(
+  //           stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+  //           message: failure.messages);
+  //     }, (_) async {
+  //       await instance<FavoriteFunctions>().updateFavData(product);
+  //       await waitStateChanged();
+  //       flowState.value = ContentState();
+  //     });
+  //   } else {
+  //     initLoginModel();
+  //     Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
+  //   }
+  // }
+
+  Future<void> goProduct(int productId) async {
+    flowState.value = LoadingState(
+        stateRendererType: StateRendererType.POPUP_LOADING_STATE,
+        message: AppStrings.loading);
+    Map<String, int> data = {"id[$productId]": productId};
+    var result =
+        await _getProductByIdUseCase.execute(GetProductByIdUseCaseInput(data));
+    await waitStateChanged();
+
+    result.fold((failure) {
+      flowState.value = ErrorState(
+          stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+          message: failure.messages);
+    }, (data) async {
+      printInfo(info: "data ${data[0].id}");
+      flowState.value = ContentState();
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        goToProductDetails(data[0]);
       });
-    } else {
-      initLoginModel();
-      Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
-    }
+    });
   }
 }

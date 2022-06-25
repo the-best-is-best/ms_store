@@ -1,6 +1,7 @@
 import 'package:ms_store/data/network/requests/store_requests.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
+import 'package:ms_store/data/responses/store_responses/get_products_by_cat_id_response.dart';
 import 'package:ms_store/data/responses/store_responses/get_products_by_ids_responses.dart';
 import 'package:ms_store/data/responses/store_responses/get_products_supplies_response.dart';
 import '../network/app_api.dart';
@@ -39,6 +40,8 @@ abstract class RemoteDataSrc {
       GetReviewRequests getProductsSupplierRequests);
   Future<UpdateReviewResponse> updateReview(
       UpdateReviewRequests updateProductsSupplierRequests);
+  Future<GetProductCatIdDataResponse> getProductsByCatId(
+      GetProductsByCatIdRequests getProductsByCatIdRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -150,5 +153,12 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
         productId: updateProductsSupplierRequests.productId,
         rating: updateProductsSupplierRequests.rating,
         comment: updateProductsSupplierRequests.comment);
+  }
+
+  @override
+  Future<GetProductCatIdDataResponse> getProductsByCatId(
+      GetProductsByCatIdRequests getProductsByCatIdRequests) async {
+    return await _appServicesClient
+        .getProductsByCatId(getProductsByCatIdRequests.catId);
   }
 }

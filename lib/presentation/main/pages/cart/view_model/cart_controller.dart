@@ -32,10 +32,10 @@ class CartController extends GetxController {
     await _localDataSource.saveProductCartData(productsInCart);
   }
 
-  RxBool isLoadingCart = false.obs;
+  //RxBool isLoadingCart = false.obs;
   Rxn<int> productId = Rxn<int>();
   void addToCart(ProductModel productData, bool increase) async {
-    isLoadingCart.value = true;
+    // isLoadingCart.value = true;
     productId.value = productData.id;
     if (cartModel.containsKey(productData.id)) {
       if (increase && cartModel[productData.id]! < 10) {
@@ -52,22 +52,22 @@ class CartController extends GetxController {
       productsInCart.add(productData);
     }
     await saveCart();
-    await waitStateChanged(duration: 1000);
+    await waitStateChanged();
 
-    isLoadingCart.value = false;
+    //isLoadingCart.value = false;
     productId.value = null;
     getTotalPrice();
   }
 
   void deleteFromCart(ProductModel productData) async {
-    isLoadingCart.value = true;
+    // isLoadingCart.value = true;
     productId.value = productData.id;
 
-    await waitStateChanged(duration: 1000);
+    await waitStateChanged();
     await saveCart();
     cartModel.remove(productData.id);
     productsInCart.remove(productData);
-    isLoadingCart.value = false;
+    // isLoadingCart.value = false;
     productId.value = null;
 
     getTotalPrice();

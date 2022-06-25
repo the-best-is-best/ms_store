@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
+import 'package:ms_store/presentation/components/products/functions.dart';
 import '../../../../../app/components.dart';
 import '../../../../../core/resources/styles_manger.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
-import '../../../../../domain/models/store/product_model.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 
 import '../../../../../domain/models/home_models/slider_model.dart';
@@ -18,7 +18,6 @@ import '../../../../../core/resources/font_manger.dart';
 import '../../../../../core/resources/icons_manger.dart';
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../../../core/resources/values_manager.dart';
-import '../../../../components/products/functions.dart';
 import '../view_model/home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -115,29 +114,36 @@ class _HomePageState extends State<HomePage> {
             items: sliders
                 .map((slider) => SizedBox(
                       width: double.infinity,
-                      child: Card(
-                        color: ColorManager.primaryColor,
-                        elevation: AppSpacing.ap1_5,
-                        shape: RoundedRectangleBorder(
+                      child: InkWell(
+                        onTap: () async {
+                          if (slider.openProductId != null) {
+                            await _homeController
+                                .goProduct(slider.openProductId!);
+                          }
+                        },
+                        child: Card(
+                          color: ColorManager.primaryColor,
+                          elevation: AppSpacing.ap1_5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(AppSpacing.ap12.r),
+                              side: BorderSide(
+                                  color: ColorManager.darkColor,
+                                  width: AppSpacing.ap4.w)),
+                          child: ClipRRect(
                             borderRadius:
                                 BorderRadius.circular(AppSpacing.ap12.r),
-                            side: BorderSide(
-                                color: ColorManager.darkColor,
-                                width: AppSpacing.ap4.w)),
-                        child: ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(AppSpacing.ap12.r),
-                          child: CachedNetworkImage(
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) => Center(
-                              child: buildCircularProgressIndicatorWithDownload(
-                                  downloadProgress),
+                            child: CachedNetworkImage(
+                              progressIndicatorBuilder: (context, url,
+                                      downloadProgress) =>
+                                  buildCircularProgressIndicatorWithDownload(
+                                      downloadProgress),
+                              errorWidget: (context, url, error) => errorIcon(),
+                              imageUrl: locale == "en"
+                                  ? slider.imageEN
+                                  : slider.imageAR,
+                              fit: BoxFit.contain,
                             ),
-                            errorWidget: (context, url, error) => errorIcon(),
-                            imageUrl: locale == "en"
-                                ? slider.imageEN
-                                : slider.imageAR,
-                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
@@ -171,14 +177,16 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, indexPro) {
-                  return buildProductsItemHorizontal(
+                  return buildProductsItem(
+                    onTap: () {
+                      goToProductDetails(
+                          dataHome[indexCat].productModel[indexPro]);
+                    },
                     productModel: dataHome[indexCat].productModel[indexPro],
                     context: context,
                     locale: locale,
-                    favWidget: addToFavoriteButton(
-                        () => _homeController.addToFavoriteEvent(
-                            dataHome[indexCat].productModel[indexPro]),
-                        dataHome[indexCat].productModel[indexPro].id),
+                    favWidget: AddToFavoriteButton(
+                        product: dataHome[indexCat].productModel[indexPro]),
                   );
                 },
                 separatorBuilder: (context, index) => const SizedBox(),

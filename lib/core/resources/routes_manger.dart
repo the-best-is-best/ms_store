@@ -9,6 +9,7 @@ import 'package:ms_store/presentation/rest_password/view/rest_password_view.dart
 import 'package:ms_store/presentation/splash/splash_screen.dart';
 
 import '../../presentation/main/main_view.dart';
+import '../../presentation/products_views/product_by_cat/view/prduct_by_cat_view.dart';
 
 class Routes {
   static const non = "/";
@@ -21,6 +22,7 @@ class Routes {
   static const activeEmailRoute = "/activeEmail";
   static const homeRoute = "/home";
   static const productDetailsRoute = "/productDetails";
+  static const productByCatIdRoute = "/productByCatId";
 }
 
 class RouteGeneratorGetX {
@@ -56,6 +58,10 @@ class RouteGeneratorGetX {
         GetPage(
           name: Routes.productDetailsRoute,
           page: () => ProductDetailsView(),
+        ),
+        GetPage(
+          name: Routes.productByCatIdRoute,
+          page: () => ProductByCat(),
         ),
       ];
 }
