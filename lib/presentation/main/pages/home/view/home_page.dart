@@ -119,11 +119,10 @@ class _HomePageState extends State<HomePage> {
                       child: InkWell(
                         onTap: () async {
                           if (slider.openProductId != null) {
-                            await _homeController
-                                .goProduct(slider.openProductId!);
+                            _homeController.goProduct(slider.openProductId!);
                           } else if (slider.openCategoryId != null) {
-                            await _homeController
-                                .goProductByCatId(slider.openCategoryId!);
+                            _homeController
+                                .goProductByCat(slider.openCategoryId!);
                           }
                         },
                         child: Card(

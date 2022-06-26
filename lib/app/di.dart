@@ -16,6 +16,7 @@ import '../data/repository/repository_impl.dart';
 import '../domain/repository/repository.dart';
 import '../domain/use_case/home_use_case.dart';
 import '../domain/use_case/store/add_favorite_use_case.dart';
+import '../domain/use_case/store/get_category_data_by_id_use_case.dart';
 import '../domain/use_case/store/get_favorite_use_case.dart';
 import '../domain/use_case/store/get_products_supplier_use_case.dart';
 import '../domain/use_case/store/review/update_review_use_case.dart';
@@ -73,6 +74,7 @@ Future initHomeModel() async {
     instance.registerFactory<GetProductByIdUseCase>(
         () => GetProductByIdUseCase(instance()));
     instance.registerFactory(() => FavoriteFunctions());
+    instance.registerFactory(() => GetCategoryDataByIdUseCase(instance()));
   }
 }
 

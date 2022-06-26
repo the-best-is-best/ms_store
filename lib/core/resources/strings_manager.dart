@@ -79,4 +79,8 @@ class AppStrings {
   static String get send => 'send'.tr;
   static String get writeYourReview => 'write_your_review'.tr;
   static String get productsCategory => 'products_category'.tr;
+  static String get yourReview => 'your_review'.tr;
+  static String get toReview => 'to_review'.tr;
+  static String get noReviews => 'no_reviews'.tr;
+  static String get price => 'price'.tr;
 }

@@ -8,6 +8,7 @@ import '../network/app_api.dart';
 import '../network/requests/users_requests.dart';
 import '../responses/home_response/home_response.dart';
 import '../responses/store_responses/categories_responses.dart';
+import '../responses/store_responses/get_category_data_by_id.dart';
 import '../responses/store_responses/review/get_review_response.dart';
 import '../responses/store_responses/review/update_review_response.dart';
 import '../responses/users_response/responses_forget_password.dart';
@@ -42,6 +43,8 @@ abstract class RemoteDataSrc {
       UpdateReviewRequests updateProductsSupplierRequests);
   Future<GetProductCatIdDataResponse> getProductsByCatId(
       GetProductsByCatIdRequests getProductsByCatIdRequests);
+  Future<GetCategoryDataByIdResponse> getCategoryDataById(
+      GetCategoryDataByIdRequests getProductsByCatIdRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -160,5 +163,12 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
       GetProductsByCatIdRequests getProductsByCatIdRequests) async {
     return await _appServicesClient
         .getProductsByCatId(getProductsByCatIdRequests.catId);
+  }
+
+  @override
+  Future<GetCategoryDataByIdResponse> getCategoryDataById(
+      GetCategoryDataByIdRequests getCategoryDataByIdRequests) async {
+    return await _appServicesClient
+        .getCategoryDataById(getCategoryDataByIdRequests.catId);
   }
 }

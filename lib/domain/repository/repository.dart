@@ -39,4 +39,6 @@ abstract class Repository {
       UpdateReviewRequests updateReviewRequests);
   Future<Either<Failure, ProductCatIdModel>> getProductsByCatId(
       GetProductsByCatIdRequests getProductsByCatIdRequests);
+  Future<Either<Failure, CategoryDataModel>> getCategoryDataById(
+      GetCategoryDataByIdRequests getCategoryDataByIdRequests);
 }

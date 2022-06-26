@@ -86,7 +86,8 @@ class AppBinding implements Bindings {
   }
 
   void getHomeViewController() {
-    Get.lazyPut(() => HomeController(instance(), instance()), fenix: true);
+    Get.lazyPut(() => HomeController(instance(), instance(), instance()),
+        fenix: true);
   }
 
   void getCategoryViewController() {

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
+import 'package:ms_store/data/responses/store_responses/get_category_data_by_id.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../app/constants.dart';
@@ -115,5 +116,11 @@ abstract class AppServicesClient {
 
   @GET(Constants.getProductsByCatId)
   Future<GetProductCatIdDataResponse> getProductsByCatId(
+      @Query('catId') int catId);
+
+  // get Category Data By Id
+
+  @GET(Constants.getCategoryDataById)
+  Future<GetCategoryDataByIdResponse> getCategoryDataById(
       @Query('catId') int catId);
 }

@@ -59,3 +59,11 @@ class GetProductsByCatIdRequests {
     this.catId,
   );
 }
+
+class GetCategoryDataByIdRequests {
+  final int catId;
+
+  GetCategoryDataByIdRequests(
+    this.catId,
+  );
+}

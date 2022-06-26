@@ -90,6 +90,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       ),
                       Positioned(
                         left: 15,
+                        right: 15,
                         top: .15.sh,
                         child: Row(children: [
                           Icon(
@@ -113,8 +114,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 ),
                 actions: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: AppSize.ap12, right: AppSize.ap14),
+                    padding: const EdgeInsetsDirectional.only(
+                        top: AppSize.ap14, end: AppSize.ap14),
                     child: AddToFavoriteButton(
                         product: _productDetailsController.currentProduct[
                             _productDetailsController.currentIndex]),
@@ -152,7 +153,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     ExpandableNotifier(
                       child: ExpandablePanel(
                         header: Align(
-                          alignment: Alignment.topLeft,
+                          alignment: _language == "ar"
+                              ? Alignment.topRight
+                              : Alignment.topLeft,
                           child: Text(
                             AppStrings.description,
                             style: context.textTheme.labelLarge,
@@ -194,7 +197,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       () => Column(
                         children: [
                           Align(
-                            alignment: Alignment.topLeft,
+                             alignment: _language == "ar"
+                              ? Alignment.topRight
+                              : Alignment.topLeft,
                             child: Text(
                               AppStrings.reviews,
                               style: context.textTheme.labelLarge,
@@ -242,7 +247,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                                 padding: const EdgeInsets.only(
                                                     top: AppSpacing.ap12),
                                                 child: Text(
-                                                  "Your Review",
+                                                  AppStrings.yourReview,
                                                   style: context
                                                       .textTheme.labelMedium,
                                                 ),
@@ -281,7 +286,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "${AppStrings.pleaseLogin} to review",
+                                  "${AppStrings.pleaseLogin} ${AppStrings.toReview}",
                                   style: context.textTheme.labelMedium,
                                 ),
                                 Lottie.asset(const $AssetsJsonGen().pleaseLogin,
@@ -302,7 +307,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "No Reviews",
+                            AppStrings.noReviews,
                             style: context.textTheme.labelMedium,
                           ),
                         ),
@@ -382,7 +387,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     Column(
                       children: [
                         Text(
-                          'price',
+                          AppStrings.price,
                           style: context.textTheme.labelSmall,
                         ),
                         SizedBox(

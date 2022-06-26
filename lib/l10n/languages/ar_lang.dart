@@ -97,6 +97,9 @@ class ArLang {
       "send": "ارسال",
       "write_your_review": "اكتب مراجعتك",
       "products_category": "منتجات - القسم",
+      "your_review": "مراجعتك",
+      "to_review": "للمراجعة",
+      "no_reviews": "لم يتم تقديم تعليقات"
     };
   }
 }

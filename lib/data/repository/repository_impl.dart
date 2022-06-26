@@ -14,6 +14,7 @@ import '../../domain/models/store/category_model.dart';
 import 'cache/repository_impl_cache_data_server.dart';
 import 'home_data_repository.dart';
 import 'store/repository_impl_category.dart';
+import 'store/repository_impl_get_category_data_by_id.dart';
 import 'store/repository_impl_get_products_supplier.dart';
 import 'store/review/repository_impl_get_review.dart';
 import 'store/review/repository_impl_update_review.dart';
@@ -143,5 +144,12 @@ class RepositoryImpl extends Repository {
       GetProductsByCatIdRequests getProductsByCatIdRequests) async {
     return await RepositoryImplGetProductByCatId.call(
         _remoteDataSrc, _networkInfo, getProductsByCatIdRequests);
+  }
+
+  @override
+  Future<Either<Failure, CategoryDataModel>> getCategoryDataById(
+      GetCategoryDataByIdRequests getCategoryDataByIdRequests) async {
+    return await RepositoryImplGetCategoryDataById.call(
+        _remoteDataSrc, _networkInfo, getCategoryDataByIdRequests);
   }
 }

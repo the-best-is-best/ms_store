@@ -97,6 +97,9 @@ class EnLang {
       "send": "Send",
       "write_your_review": "Write your review",
       "products_category": "Products - Category",
+      "your_review": "Your Review",
+      "to_review": "To Review",
+      "no_reviews": "No Reviews",
     };
   }
 }

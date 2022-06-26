@@ -14,6 +14,10 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/logo_in_light-old.png
+  AssetGenImage get logoInLightOld =>
+      const AssetGenImage('assets/images/logo_in_light-old.png');
+
   /// File path: assets/images/logo_in_light.png
   AssetGenImage get logoInLight =>
       const AssetGenImage('assets/images/logo_in_light.png');
