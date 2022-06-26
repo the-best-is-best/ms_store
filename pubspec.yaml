@@ -79,6 +79,7 @@ dev_dependencies:
     sdk: flutter
   hive_generator: ^1.1.3
   retrofit_generator: ^4.0.1
+  flutter_launcher_icons: ^0.9.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
@@ -95,7 +96,10 @@ flutter_gen:
     fonts: null
     # Optional
     enabled: true
-
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo_in_light.png"
 flutter:
 
   # The following line ensures that the Material Icons font is

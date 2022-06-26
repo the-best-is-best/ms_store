@@ -14,7 +14,6 @@ import 'package:ms_store/presentation/products_views/details/controller/product_
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/util/get_device_type.dart';
 import '../../main/pages/fav/view_model/fav_controller.dart';
-import 'functions.dart';
 
 class AddToCartButton extends StatefulWidget {
   final ProductModel product;
@@ -151,7 +150,7 @@ class _AddToFavoriteButtonState extends State<AddToFavoriteButton> {
   }
 }
 
-Widget buildPrice(ProductModel productModel) {
+Widget buildPrice(ProductModel productModel, {bool detailsPage = false}) {
   return Builder(builder: (context) {
     return BuildCondition(
       condition: productModel.priceAfterDis == 0.0,
@@ -160,37 +159,43 @@ Widget buildPrice(ProductModel productModel) {
           children: [
             Text(
               '${productModel.price} EG',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
               style: context.textTheme.labelMedium!
                   .copyWith(color: ColorManager.darkColor),
             ),
           ],
         );
       },
-      fallback: (_) => Row(
-        children: [
-          Expanded(
-            child: Text(
+      fallback: (_) => BuildCondition(
+        condition: !detailsPage,
+        builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${productModel.priceAfterDis} EG',
+                style: context.textTheme.labelMedium!
+                    .copyWith(color: ColorManager.darkColor),
+              ),
+              Text(
+                '${productModel.price} EG',
+                style: context.textTheme.labelSmall!.copyWith(
+                  color: ColorManager.darkColor,
+                  decoration: TextDecoration.lineThrough,
+                ),
+              ),
+            ],
+          );
+        },
+        fallback: (_) => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
               '${productModel.priceAfterDis} EG',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
               style: context.textTheme.labelMedium!
                   .copyWith(color: ColorManager.darkColor),
             ),
-          ),
-          Expanded(
-            child: Text(
-              '${productModel.price} EG',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: context.textTheme.labelSmall!.copyWith(
-                color: ColorManager.darkColor,
-                decoration: TextDecoration.lineThrough,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   });
@@ -218,7 +223,7 @@ Widget buildProductsItem({
                 CachedNetworkImage(
                   fit: BoxFit.contain,
                   imageUrl: productModel.image,
-                  height: 120,
+                  height: 100,
                   width: 200,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       buildCircularProgressIndicatorWithDownload(
@@ -236,7 +241,7 @@ Widget buildProductsItem({
                             : productModel.nameEN,
                         style: context.textTheme.labelSmall,
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.clip,
                       ),
                       SizedBox(
                         height: 5.0.h,

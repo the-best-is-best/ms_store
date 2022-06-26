@@ -169,7 +169,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                       _productDetailsController.currentIndex]
                                   .descriptionEN,
                           overflow: TextOverflow.ellipsis,
-                          maxLines: Device.get().isTablet ? 4 : 2,
+                          maxLines: 6,
                           softWrap: true,
                           style: context.textTheme.labelSmall,
                         ),
@@ -388,8 +388,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         SizedBox(
                           height: AppSpacing.ap4.h,
                         ),
-                        buildPrice(_productDetailsController.currentProduct[
-                            _productDetailsController.currentIndex]),
+                        buildPrice(
+                            _productDetailsController.currentProduct[
+                                _productDetailsController.currentIndex],
+                            detailsPage: true),
                       ],
                     ),
                     SizedBox(

@@ -5,7 +5,7 @@
    <application
         android:label="@string/application_name"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <!-- facebook-->
          <meta-data
            android:name="com.facebook.sdk.ApplicationId"

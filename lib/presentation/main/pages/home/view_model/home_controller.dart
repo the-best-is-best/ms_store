@@ -59,6 +59,12 @@ class HomeController extends GetxController with BaseController {
     categoryController.animateContainer.value = index;
   }
 
+  void goProductById(int catId) {
+    initProductByCatId();
+    Get.toNamed(Routes.productByCatIdRoute,
+        arguments: {'categoryData': categoryModel!});
+  }
+
   // void addToFavoriteEvent(ProductModel product) async {
   //   UserDataController userDataController = Get.find();
   //   UserModel? userModel = userDataController.userModel.value;
