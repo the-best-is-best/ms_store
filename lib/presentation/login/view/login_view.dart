@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -52,7 +51,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: !widget.canBack ? null : AppBar(leading: buttonBack()),
+      appBar: !widget.canBack ? null : AppBar(leading: const ButtonBack()),
       body: Obx(() {
         return _loginController.flowState.value != null
             ? _loginController.flowState.value!.getScreenWidget(
