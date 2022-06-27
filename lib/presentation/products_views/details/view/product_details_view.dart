@@ -79,10 +79,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                     width: .55.sw,
                                     progressIndicatorBuilder: (context, url,
                                             downloadProgress) =>
-                                        buildCircularProgressIndicatorWithDownload(
+                                        BuildCircularProgressIndicatorWithDownload(
                                             downloadProgress),
                                     errorWidget: (context, url, error) =>
-                                        errorIcon(),
+                                        const ErrorIcon(),
                                   )),
                             ),
                           ),

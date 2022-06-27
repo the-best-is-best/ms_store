@@ -209,8 +209,8 @@ class _CategoryPageState extends State<CategoryPage> {
           children: [
             CachedNetworkImage(
               progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  buildCircularProgressIndicatorWithDownload(downloadProgress),
-              errorWidget: (context, url, error) => errorIcon(),
+                  BuildCircularProgressIndicatorWithDownload(downloadProgress),
+              errorWidget: (context, url, error) => const ErrorIcon(),
               imageUrl: categoryModel!.image,
               height: 100,
               fit: BoxFit.contain,

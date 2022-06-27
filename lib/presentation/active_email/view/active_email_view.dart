@@ -30,7 +30,7 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: buttonBack()),
+      appBar: AppBar(leading: const ButtonBack()),
       body: Obx(() {
         return _activeEmailController.flowState.value != null
             ? _activeEmailController.flowState.value!.getScreenWidget(
@@ -62,9 +62,8 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
               key: _formKey,
               child: Column(
                 children: [
-                  pinCodeTextField(
-                    context,
-                    (String? val) {
+                  BuildPinCodeTextField(
+                    onChanged: (String? val) {
                       _activeEmailController.setPinEvent(val ?? "");
                     },
                   ),

@@ -30,22 +30,24 @@ class Constants {
 
   static const String productByCatUrl =
       '/$_getDataUrlPath/get_products_by_cat.php';
-  static const String addToFavorite = '/$_updateUrlPath/update_favorite.php';
-  static const String getFavorite = '/$_getDataUrlPath/get_favorite.php';
+  static const String addToFavoriteUrl = '/$_updateUrlPath/update_favorite.php';
+  static const String getFavoriteUrl = '/$_getDataUrlPath/get_favorite.php';
 
-  static const String getProductsByIds =
+  static const String getProductsByIdsUrl =
       '/$_getDataUrlPath/get_products_by_ids.php';
 
-  static const String getProductsSupplier =
+  static const String getProductsSupplierUrl =
       '/$_getDataUrlPath/get_last_supplier.php';
 
-  static const String getProductsReviews = '/$_getDataUrlPath/get_review.php';
-  static const String updateProductsReviews =
+  static const String getProductsReviewsUrl =
+      '/$_getDataUrlPath/get_review.php';
+  static const String updateProductsReviewsUrl =
       '/$_postDataUrlPath/add_review.php';
 
-  static const String getProductsByCatId =
+  static const String getProductsByCatIdUrl =
       '/$_getDataUrlPath/get_products_by_cat.php';
 
-  static const String getCategoryDataById =
+  static const String getCategoryDataByIdUrl =
       '/$_getDataUrlPath/get_category_data_by_id.php';
+  static const String aboutUrl = '/$_getDataUrlPath/get_about_us.php';
 }

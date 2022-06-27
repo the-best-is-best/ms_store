@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:ms_store/data/mapper/store/get_product_review_response_mapper.dart';
 import '../../../data_src/remote_data_src.dart';
 import '../../../network/error_handler.dart';
 import '../../../network/failure.dart';
 import '../../../network/network_info.dart';
 import '../../../network/requests/store_requests.dart';
-import '../../../responses/store_responses/review/get_review_response.dart';
 import '../../../responses/store_responses/review/update_review_response.dart';
 
 class RepositoryImplUpdateReviewRequests {

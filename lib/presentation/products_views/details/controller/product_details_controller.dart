@@ -6,7 +6,6 @@ import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/models/store/reviews_model.dart';
 import 'package:ms_store/domain/use_case/store/review/get_review_use_case.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
-import 'package:ms_store/presentation/base/favorite_functions.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';

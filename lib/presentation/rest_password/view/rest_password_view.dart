@@ -91,9 +91,11 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
               ),
               Column(
                 children: [
-                  pinCodeTextField(context, (String? val) {
-                    _resetPasswordController.setPinEvent(val ?? "");
-                  }, onSubmitted: (String? v) => _passwordNode.requestFocus()),
+                  BuildPinCodeTextField(
+                      onChanged: (String? val) {
+                        _resetPasswordController.setPinEvent(val ?? "");
+                      },
+                      onSubmitted: (String? v) => _passwordNode.requestFocus()),
                   // TextFormField(
                   //   //  controller: _pinController,
                   //   keyboardType: TextInputType.number,

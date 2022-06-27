@@ -17,6 +17,24 @@ import '../core/resources/values_manager.dart';
 import '../presentation/register/view_model/register_controller.dart';
 import 'constants.dart';
 
+class BuildLogo extends StatelessWidget {
+  final double? logoHeight;
+  final bool isDark;
+  const BuildLogo({Key? key, this.logoHeight, required this.isDark})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image(
+      image: AssetImage(!isDark
+          ? "assets/images/logo_in_light.png"
+          : "assets/images/logo_in_dark.png"),
+      fit: BoxFit.cover,
+      height: logoHeight ?? 100,
+    );
+  }
+}
+
 Image logo({double? logoHeight, required bool isDark}) {
   return Image(
     image: AssetImage(!isDark
@@ -109,76 +127,107 @@ class _InputFieldState extends State<InputField> {
   }
 }
 
-Widget pinCodeTextField(BuildContext context, ValueChanged<String> onChanged,
-    {ValueChanged<String>? onSubmitted}) {
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Expanded(
-        child: Icon(
-          IconsManger.pin,
-          size: FontSize.s30,
-          color: ColorManager.darkColor,
-        ),
-      ),
-      Expanded(
-        flex: 6,
-        child: PinCodeTextField(
-          pinTheme: PinTheme.defaults(
-            fieldHeight: 40,
-            fieldWidth: 40,
-            shape: PinCodeFieldShape.box,
-            errorBorderColor: ColorManager.error,
-            selectedColor: ColorManager.primaryColor,
-            inactiveColor: ColorManager.grey,
-            borderRadius: BorderRadius.circular(AppSpacing.ap14.r),
-            borderWidth: AppSpacing.ap1_5.w,
+class BuildPinCodeTextField extends StatelessWidget {
+  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onSubmitted;
+  const BuildPinCodeTextField(
+      {Key? key, required this.onChanged, this.onSubmitted})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: Icon(
+            IconsManger.pin,
+            size: FontSize.s30,
+            color: ColorManager.darkColor,
           ),
-          length: 5,
-          textStyle: context.textTheme.labelMedium,
-          keyboardType: TextInputType.number,
-          obscureText: false,
-          animationType: AnimationType.fade,
-          animationDuration: const Duration(milliseconds: 300),
-          onChanged: onChanged,
-          appContext: context,
-          onSubmitted: onSubmitted,
         ),
-      ),
-      Expanded(
-        child: SizedBox(
-          width: AppSize.ap30.w,
+        Expanded(
+          flex: 6,
+          child: PinCodeTextField(
+            pinTheme: PinTheme.defaults(
+              fieldHeight: 40,
+              fieldWidth: 40,
+              shape: PinCodeFieldShape.box,
+              errorBorderColor: ColorManager.error,
+              selectedColor: ColorManager.primaryColor,
+              inactiveColor: ColorManager.grey,
+              borderRadius: BorderRadius.circular(AppSpacing.ap14.r),
+              borderWidth: AppSpacing.ap1_5.w,
+            ),
+            length: 5,
+            textStyle: context.textTheme.labelMedium,
+            keyboardType: TextInputType.number,
+            obscureText: false,
+            animationType: AnimationType.fade,
+            animationDuration: const Duration(milliseconds: 300),
+            onChanged: onChanged,
+            appContext: context,
+            onSubmitted: onSubmitted,
+          ),
         ),
-      ),
-    ],
-  );
+        Expanded(
+          child: SizedBox(
+            width: AppSize.ap30.w,
+          ),
+        ),
+      ],
+    );
+  }
 }
 
-Widget buildCircularProgressIndicatorWithDownload(
-    DownloadProgress downloadProgress) {
-  return Center(
-    child: CircularProgressIndicator(
-        color: ColorManager.primaryColor, value: downloadProgress.progress),
-  );
+class BuildCircularProgressIndicatorWithDownload extends StatelessWidget {
+  final DownloadProgress downloadProgress;
+  const BuildCircularProgressIndicatorWithDownload(
+    this.downloadProgress, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(
+          color: ColorManager.primaryColor, value: downloadProgress.progress),
+    );
+  }
 }
 
-Widget buildCircularProgressIndicator() {
-  return const Center(
-      child: CircularProgressIndicator(color: ColorManager.primaryColor));
+class BuildCircularProgressIndicator extends StatelessWidget {
+  const BuildCircularProgressIndicator({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+        child: CircularProgressIndicator(color: ColorManager.primaryColor));
+  }
 }
 
-Widget errorIcon() {
-  return Icon(
-    Icons.error,
-    size: FontSize.s30,
-  );
+class ErrorIcon extends StatelessWidget {
+  const ErrorIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      Icons.error,
+      size: FontSize.s30,
+    );
+  }
 }
 
-Widget buttonBack() {
-  return IconButton(
-    icon: Icon(GetPlatform.isIOS ? CupertinoIcons.back : Icons.arrow_back),
-    onPressed: () => Get.back(),
-  );
+class ButtonBack extends StatelessWidget {
+  const ButtonBack({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(GetPlatform.isIOS ? CupertinoIcons.back : Icons.arrow_back),
+      onPressed: () => Get.back(),
+    );
+  }
 }
 
 Future<void> showMyDialog(
@@ -196,51 +245,57 @@ Future<void> showMyDialog(
       actions: actions);
 }
 
-Widget privacyAndTerms(
-    {required BuildContext context,
-    required Function(dynamic value) onChanged,
-    required RegisterController registerController}) {
-  return CheckboxListTileFormField(
-    errorColor: ColorManager.error,
-    checkColor: ColorManager.primaryColorLight,
-    context: context,
-    title: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        RSizedBox(
-          width: 1.h,
-        ),
-        Text(
-          AppStrings.iAgreeWith,
-          style: context.textTheme.labelMedium,
-        ),
-        Builder(builder: (context) {
-          String _language = Get.locale!.languageCode;
-          return TextButton(
-            onPressed: () async {
-              if (!await launchUrl(
-                Uri.parse(
-                    '${Constants.baseUrl}/privacy_policy_$_language.html'),
-                mode: LaunchMode.inAppWebView,
-              )) {
-                throw 'Could not launch url';
-              }
-            },
-            child: Text(
-              AppStrings.privacyAndTermTitle,
-              style: context.textTheme.labelMedium!.copyWith(
-                color: Colors.blue[900],
+class PrivacyAndTerms extends StatelessWidget {
+  final Function(dynamic value) onChanged;
+  final RegisterController registerController;
+  const PrivacyAndTerms(
+      {Key? key, required this.onChanged, required this.registerController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTileFormField(
+      errorColor: ColorManager.error,
+      checkColor: ColorManager.primaryColorLight,
+      context: context,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RSizedBox(
+            width: 1.h,
+          ),
+          Text(
+            AppStrings.iAgreeWith,
+            style: context.textTheme.labelMedium,
+          ),
+          Builder(builder: (context) {
+            String _language = Get.locale!.languageCode;
+            return TextButton(
+              onPressed: () async {
+                if (!await launchUrl(
+                  Uri.parse(
+                      '${Constants.baseUrl}/privacy_policy_$_language.html'),
+                  mode: LaunchMode.inAppWebView,
+                )) {
+                  throw 'Could not launch url';
+                }
+              },
+              child: Text(
+                AppStrings.privacyAndTermTitle,
+                style: context.textTheme.labelMedium!.copyWith(
+                  color: Colors.blue[900],
+                ),
               ),
-            ),
-          );
-        })
-      ],
-    ),
-    validator: (bool? value) {
-      return registerController.alertPrivacyPolicyChecked.value;
-    },
-    onChanged: onChanged,
-    autovalidateMode: AutovalidateMode.always,
-    contentPadding: const EdgeInsets.all(1),
-  );
+            );
+          })
+        ],
+      ),
+      validator: (bool? value) {
+        return registerController.alertPrivacyPolicyChecked.value;
+      },
+      onChanged: onChanged,
+      autovalidateMode: AutovalidateMode.always,
+      contentPadding: const EdgeInsets.all(1),
+    );
+  }
 }

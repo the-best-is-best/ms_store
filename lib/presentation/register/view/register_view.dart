@@ -46,7 +46,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: buttonBack()),
+      appBar: AppBar(leading: const ButtonBack()),
       body: Obx(() {
         return _registerController.flowState.value != null
             ? _registerController.flowState.value!.getScreenWidget(
@@ -178,8 +178,7 @@ class _RegisterViewState extends State<RegisterView> {
                     },
                   );
                 }),
-                privacyAndTerms(
-                    context: context,
+                PrivacyAndTerms(
                     onChanged: (value) {
                       _registerController.isPrivacyPolicyChecked(value);
                     },

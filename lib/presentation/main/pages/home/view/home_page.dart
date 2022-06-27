@@ -3,11 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/core/resources/routes_manger.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/presentation/components/products/functions.dart';
 import '../../../../../app/components.dart';
-import '../../../../../app/di.dart';
 import '../../../../../core/resources/styles_manger.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
@@ -140,9 +138,10 @@ class _HomePageState extends State<HomePage> {
                             child: CachedNetworkImage(
                               progressIndicatorBuilder: (context, url,
                                       downloadProgress) =>
-                                  buildCircularProgressIndicatorWithDownload(
+                                  BuildCircularProgressIndicatorWithDownload(
                                       downloadProgress),
-                              errorWidget: (context, url, error) => errorIcon(),
+                              errorWidget: (context, url, error) =>
+                                  const ErrorIcon(),
                               imageUrl: locale == "en"
                                   ? slider.imageEN
                                   : slider.imageAR,

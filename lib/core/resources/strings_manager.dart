@@ -86,4 +86,5 @@ class AppStrings {
   static String get toReview => 'to_review'.tr;
   static String get noReviews => 'no_reviews'.tr;
   static String get price => 'price'.tr;
+  static String get aboutUsText => 'about_us_text'.tr;
 }

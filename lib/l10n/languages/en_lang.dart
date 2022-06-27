@@ -100,6 +100,10 @@ class EnLang {
       "your_review": "Your Review",
       "to_review": "To Review",
       "no_reviews": "No Reviews",
+      "about_us_text":
+          """MS Store is The Fantastic E-Commerce Mobile Application in Egypt specialized in all supplies about Fashion
+ Assisting you with the best shipping and after-sale-service in Egypt with the best prices with many big brands of fashion and explosive brand.
+established in 2022""",
     };
   }
 }

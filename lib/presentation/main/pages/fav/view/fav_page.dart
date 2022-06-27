@@ -14,7 +14,6 @@ import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.d
 
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../../../gen/assets.gen.dart';
-import '../../../../common/state_renderer/state_renderer.dart';
 import '../../../../components/products/components.dart';
 
 class FavPage extends StatefulWidget {
@@ -137,9 +136,9 @@ class _FavPageState extends State<FavPage> {
                         fit: BoxFit.contain,
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) =>
-                                buildCircularProgressIndicatorWithDownload(
+                                BuildCircularProgressIndicatorWithDownload(
                                     downloadProgress),
-                        errorWidget: (context, url, error) => errorIcon(),
+                        errorWidget: (context, url, error) => const ErrorIcon(),
                       ),
                     ),
                   ),
@@ -213,7 +212,8 @@ class _FavPageState extends State<FavPage> {
                                 ),
                               );
                             },
-                            fallback: (_) => buildCircularProgressIndicator(),
+                            fallback: (_) =>
+                                const BuildCircularProgressIndicator(),
                           ),
                         ),
                       ),

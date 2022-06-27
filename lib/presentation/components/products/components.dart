@@ -9,8 +9,6 @@ import 'package:ms_store/core/resources/icons_manger.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
-import 'package:ms_store/presentation/products_views/details/controller/product_details_controller.dart';
-
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/util/get_device_type.dart';
 import '../../main/pages/fav/view_model/fav_controller.dart';
@@ -73,9 +71,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
                     _cartController.cartModel[widget.product.id]!.toString(),
                     style: context.textTheme.labelMedium!
                         .copyWith(color: ColorManager.darkColor)),
-                fallback: (_) => Center(
-                  child: buildCircularProgressIndicator(),
-                ),
+                fallback: (_) => const BuildCircularProgressIndicator(),
               ),
             ),
           ),
@@ -145,7 +141,8 @@ class _AddToFavoriteButtonState extends State<AddToFavoriteButton> {
                   }),
                 );
               },
-              fallback: (_) => Center(child: buildCircularProgressIndicator()),
+              fallback: (_) =>
+                  const Center(child: BuildCircularProgressIndicator()),
             )));
   }
 }
@@ -226,9 +223,9 @@ Widget buildProductsItem({
                   height: 100,
                   width: 200,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      buildCircularProgressIndicatorWithDownload(
+                      BuildCircularProgressIndicatorWithDownload(
                           downloadProgress),
-                  errorWidget: (context, url, error) => errorIcon(),
+                  errorWidget: (context, url, error) => const ErrorIcon(),
                 ),
                 Padding(
                   padding: EdgeInsets.all(30.0.r),

@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/strings_manager.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/domain/models/store/category_model.dart';
-import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/products_views/product_by_cat/controller/product_by_cat_controller.dart';
-
 import '../../../../gen/assets.gen.dart';
 import '../../../components/products/components.dart';
 import '../../../components/products/functions.dart';

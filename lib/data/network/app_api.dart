@@ -12,6 +12,7 @@ import '../responses/store_responses/get_products_by_ids_responses.dart';
 import '../responses/store_responses/get_products_supplies_response.dart';
 import '../responses/store_responses/review/get_review_response.dart';
 import '../responses/store_responses/review/update_review_response.dart';
+import '../responses/support/get_about_data_response.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
@@ -74,36 +75,36 @@ abstract class AppServicesClient {
   Future<CategoriesResponse> getCategoryData();
   // add to favorite
 
-  @POST(Constants.addToFavorite)
+  @POST(Constants.addToFavoriteUrl)
   Future<FavoriteAddResponse> addToFavorite(
       @Field('userId') int userId, @Field('productId') int productId);
 
   // get favorite
 
-  @GET(Constants.getFavorite)
+  @GET(Constants.getFavoriteUrl)
   Future<FavoriteGetResponse> getFavorite(@Query('userId') int userId);
 
   // get Products by ids
 
-  @GET(Constants.getProductsByIds)
+  @GET(Constants.getProductsByIdsUrl)
   Future<GetProductByIdsDataResponse> getProductsByIds(
       @Query('id') Map<String, int> id);
 
   // get Products Supplier
 
-  @GET(Constants.getProductsSupplier)
+  @GET(Constants.getProductsSupplierUrl)
   Future<GetProductsSuppliesResponse> getProductsSupplier(
       @Query('categoryId') int categoryId);
 
   // get Products Review
 
-  @GET(Constants.getProductsReviews)
+  @GET(Constants.getProductsReviewsUrl)
   Future<GetReviewsDataModelResponse> getProductsReview(
       @Query('productId') int productId);
 
   // update Products Review
 
-  @POST(Constants.updateProductsReviews)
+  @POST(Constants.updateProductsReviewsUrl)
   Future<UpdateReviewResponse> updateProductsReview({
     @Field('userId') required int userId,
     @Field('status') required bool status,
@@ -114,13 +115,17 @@ abstract class AppServicesClient {
 
   // get Products By CatId
 
-  @GET(Constants.getProductsByCatId)
+  @GET(Constants.getProductsByCatIdUrl)
   Future<GetProductCatIdDataResponse> getProductsByCatId(
       @Query('catId') int catId);
 
   // get Category Data By Id
 
-  @GET(Constants.getCategoryDataById)
+  @GET(Constants.getCategoryDataByIdUrl)
   Future<GetCategoryDataByIdResponse> getCategoryDataById(
       @Query('catId') int catId);
+// get Category Data By Id
+
+  @GET(Constants.aboutUrl)
+  Future<GetAboutDataResponse> getAbout();
 }

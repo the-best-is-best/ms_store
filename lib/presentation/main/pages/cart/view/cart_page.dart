@@ -169,7 +169,7 @@ class _CartPageState extends State<CartPage> {
                     height: 130,
                     progressIndicatorBuilder:
                         (context, url, downloadProgress) =>
-                            buildCircularProgressIndicator(),
+                            const BuildCircularProgressIndicator(),
                     errorWidget: (context, url, error) => Icon(
                       Icons.error,
                       size: FontSize.s30,

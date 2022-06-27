@@ -22,6 +22,10 @@ class $AssetsImagesGen {
   AssetGenImage get logoInLight =>
       const AssetGenImage('assets/images/logo_in_light.png');
 
+  /// File path: assets/images/ms_store_poster.png
+  AssetGenImage get msStorePoster =>
+      const AssetGenImage('assets/images/ms_store_poster.png');
+
   /// File path: assets/images/onboard1.svg
   SvgGenImage get onboard1 => const SvgGenImage('assets/images/onboard1.svg');
 

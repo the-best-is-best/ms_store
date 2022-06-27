@@ -128,6 +128,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         height: AppSize.ap12,
                       ),
                       ListTile(
+                        onTap: () {
+                          Get.toNamed(Routes.aboutRoute);
+                        },
                         title: Text(
                           AppStrings.aboutUsTitle,
                           style: themeData.textTheme.labelMedium,

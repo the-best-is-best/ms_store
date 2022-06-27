@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ms_store/data/mapper/store/get_product_cat_id_response_mapper.dart';
 import '../../../domain/models/store/product_cat_id_model.dart';
-import '../../data_src/local_data_source.dart';
 import '../../data_src/remote_data_src.dart';
 import '../../network/error_handler.dart';
 import '../../network/failure.dart';

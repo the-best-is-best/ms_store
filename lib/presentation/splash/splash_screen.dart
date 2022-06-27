@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
           imageSrc: const $AssetsImagesGen().logoInLight.keyName,
           duration: const Duration(milliseconds: 750),
           text: WavyAnimatedText(
-            "M Store",
+            "MS Store",
             textStyle: TextStyle(
               color: ColorManager.textColor,
               fontSize: 32.0.sp,
