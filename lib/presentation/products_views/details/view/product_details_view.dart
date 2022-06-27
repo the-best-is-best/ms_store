@@ -197,9 +197,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       () => Column(
                         children: [
                           Align(
-                             alignment: _language == "ar"
-                              ? Alignment.topRight
-                              : Alignment.topLeft,
+                            alignment: _language == "ar"
+                                ? Alignment.topRight
+                                : Alignment.topLeft,
                             child: Text(
                               AppStrings.reviews,
                               style: context.textTheme.labelLarge,
@@ -503,7 +503,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         fit: BoxFit.fitWidth,
                         child: Text(
                           reviews[index].userName,
-                          //style: context.textTheme.labelLarge,
+                          style: context.textTheme.labelLarge!
+                              .copyWith(fontSize: null),
                         ),
                       ),
                     ),

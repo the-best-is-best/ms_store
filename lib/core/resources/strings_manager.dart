@@ -28,6 +28,7 @@ class AppStrings {
   static String get passwordLengthError => 'password_length_error'.tr;
   static String get notHaveAccount =>
       "${'donot_have_account_title'.tr} ${'sign_up_button_text'.tr}";
+  static String get iHaveAccount => 'i_have_account_title'.tr;
   static String get loading => 'loading'.tr;
   static String get ok => 'ok'.tr;
   static String get errorTryAgain => 'error_try_again'.tr;
@@ -51,6 +52,8 @@ class AppStrings {
   static String get googleTitle => "google_title".tr;
 
   static String get accountTitle => 'account_title'.tr;
+  static String get iAgreeWith => 'i_agree_with'.tr;
+  static String get privacyAndTermTitle => 'privacy_and_term_title'.tr;
 
   static String get continueTitle => "continue_title".tr;
   static String get noProducts => "no_products".tr;

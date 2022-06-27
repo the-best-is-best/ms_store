@@ -7,10 +7,15 @@ import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
+import 'package:ms_store/core/resources/strings_manager.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:checkbox_formfield/checkbox_formfield.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../core/resources/values_manager.dart';
+import '../presentation/register/view_model/register_controller.dart';
+import 'constants.dart';
 
 Image logo({double? logoHeight, required bool isDark}) {
   return Image(
@@ -189,4 +194,53 @@ Future<void> showMyDialog(
       paddingTitle: paddingTitle,
       content: content,
       actions: actions);
+}
+
+Widget privacyAndTerms(
+    {required BuildContext context,
+    required Function(dynamic value) onChanged,
+    required RegisterController registerController}) {
+  return CheckboxListTileFormField(
+    errorColor: ColorManager.error,
+    checkColor: ColorManager.primaryColorLight,
+    context: context,
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        RSizedBox(
+          width: 1.h,
+        ),
+        Text(
+          AppStrings.iAgreeWith,
+          style: context.textTheme.labelMedium,
+        ),
+        Builder(builder: (context) {
+          String _language = Get.locale!.languageCode;
+          return TextButton(
+            onPressed: () async {
+              if (!await launchUrl(
+                Uri.parse(
+                    '${Constants.baseUrl}/privacy_policy_$_language.html'),
+                mode: LaunchMode.inAppWebView,
+              )) {
+                throw 'Could not launch url';
+              }
+            },
+            child: Text(
+              AppStrings.privacyAndTermTitle,
+              style: context.textTheme.labelMedium!.copyWith(
+                color: Colors.blue[900],
+              ),
+            ),
+          );
+        })
+      ],
+    ),
+    validator: (bool? value) {
+      return registerController.alertPrivacyPolicyChecked.value;
+    },
+    onChanged: onChanged,
+    autovalidateMode: AutovalidateMode.always,
+    contentPadding: const EdgeInsets.all(1),
+  );
 }

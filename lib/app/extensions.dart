@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 extension NonNullString on String? {
   String orEmpty() {
@@ -72,10 +73,8 @@ extension ExtensionDialog on BuildContext {
         contentTextStyle: contentTextStyle ?? textStyle,
         backgroundColor: backgroundColor,
         title: Center(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-          ),
+          child: Text(title,
+              textAlign: TextAlign.center, style: context.textTheme.labelSmall),
         ),
         content: SizedBox(
           child: Column(

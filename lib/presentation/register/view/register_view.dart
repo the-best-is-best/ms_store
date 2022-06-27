@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -179,6 +178,12 @@ class _RegisterViewState extends State<RegisterView> {
                     },
                   );
                 }),
+                privacyAndTerms(
+                    context: context,
+                    onChanged: (value) {
+                      _registerController.isPrivacyPolicyChecked(value);
+                    },
+                    registerController: _registerController),
               ],
             ),
             SizedBox(
@@ -198,26 +203,31 @@ class _RegisterViewState extends State<RegisterView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Expanded(
-                //   child: TextButton(
-                //     onPressed: () {
-                //       Get.toNamed(Routes.forgetPasswordRoute);
-                //     },
-                //     child: Text(
-                //       AppStrings.forgetPassword,
-                //       style: themeData.textTheme.labelSmall,
-                //     ),
-                //   ),
-                // ),
-                // Expanded(
-                //   child: TextButton(
-                //     onPressed: () {},
-                //     child: Text(
-                //       AppStrings.notHaveAccount,
-                //       style: themeData.textTheme.labelSmall,
-                //     ),
-                //   ),
-                // ),
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      initForgetPasswordModel();
+                      Get.toNamed(Routes.forgetPasswordRoute);
+                    },
+                    child: Text(
+                      AppStrings.forgetPassword,
+                      style: context.textTheme.labelSmall,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      initLoginModel();
+                      Get.toNamed(Routes.loginRoute,
+                          arguments: {'canBack': true});
+                    },
+                    child: Text(
+                      AppStrings.iHaveAccount,
+                      style: context.textTheme.labelSmall,
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

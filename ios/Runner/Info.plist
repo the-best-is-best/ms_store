@@ -79,4 +79,10 @@
     <key>FacebookDisplayName</key>
     <string>MS Store</string>
   </dict>
+  <!-- url support-->
+  <key>LSApplicationQueriesSchemes</key>
+   <array>
+     <string>http</string>
+     <string>https</string>
+  </array
 </plist>

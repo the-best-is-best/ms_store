@@ -19,7 +19,7 @@ class RegisterController extends GetxController
     startFlow();
   }
 
-  Rxn<String?> alertUserValid = Rxn<String>();
+  Rxn<String?> alertUserValid = Rxn<String?>();
 
   void setUserNameEvent(String user) {
     userDataObject.value = userDataObject.value.copyWith(userName: user);
@@ -37,6 +37,17 @@ class RegisterController extends GetxController
         return null;
       }
     }
+  }
+
+  Rxn<String?> alertPrivacyPolicyChecked = Rxn<String?>();
+
+  void isPrivacyPolicyChecked(bool checked) {
+    if (!checked) {
+      alertPrivacyPolicyChecked.value = AppStrings.required;
+    } else {
+      alertPrivacyPolicyChecked.value = '';
+    }
+    validAllFields();
   }
 
   @override
@@ -75,6 +86,8 @@ class RegisterController extends GetxController
   void validAllFields() {
     UserDataObject value = userDataObject.value;
     if (value.email.isNotEmpty &&
+        alertPrivacyPolicyChecked.value != null &&
+        alertPrivacyPolicyChecked.value!.isEmpty &&
         value.password.isNotEmpty &&
         value.passwordAgin.isNotEmpty &&
         value.userName.isNotEmpty) {

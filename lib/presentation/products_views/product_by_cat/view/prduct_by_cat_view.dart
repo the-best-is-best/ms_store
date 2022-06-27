@@ -117,6 +117,7 @@ class _ProductByCatState extends State<ProductByCat> {
             fit: BoxFit.fitWidth,
             child: Text(
               '${AppStrings.productsCategory} ( ${_language == "ar" ? widget.categoryModel.nameAR : widget.categoryModel.nameEN} )',
+              style: context.textTheme.bodyMedium!.copyWith(fontSize: null),
             ),
           ),
         ),
