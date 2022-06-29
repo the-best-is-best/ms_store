@@ -76,11 +76,9 @@ extension ExtensionDialog on BuildContext {
           child: Text(title,
               textAlign: TextAlign.center, style: context.textTheme.labelSmall),
         ),
-        content: SizedBox(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: content,
-          ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: content,
         ),
         actions: actions,
       ),

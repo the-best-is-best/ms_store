@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../app/components/active_code/build_pin_code.dart';
+import '../../../app/components/common/build_logo.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../../app/di.dart';
 import '../view_model/rest_password_controller.dart';
-
-import '../../../app/components.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../../core/resources/icons_manger.dart';
 import '../../../core/resources/routes_manger.dart';
@@ -82,13 +82,11 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
           child: Column(
             children: [
               Center(
-                child: logo(
+                child: BuildLogo(
                   isDark: Get.isDarkMode,
                 ),
               ),
-              SizedBox(
-                height: AppSpacing.ap30.h,
-              ),
+              const SizedBox(height: AppSpacing.ap30),
               Column(
                 children: [
                   BuildPinCodeTextField(
@@ -96,24 +94,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         _resetPasswordController.setPinEvent(val ?? "");
                       },
                       onSubmitted: (String? v) => _passwordNode.requestFocus()),
-                  // TextFormField(
-                  //   //  controller: _pinController,
-                  //   keyboardType: TextInputType.number,
-                  //   decoration: InputDecoration(
-                  //     prefixIcon: Icon(
-                  //       IconsManger.pin,
-                  //       size: AppSpacing.ap30.w,
-                  //     ),
-                  //     label: Text("${AppStrings.pinCode} *"),
-                  //     errorText: _resetPasswordController.alertPinValid.value,
-                  //   ),
-                  //   onChanged: (String? val) {
-                  //     _resetPasswordController.setPinEvent(val ?? "");
-                  //   },
-                  // ),
-                  SizedBox(
-                    height: AppSpacing.ap30.h,
-                  ),
+                  const SizedBox(height: AppSpacing.ap30),
                   Obx(() {
                     return TextFormField(
                       // controller: _passwordController,
@@ -145,9 +126,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                       },
                     );
                   }),
-                  SizedBox(
-                    height: AppSpacing.ap30.h,
-                  ),
+                  const SizedBox(height: AppSpacing.ap30),
                   Obx(() {
                     return TextFormField(
                       keyboardType: TextInputType.visiblePassword,
@@ -180,9 +159,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                   }),
                 ],
               ),
-              SizedBox(
-                height: AppSpacing.ap30.h,
-              ),
+              const SizedBox(height: AppSpacing.ap30),
               Obx(() => SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

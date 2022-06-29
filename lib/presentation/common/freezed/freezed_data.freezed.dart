@@ -447,3 +447,203 @@ abstract class _ReviewObject implements ReviewObject {
   _$$_ReviewObjectCopyWith<_$_ReviewObject> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+mixin _$ContactUsObject {
+  String get email => throw _privateConstructorUsedError;
+  String get userName => throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  String get subject => throw _privateConstructorUsedError;
+  String get message => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ContactUsObjectCopyWith<ContactUsObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ContactUsObjectCopyWith<$Res> {
+  factory $ContactUsObjectCopyWith(
+          ContactUsObject value, $Res Function(ContactUsObject) then) =
+      _$ContactUsObjectCopyWithImpl<$Res>;
+  $Res call(
+      {String email,
+      String userName,
+      String phone,
+      String subject,
+      String message});
+}
+
+/// @nodoc
+class _$ContactUsObjectCopyWithImpl<$Res>
+    implements $ContactUsObjectCopyWith<$Res> {
+  _$ContactUsObjectCopyWithImpl(this._value, this._then);
+
+  final ContactUsObject _value;
+  // ignore: unused_field
+  final $Res Function(ContactUsObject) _then;
+
+  @override
+  $Res call({
+    Object? email = freezed,
+    Object? userName = freezed,
+    Object? phone = freezed,
+    Object? subject = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_value.copyWith(
+      email: email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      userName: userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      subject: subject == freezed
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_ContactUsObjectCopyWith<$Res>
+    implements $ContactUsObjectCopyWith<$Res> {
+  factory _$$_ContactUsObjectCopyWith(
+          _$_ContactUsObject value, $Res Function(_$_ContactUsObject) then) =
+      __$$_ContactUsObjectCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String email,
+      String userName,
+      String phone,
+      String subject,
+      String message});
+}
+
+/// @nodoc
+class __$$_ContactUsObjectCopyWithImpl<$Res>
+    extends _$ContactUsObjectCopyWithImpl<$Res>
+    implements _$$_ContactUsObjectCopyWith<$Res> {
+  __$$_ContactUsObjectCopyWithImpl(
+      _$_ContactUsObject _value, $Res Function(_$_ContactUsObject) _then)
+      : super(_value, (v) => _then(v as _$_ContactUsObject));
+
+  @override
+  _$_ContactUsObject get _value => super._value as _$_ContactUsObject;
+
+  @override
+  $Res call({
+    Object? email = freezed,
+    Object? userName = freezed,
+    Object? phone = freezed,
+    Object? subject = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_$_ContactUsObject(
+      email == freezed
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      userName == freezed
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      subject == freezed
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String,
+      message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ContactUsObject implements _ContactUsObject {
+  _$_ContactUsObject(
+      this.email, this.userName, this.phone, this.subject, this.message);
+
+  @override
+  final String email;
+  @override
+  final String userName;
+  @override
+  final String phone;
+  @override
+  final String subject;
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'ContactUsObject(email: $email, userName: $userName, phone: $phone, subject: $subject, message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ContactUsObject &&
+            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.userName, userName) &&
+            const DeepCollectionEquality().equals(other.phone, phone) &&
+            const DeepCollectionEquality().equals(other.subject, subject) &&
+            const DeepCollectionEquality().equals(other.message, message));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(email),
+      const DeepCollectionEquality().hash(userName),
+      const DeepCollectionEquality().hash(phone),
+      const DeepCollectionEquality().hash(subject),
+      const DeepCollectionEquality().hash(message));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_ContactUsObjectCopyWith<_$_ContactUsObject> get copyWith =>
+      __$$_ContactUsObjectCopyWithImpl<_$_ContactUsObject>(this, _$identity);
+}
+
+abstract class _ContactUsObject implements ContactUsObject {
+  factory _ContactUsObject(
+      final String email,
+      final String userName,
+      final String phone,
+      final String subject,
+      final String message) = _$_ContactUsObject;
+
+  @override
+  String get email => throw _privateConstructorUsedError;
+  @override
+  String get userName => throw _privateConstructorUsedError;
+  @override
+  String get phone => throw _privateConstructorUsedError;
+  @override
+  String get subject => throw _privateConstructorUsedError;
+  @override
+  String get message => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ContactUsObjectCopyWith<_$_ContactUsObject> get copyWith =>
+      throw _privateConstructorUsedError;
+}

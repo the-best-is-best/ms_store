@@ -6,11 +6,12 @@ import 'package:get/get.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/presentation/components/products/functions.dart';
 import '../../../../../app/components.dart';
+import '../../../../../app/components/common/build_circular_progress_indicator.dart';
+import '../../../../../app/components/common/input_field.dart';
 import '../../../../../core/resources/styles_manger.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
-
 import '../../../../../domain/models/home_models/slider_model.dart';
 import '../../../../components/products/components.dart';
 import '../../../../../core/resources/color_manager.dart';
@@ -213,7 +214,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         toolbarHeight: 60,
         title: InputField(
-          themeDataText: context.textTheme,
           keyBoardType: TextInputType.text,
           label: 'Search',
           prefixIcon: IconsManger.search,

@@ -69,7 +69,13 @@ class AppStrings {
 
   static String get aboutTitle => "about_title".tr;
   static String get aboutUsTitle => "about_us_title".tr;
-  static String get contactUsTitle => "contact_Us_title".tr;
+  static String get contactUsTitle => "contact_us_title".tr;
+  static String get getInTouch => "get_in_touch".tr;
+  static String get phone => 'phone'.tr;
+  static String get subject => 'subject'.tr;
+  static String get message => 'message'.tr;
+  static String get submitted => 'submitted'.tr;
+  static String get thanksForContactUs => 'thanks_for_contact_us'.tr;
 
   static String get addToCartButton => "Add_to_cart_button".tr;
   static String get lastProductFromThisSupplier =>
@@ -87,4 +93,5 @@ class AppStrings {
   static String get noReviews => 'no_reviews'.tr;
   static String get price => 'price'.tr;
   static String get aboutUsText => 'about_us_text'.tr;
+  static String get submit => 'submit'.tr;
 }

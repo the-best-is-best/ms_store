@@ -2,6 +2,7 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/app_refs.dart';
+import 'package:ms_store/app/components/common/list_view.dart';
 import 'package:ms_store/app/di.dart';
 import 'package:ms_store/app/extensions.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
@@ -127,31 +128,17 @@ class _SettingsPageState extends State<SettingsPage> {
                       const SizedBox(
                         height: AppSize.ap12,
                       ),
-                      ListTile(
-                        onTap: () {
-                          Get.toNamed(Routes.aboutRoute);
-                        },
-                        title: Text(
-                          AppStrings.aboutUsTitle,
-                          style: themeData.textTheme.labelMedium,
-                        ),
-                        trailing: Obx(() => Icon(
-                            _settingsController.language.value != "en"
-                                ? IconsManger.arrowLeft
-                                : IconsManger.arrowRight)),
+                      BuildListTile(
+                        nextPage: Routes.aboutRoute,
+                        label: AppStrings.aboutUsTitle,
                       ),
                       const SizedBox(
                         height: AppSize.ap8,
                       ),
-                      ListTile(
-                          title: Text(
-                            AppStrings.contactUsTitle,
-                            style: themeData.textTheme.labelMedium,
-                          ),
-                          trailing: Icon(
-                              _settingsController.language.value != "en"
-                                  ? IconsManger.arrowLeft
-                                  : IconsManger.arrowRight)),
+                      BuildListTile(
+                        nextPage: Routes.contactUsRoute,
+                        label: AppStrings.contactUsTitle,
+                      ),
                       const SizedBox(
                         height: AppSize.ap30,
                       ),

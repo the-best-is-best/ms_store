@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../common/state_renderer/state_renderer_impl.dart';
+import 'package:ms_store/app/components/common/build_logo.dart';
+
 import '../../../app/components.dart';
+import '../../../app/components/active_code/build_pin_code.dart';
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/resources/values_manager.dart';
+import '../../common/state_renderer/state_renderer_impl.dart';
 import '../view_model/active_email_controller.dart';
 
 class ActiveEmailView extends StatefulWidget {
@@ -51,13 +54,11 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
         child: Column(
           children: [
             Center(
-              child: logo(
+              child: BuildLogo(
                 isDark: Get.isDarkMode,
               ),
             ),
-            SizedBox(
-              height: AppSpacing.ap30.h,
-            ),
+            const SizedBox(height: AppSpacing.ap30),
             Form(
               key: _formKey,
               child: Column(
@@ -70,8 +71,8 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
                 ],
               ),
             ),
-            SizedBox(
-              height: AppSpacing.ap30.h,
+            const SizedBox(
+              height: AppSpacing.ap30,
             ),
             Obx(() => SizedBox(
                   width: double.infinity,

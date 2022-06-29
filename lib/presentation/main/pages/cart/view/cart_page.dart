@@ -13,6 +13,7 @@ import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 
+import '../../../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../../components/products/components.dart';
 
@@ -103,9 +104,7 @@ class _CartPageState extends State<CartPage> {
                                   "Total : ",
                                   style: context.textTheme.labelMedium,
                                 ),
-                                SizedBox(
-                                  width: AppSpacing.ap8.w,
-                                ),
+                                const SizedBox(width: AppSpacing.ap8),
                                 Text(
                                   '${_cartController.totalPrice} EG',
                                   style: context.textTheme.labelLarge!
@@ -190,16 +189,14 @@ class _CartPageState extends State<CartPage> {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(
-                            child: Text(
-                              _language == "ar"
-                                  ? cartData.nameAR
-                                  : cartData.nameEN,
-                              style: context.textTheme.labelMedium,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                            ),
+                          Text(
+                            _language == "ar"
+                                ? cartData.nameAR
+                                : cartData.nameEN,
+                            style: context.textTheme.labelMedium,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
                           ),
                           const SizedBox(
                             height: AppSpacing.ap18,

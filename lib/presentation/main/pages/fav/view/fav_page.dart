@@ -6,12 +6,14 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ms_store/app/components.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
+import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/components/products/functions.dart';
 import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 
+import '../../../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../../../gen/assets.gen.dart';
 import '../../../../components/products/components.dart';
@@ -126,20 +128,18 @@ class _FavPageState extends State<FavPage> {
             flex: 2,
             child: Stack(
               children: [
-                SizedBox(
-                  child: Card(
-                    color: ColorManager.greyLight,
-                    child: Padding(
-                      padding: EdgeInsets.all(10.0.r),
-                      child: CachedNetworkImage(
-                        imageUrl: productData.image,
-                        fit: BoxFit.contain,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                BuildCircularProgressIndicatorWithDownload(
-                                    downloadProgress),
-                        errorWidget: (context, url, error) => const ErrorIcon(),
-                      ),
+                Card(
+                  color: ColorManager.greyLight,
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0.r),
+                    child: CachedNetworkImage(
+                      imageUrl: productData.image,
+                      fit: BoxFit.contain,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              BuildCircularProgressIndicatorWithDownload(
+                                  downloadProgress),
+                      errorWidget: (context, url, error) => const ErrorIcon(),
                     ),
                   ),
                 ),
@@ -167,9 +167,7 @@ class _FavPageState extends State<FavPage> {
               ],
             ),
           ),
-          SizedBox(
-            width: 10.0.w,
-          ),
+          const SizedBox(width: AppSize.ap12),
           Expanded(
             flex: 3,
             child: Padding(
@@ -219,13 +217,9 @@ class _FavPageState extends State<FavPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 15.0.h,
-                  ),
+                  const SizedBox(height: AppSize.ap14),
                   buildPrice(productData),
-                  SizedBox(
-                    height: 20.0.h,
-                  ),
+                  const SizedBox(height: 20.0),
                   AddToCartButton(productData, ColorManager.greyLight),
                 ],
               ),

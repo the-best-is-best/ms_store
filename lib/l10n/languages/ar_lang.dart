@@ -1,11 +1,11 @@
 class ArLang {
   static Map<String, String> init() {
     return {
-      "appTitle": "ام ستور",
-      "onBoardingTitle1": "مرحبا بكم في إم متجر",
+      "appTitle": "ام اس ستور",
+      "onBoardingTitle1": "مرحبا بكم في اس إم متجر",
       "onBoardingTitle2": "تواصل مع العالم",
       "onBoardingTitle3": "هيا بنا نبدأ",
-      "onBoardingDescription1": "ام ستور هو أحد الطرق لخدمتك",
+      "onBoardingDescription1": "ام اس ستور هو أحد الطرق لخدمتك",
       "onBoardingDescription2":
           "شاهد كل الأشياء التي تحدث حول العالم بنقرة واحدة في هاتفك.",
       "onBoardingDescription3": "دعونا نرى ما نحصل عليه",
@@ -81,7 +81,7 @@ class ArLang {
       "setting_nav_bar": "الاعدادات",
       "about_title": "حول",
       "about_us_title": "معلومات عنا",
-      "contact_Us_title": "اتصل بنا",
+      "contact_us_title": "اتصل بنا",
       "language": "اللغة",
       "ENGLISH": "الانجليزية",
       "ARABIC": "العربية",
@@ -104,6 +104,13 @@ class ArLang {
           """ام ستور هو تطبيق الهاتف المحمول الرائع للتجارة الإلكترونية في مصر والمتخصص في جميع المستلزمات الخاصة بالموضة. 
 نساعدك في الحصول على أفضل خدمة الشحن وما بعد البيع في مصر بأفضل الأسعار مع العديد من العلامات التجارية الكبرى للأزياء والعلامات التجارية المتفجرة. 
 تأسست في عام 2022""",
+      "get_in_touch": "ابقى على تواصل",
+      'phone': "التلفون",
+      'subject': "موضوعات",
+      'message': "الرسالة",
+      'submit': "إرسال",
+      'submitted': "تم الارسال",
+      'thanks_for_contact_us': 'Thanks for contact us',
     };
   }
 }

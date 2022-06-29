@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:phone_form_field/l10n/generated/phone_field_localization.dart';
 
 import '../core/resources/theme_manager.dart';
 import '../l10n/lang_controller.dart';
@@ -29,6 +30,7 @@ class _MyAppState extends State<MyApp> {
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
+          PhoneFieldLocalization.delegate
         ],
         supportedLocales: const [
           Locale('en', ''),

@@ -16,8 +16,9 @@ class AboutView extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           AppStrings.aboutTitle,
-          style: context.textTheme.labelMedium,
+          style: context.textTheme.labelLarge,
         ),
+        leading: const BackButton(),
       ),
       body: SingleChildScrollView(
           child: Padding(

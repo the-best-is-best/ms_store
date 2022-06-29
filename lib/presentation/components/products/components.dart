@@ -9,6 +9,7 @@ import 'package:ms_store/core/resources/icons_manger.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
+import '../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/util/get_device_type.dart';
 import '../../main/pages/fav/view_model/fav_controller.dart';
@@ -240,13 +241,9 @@ Widget buildProductsItem({
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                       ),
-                      SizedBox(
-                        height: 5.0.h,
-                      ),
+                      const SizedBox(height: 5.0),
                       buildPrice(productModel),
-                      SizedBox(
-                        height: 5.0.h,
-                      ),
+                      const SizedBox(height: 5.0),
                     ],
                   ),
                 ),

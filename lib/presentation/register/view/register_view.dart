@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../app/components/common/build_logo.dart';
+import '../../../app/components/common/input_field.dart';
+import '../../../app/components/products/privacy_policy.dart';
 import '../../../app/di.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
@@ -80,18 +83,15 @@ class _RegisterViewState extends State<RegisterView> {
         child: Column(
           children: [
             Center(
-              child: logo(
+              child: BuildLogo(
                 isDark: Get.isDarkMode,
               ),
             ),
-            SizedBox(
-              height: AppSpacing.ap30.h,
-            ),
+            const SizedBox(height: AppSpacing.ap30),
             Column(
               children: [
                 Obx(
                   () => InputField(
-                      themeDataText: context.textTheme,
                       keyBoardType: TextInputType.name,
                       nextNode: _emailNode,
                       prefixIcon: IconsManger.user,
@@ -101,15 +101,11 @@ class _RegisterViewState extends State<RegisterView> {
                         _registerController.setUserNameEvent(val ?? "");
                       }),
                 ),
-                SizedBox(
-                  height: AppSpacing.ap30.h,
-                ),
+                const SizedBox(height: AppSpacing.ap30),
                 Obx(
                   () => InputField(
-                    themeDataText: context.textTheme,
                     controller: _emailController,
                     keyBoardType: TextInputType.emailAddress,
-                    obscureText: _registerController.obscure.value,
                     focusNode: _emailNode,
                     nextNode: _passwordNode,
                     prefixIcon: IconsManger.email,
@@ -120,12 +116,9 @@ class _RegisterViewState extends State<RegisterView> {
                     },
                   ),
                 ),
-                SizedBox(
-                  height: AppSpacing.ap30.h,
-                ),
+                const SizedBox(height: AppSpacing.ap30),
                 Obx(() {
                   return InputField(
-                    themeDataText: context.textTheme,
                     keyBoardType: TextInputType.visiblePassword,
                     focusNode: _passwordNode,
                     nextNode: _passwordAgainNode,
@@ -149,12 +142,9 @@ class _RegisterViewState extends State<RegisterView> {
                     },
                   );
                 }),
-                SizedBox(
-                  height: AppSpacing.ap30.h,
-                ),
+                const SizedBox(height: AppSpacing.ap30),
                 Obx(() {
                   return InputField(
-                    themeDataText: context.textTheme,
                     keyBoardType: TextInputType.visiblePassword,
                     obscureText: _registerController.obscureAgain.value,
                     focusNode: _passwordAgainNode,
@@ -185,9 +175,7 @@ class _RegisterViewState extends State<RegisterView> {
                     registerController: _registerController),
               ],
             ),
-            SizedBox(
-              height: AppSpacing.ap30.h,
-            ),
+            const SizedBox(height: AppSpacing.ap30),
             Obx(() => SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(

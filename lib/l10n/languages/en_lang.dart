@@ -1,11 +1,11 @@
 class EnLang {
   static Map<String, String> init() {
     return {
-      "app_title": "M Store",
-      "onBoardingTitle1": "Welcome to M Store",
+      "app_title": "MS Store",
+      "onBoardingTitle1": "Welcome to MS Store",
       "onBoardingTitle2": "Connect with the world",
       "onBoardingTitle3": "Let's Get Started",
-      "onBoardingDescription1": "M Store is one the way to serve you",
+      "onBoardingDescription1": "MS Store is one the way to serve you",
       "onBoardingDescription2":
           "See All things happening around the world by a click in your phone.",
       "onBoardingDescription3": "Let's see what we get",
@@ -81,7 +81,7 @@ class EnLang {
       "setting_nav_bar": "Settings",
       "about_title": "About",
       "about_us_title": "About Us",
-      "contact_Us_title": "Contact Us",
+      "contact_us_title": "Contact Us",
       "language": "Language",
       "ENGLISH": "ENGLISH",
       "ARABIC": "ARABIC",
@@ -104,6 +104,13 @@ class EnLang {
           """MS Store is The Fantastic E-Commerce Mobile Application in Egypt specialized in all supplies about Fashion
  Assisting you with the best shipping and after-sale-service in Egypt with the best prices with many big brands of fashion and explosive brand.
 established in 2022""",
+      "get_in_touch": "Get In Touch",
+      'phone': "Phone",
+      'subject': "Subject",
+      'message': "Message",
+      'submit': "Submit",
+      'submitted': "Submitted",
+      'thanks_for_contact_us': 'Thanks for contact us',
     };
   }
 }

@@ -14,6 +14,7 @@ import 'package:ms_store/presentation/main/pages/category/view_model/category_vi
 import 'package:tbib_splash_screen/splash_screen_view.dart';
 
 import '../../../../../app/components.dart';
+import '../../../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../../../app/di.dart';
 import '../../../../../domain/models/store/category_model.dart';
 
@@ -103,9 +104,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 20.0.h,
-                        ),
+                        const SizedBox(height: 20.0),
                         AnimatedOpacity(
                           opacity:
                               _categoryController.selectedCategoryItem.value ==
@@ -215,9 +214,7 @@ class _CategoryPageState extends State<CategoryPage> {
               height: 100,
               fit: BoxFit.contain,
             ),
-            SizedBox(
-              height: 5.0.h,
-            ),
+            const SizedBox(height: 5.0),
             Flexible(
               child: Text(
                 locale == "ar" ? categoryModel.nameAR : categoryModel.nameEN,

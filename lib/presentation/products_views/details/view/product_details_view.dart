@@ -19,6 +19,9 @@ import 'package:ms_store/presentation/components/products/components.dart';
 import 'package:ms_store/presentation/products_views/details/controller/product_details_controller.dart';
 
 import '../../../../app/components.dart';
+import '../../../../app/components/common/build_circular_progress_indicator.dart';
+import '../../../../app/components/common/input_field.dart';
+import '../../../../app/components/products/comment_dialoig.dart';
 import '../../../../core/resources/font_manger.dart';
 import '../../../../core/resources/styles_manger.dart';
 import '../../../../domain/models/store/reviews_model.dart';
@@ -98,9 +101,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             color: ColorManager.yellow,
                             size: FontSize.s40,
                           ),
-                          const SizedBox(
-                            width: AppSpacing.ap8,
-                          ),
+                          const SizedBox(width: AppSpacing.ap8),
                           Text(
                             _productDetailsController
                                 .reviewProduct.value!.productRating
@@ -147,9 +148,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               .nameEN,
                       style: context.textTheme.labelMedium,
                     ),
-                    SizedBox(
-                      height: AppSize.ap18.h,
-                    ),
+                    const SizedBox(height: AppSize.ap18),
                     ExpandableNotifier(
                       child: ExpandablePanel(
                         header: Align(
@@ -190,9 +189,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: AppSize.ap18.h,
-                    ),
+                    const SizedBox(height: AppSize.ap18),
                     Obx(
                       () => Column(
                         children: [
@@ -333,9 +330,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: AppSize.ap8.h,
-                    ),
+                    const SizedBox(height: AppSize.ap8),
                     SizedBox(
                       height:
                           Device.get().isTablet ? AppSize.ap350 : AppSize.ap300,
@@ -366,9 +361,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                     .productSupplier.length,
                       ),
                     ),
-                    SizedBox(
-                      height: AppSize.ap80.h,
-                    )
+                    const SizedBox(height: AppSize.ap80)
                   ]),
                 ),
               ),
@@ -390,9 +383,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           AppStrings.price,
                           style: context.textTheme.labelSmall,
                         ),
-                        SizedBox(
-                          height: AppSpacing.ap4.h,
-                        ),
+                        const SizedBox(height: AppSpacing.ap4),
                         buildPrice(
                             _productDetailsController.currentProduct[
                                 _productDetailsController.currentIndex],
@@ -537,42 +528,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CommentDialog extends StatefulWidget {
-  const CommentDialog({Key? key}) : super(key: key);
-
-  @override
-  State<CommentDialog> createState() => _CommentDialogState();
-}
-
-class _CommentDialogState extends State<CommentDialog> {
-  late final TextEditingController commentTextEditingController;
-  late final ProductDetailsController productDetailsController;
-  @override
-  void initState() {
-    commentTextEditingController = TextEditingController();
-
-    productDetailsController = Get.find();
-    commentTextEditingController.text =
-        productDetailsController.userReview.value?.comment ?? "";
-    productDetailsController.addComment(commentTextEditingController.text);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return InputField(
-      controller: commentTextEditingController,
-      label: 'Tell us your experience ',
-      keyBoardType: TextInputType.text,
-      prefixIcon: IconsManger.comments,
-      themeDataText: context.textTheme,
-      onChanged: (String? value) {
-        productDetailsController.addComment(value ?? "");
-      },
     );
   }
 }

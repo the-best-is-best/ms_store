@@ -44,6 +44,8 @@ class IconsManger {
   static const IconData visibilityOff = Icons.visibility_off;
 
   static const IconData visibility = Icons.visibility;
+  static const IconData subject = Icons.subject;
+  static const IconData message = Icons.message;
 
   static const IconData google = CommunityMaterialIcons.google;
 

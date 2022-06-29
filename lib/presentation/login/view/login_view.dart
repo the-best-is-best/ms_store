@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:ms_store/core/resources/color_manager.dart';
-import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
+import '../../../app/components.dart';
+import '../../../app/components/common/build_logo.dart';
+import '../../../app/components/common/input_field.dart';
 import '../../../app/di.dart';
+import '../../../core/resources/color_manager.dart';
+import '../../../core/resources/font_manger.dart';
+import '../../../core/resources/icons_manger.dart';
+import '../../../core/resources/routes_manger.dart';
+import '../../../core/resources/strings_manager.dart';
+import '../../../core/resources/values_manager.dart';
 import '../../../gen/assets.gen.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../login_view_model/login_view_model.dart';
-import '../../../core/resources/icons_manger.dart';
-import '../../../core/resources/routes_manger.dart';
-import '../../../core/resources/values_manager.dart';
-
-import '../../../app/components.dart';
-import '../../../core/resources/strings_manager.dart';
 
 class LoginView extends StatefulWidget {
   final bool canBack = Get.arguments['canBack'];
@@ -75,20 +76,17 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             children: [
               Center(
-                child: logo(
+                child: BuildLogo(
                   isDark: Get.isDarkMode,
                 ),
               ),
-              SizedBox(
-                height: AppSpacing.ap30.h,
-              ),
+              const SizedBox(height: AppSpacing.ap30),
               Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     Obx(() {
                       return InputField(
-                          themeDataText: context.textTheme,
                           label: "${AppStrings.emailTitle} *",
                           keyBoardType: TextInputType.emailAddress,
                           prefixIcon: IconsManger.email,
@@ -100,12 +98,9 @@ class _LoginViewState extends State<LoginView> {
                             }
                           });
                     }),
-                    SizedBox(
-                      height: AppSpacing.ap30.h,
-                    ),
+                    const SizedBox(height: AppSpacing.ap30),
                     Obx(() {
                       return InputField(
-                          themeDataText: context.textTheme,
                           label: "${AppStrings.password} *",
                           keyBoardType: TextInputType.visiblePassword,
                           obscureText: _loginController.obscure.value,
@@ -132,9 +127,7 @@ class _LoginViewState extends State<LoginView> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: AppSpacing.ap30.h,
-              ),
+              const SizedBox(height: AppSpacing.ap30),
               Obx(() {
                 return SizedBox(
                   width: double.infinity,
@@ -182,16 +175,12 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: AppSpacing.ap18.h,
-              ),
+              const SizedBox(height: AppSpacing.ap18),
               Text(
                 AppStrings.orTitle,
                 style: context.textTheme.labelMedium,
               ),
-              SizedBox(
-                height: AppSpacing.ap12.h,
-              ),
+              const SizedBox(height: AppSpacing.ap12),
               LoadingSignButton(
                 width: context.width,
                 height: 50,
@@ -212,9 +201,7 @@ class _LoginViewState extends State<LoginView> {
                       }
                     : null,
               ),
-              SizedBox(
-                height: AppSpacing.ap16.h,
-              ),
+              const SizedBox(height: AppSpacing.ap16),
               LoadingSignButton(
                 width: context.width,
                 height: 50,

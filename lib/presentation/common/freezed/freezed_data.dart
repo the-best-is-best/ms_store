@@ -25,3 +25,14 @@ class ReviewObject with _$ReviewObject {
     String comment,
   ) = _ReviewObject;
 }
+
+@freezed
+class ContactUsObject with _$ContactUsObject {
+  factory ContactUsObject(
+    String email,
+    String userName,
+    String phone,
+    String subject,
+    String message,
+  ) = _ContactUsObject;
+}

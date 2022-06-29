@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../common/state_renderer/state_renderer.dart';
-import '../../common/state_renderer/state_renderer_impl.dart';
-import '../view_model/forget_password_controller.dart';
 
 import '../../../app/components.dart';
+import '../../../app/components/common/build_logo.dart';
+import '../../../app/components/common/input_field.dart';
 import '../../../app/di.dart';
 import '../../../core/resources/icons_manger.dart';
 import '../../../core/resources/routes_manger.dart';
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/resources/values_manager.dart';
+import '../../common/state_renderer/state_renderer.dart';
+import '../../common/state_renderer/state_renderer_impl.dart';
+import '../view_model/forget_password_controller.dart';
 
 class ForgetPasswordView extends StatefulWidget {
   const ForgetPasswordView({Key? key}) : super(key: key);
@@ -77,18 +79,15 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
           child: Column(
             children: [
               Center(
-                child: logo(
+                child: BuildLogo(
                   isDark: Get.isDarkMode,
                 ),
               ),
-              SizedBox(
-                height: AppSpacing.ap30.h,
-              ),
+              const SizedBox(height: AppSpacing.ap30),
               Column(
                 children: [
                   Obx(() {
                     return InputField(
-                      themeDataText: context.textTheme,
                       controller: _emailController,
                       keyBoardType: TextInputType.emailAddress,
                       prefixIcon: IconsManger.email,
@@ -102,8 +101,8 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                   }),
                 ],
               ),
-              SizedBox(
-                height: AppSpacing.ap30.h,
+              const SizedBox(
+                height: AppSpacing.ap30,
               ),
               Obx(() => SizedBox(
                     width: double.infinity,
