@@ -26,15 +26,12 @@ class HomeController extends GetxController with BaseController {
   HomeController(this._homeUseCase, this._getProductByIdUseCase,
       this.getCategoryDataByIdUseCase);
 
-  Future getHomeData() async {
+  getHomeData() async {
     flowState.value = LoadingState(
         stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
         message: AppStrings.loading);
     var resultHome = await _homeUseCase.execute(null);
-    UserDataController userDataController = Get.find();
-    if (userDataController.userModel.value == null) {
-      await userDataController.getUserData();
-    }
+
     await waitStateChanged();
     resultHome.fold((failure) {
       flowState.value = ErrorState(
@@ -79,32 +76,6 @@ class HomeController extends GetxController with BaseController {
       });
     });
   }
-
-  // void addToFavoriteEvent(ProductModel product) async {
-  //   UserDataController userDataController = Get.find();
-  //   UserModel? userModel = userDataController.userModel.value;
-
-  //   if (userModel != null) {
-  //     flowState.value = LoadingState(
-  //         stateRendererType: StateRendererType.POPUP_LOADING_STATE,
-  //         message: AppStrings.loading);
-  //     var result = await instance<FavoriteFunctions>()
-  //         .addToFavorite(userDataController.userModel.value!.id, product.id);
-
-  //     result.fold((failure) {
-  //       flowState.value = ErrorState(
-  //           stateRendererType: StateRendererType.POPUP_ERROR_STATE,
-  //           message: failure.messages);
-  //     }, (_) async {
-  //       await instance<FavoriteFunctions>().updateFavData(product);
-  //       await waitStateChanged();
-  //       flowState.value = ContentState();
-  //     });
-  //   } else {
-  //     initLoginModel();
-  //     Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
-  //   }
-  // }
 
   void goProduct(int productId) async {
     flowState.value = LoadingState(
