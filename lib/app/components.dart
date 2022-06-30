@@ -1,19 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/extensions.dart';
-import 'package:ms_store/core/resources/color_manager.dart';
-import 'package:ms_store/core/resources/font_manger.dart';
-import 'package:ms_store/core/resources/strings_manager.dart';
-import 'package:checkbox_formfield/checkbox_formfield.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../presentation/register/view_model/register_controller.dart';
-import 'constants.dart';
+
+import '../core/resources/font_manger.dart';
 
 Future<void> waitStateChanged({int? duration}) async {
-  await Future.delayed(Duration(milliseconds: duration ?? 1000));
+  await Future.delayed(Duration(milliseconds: duration ?? 1500));
 }
 
 class ErrorIcon extends StatelessWidget {

@@ -68,11 +68,11 @@ class FavController extends GetxController with BaseController {
     if (favController.favoriteModel.containsKey(product.id)) {
       if (favController.favoriteModel[product.id] == true) {
         favController.productsInFav.remove(product);
+        favController.favoriteModel[product.id] = false;
       } else {
         favController.productsInFav.add(product);
+        favController.favoriteModel[product.id] = true;
       }
-      favController.favoriteModel[product.id] =
-          favController.favoriteModel[product.id] == true ? false : true;
       favController.favoriteModel.refresh();
     } else {
       favController.favoriteModel.addAll({product.id: true});

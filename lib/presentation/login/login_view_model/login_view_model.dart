@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
+import 'package:ms_store/presentation/main/pages/home/view_model/home_controller.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
 import '../../../app/app_refs.dart';
 import '../../../app/components.dart';
@@ -204,15 +205,27 @@ class LoginViewModel extends GetxController
   }
 
   Future getUserData(UserModel data) async {
-    initHomeModel();
-
     await AppPrefs().updateUserData(data);
-
-    UserDataController userDataController = Get.find();
-    await userDataController.getUserData();
     await waitStateChanged();
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      Get.offNamedUntil(Routes.homeRoute, (route) => false);
-    });
+    bool homeRepaired = Get.isPrepared<HomeController>();
+    if (!homeRepaired) {
+      UserDataController userDataController = Get.find();
+      await userDataController.getUserData();
+
+      Get.back();
+      HomeController homeController = Get.find();
+      homeController.getHomeData();
+    } else {
+      await initHomeModel();
+      UserDataController userDataController = Get.find();
+      await userDataController.getUserData();
+      HomeController homeController = Get.find();
+      homeController.getHomeData();
+
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
+        Get.offNamedUntil(Routes.homeRoute, (route) => false);
+      });
+    }
+    loginBySocial.value = false;
   }
 }

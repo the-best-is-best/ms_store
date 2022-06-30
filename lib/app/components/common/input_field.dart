@@ -6,6 +6,17 @@ import '../../../core/resources/values_manager.dart';
 import '../../../core/util/get_device_type.dart';
 
 class InputField extends StatefulWidget {
+  final Function(String)? onChanged;
+  final TextEditingController? controller;
+  final String? errorText;
+  final FocusNode? focusNode;
+  final TextInputType keyBoardType;
+  final String label;
+  final FocusNode? nextNode;
+  final bool obscureText;
+  final IconData prefixIcon;
+  final Widget? suffixWidget;
+  final bool expands;
   const InputField({
     Key? key,
     required this.label,
@@ -18,18 +29,8 @@ class InputField extends StatefulWidget {
     this.onChanged,
     required this.prefixIcon,
     this.suffixWidget,
+    this.expands = false,
   }) : super(key: key);
-
-  final Function(String)? onChanged;
-  final TextEditingController? controller;
-  final String? errorText;
-  final FocusNode? focusNode;
-  final TextInputType keyBoardType;
-  final String label;
-  final FocusNode? nextNode;
-  final bool obscureText;
-  final IconData prefixIcon;
-  final Widget? suffixWidget;
 
   @override
   State<InputField> createState() => _InputFieldState();

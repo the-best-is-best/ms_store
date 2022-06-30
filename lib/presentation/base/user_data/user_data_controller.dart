@@ -15,9 +15,11 @@ class UserDataController extends GetxController {
     FavController favController = Get.find();
     CartController cartController = Get.find();
     if (userModel.value != null) {
+      print(userModel.value?.id);
       var result = await instance<FavoriteFunctions>()
           .getFavorite(instance(), userModel.value!.id);
       result.fold((failure) {}, (data) {
+        print(data.length.toString() + "sdsdsadadada");
         favController.favoriteModel.addAll(data);
       });
       await favController.getProductsFavorite();

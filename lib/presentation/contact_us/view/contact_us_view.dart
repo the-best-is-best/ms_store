@@ -1,5 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
@@ -133,15 +134,19 @@ class _ContactUsViewState extends State<ContactUsView> {
             ),
             const SizedBox(height: AppSpacing.ap30),
             Obx(
-              () => InputField(
-                keyBoardType: TextInputType.multiline,
-                focusNode: _messageNode,
-                prefixIcon: IconsManger.message,
-                label: "${AppStrings.message} *",
-                errorText: _contactUsController.alertMessageValid.value,
-                onChanged: (String? val) {
-                  _contactUsController.setAlertMessageEvent(val ?? "");
-                },
+              () => SizedBox(
+                height: .3.sh,
+                child: InputField(
+                  keyBoardType: TextInputType.multiline,
+                  focusNode: _messageNode,
+                  prefixIcon: IconsManger.message,
+                  label: "${AppStrings.message} *",
+                  errorText: _contactUsController.alertMessageValid.value,
+                  expands: true,
+                  onChanged: (String? val) {
+                    _contactUsController.setAlertMessageEvent(val ?? "");
+                  },
+                ),
               ),
             ),
             const SizedBox(height: AppSpacing.ap30),

@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 
 import '../../../core/resources/icons_manger.dart';
-import '../../../core/resources/routes_manger.dart';
-import '../../../core/resources/strings_manager.dart';
 
 class BuildListTile extends StatelessWidget {
   final String nextPage;

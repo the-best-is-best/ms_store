@@ -39,10 +39,6 @@ class ProductDetailsController extends GetxController with BaseController {
     } else {
       if (currentIndex == 0) {
         Get.back();
-        WidgetsBinding.instance.scheduleFrameCallback((_) {
-          HomeController homeController = Get.find();
-          homeController.getHomeData();
-        });
       } else {
         currentProduct.removeAt(currentIndex);
         currentIndex--;

@@ -14,7 +14,7 @@ class OnBoardingController extends GetxController with DataScreen {
   }
 
   @override
-  void onClose() {
+  void onClose() async {
     AppPrefs().updateOnBoarding();
     super.onClose();
   }

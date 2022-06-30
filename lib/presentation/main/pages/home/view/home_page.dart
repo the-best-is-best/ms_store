@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _homeController = Get.find();
-    _homeController.getHomeData();
+
     super.initState();
   }
 
@@ -164,46 +164,44 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getProducts(List<DataHomeModel> dataHome) {
-    return Obx(
-      () => ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        itemCount: _homeController.homeModel.value?.data.dataHome.length ?? 0,
-        itemBuilder: (context, indexCat) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildCategory(indexCat, dataHome[indexCat].categoryModel),
-            SizedBox(
-              height: Device.get().isTablet ? AppSize.ap350 : AppSize.ap300,
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, indexPro) {
-                  return buildProductsItem(
-                    onTap: () {
-                      goToProductDetails(
-                          dataHome[indexCat].productModel[indexPro]);
-                    },
-                    productModel: dataHome[indexCat].productModel[indexPro],
-                    context: context,
-                    locale: locale,
-                    favWidget: AddToFavoriteButton(
-                        product: dataHome[indexCat].productModel[indexPro]),
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(),
-                itemCount: dataHome[indexCat].productModel.length > 4
-                    ? 4
-                    : dataHome[indexCat].productModel.length,
-              ),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      itemCount: _homeController.homeModel.value?.data.dataHome.length ?? 0,
+      itemBuilder: (context, indexCat) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildCategory(indexCat, dataHome[indexCat].categoryModel),
+          SizedBox(
+            height: Device.get().isTablet ? AppSize.ap350 : AppSize.ap300,
+            child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, indexPro) {
+                return buildProductsItem(
+                  onTap: () {
+                    goToProductDetails(
+                        dataHome[indexCat].productModel[indexPro]);
+                  },
+                  productModel: dataHome[indexCat].productModel[indexPro],
+                  context: context,
+                  locale: locale,
+                  favWidget: AddToFavoriteButton(
+                      product: dataHome[indexCat].productModel[indexPro]),
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(),
+              itemCount: dataHome[indexCat].productModel.length > 4
+                  ? 4
+                  : dataHome[indexCat].productModel.length,
             ),
-            const Divider(
-              thickness: 0,
-            ),
-          ],
-        ),
+          ),
+          const Divider(
+            thickness: 0,
+          ),
+        ],
       ),
     );
   }
@@ -213,7 +211,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60,
-        title: InputField(
+        title: const InputField(
           keyBoardType: TextInputType.text,
           label: 'Search',
           prefixIcon: IconsManger.search,
@@ -231,7 +229,7 @@ class _HomePageState extends State<HomePage> {
                     _getContentWidget(), retryActionFunction: () {
                     _homeController.getHomeData();
                   })
-                : _getContentWidget()),
+                : Container()),
           ),
         ),
       ),

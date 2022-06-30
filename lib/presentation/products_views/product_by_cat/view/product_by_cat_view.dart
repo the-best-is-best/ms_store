@@ -102,6 +102,7 @@ class _ProductByCatState extends State<ProductByCat> {
 
   @override
   Widget build(BuildContext context) {
+    print("lalala - ${widget.categoryModel.nameAR}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
