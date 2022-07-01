@@ -218,7 +218,7 @@ class _FavPageState extends State<FavPage> {
                     ],
                   ),
                   const SizedBox(height: AppSize.ap14),
-                  buildPrice(productData),
+                  BuildPrice(productModel: productData),
                   const SizedBox(height: 20.0),
                   AddToCartButton(productData, ColorManager.greyLight),
                 ],

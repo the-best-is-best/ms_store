@@ -213,15 +213,10 @@ class LoginViewModel extends GetxController
       await userDataController.getUserData();
 
       Get.back();
-      HomeController homeController = Get.find();
-      homeController.getHomeData();
     } else {
       await initHomeModel();
       UserDataController userDataController = Get.find();
       await userDataController.getUserData();
-      HomeController homeController = Get.find();
-      homeController.getHomeData();
-
       SchedulerBinding.instance.addPostFrameCallback((_) async {
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });

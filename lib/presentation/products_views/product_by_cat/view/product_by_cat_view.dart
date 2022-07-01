@@ -61,8 +61,7 @@ class _ProductByCatState extends State<ProductByCat> {
                           itemCount: _productByCatController
                                   .productCatIdModel.value?.products.length ??
                               0,
-                          itemBuilder: (_, int index) => buildProductsItem(
-                              context: context,
+                          itemBuilder: (_, int index) => BuildProductItem(
                               locale: _language,
                               onTap: () {
                                 goToProductDetails(_productByCatController

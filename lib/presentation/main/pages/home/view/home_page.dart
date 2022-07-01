@@ -1,3 +1,4 @@
+import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _homeController = Get.find();
-
+    _homeController.getHomeData();
     super.initState();
   }
 
@@ -180,13 +181,12 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, indexPro) {
-                return buildProductsItem(
+                return BuildProductItem(
                   onTap: () {
                     goToProductDetails(
                         dataHome[indexCat].productModel[indexPro]);
                   },
                   productModel: dataHome[indexCat].productModel[indexPro],
-                  context: context,
                   locale: locale,
                   favWidget: AddToFavoriteButton(
                       product: dataHome[indexCat].productModel[indexPro]),
@@ -229,7 +229,11 @@ class _HomePageState extends State<HomePage> {
                     _getContentWidget(), retryActionFunction: () {
                     _homeController.getHomeData();
                   })
-                : Container()),
+                : BuildCondition(
+                    condition: _homeController.homeModel.value != null,
+                    builder: (context) {
+                      return _getContentWidget();
+                    })),
           ),
         ),
       ),

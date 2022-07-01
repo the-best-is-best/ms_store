@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/domain/models/users_model.dart';
 import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
 import 'package:ms_store/presentation/on_boarding/view/on_boarding_view.dart';
 import '../../../app/app_refs.dart';
@@ -45,17 +43,19 @@ class SplashController extends GetxController {
     });
     Future<bool> showedOnBoarding = AppPrefs().getOnBoarding();
     showedOnBoarding.then((bool value) async {
-      // if (value) {
-      //   AppPrefs().closeOnBoarding();
-      //   await initHomeModel();
-      //   nextPage = const MainView();if (nextPage.runtimeType == MainView) {
-      // UserDataController userDataController = Get.find();
-      // await userDataController.getUserData();
-      // HomeController homeController = Get.find();
-      // homeController.getHomeData();
+      if (value) {
+        AppPrefs().closeOnBoarding();
+        await initHomeModel();
+        nextPage = const MainView();
+        if (nextPage.runtimeType == MainView) {
+          UserDataController userDataController = Get.find();
+          await userDataController.getUserData();
+          HomeController homeController = Get.find();
+          homeController.getHomeData();
 
-      //   return;
-      // }
+          return;
+        }
+      }
     });
     loaded.value = true;
     nextPage = const OnBoardingView();

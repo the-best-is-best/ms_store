@@ -339,10 +339,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return buildProductsItem(
+                          return BuildProductItem(
                             productModel: _productDetailsController
                                 .productSupplier[index],
-                            context: context,
                             locale: _language,
                             onTap: () {
                               _productDetailsController.setCurrentPage(
@@ -384,9 +383,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           style: context.textTheme.labelSmall,
                         ),
                         const SizedBox(height: AppSpacing.ap4),
-                        buildPrice(
-                            _productDetailsController.currentProduct[
-                                _productDetailsController.currentIndex],
+                        BuildPrice(
+                            productModel:
+                                _productDetailsController.currentProduct[
+                                    _productDetailsController.currentIndex],
                             detailsPage: true),
                       ],
                     ),

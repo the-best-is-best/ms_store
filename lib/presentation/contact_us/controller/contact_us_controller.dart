@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/components.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
-import 'package:phone_form_field/phone_form_field.dart';
+import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
 
 import '../../../core/resources/strings_manager.dart';
 import '../../base/base_controller.dart';
@@ -115,6 +113,7 @@ class ContactUsController extends GetxController with BaseController {
       if (alertEmailValid.value == null &&
           alertUserValid.value == null &&
           alertSubjectValid.value == null &&
+          alertPhoneValid.value == true &&
           alertMessageValid.value == null) {
         isAllFieldsValid.value = true;
       } else {

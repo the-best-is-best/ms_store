@@ -7,7 +7,7 @@ import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:ms_store/core/resources/strings_manager.dart';
 import 'package:ms_store/core/resources/styles_manger.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
-import 'package:phone_form_field/phone_form_field.dart';
+import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
 import '../../../app/components/common/input_field.dart';
 import '../../../app/components/common/phone_form_field.dart';
 import '../../../core/resources/icons_manger.dart';
@@ -84,11 +84,10 @@ class _ContactUsViewState extends State<ContactUsView> {
             ),
             const SizedBox(height: AppSpacing.ap30),
             Obx(
-              () => InputField(
+              () => InputFieldAboveTitle(
                   controller: _textUserNameEditingController,
                   keyBoardType: TextInputType.name,
                   nextNode: _emailNode,
-                  prefixIcon: IconsManger.user,
                   label: "${AppStrings.userName} *",
                   errorText: _contactUsController.alertUserValid.value,
                   onChanged: (String? val) {
@@ -97,12 +96,11 @@ class _ContactUsViewState extends State<ContactUsView> {
             ),
             const SizedBox(height: AppSpacing.ap30),
             Obx(
-              () => InputField(
+              () => InputFieldAboveTitle(
                 controller: _textEmailEditingController,
                 keyBoardType: TextInputType.emailAddress,
                 focusNode: _emailNode,
                 nextNode: _phoneNode,
-                prefixIcon: IconsManger.email,
                 label: "${AppStrings.emailTitle} *",
                 errorText: _contactUsController.alertEmailValid.value,
                 onChanged: (String? val) {
@@ -111,7 +109,7 @@ class _ContactUsViewState extends State<ContactUsView> {
               ),
             ),
             const SizedBox(height: AppSpacing.ap30),
-            BuildPhoneFormField(
+            BuildPhoneFormFieldAboveText(
               phoneNode: _phoneNode,
               nextNode: _subjectNode,
               onChanged: (PhoneNumber? p) {
@@ -120,11 +118,10 @@ class _ContactUsViewState extends State<ContactUsView> {
             ),
             const SizedBox(height: AppSpacing.ap30),
             Obx(
-              () => InputField(
+              () => InputFieldAboveTitle(
                 keyBoardType: TextInputType.text,
                 focusNode: _subjectNode,
                 nextNode: _messageNode,
-                prefixIcon: IconsManger.subject,
                 label: "${AppStrings.subject} *",
                 errorText: _contactUsController.alertSubjectValid.value,
                 onChanged: (String? val) {
@@ -134,19 +131,14 @@ class _ContactUsViewState extends State<ContactUsView> {
             ),
             const SizedBox(height: AppSpacing.ap30),
             Obx(
-              () => SizedBox(
-                height: .3.sh,
-                child: InputField(
-                  keyBoardType: TextInputType.multiline,
-                  focusNode: _messageNode,
-                  prefixIcon: IconsManger.message,
-                  label: "${AppStrings.message} *",
-                  errorText: _contactUsController.alertMessageValid.value,
-                  expands: true,
-                  onChanged: (String? val) {
-                    _contactUsController.setAlertMessageEvent(val ?? "");
-                  },
-                ),
+              () => InputFieldExpanded(
+                keyBoardType: TextInputType.multiline,
+                focusNode: _messageNode,
+                label: "${AppStrings.message} *",
+                errorText: _contactUsController.alertMessageValid.value,
+                onChanged: (String? val) {
+                  _contactUsController.setAlertMessageEvent(val ?? "");
+                },
               ),
             ),
             const SizedBox(height: AppSpacing.ap30),

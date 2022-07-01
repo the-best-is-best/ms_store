@@ -4,6 +4,7 @@ import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart
 import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/components/products/functions.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
+import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import '../../../../../app/components.dart';
 import '../../../../../app/di.dart';
 import '../../../../../core/resources/routes_manger.dart';
@@ -15,6 +16,7 @@ import '../../../../common/state_renderer/state_renderer.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../controller/main_view_controller.dart';
+import '../../cart/view_model/cart_controller.dart';
 
 class HomeController extends GetxController with BaseController {
   final HomeUseCase _homeUseCase;
@@ -26,13 +28,28 @@ class HomeController extends GetxController with BaseController {
   HomeController(this._homeUseCase, this._getProductByIdUseCase,
       this.getCategoryDataByIdUseCase);
 
-  getHomeData() async {
+  void getHomeData() async {
     flowState.value = LoadingState(
         stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
         message: AppStrings.loading);
+    UserDataController userDataController = Get.find();
+    if (userDataController.userModel.value != null) {
+      FavController favController = Get.find();
+      CartController cartController = Get.find();
+      var result = await favController.getFavorite(
+          instance(), userDataController.userModel.value!.id);
+      result.fold((failure) {}, (data) async {
+        print("get data fav ${data.keys}");
+        favController.favoriteModel.addAll(data);
+        await waitStateChanged();
+
+        await favController.getProductsFavorite(data);
+      });
+
+      await cartController.getCart();
+    }
     var resultHome = await _homeUseCase.execute(null);
 
-    await waitStateChanged();
     resultHome.fold((failure) {
       flowState.value = ErrorState(
           stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,

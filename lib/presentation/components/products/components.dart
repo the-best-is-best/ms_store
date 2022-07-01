@@ -148,8 +148,15 @@ class _AddToFavoriteButtonState extends State<AddToFavoriteButton> {
   }
 }
 
-Widget buildPrice(ProductModel productModel, {bool detailsPage = false}) {
-  return Builder(builder: (context) {
+class BuildPrice extends StatelessWidget {
+  final ProductModel productModel;
+  final bool detailsPage;
+  const BuildPrice(
+      {Key? key, required this.productModel, this.detailsPage = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return BuildCondition(
       condition: productModel.priceAfterDis == 0.0,
       builder: (context) {
@@ -196,75 +203,85 @@ Widget buildPrice(ProductModel productModel, {bool detailsPage = false}) {
         ),
       ),
     );
-  });
+  }
 }
 
-Widget buildProductsItem({
-  required BuildContext context,
-  required ProductModel productModel,
-  required String locale,
-  required Widget favWidget,
-  required Function() onTap,
-}) {
-  return InkWell(
-    onTap: onTap,
-    child: SizedBox(
-      width: Device.get().isTablet ? AppSize.ap400 : AppSize.ap300,
-      child: Stack(
-        children: [
-          Card(
-            clipBehavior: Clip.antiAlias,
-            color: ColorManager.greyLight,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CachedNetworkImage(
-                  fit: BoxFit.contain,
-                  imageUrl: productModel.image,
-                  height: 100,
-                  width: 200,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      BuildCircularProgressIndicatorWithDownload(
-                          downloadProgress),
-                  errorWidget: (context, url, error) => const ErrorIcon(),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(30.0.r),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        locale == "ar"
-                            ? productModel.nameAR
-                            : productModel.nameEN,
-                        style: context.textTheme.labelSmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.clip,
-                      ),
-                      const SizedBox(height: 5.0),
-                      buildPrice(productModel),
-                      const SizedBox(height: 5.0),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 15,
-            right: 15,
-            child: AddToCartButton(productModel, ColorManager.white),
-          ),
-          Positioned(
-            top: 20,
-            right: 20,
-            child: favWidget,
-          ),
+class BuildProductItem extends StatelessWidget {
+  final ProductModel productModel;
+  final String locale;
+  final Widget favWidget;
+  final Function() onTap;
+  const BuildProductItem(
+      {Key? key,
+      required this.productModel,
+      required this.favWidget,
+      required this.onTap,
+      required this.locale})
+      : super(key: key);
 
-          //  displaySaleText(dataModel),
-        ],
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: SizedBox(
+        width: Device.get().isTablet ? AppSize.ap400 : AppSize.ap300,
+        child: Stack(
+          children: [
+            Card(
+              clipBehavior: Clip.antiAlias,
+              color: ColorManager.greyLight,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CachedNetworkImage(
+                    fit: BoxFit.contain,
+                    imageUrl: productModel.image,
+                    height: 100,
+                    width: 200,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            BuildCircularProgressIndicatorWithDownload(
+                                downloadProgress),
+                    errorWidget: (context, url, error) => const ErrorIcon(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(30.0.r),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          locale == "ar"
+                              ? productModel.nameAR
+                              : productModel.nameEN,
+                          style: context.textTheme.labelSmall,
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
+                        ),
+                        const SizedBox(height: 5.0),
+                        BuildPrice(productModel: productModel),
+                        const SizedBox(height: 5.0),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 20,
+              left: 15,
+              right: 15,
+              child: AddToCartButton(productModel, ColorManager.white),
+            ),
+            Positioned(
+              top: 20,
+              right: 20,
+              child: favWidget,
+            ),
+
+            //  displaySaleText(dataModel),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
@@ -9,6 +10,9 @@ import '../../../../../app/components.dart';
 import '../../../../../app/di.dart';
 import '../../../../../core/resources/routes_manger.dart';
 import '../../../../../data/data_src/local_data_source.dart';
+import '../../../../../data/network/failure.dart';
+import '../../../../../domain/use_case/store/add_favorite_use_case.dart';
+import '../../../../../domain/use_case/store/get_favorite_use_case.dart';
 import '../../../../../domain/use_case/store/get_products_by_ids_use_case.dart';
 import '../../../../base/user_data/user_data_controller.dart';
 import '../../../../common/state_renderer/state_renderer.dart';
@@ -23,8 +27,8 @@ class FavController extends GetxController with BaseController {
   RxMap<int, bool> favoriteModel = RxMap<int, bool>();
   RxList<ProductModel> productsInFav = RxList<ProductModel>();
 
-  Future getProductsFavorite() async {
-    if (favoriteModel.isNotEmpty) {
+  Future getProductsFavorite(Map<int, bool> favoriteData) async {
+    if (favoriteData.isNotEmpty) {
       Map<String, int> data = {};
       favoriteModel.forEach((k, _) {
         data.addAll({"id[$k]": k});
@@ -47,8 +51,8 @@ class FavController extends GetxController with BaseController {
     } else {
       productId.value = product.id;
 
-      var result = await instance<FavoriteFunctions>()
-          .addToFavorite(userDataController.userModel.value!.id, product.id);
+      var result = await addToFavorite(
+          userDataController.userModel.value!.id, product.id);
       result.fold((failure) {
         flowState.value = ErrorState(
             stateRendererType: StateRendererType.POPUP_ERROR_STATE,
@@ -84,5 +88,15 @@ class FavController extends GetxController with BaseController {
   Future saveFav() async {
     await _localDataSource.saveFavoriteDataCache(favoriteModel);
     await _localDataSource.saveProductFavData(productsInFav);
+  }
+
+  Future<Either<Failure, bool>> addToFavorite(int userId, int productId) async {
+    return await instance<AddFavoriteUseCase>()
+        .execute(AddFavoriteUseCaseInput(userId, productId));
+  }
+
+  Future<Either<Failure, Map<int, bool>>> getFavorite(
+      GetFavoriteUseCase getFavoriteUseCase, int userId) async {
+    return await getFavoriteUseCase.execute(GetFavoriteUseCaseInput(userId));
   }
 }

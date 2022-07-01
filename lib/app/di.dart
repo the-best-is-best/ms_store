@@ -52,6 +52,8 @@ void initAppModel() {
 //
   instance.registerLazySingleton<RemoteDataSrc>(
       () => RemoteDataSrcImpl(instance()));
+  instance.registerLazySingleton<GetProductByIdUseCase>(
+      () => GetProductByIdUseCase(instance()));
 }
 
 void initLoginModel() {
@@ -71,8 +73,7 @@ Future initHomeModel() async {
         () => AddFavoriteUseCase(instance()));
     instance.registerFactory<GetFavoriteUseCase>(
         () => GetFavoriteUseCase(instance()));
-    instance.registerFactory<GetProductByIdUseCase>(
-        () => GetProductByIdUseCase(instance()));
+
     instance.registerFactory(() => FavoriteFunctions());
     instance.registerFactory(() => GetCategoryDataByIdUseCase(instance()));
   }

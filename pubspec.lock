@@ -791,13 +791,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
-  phone_form_field:
-    dependency: "direct main"
-    description:
-      name: phone_form_field
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.1.0"
   phone_number_metadata:
     dependency: transitive
     description:
@@ -999,6 +992,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  tbib_phone_form_field:
+    dependency: "direct main"
+    description:
+      path: "../../../tbib_library/tbib_phone_form_field"
+      relative: true
+    source: path
+    version: "0.0.2"
   tbib_splash_screen:
     dependency: "direct main"
     description:

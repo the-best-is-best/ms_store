@@ -25,7 +25,6 @@ class AppBinding implements Bindings {
     //login
     getLoginController();
 
-    getUserDataController(); // fav
     // register
     getRegisterController();
     // active email
@@ -44,8 +43,6 @@ class AppBinding implements Bindings {
     getProductsController();
     // category
     getCategoryViewController();
-// fav
-    getFavoriteViewController();
     //cart
     getCartViewController();
     // setting
@@ -62,10 +59,6 @@ class AppBinding implements Bindings {
 
   void getLoginController() {
     Get.lazyPut(() => LoginViewModel(instance(), instance()), fenix: true);
-  }
-
-  void getUserDataController() {
-    Get.lazyPut(() => UserDataController(), fenix: true);
   }
 
   void getRegisterController() {
@@ -95,10 +88,6 @@ class AppBinding implements Bindings {
 
   void getCategoryViewController() {
     Get.lazyPut(() => CategoryController(instance()), fenix: true);
-  }
-
-  void getFavoriteViewController() {
-    Get.lazyPut(() => FavController(instance(), instance()), fenix: true);
   }
 
   void getProductsController() {
