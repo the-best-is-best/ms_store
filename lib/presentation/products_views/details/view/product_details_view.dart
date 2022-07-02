@@ -286,7 +286,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                   style: context.textTheme.labelMedium,
                                 ),
                                 Lottie.asset(const $AssetsJsonGen().pleaseLogin,
-                                    height: 150.h),
+                                    height: 150),
                               ],
                             )),
                           )

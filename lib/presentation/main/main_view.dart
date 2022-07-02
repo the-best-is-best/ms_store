@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
 import '../../../core/resources/icons_manger.dart';
@@ -33,11 +32,10 @@ class _MainViewState extends State<MainView> {
               .pages[_mainController.currentIndex.value]!['page']),
         ),
         bottomNavigationBar: Container(
-            height: AppSize.ap80.h,
-            decoration: BoxDecoration(
+            height: AppSize.ap80,
+            decoration: const BoxDecoration(
               boxShadow: [
-                BoxShadow(
-                    color: Colors.black87, spreadRadius: AppSpacing.ap1_5.w)
+                BoxShadow(color: Colors.black87, spreadRadius: AppSpacing.ap1_5)
               ],
             ),
             child: BottomNavigationBar(

@@ -1,11 +1,11 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ms_store/app/components.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
+import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
@@ -51,40 +51,52 @@ class _FavPageState extends State<FavPage> {
       body: Obx(
         () => _favController.flowState.value != null
             ? _favController.flowState.value!.getScreenWidget(
-                _getContentWidget(),
+                _GetContentWidget(
+                  favController: _favController,
+                ),
               )
-            : _getContentWidget(),
+            : _GetContentWidget(
+                favController: _favController,
+              ),
       ),
     );
   }
+}
 
-  Widget _getContentWidget() {
+class _GetContentWidget extends StatelessWidget {
+  final UserDataController userDataController = Get.find();
+  final FavController favController;
+  _GetContentWidget({Key? key, required this.favController}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Obx(
       () => BuildCondition(
-        condition: _userDataController.userModel.value != null,
+        condition: userDataController.userModel.value != null,
         builder: (context) {
           return BuildCondition(
-            condition: _favController.productsInFav.isNotEmpty,
+            condition: favController.productsInFav.isNotEmpty,
             builder: (_) => ScrollConfiguration(
               behavior: const ScrollBehavior(),
               child: GlowingOverscrollIndicator(
                 axisDirection: AxisDirection.down,
                 color: ColorManager.white,
                 child: Padding(
-                    padding: EdgeInsets.only(top: 25.0.r),
+                    padding: const EdgeInsets.only(top: 25.0),
                     child: Obx(() => ListView.separated(
                           physics: const ScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemBuilder: (context, index) => buildProductsItem(
-                            _favController.productsInFav[index],
+                          itemBuilder: (context, index) => BuildProductsItem(
+                            favController: favController,
+                            productData: favController.productsInFav[index],
                           ),
                           separatorBuilder: (context, index) => Container(
-                            width: double.infinity.w,
-                            height: 1.0.h,
+                            width: double.infinity,
+                            height: 1.0,
                             color: Colors.grey[300],
                           ),
-                          itemCount: _favController.productsInFav.length,
+                          itemCount: favController.productsInFav.length,
                         ))),
               ),
             ),
@@ -92,7 +104,7 @@ class _FavPageState extends State<FavPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Lottie.asset(const $AssetsJsonGen().empty, width: 300.w),
+                  Lottie.asset(const $AssetsJsonGen().empty, width: 300),
                   Text(
                     AppStrings.noProducts,
                     style: context.textTheme.labelLarge,
@@ -106,7 +118,7 @@ class _FavPageState extends State<FavPage> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Lottie.asset(const $AssetsJsonGen().pleaseLogin, width: 300.w),
+            Lottie.asset(const $AssetsJsonGen().pleaseLogin, width: 300),
             Text(
               AppStrings.pleaseLogin,
               style: context.textTheme.labelLarge,
@@ -116,8 +128,19 @@ class _FavPageState extends State<FavPage> {
       ),
     );
   }
+}
 
-  Widget buildProductsItem(ProductModel productData) {
+class BuildProductsItem extends StatelessWidget {
+  final FavController favController;
+  final ProductModel productData;
+  const BuildProductsItem(
+      {Key? key, required this.productData, required this.favController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final String _language = Get.locale!.languageCode;
+
     return InkWell(
       onTap: () {
         goToProductDetails(productData);
@@ -131,7 +154,7 @@ class _FavPageState extends State<FavPage> {
                 Card(
                   color: ColorManager.greyLight,
                   child: Padding(
-                    padding: EdgeInsets.all(10.0.r),
+                    padding: const EdgeInsets.all(10.0),
                     child: CachedNetworkImage(
                       imageUrl: productData.image,
                       fit: BoxFit.contain,
@@ -189,24 +212,23 @@ class _FavPageState extends State<FavPage> {
                       ),
                       Expanded(
                         child: CircleAvatar(
-                          radius: 25.0.r,
+                          radius: 25.0,
                           backgroundColor: Colors.grey[400],
                           child: BuildCondition(
-                            condition: _favController.productId.value !=
-                                productData.id,
+                            condition:
+                                favController.productId.value != productData.id,
                             builder: (context) {
                               return IconButton(
-                                onPressed: _favController.productId.value !=
-                                        null
+                                onPressed: favController.productId.value != null
                                     ? null
                                     : () {
-                                        _favController
+                                        favController
                                             .addToFavoriteEvent(productData);
                                       },
                                 icon: Icon(
                                   Icons.favorite_sharp,
                                   color: Colors.red,
-                                  size: 30.0.sp,
+                                  size: FontSize.s30,
                                 ),
                               );
                             },

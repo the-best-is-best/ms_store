@@ -2,13 +2,13 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/util/get_device_type.dart';
 import 'package:ms_store/presentation/components/products/functions.dart';
 import '../../../../../app/components.dart';
 import '../../../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../../../app/components/common/input_field.dart';
+import '../../../../../app/di.dart';
 import '../../../../../core/resources/routes_manger.dart';
 import '../../../../../core/resources/styles_manger.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
@@ -45,58 +45,141 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  Widget buildCategory(int index, CategoryHomeModel mainCatModel) => Container(
-        color: ColorManager.darkColor,
-        child: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacing.ap12.w, vertical: AppSpacing.ap20.h),
-              child: Text(
-                locale == "en" ? mainCatModel.nameEN : mainCatModel.nameAR,
-                style: getBoldStyle(
-                    fontSize: FontSize.s24, color: ColorManager.white),
-              ),
-            ),
-            const Spacer(),
-            IconButton(
-                onPressed: () {
-                  _homeController.goCategory(index);
-                },
-                icon: Icon(
-                  locale == "ar"
-                      ? IconsManger.arrowLeft
-                      : IconsManger.arrowRight,
-                  color: ColorManager.white,
-                  size: AppSize.ap30,
-                )),
-          ],
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 60,
+        title: InputField(
+          controller: searchTextEditingController,
+          keyBoardType: TextInputType.text,
+          label: AppStrings.search,
+          prefixIcon: IconsManger.search,
+          onEditingComplete: () {
+            initProductBySearch();
+            Get.toNamed(Routes.searchRoute,
+                arguments: {'searchText': searchTextEditingController.text});
+          },
         ),
-      );
+      ),
+      body: Padding(
+        padding:
+            const EdgeInsets.only(left: AppSpacing.ap8, right: AppSpacing.ap8),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Obx(() => _homeController.flowState.value != null
+                ? _homeController.flowState.value!.getScreenWidget(
+                    _GetContentWidget(
+                      homeController: _homeController,
+                    ), retryActionFunction: () {
+                    _homeController.getHomeData();
+                  })
+                : BuildCondition(
+                    condition: _homeController.homeModel.value != null,
+                    builder: (context) {
+                      return _GetContentWidget(
+                        homeController: _homeController,
+                      );
+                    })),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-  Widget _getContentWidget() {
+class _BuildCategory extends StatelessWidget {
+  final int index;
+  final CategoryHomeModel mainCatModel;
+  final HomeController homeController;
+  const _BuildCategory(
+      {Key? key,
+      required this.index,
+      required this.mainCatModel,
+      required this.homeController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String locale = Get.locale!.languageCode;
+    return Container(
+      color: ColorManager.darkColor,
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.ap12, vertical: AppSpacing.ap20),
+            child: Text(
+              locale == "en" ? mainCatModel.nameEN : mainCatModel.nameAR,
+              style: getBoldStyle(
+                  fontSize: FontSize.s24, color: ColorManager.white),
+            ),
+          ),
+          const Spacer(),
+          IconButton(
+              onPressed: () {
+                homeController.goCategory(index);
+              },
+              icon: Icon(
+                locale == "ar" ? IconsManger.arrowLeft : IconsManger.arrowRight,
+                color: ColorManager.white,
+                size: AppSize.ap30,
+              )),
+        ],
+      ),
+    );
+  }
+}
+
+class _GetContentWidget extends StatelessWidget {
+  final HomeController homeController;
+  const _GetContentWidget({Key? key, required this.homeController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _getSliderCarousel(),
-        _getSection(AppStrings.latestProducts),
-        _getProducts(_homeController.homeModel.value?.data.dataHome ??
-            const Iterable.empty().cast<DataHomeModel>().toList()),
+        _GetSliderCarousel(
+          homeController: homeController,
+        ),
+        _GetSection(text: AppStrings.latestProducts),
+        _GetProducts(
+            homeController: homeController,
+            dataHome: homeController.homeModel.value?.data.dataHome ??
+                const Iterable.empty().cast<DataHomeModel>().toList()),
       ],
     );
   }
+}
 
-  Widget _getSliderCarousel() {
-    return Obx(
-        () => _getSliderWidget(_homeController.homeModel.value?.data.slider));
+class _GetSliderCarousel extends StatelessWidget {
+  final HomeController homeController;
+  const _GetSliderCarousel({Key? key, required this.homeController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => _GetSliderWidget(
+          sliders: homeController.homeModel.value?.data.slider,
+          homeController: homeController,
+        ));
   }
+}
 
-  Widget _getSection(String text) {
+class _GetSection extends StatelessWidget {
+  final String text;
+  const _GetSection({Key? key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
+          // ignore: prefer_const_constructors
           padding: EdgeInsets.symmetric(
-              horizontal: AppSpacing.ap12.w, vertical: AppSpacing.ap20.h),
+              horizontal: AppSpacing.ap12, vertical: AppSpacing.ap20),
           child: Text(
             text,
             style: getBoldStyle(
@@ -109,23 +192,32 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+}
 
-  Widget _getSliderWidget(List<SliderModel>? sliders) {
+class _GetSliderWidget extends StatelessWidget {
+  final HomeController homeController;
+  final List<SliderModel>? sliders;
+  const _GetSliderWidget({Key? key, required this.homeController, this.sliders})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final String locale = Get.locale!.languageCode;
     if (sliders == null) {
       return Container();
     } else {
       return Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: CarouselSlider(
-            items: sliders
+            items: sliders!
                 .map((slider) => SizedBox(
                       width: double.infinity,
                       child: InkWell(
                         onTap: () async {
                           if (slider.openProductId != null) {
-                            _homeController.goProduct(slider.openProductId!);
+                            homeController.goProduct(slider.openProductId!);
                           } else if (slider.openCategoryId != null) {
-                            _homeController
+                            homeController
                                 .goProductByCat(slider.openCategoryId!);
                           }
                         },
@@ -134,13 +226,13 @@ class _HomePageState extends State<HomePage> {
                           elevation: AppSpacing.ap1_5,
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.circular(AppSpacing.ap12.r),
-                              side: BorderSide(
+                                  BorderRadius.circular(AppSpacing.ap12),
+                              side: const BorderSide(
                                   color: ColorManager.darkColor,
-                                  width: AppSpacing.ap4.w)),
+                                  width: AppSpacing.ap4)),
                           child: ClipRRect(
                             borderRadius:
-                                BorderRadius.circular(AppSpacing.ap12.r),
+                                BorderRadius.circular(AppSpacing.ap12),
                             child: CachedNetworkImage(
                               progressIndicatorBuilder: (context, url,
                                       downloadProgress) =>
@@ -159,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                     ))
                 .toList(),
             options: CarouselOptions(
-              height: 250.h,
+              height: 250,
               autoPlay: true,
               enableInfiniteScroll: true,
               enlargeCenterPage: true,
@@ -167,17 +259,30 @@ class _HomePageState extends State<HomePage> {
       );
     }
   }
+}
 
-  Widget _getProducts(List<DataHomeModel> dataHome) {
+class _GetProducts extends StatelessWidget {
+  final HomeController homeController;
+  final List<DataHomeModel> dataHome;
+  const _GetProducts(
+      {Key? key, required this.homeController, required this.dataHome})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final String locale = Get.locale!.languageCode;
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
-      itemCount: _homeController.homeModel.value?.data.dataHome.length ?? 0,
+      itemCount: homeController.homeModel.value?.data.dataHome.length ?? 0,
       itemBuilder: (context, indexCat) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildCategory(indexCat, dataHome[indexCat].categoryModel),
+          _BuildCategory(
+              index: indexCat,
+              mainCatModel: dataHome[indexCat].categoryModel,
+              homeController: homeController),
           SizedBox(
             height: Device.get().isTablet ? AppSize.ap350 : AppSize.ap300,
             child: ListView.separated(
@@ -206,45 +311,6 @@ class _HomePageState extends State<HomePage> {
             thickness: 0,
           ),
         ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 60,
-        title: InputField(
-          controller: searchTextEditingController,
-          keyBoardType: TextInputType.text,
-          label: AppStrings.search,
-          prefixIcon: IconsManger.search,
-          onEditingComplete: () {
-            Get.toNamed(Routes.searchRoute,
-                arguments: {'searchTitle': searchTextEditingController.text});
-          },
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.only(
-            //top: AppSpacing.ap8.h,
-            left: AppSpacing.ap8.w,
-            right: AppSpacing.ap8.w),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Obx(() => _homeController.flowState.value != null
-                ? _homeController.flowState.value!.getScreenWidget(
-                    _getContentWidget(), retryActionFunction: () {
-                    _homeController.getHomeData();
-                  })
-                : BuildCondition(
-                    condition: _homeController.homeModel.value != null,
-                    builder: (context) {
-                      return _getContentWidget();
-                    })),
-          ),
-        ),
       ),
     );
   }

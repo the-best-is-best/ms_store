@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class GetProductByIdsRequests {
   final Map<String, int> ids;
 
@@ -66,4 +68,11 @@ class GetCategoryDataByIdRequests {
   GetCategoryDataByIdRequests(
     this.catId,
   );
+}
+
+class GetProductsBySearchRequests {
+  final String name;
+  final String lang = Get.locale!.languageCode;
+
+  GetProductsBySearchRequests(this.name);
 }

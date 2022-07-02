@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/components/common/build_logo.dart';
-
 import '../../../app/components.dart';
 import '../../../app/components/active_code/build_pin_code.dart';
 import '../../../core/resources/strings_manager.dart';
@@ -18,16 +16,8 @@ class ActiveEmailView extends StatefulWidget {
 }
 
 class _ActiveEmailViewState extends State<ActiveEmailView> {
-  late final GlobalKey<FormState> _formKey;
   final ActiveEmailController _activeEmailController = Get.find();
   final String email = Get.arguments['email'];
-
-  @override
-  void initState() {
-    _formKey = GlobalKey<FormState>();
-    super.initState();
-    _activeEmailController.setEmailEvent(email);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +26,44 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
       body: Obx(() {
         return _activeEmailController.flowState.value != null
             ? _activeEmailController.flowState.value!.getScreenWidget(
-                _getContentWidget(),
+                _GetContentWidget(
+                    email: email,
+                    activeEmailController: _activeEmailController),
               )
-            : _getContentWidget();
+            : _GetContentWidget(
+                email: email, activeEmailController: _activeEmailController);
       }),
     );
   }
+}
 
-  Widget _getContentWidget() {
+class _GetContentWidget extends StatefulWidget {
+  final ActiveEmailController activeEmailController;
+  final String email;
+  const _GetContentWidget(
+      {Key? key, required this.activeEmailController, required this.email})
+      : super(key: key);
+
+  @override
+  State<_GetContentWidget> createState() => _GetContentWidgetState();
+}
+
+class _GetContentWidgetState extends State<_GetContentWidget> {
+  late final GlobalKey<FormState> _formKey;
+
+  @override
+  void initState() {
+    _formKey = GlobalKey<FormState>();
+    super.initState();
+    widget.activeEmailController.setEmailEvent(widget.email);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(
-            top: AppSpacing.ap100.h,
+        padding: const EdgeInsets.only(
+            top: AppSpacing.ap100,
             left: AppSpacing.ap14,
             right: AppSpacing.ap14),
         child: Column(
@@ -64,7 +80,7 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
                 children: [
                   BuildPinCodeTextField(
                     onChanged: (String? val) {
-                      _activeEmailController.setPinEvent(val ?? "");
+                      widget.activeEmailController.setPinEvent(val ?? "");
                     },
                   ),
                 ],
@@ -76,11 +92,12 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
             Obx(() => SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _activeEmailController.isAllFieldsValid.value
-                        ? () {
-                            _activeEmailController.activeEmailEvent();
-                          }
-                        : null,
+                    onPressed:
+                        widget.activeEmailController.isAllFieldsValid.value
+                            ? () {
+                                widget.activeEmailController.activeEmailEvent();
+                              }
+                            : null,
                     child: Text(AppStrings.continueTitle),
                   ),
                 )),

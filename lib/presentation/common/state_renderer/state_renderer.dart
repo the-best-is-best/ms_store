@@ -1,10 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../core/resources/styles_manger.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../core/resources/color_manager.dart';
@@ -110,14 +108,14 @@ class StateRenderer extends StatelessWidget {
   Widget _getPopUpDialog(List<Widget> children) {
     return Dialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSpacing.ap14.r)),
+          borderRadius: BorderRadius.circular(AppSpacing.ap14)),
       elevation: AppSize.ap1_5,
       backgroundColor: ColorManager.transparent,
       child: Container(
         decoration: BoxDecoration(
           color: ColorManager.white,
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(AppSpacing.ap14.r),
+          borderRadius: BorderRadius.circular(AppSpacing.ap14),
           boxShadow: const [
             BoxShadow(
               color: Colors.black26,
@@ -125,7 +123,7 @@ class StateRenderer extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppSpacing.ap14.h),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ap14),
           child: _getDialogContext(children),
         ),
       ),
@@ -151,16 +149,16 @@ class StateRenderer extends StatelessWidget {
     return Lottie.asset(animationName,
         width: stateRendererType == StateRendererType.FULLSCREEN_EMPTY_STATE
             ? AppSize.ap300
-            : AppSize.ap150.w,
+            : AppSize.ap150,
         height: stateRendererType == StateRendererType.FULLSCREEN_EMPTY_STATE
             ? AppSize.ap300
-            : AppSize.ap150.h);
+            : AppSize.ap150);
   }
 
   Widget _getMessage(String message) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: AppSpacing.ap20.h),
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.ap20),
         child: Text(
           message,
           textAlign: TextAlign.center,
@@ -175,7 +173,7 @@ class StateRenderer extends StatelessWidget {
 
   Widget _getButton(String buttonTitle) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: AppSpacing.ap18.h),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.ap18),
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800, minWidth: 200),
         child: ElevatedButton(

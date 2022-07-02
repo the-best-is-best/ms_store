@@ -1,7 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
@@ -26,7 +25,6 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  String locale = Get.locale!.languageCode;
   late final CategoryController _categoryController;
   @override
   void initState() {
@@ -48,26 +46,34 @@ class _CategoryPageState extends State<CategoryPage> {
         actions: [
           IconButton(
               onPressed: () {
-                Get.toNamed(
-                  Routes.searchRoute,
-                );
+                initProductBySearch();
+                Get.toNamed(Routes.searchRoute);
               },
               icon: const Icon(IconsManger.search))
         ],
       ),
       body: Obx(() => _categoryController.flowState.value != null
-          ? _categoryController.flowState.value!
-              .getScreenWidget(_getContentWidget(), retryActionFunction: () {
+          ? _categoryController.flowState.value!.getScreenWidget(
+              _GetContentWidget(categoryController: _categoryController),
+              retryActionFunction: () {
               _categoryController.getData();
             })
-          : _getContentWidget()),
+          : _GetContentWidget(categoryController: _categoryController)),
     );
   }
+}
 
-  Widget _getContentWidget() {
+class _GetContentWidget extends StatelessWidget {
+  final CategoryController categoryController;
+
+  const _GetContentWidget({Key? key, required this.categoryController})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        top: AppSpacing.ap8.w,
+      padding: const EdgeInsets.only(
+        top: AppSpacing.ap8,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,13 +90,16 @@ class _CategoryPageState extends State<CategoryPage> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: ListView.separated(
-                    itemBuilder: (context, index) => buildTitleCategories(index,
-                        _categoryController.categoryModel.value!.data![index]),
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 10.0.h,
+                    itemBuilder: (context, index) => BuildTitleCategories(
+                        categoryController: categoryController,
+                        index: index,
+                        data: categoryController
+                            .categoryModel.value!.data![index]),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 10.0,
                     ),
                     itemCount:
-                        _categoryController.categoryModel.value?.data?.length ??
+                        categoryController.categoryModel.value?.data?.length ??
                             0,
                   ),
                 ),
@@ -113,16 +122,16 @@ class _CategoryPageState extends State<CategoryPage> {
                         const SizedBox(height: 20.0),
                         AnimatedOpacity(
                           opacity:
-                              _categoryController.selectedCategoryItem.value ==
-                                      _categoryController.animateContainer.value
+                              categoryController.selectedCategoryItem.value ==
+                                      categoryController.animateContainer.value
                                   ? 1
                                   : 0,
                           duration: const Duration(milliseconds: 250),
                           child: BuildCondition(
-                            condition: _categoryController
+                            condition: categoryController
                                     .categoryModel
                                     .value
-                                    ?.data?[_categoryController
+                                    ?.data?[categoryController
                                         .selectedCategoryItem.value]
                                     .childCat
                                     .isNotEmpty ??
@@ -130,10 +139,10 @@ class _CategoryPageState extends State<CategoryPage> {
                             builder: (context) => GridView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: _categoryController
+                              itemCount: categoryController
                                       .categoryModel
                                       .value
-                                      ?.data?[_categoryController
+                                      ?.data?[categoryController
                                           .selectedCategoryItem.value]
                                       .childCat
                                       .length ??
@@ -145,18 +154,18 @@ class _CategoryPageState extends State<CategoryPage> {
                                 crossAxisSpacing: 10.0,
                                 childAspectRatio: 1 / 2,
                               ),
-                              itemBuilder: (context, index) => buildGridCat(
-                                  _categoryController
+                              itemBuilder: (context, index) => BuildGridCat(
+                                  categoryModel: categoryController
                                       .categoryModel
-                                      .value
-                                      ?.data?[_categoryController
+                                      .value!
+                                      .data![categoryController
                                           .selectedCategoryItem.value]
                                       .childCat[index]),
                             ),
                             fallback: (context) => Column(
                               children: [
                                 Lottie.asset(const $AssetsJsonGen().empty,
-                                    width: 300.w),
+                                    width: 300),
                                 Text(
                                   AppStrings.noProducts,
                                   style: context.textTheme.labelLarge,
@@ -176,12 +185,28 @@ class _CategoryPageState extends State<CategoryPage> {
       ),
     );
   }
+}
 
-  Widget buildTitleCategories(int index, CategoryDataWithChildModel data) {
+class BuildTitleCategories extends StatelessWidget {
+  final CategoryController categoryController;
+  final int index;
+  final CategoryDataWithChildModel data;
+
+  const BuildTitleCategories(
+      {Key? key,
+      required this.categoryController,
+      required this.index,
+      required this.data})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String locale = Get.locale!.languageCode;
+
     return Obx(
       () => AnimatedContainer(
         decoration: BoxDecoration(
-          color: _categoryController.selectedCategoryItem.value == index
+          color: categoryController.selectedCategoryItem.value == index
               ? ColorManager.darkColor
               : null,
         ),
@@ -189,11 +214,11 @@ class _CategoryPageState extends State<CategoryPage> {
         duration: const Duration(milliseconds: 500),
         child: TextButton(
           onPressed: () {
-            _categoryController.selectCategoryItem(index);
+            categoryController.selectCategoryItem(index);
           },
           child: Text(
             locale == "ar" ? data.nameAR : data.nameEN,
-            style: _categoryController.selectedCategoryItem.value == index
+            style: categoryController.selectedCategoryItem.value == index
                 ? context.textTheme.labelMedium
                     ?.copyWith(color: ColorManager.greyLight)
                 : context.textTheme.labelMedium,
@@ -203,34 +228,44 @@ class _CategoryPageState extends State<CategoryPage> {
       ),
     );
   }
+}
 
-  Widget buildGridCat(CategoryDataModel? categoryModel) => InkWell(
-        onTap: () {
-          initProductByCatId();
-          Get.toNamed(Routes.productByCatIdRoute,
-              arguments: {'categoryData': categoryModel!});
-        },
-        child: Column(
-          children: [
-            CachedNetworkImage(
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  BuildCircularProgressIndicatorWithDownload(downloadProgress),
-              errorWidget: (context, url, error) => const ErrorIcon(),
-              imageUrl: categoryModel!.image,
-              height: 100,
-              fit: BoxFit.contain,
+class BuildGridCat extends StatelessWidget {
+  final CategoryDataModel categoryModel;
+  const BuildGridCat({Key? key, required this.categoryModel}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String locale = Get.locale!.languageCode;
+
+    return InkWell(
+      onTap: () {
+        initProductByCatId();
+        Get.toNamed(Routes.productByCatIdRoute,
+            arguments: {'categoryData': categoryModel});
+      },
+      child: Column(
+        children: [
+          CachedNetworkImage(
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                BuildCircularProgressIndicatorWithDownload(downloadProgress),
+            errorWidget: (context, url, error) => const ErrorIcon(),
+            imageUrl: categoryModel.image,
+            height: 100,
+            fit: BoxFit.contain,
+          ),
+          const SizedBox(height: 5.0),
+          Flexible(
+            child: Text(
+              locale == "ar" ? categoryModel.nameAR : categoryModel.nameEN,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: context.textTheme.labelSmall,
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 5.0),
-            Flexible(
-              child: Text(
-                locale == "ar" ? categoryModel.nameAR : categoryModel.nameEN,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: context.textTheme.labelSmall,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 }

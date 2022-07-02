@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../app/components.dart';
 import '../../../app/components/common/build_logo.dart';
 import '../../../app/components/common/input_field.dart';
@@ -23,23 +21,15 @@ class ForgetPasswordView extends StatefulWidget {
 }
 
 class _ForgetPasswordViewState extends State<ForgetPasswordView> {
-  late final GlobalKey<FormState> _formKey;
-  late final TextEditingController _emailController;
   late final ForgetPasswordViewGetX _forgetPasswordController;
+  late final TextEditingController _emailController;
 
   @override
   void initState() {
     _emailController = TextEditingController();
-    _formKey = GlobalKey<FormState>();
+
     _forgetPasswordController = Get.find();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    //Get.delete<LoginViewModelGetX>();
-
-    super.dispose();
   }
 
   @override
@@ -49,7 +39,9 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
       body: Obx(() {
         return _forgetPasswordController.flowState.value != null
             ? _forgetPasswordController.flowState.value!.getScreenWidget(
-                _getContentWidget(),
+                _GetContentWidget(
+                    forgetPasswordController: _forgetPasswordController,
+                    emailController: _emailController),
                 retryActionFunction: _forgetPasswordController.flowState.value
                             ?.getStateRendererType() ==
                         StateRendererType.POPUP_CHECK_EMAIL_STATE
@@ -62,16 +54,44 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                         });
                       }
                     : null)
-            : _getContentWidget();
+            : _GetContentWidget(
+                forgetPasswordController: _forgetPasswordController,
+                emailController: _emailController,
+              );
       }),
     );
   }
+}
 
-  Widget _getContentWidget() {
+class _GetContentWidget extends StatefulWidget {
+  final ForgetPasswordViewGetX forgetPasswordController;
+  final TextEditingController emailController;
+
+  const _GetContentWidget(
+      {Key? key,
+      required this.forgetPasswordController,
+      required this.emailController})
+      : super(key: key);
+
+  @override
+  State<_GetContentWidget> createState() => _GetContentWidgetState();
+}
+
+class _GetContentWidgetState extends State<_GetContentWidget> {
+  late final GlobalKey<FormState> _formKey;
+
+  @override
+  void initState() {
+    _formKey = GlobalKey<FormState>();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(
-            top: AppSpacing.ap100.h,
+        padding: const EdgeInsets.only(
+            top: AppSpacing.ap100,
             left: AppSpacing.ap14,
             right: AppSpacing.ap14),
         child: Form(
@@ -88,14 +108,15 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                 children: [
                   Obx(() {
                     return InputField(
-                      controller: _emailController,
+                      controller: widget.emailController,
                       keyBoardType: TextInputType.emailAddress,
                       prefixIcon: IconsManger.email,
                       label: "${AppStrings.emailTitle} *",
                       errorText:
-                          _forgetPasswordController.alertEmailValid.value,
+                          widget.forgetPasswordController.alertEmailValid.value,
                       onChanged: (String? val) {
-                        _forgetPasswordController.setEmailEvent(val ?? "");
+                        widget.forgetPasswordController
+                            .setEmailEvent(val ?? "");
                       },
                     );
                   }),
@@ -107,12 +128,13 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
               Obx(() => SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _forgetPasswordController
-                              .isAllFieldsValid.value
-                          ? () {
-                              _forgetPasswordController.forgetPasswordEvent();
-                            }
-                          : null,
+                      onPressed:
+                          widget.forgetPasswordController.isAllFieldsValid.value
+                              ? () {
+                                  widget.forgetPasswordController
+                                      .forgetPasswordEvent();
+                                }
+                              : null,
                       child: Text(AppStrings.forgetPassword),
                     ),
                   )),

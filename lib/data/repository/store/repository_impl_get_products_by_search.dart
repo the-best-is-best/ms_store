@@ -1,21 +1,28 @@
 import 'package:dartz/dartz.dart';
+import 'package:ms_store/data/data_src/local_data_source.dart';
 import 'package:ms_store/data/mapper/store/get_products_with_pagination_response_mapper.dart';
-import '../../../domain/models/store/product_with_pagination_model.dart';
+import 'package:ms_store/data/network/requests/store_requests.dart';
+import 'package:ms_store/domain/models/store/product_model.dart';
+import 'package:ms_store/domain/models/store/product_with_pagination_model.dart';
+
 import '../../data_src/remote_data_src.dart';
 import '../../network/error_handler.dart';
 import '../../network/failure.dart';
 import '../../network/network_info.dart';
-import '../../network/requests/store_requests.dart';
+import '../../responses/store_responses/get_products_with_pagination_response.dart';
+import '../../mapper/store/get_products_with_pagination_response_mapper.dart';
 
-class RepositoryImplGetProductByCatId {
+class RepositoryImplGetProductsBySearch {
   static Future<Either<Failure, ProductWithPaginationModel>> call(
-      RemoteDataSrc remoteDataSrc,
-      NetworkInfo networkInfo,
-      GetProductsByCatIdRequests getProductsByCatIdRequests) async {
+    RemoteDataSrc remoteDataSrc,
+    NetworkInfo networkInfo,
+    GetProductsBySearchRequests getProductsBySearchRequests,
+  ) async {
     if (await networkInfo.isConnected) {
       try {
-        var response = await remoteDataSrc.getProductsByCatId(
-            GetProductsByCatIdRequests(getProductsByCatIdRequests.catId));
+        ProductWithPaginationDataResponse response = await remoteDataSrc
+            .getProductsBySearch(getProductsBySearchRequests);
+
         if (response.statusCode! >= 200 && response.statusCode! <= 299) {
           //success
           // return either right

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/core/resources/font_manger.dart';
+import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
 import '../../../app/components.dart';
 import '../../../app/components/common/build_logo.dart';
@@ -11,7 +12,6 @@ import '../../../core/resources/icons_manger.dart';
 import '../../../core/resources/routes_manger.dart';
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/resources/values_manager.dart';
-import '../../common/state_renderer/state_renderer_impl.dart';
 import '../login_view_model/login_view_model.dart';
 
 class LoginView extends StatefulWidget {
@@ -24,11 +24,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late final bool canBack;
 
-  late final GlobalKey<FormState> _formKey;
-  late final FocusNode _passwordNode;
-  late final LoadingSignButtonController _loadingSignButtonGoogleController;
-  late final LoadingSignButtonController _loadingSignButtonFacebookController;
-
   late final LoginViewModel _loginController;
 
   @override
@@ -36,11 +31,9 @@ class _LoginViewState extends State<LoginView> {
     if (Get.arguments != null) {
       canBack = Get.arguments['canBack'];
     }
-    _formKey = GlobalKey<FormState>();
-    _passwordNode = FocusNode();
+
     _loginController = Get.find();
-    _loadingSignButtonGoogleController = LoadingSignButtonController();
-    _loadingSignButtonFacebookController = LoadingSignButtonController();
+
     super.initState();
   }
 
@@ -57,21 +50,48 @@ class _LoginViewState extends State<LoginView> {
       body: Obx(() {
         return _loginController.flowState.value != null
             ? _loginController.flowState.value!.getScreenWidget(
-                _getContentWidget(),
+                _GetContentWidget(loginController: _loginController),
               )
-            : _getContentWidget();
+            : _GetContentWidget(loginController: _loginController);
       }),
     );
   }
+}
 
-  Widget _getContentWidget() {
+class _GetContentWidget extends StatefulWidget {
+  final LoginViewModel loginController;
+
+  const _GetContentWidget({Key? key, required this.loginController})
+      : super(key: key);
+
+  @override
+  State<_GetContentWidget> createState() => _GetContentWidgetState();
+}
+
+class _GetContentWidgetState extends State<_GetContentWidget> {
+  late final GlobalKey<FormState> _formKey;
+  late final FocusNode _passwordNode;
+  late final LoadingSignButtonController _loadingSignButtonGoogleController;
+  late final LoadingSignButtonController _loadingSignButtonFacebookController;
+
+  @override
+  void initState() {
+    _formKey = GlobalKey<FormState>();
+    _passwordNode = FocusNode();
+    _loadingSignButtonGoogleController = LoadingSignButtonController();
+    _loadingSignButtonFacebookController = LoadingSignButtonController();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 800),
         child: Padding(
-          padding: EdgeInsets.only(
-              top: AppSpacing.ap20.h,
+          padding: const EdgeInsets.only(
+              top: AppSpacing.ap20,
               left: AppSpacing.ap14,
               right: AppSpacing.ap14),
           child: Column(
@@ -92,10 +112,12 @@ class _LoginViewState extends State<LoginView> {
                           keyBoardType: TextInputType.emailAddress,
                           prefixIcon: IconsManger.email,
                           nextNode: _passwordNode,
-                          errorText: _loginController.alertEmailValid.value,
+                          errorText:
+                              widget.loginController.alertEmailValid.value,
                           onChanged: (String? val) {
-                            if (_loginController.loginBySocial.value == false) {
-                              _loginController.setEmailEvent(val ?? "");
+                            if (widget.loginController.loginBySocial.value ==
+                                false) {
+                              widget.loginController.setEmailEvent(val ?? "");
                             }
                           });
                     }),
@@ -104,24 +126,27 @@ class _LoginViewState extends State<LoginView> {
                       return InputField(
                           label: "${AppStrings.password} *",
                           keyBoardType: TextInputType.visiblePassword,
-                          obscureText: _loginController.obscure.value,
+                          obscureText: widget.loginController.obscure.value,
                           focusNode: _passwordNode,
                           prefixIcon: IconsManger.password,
-                          errorText: _loginController.alertPasswordValid.value,
+                          errorText:
+                              widget.loginController.alertPasswordValid.value,
                           suffixWidget: IconButton(
                             onPressed: () {
-                              _loginController.changeObscureEvent();
+                              widget.loginController.changeObscureEvent();
                             },
                             icon: Icon(
-                              !_loginController.obscure.value
+                              !widget.loginController.obscure.value
                                   ? IconsManger.visibility
                                   : IconsManger.visibilityOff,
-                              size: AppSpacing.ap30.sp,
+                              size: FontSize.s30,
                             ),
                           ),
                           onChanged: (String? val) {
-                            if (_loginController.loginBySocial.value == false) {
-                              _loginController.setPasswordLoginEvent(val ?? "");
+                            if (widget.loginController.loginBySocial.value ==
+                                false) {
+                              widget.loginController
+                                  .setPasswordLoginEvent(val ?? "");
                             }
                           });
                     }),
@@ -133,12 +158,14 @@ class _LoginViewState extends State<LoginView> {
                 return SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _loginController.loginBySocial.value == false &&
-                            _loginController.isAllFieldsValid.value == true
-                        ? () async {
-                            _loginController.loginEvent();
-                          }
-                        : null,
+                    onPressed:
+                        widget.loginController.loginBySocial.value == false &&
+                                widget.loginController.isAllFieldsValid.value ==
+                                    true
+                            ? () async {
+                                widget.loginController.loginEvent();
+                              }
+                            : null,
                     child: Text(AppStrings.login),
                   ),
                 );
@@ -148,12 +175,13 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   Expanded(
                     child: TextButton(
-                      onPressed: _loginController.loginBySocial.value == false
-                          ? () {
-                              initForgetPasswordModel();
-                              Get.toNamed(Routes.forgetPasswordRoute);
-                            }
-                          : null,
+                      onPressed:
+                          widget.loginController.loginBySocial.value == false
+                              ? () {
+                                  initForgetPasswordModel();
+                                  Get.toNamed(Routes.forgetPasswordRoute);
+                                }
+                              : null,
                       child: Text(
                         AppStrings.forgetPassword,
                         style: context.textTheme.labelSmall,
@@ -162,12 +190,13 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   Expanded(
                     child: TextButton(
-                      onPressed: _loginController.loginBySocial.value == false
-                          ? () {
-                              initRegisterModel();
-                              Get.offNamed(Routes.registerRoute);
-                            }
-                          : null,
+                      onPressed:
+                          widget.loginController.loginBySocial.value == false
+                              ? () {
+                                  initRegisterModel();
+                                  Get.offNamed(Routes.registerRoute);
+                                }
+                              : null,
                       child: Text(
                         AppStrings.notHaveAccount,
                         style: context.textTheme.labelSmall,
@@ -186,9 +215,9 @@ class _LoginViewState extends State<LoginView> {
                 buttonType: ButtonType.facebook,
                 title: AppStrings.facebookTitle,
                 controller: _loadingSignButtonFacebookController,
-                onSubmit: _loginController.loginBySocial.value == false
+                onSubmit: widget.loginController.loginBySocial.value == false
                     ? () {
-                        _loginController.loginByFaceBook(
+                        widget.loginController.loginByFaceBook(
                             _loadingSignButtonFacebookController);
                       }
                     : null,
@@ -198,9 +227,9 @@ class _LoginViewState extends State<LoginView> {
                 buttonType: ButtonType.google,
                 title: AppStrings.googleTitle,
                 controller: _loadingSignButtonGoogleController,
-                onSubmit: _loginController.loginBySocial.value == false
+                onSubmit: widget.loginController.loginBySocial.value == false
                     ? () {
-                        _loginController
+                        widget.loginController
                             .loginByGoogle(_loadingSignButtonGoogleController);
                       }
                     : null,

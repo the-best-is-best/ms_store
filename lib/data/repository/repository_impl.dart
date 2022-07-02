@@ -4,9 +4,10 @@ import 'package:ms_store/data/repository/store/repository_impl_add_favorite.dart
 import 'package:ms_store/data/repository/store/repository_impl_get_favorite.dart';
 import 'package:ms_store/data/repository/store/repository_impl_get_product_by_cat_id.dart';
 import 'package:ms_store/data/repository/store/repository_impl_get_products_by_ids.dart';
+import 'package:ms_store/data/repository/store/repository_impl_get_products_by_search.dart';
 import 'package:ms_store/data/repository/users_repository/repository_impl_login_by_social.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
-import 'package:ms_store/domain/models/store/product_cat_id_model.dart';
+import 'package:ms_store/domain/models/store/product_with_pagination_model.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/models/store/reviews_model.dart';
 import '../../domain/models/home_models/home_data_model.dart';
@@ -140,7 +141,7 @@ class RepositoryImpl extends Repository {
   }
 
   @override
-  Future<Either<Failure, ProductCatIdModel>> getProductsByCatId(
+  Future<Either<Failure, ProductWithPaginationModel>> getProductsByCatId(
       GetProductsByCatIdRequests getProductsByCatIdRequests) async {
     return await RepositoryImplGetProductByCatId.call(
         _remoteDataSrc, _networkInfo, getProductsByCatIdRequests);
@@ -150,6 +151,13 @@ class RepositoryImpl extends Repository {
   Future<Either<Failure, CategoryDataModel>> getCategoryDataById(
       GetCategoryDataByIdRequests getCategoryDataByIdRequests) async {
     return await RepositoryImplGetCategoryDataById.call(
+        _remoteDataSrc, _networkInfo, getCategoryDataByIdRequests);
+  }
+
+  @override
+  Future<Either<Failure, ProductWithPaginationModel>> getProductBySearch(
+      GetProductsBySearchRequests getCategoryDataByIdRequests) async {
+    return await RepositoryImplGetProductsBySearch.call(
         _remoteDataSrc, _networkInfo, getCategoryDataByIdRequests);
   }
 }

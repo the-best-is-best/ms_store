@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/core/resources/font_manger.dart';
 import '../../../app/components/common/build_logo.dart';
 import '../../../app/components/common/input_field.dart';
 import '../../../app/components/products/privacy_policy.dart';
@@ -74,10 +74,8 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _getContentWidget() {
     return SingleChildScrollView(
         child: Padding(
-      padding: EdgeInsets.only(
-          top: AppSpacing.ap100.h,
-          left: AppSpacing.ap14,
-          right: AppSpacing.ap14),
+      padding: const EdgeInsets.only(
+          top: AppSpacing.ap100, left: AppSpacing.ap14, right: AppSpacing.ap14),
       child: Form(
         key: _formKey,
         child: Column(
@@ -132,7 +130,7 @@ class _RegisterViewState extends State<RegisterView> {
                         !_registerController.obscure.value
                             ? IconsManger.visibility
                             : IconsManger.visibilityOff,
-                        size: AppSpacing.ap30.sp,
+                        size: FontSize.s30,
                       ),
                     ),
                     label: "${AppStrings.password} *",
@@ -160,7 +158,7 @@ class _RegisterViewState extends State<RegisterView> {
                         !_registerController.obscureAgain.value
                             ? IconsManger.visibility
                             : IconsManger.visibilityOff,
-                        size: AppSpacing.ap30.sp,
+                        size: FontSize.s30,
                       ),
                     ),
                     onChanged: (String? val) {

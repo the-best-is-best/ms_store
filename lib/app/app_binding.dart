@@ -113,6 +113,6 @@ class AppBinding implements Bindings {
   }
 
   void getSearchController() {
-    Get.lazyPut(() => SearchController(), fenix: true);
+    Get.lazyPut(() => SearchController(instance()), fenix: true);
   }
 }

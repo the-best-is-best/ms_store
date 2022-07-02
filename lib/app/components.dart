@@ -6,7 +6,7 @@ import 'package:ms_store/app/extensions.dart';
 import '../core/resources/font_manger.dart';
 
 Future<void> waitStateChanged({int? duration}) async {
-  await Future.delayed(Duration(milliseconds: duration ?? 500));
+  await Future.delayed(Duration(milliseconds: duration ?? 1000));
 }
 
 class ErrorIcon extends StatelessWidget {

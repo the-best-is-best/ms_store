@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../core/util/get_device_type.dart';
 import '../../core/resources/color_manager.dart';
 import '../../core/resources/font_manger.dart';
@@ -24,7 +23,7 @@ ThemeData get themeDataLight {
         shadowColor: ColorManager.disabledColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.ap12)),
-        elevation: AppSpacing.ap4.w),
+        elevation: AppSpacing.ap4),
     appBarTheme: AppBarTheme(
       toolbarHeight: 60.h,
       color: ColorManager.white,
@@ -104,9 +103,9 @@ ThemeData get themeDataLight {
       errorStyle:
           getRegularStyle(fontSize: FontSize.s16, color: ColorManager.error),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: ColorManager.grey,
-            width: AppSpacing.ap1_5.w,
+            width: AppSpacing.ap1_5,
           ),
           borderRadius: BorderRadius.all(Radius.circular(AppSpacing.ap14.r))),
       focusedBorder: OutlineInputBorder(

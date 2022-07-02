@@ -18,6 +18,7 @@ import '../domain/use_case/home_use_case.dart';
 import '../domain/use_case/store/add_favorite_use_case.dart';
 import '../domain/use_case/store/get_category_data_by_id_use_case.dart';
 import '../domain/use_case/store/get_favorite_use_case.dart';
+import '../domain/use_case/store/get_products_by_search_use_case.dart';
 import '../domain/use_case/store/get_products_supplier_use_case.dart';
 import '../domain/use_case/store/review/update_review_use_case.dart';
 import '../domain/use_case/users_case/active_email_case.dart';
@@ -120,5 +121,12 @@ void initProductByCatId() {
   if (!GetIt.I.isRegistered<GetProductByCatIdUseCase>()) {
     instance.registerFactory<GetProductByCatIdUseCase>(
         () => GetProductByCatIdUseCase(instance()));
+  }
+}
+
+void initProductBySearch() {
+  if (!GetIt.I.isRegistered<GetProductsBySearchUseCase>()) {
+    instance.registerFactory<GetProductsBySearchUseCase>(
+        () => GetProductsBySearchUseCase(instance()));
   }
 }

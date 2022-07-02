@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/core/resources/font_manger.dart';
 import '../../../app/components/active_code/build_pin_code.dart';
 import '../../../app/components/common/build_logo.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
@@ -73,8 +73,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   Widget _getContentWidget() {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(
-            top: AppSpacing.ap100.h,
+        padding: const EdgeInsets.only(
+            top: AppSpacing.ap100,
             left: AppSpacing.ap14,
             right: AppSpacing.ap14),
         child: Form(
@@ -102,10 +102,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                       focusNode: _passwordAgainNode,
                       obscureText: _resetPasswordController.obscure.value,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          IconsManger.password,
-                          size: AppSpacing.ap30.w,
-                        ),
+                        prefixIcon:
+                            Icon(IconsManger.password, size: FontSize.s30),
                         suffixIcon: IconButton(
                           onPressed: () {
                             _resetPasswordController.changeObscureEvent();
@@ -114,7 +112,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                             !_resetPasswordController.obscure.value
                                 ? IconsManger.visibility
                                 : IconsManger.visibilityOff,
-                            size: AppSpacing.ap30.w,
+                            size: FontSize.s30,
                           ),
                         ),
                         label: Text("${AppStrings.password} *"),
@@ -134,7 +132,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           IconsManger.password,
-                          size: AppSpacing.ap30.w,
+                          size: FontSize.s30,
                         ),
                         label: Text("${AppStrings.passwordAgain} *"),
                         errorText: _resetPasswordController
@@ -147,7 +145,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                             !_resetPasswordController.obscureAgain.value
                                 ? IconsManger.visibility
                                 : IconsManger.visibilityOff,
-                            size: AppSpacing.ap30.w,
+                            size: FontSize.s30,
                           ),
                         ),
                       ),

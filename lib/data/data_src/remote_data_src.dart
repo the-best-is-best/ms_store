@@ -1,9 +1,8 @@
 import 'package:ms_store/data/network/requests/store_requests.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
-import 'package:ms_store/data/responses/store_responses/get_products_by_cat_id_response.dart';
+import 'package:ms_store/data/responses/store_responses/get_products_with_pagination_response.dart';
 import 'package:ms_store/data/responses/store_responses/get_products_by_ids_responses.dart';
-import 'package:ms_store/data/responses/store_responses/get_products_supplies_response.dart';
 import '../network/app_api.dart';
 import '../network/requests/users_requests.dart';
 import '../responses/home_response/home_response.dart';
@@ -35,16 +34,18 @@ abstract class RemoteDataSrc {
       GetFavoriteRequests getFavoriteRequests);
   Future<GetProductByIdsDataResponse> getProductsByIds(
       GetProductByIdsRequests getProductByIdsRequests);
-  Future<GetProductsSuppliesResponse> getProductsSupplier(
+  Future<GetProductByIdsDataResponse> getProductsSupplier(
       GetProductsSupplierRequests getProductsSupplierRequests);
   Future<GetReviewsDataModelResponse> getReview(
       GetReviewRequests getProductsSupplierRequests);
   Future<UpdateReviewResponse> updateReview(
       UpdateReviewRequests updateProductsSupplierRequests);
-  Future<GetProductCatIdDataResponse> getProductsByCatId(
+  Future<ProductWithPaginationDataResponse> getProductsByCatId(
       GetProductsByCatIdRequests getProductsByCatIdRequests);
   Future<GetCategoryDataByIdResponse> getCategoryDataById(
       GetCategoryDataByIdRequests getProductsByCatIdRequests);
+  Future<ProductWithPaginationDataResponse> getProductsBySearch(
+      GetProductsBySearchRequests getProductsBySearchRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -134,7 +135,7 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
   }
 
   @override
-  Future<GetProductsSuppliesResponse> getProductsSupplier(
+  Future<GetProductByIdsDataResponse> getProductsSupplier(
       GetProductsSupplierRequests getProductsSupplierRequests) async {
     return await _appServicesClient
         .getProductsSupplier(getProductsSupplierRequests.categoryId);
@@ -159,7 +160,7 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
   }
 
   @override
-  Future<GetProductCatIdDataResponse> getProductsByCatId(
+  Future<ProductWithPaginationDataResponse> getProductsByCatId(
       GetProductsByCatIdRequests getProductsByCatIdRequests) async {
     return await _appServicesClient
         .getProductsByCatId(getProductsByCatIdRequests.catId);
@@ -170,5 +171,12 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
       GetCategoryDataByIdRequests getCategoryDataByIdRequests) async {
     return await _appServicesClient
         .getCategoryDataById(getCategoryDataByIdRequests.catId);
+  }
+
+  @override
+  Future<ProductWithPaginationDataResponse> getProductsBySearch(
+      GetProductsBySearchRequests getProductsBySearchRequests) async {
+    return await _appServicesClient.getProductsBySearch(
+        getProductsBySearchRequests.name, getProductsBySearchRequests.lang);
   }
 }

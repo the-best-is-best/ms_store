@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ms_store/domain/models/cache/cache_data.dart';
-import 'package:ms_store/domain/models/store/product_cat_id_model.dart';
+import 'package:ms_store/domain/models/store/product_with_pagination_model.dart';
 import 'package:ms_store/domain/models/store/reviews_model.dart';
 import '../../data/network/failure.dart';
 import '../../data/network/requests/store_requests.dart';
@@ -37,8 +37,10 @@ abstract class Repository {
       GetReviewRequests getReviewRequests);
   Future<Either<Failure, bool>> updateReview(
       UpdateReviewRequests updateReviewRequests);
-  Future<Either<Failure, ProductCatIdModel>> getProductsByCatId(
+  Future<Either<Failure, ProductWithPaginationModel>> getProductsByCatId(
       GetProductsByCatIdRequests getProductsByCatIdRequests);
   Future<Either<Failure, CategoryDataModel>> getCategoryDataById(
       GetCategoryDataByIdRequests getCategoryDataByIdRequests);
+  Future<Either<Failure, ProductWithPaginationModel>> getProductBySearch(
+      GetProductsBySearchRequests getCategoryDataByIdRequests);
 }

@@ -225,18 +225,18 @@ class _AppServicesClient implements AppServicesClient {
   }
 
   @override
-  Future<GetProductsSuppliesResponse> getProductsSupplier(categoryId) async {
+  Future<GetProductByIdsDataResponse> getProductsSupplier(categoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'categoryId': categoryId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<GetProductsSuppliesResponse>(
+        _setStreamType<GetProductByIdsDataResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/get_data/get_last_supplier.php',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = GetProductsSuppliesResponse.fromJson(_result.data!);
+    final value = GetProductByIdsDataResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -284,18 +284,18 @@ class _AppServicesClient implements AppServicesClient {
   }
 
   @override
-  Future<GetProductCatIdDataResponse> getProductsByCatId(catId) async {
+  Future<ProductWithPaginationDataResponse> getProductsByCatId(catId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'catId': catId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<GetProductCatIdDataResponse>(
+        _setStreamType<ProductWithPaginationDataResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/get_data/get_products_by_cat.php',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = GetProductCatIdDataResponse.fromJson(_result.data!);
+    final value = ProductWithPaginationDataResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -328,6 +328,23 @@ class _AppServicesClient implements AppServicesClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = GetAboutDataResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ProductWithPaginationDataResponse> getProductsBySearch(
+      name, lang) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'name': name, r'lang': lang};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductWithPaginationDataResponse>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/get_data/search_product.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProductWithPaginationDataResponse.fromJson(_result.data!);
     return value;
   }
 

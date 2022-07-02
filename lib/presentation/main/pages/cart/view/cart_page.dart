@@ -1,7 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
@@ -64,7 +63,7 @@ class _CartPageState extends State<CartPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset(const $AssetsJsonGen().empty, width: 300.w),
+                    Lottie.asset(const $AssetsJsonGen().empty, width: 300),
                     Text(
                       AppStrings.noProducts,
                       style: context.textTheme.labelLarge,
@@ -182,8 +181,8 @@ class _CartPageState extends State<CartPage> {
                 child: Stack(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                        left: 10.0.r,
+                      padding: const EdgeInsets.only(
+                        left: 10.0,
                       ),
                       child: Column(
                         children: [

@@ -59,7 +59,7 @@ class PViewState extends State<OnBoardingView> {
                                       item.title,
                                       style: context.textTheme.displayLarge,
                                     ),
-                                    const RSizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     SvgPicture.asset(
@@ -69,10 +69,10 @@ class PViewState extends State<OnBoardingView> {
                                       width: MediaQuery.of(context).size.width *
                                           .90,
                                     ),
-                                    const RSizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
-                                    RPadding(
+                                    Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0),
                                       child: Text(

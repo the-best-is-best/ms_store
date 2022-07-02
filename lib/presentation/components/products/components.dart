@@ -1,10 +1,10 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/components.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
+import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
 import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
@@ -53,7 +53,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
             child: Obx(() => IconButton(
                   icon: Icon(
                     IconsManger.minus,
-                    size: AppSize.ap30.sp,
+                    size: FontSize.s30,
                   ),
                   onPressed: _cartController.productId.value != null
                       ? null
@@ -81,7 +81,7 @@ class _AddToCartButtonState extends State<AddToCartButton> {
             child: Obx(() => IconButton(
                   icon: Icon(
                     IconsManger.plus,
-                    size: AppSize.ap30.sp,
+                    size: FontSize.s30,
                   ),
                   onPressed: _cartController.productId.value != null
                       ? null
@@ -245,7 +245,7 @@ class BuildProductItem extends StatelessWidget {
                     errorWidget: (context, url, error) => const ErrorIcon(),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(30.0.r),
+                    padding: const EdgeInsets.all(30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

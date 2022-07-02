@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:ms_store/data/mapper/store/products_supplier_response_mapper.dart';
+import 'package:ms_store/data/mapper/store/product_response_mapper.dart';
 
 import '../../../domain/models/store/product_model.dart';
 import '../../data_src/remote_data_src.dart';
@@ -7,7 +7,7 @@ import '../../network/error_handler.dart';
 import '../../network/failure.dart';
 import '../../network/network_info.dart';
 import '../../network/requests/store_requests.dart';
-import '../../responses/store_responses/get_products_supplies_response.dart';
+import '../../responses/store_responses/get_products_by_ids_responses.dart';
 
 class RepositoryImplGetProductsSupplier {
   static Future<Either<Failure, List<ProductModel>>> call(
@@ -17,7 +17,7 @@ class RepositoryImplGetProductsSupplier {
   ) async {
     if (await networkInfo.isConnected) {
       try {
-        GetProductsSuppliesResponse response = await remoteDataSrc
+        GetProductByIdsDataResponse response = await remoteDataSrc
             .getProductsSupplier(getProductsSupplierRequests);
 
         if (response.statusCode! >= 200 && response.statusCode! <= 299) {

@@ -1,6 +1,5 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ms_store/core/resources/strings_manager.dart';
@@ -86,7 +85,7 @@ class _ProductByCatState extends State<ProductByCat> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Lottie.asset(const $AssetsJsonGen().empty, height: 300.h),
+                Lottie.asset(const $AssetsJsonGen().empty, height: 300),
                 Text(
                   AppStrings.noProducts,
                   style: context.textTheme.labelLarge,

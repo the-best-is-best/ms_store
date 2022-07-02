@@ -50,4 +50,5 @@ class Constants {
   static const String getCategoryDataByIdUrl =
       '/$_getDataUrlPath/get_category_data_by_id.php';
   static const String aboutUrl = '/$_getDataUrlPath/get_about_us.php';
+  static const String searchUrl = '/$_getDataUrlPath/search_product.php';
 }

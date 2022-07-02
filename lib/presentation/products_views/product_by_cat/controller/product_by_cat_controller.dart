@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ms_store/domain/models/store/product_cat_id_model.dart';
+import 'package:ms_store/domain/models/store/product_with_pagination_model.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 
 import '../../../../app/components.dart';
@@ -11,7 +11,8 @@ import '../../../common/state_renderer/state_renderer_impl.dart';
 class ProductByCatController extends GetxController with BaseController {
   final GetProductByCatIdUseCase _getProductByCatIdUseCase;
   ProductByCatController(this._getProductByCatIdUseCase);
-  Rx<ProductCatIdModel?> productCatIdModel = Rx<ProductCatIdModel?>(null);
+  Rx<ProductWithPaginationModel?> productCatIdModel =
+      Rx<ProductWithPaginationModel?>(null);
 
   void getData(int catId) async {
     flowState.value = LoadingState(

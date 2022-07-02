@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/di.dart';
 import 'package:ms_store/gen/assets.gen.dart';
+import '../../core/resources/font_manger.dart';
 import '../on_boarding/view/on_boarding_view.dart';
 import 'controller/splash_controller.dart';
 import '../../../core/resources/color_manager.dart';
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
             "MS Store",
             textStyle: TextStyle(
               color: ColorManager.textColor,
-              fontSize: 32.0.sp,
+              fontSize: FontSize.s30,
               fontWeight: FontWeight.bold,
             ),
           ),

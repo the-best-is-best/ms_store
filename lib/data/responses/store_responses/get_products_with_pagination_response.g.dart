@@ -1,38 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_products_by_cat_id_response.dart';
+part of 'get_products_with_pagination_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetProductCatIdResponse _$GetProductCatIdResponseFromJson(
+ProductWithPaginationResponse _$ProductWithPaginationResponseFromJson(
         Map<String, dynamic> json) =>
-    GetProductCatIdResponse(
+    ProductWithPaginationResponse(
       (json['products'] as List<dynamic>?)
           ?.map((e) => ProductDataResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['totalPages'] as int?,
     );
 
-Map<String, dynamic> _$GetProductCatIdResponseToJson(
-        GetProductCatIdResponse instance) =>
+Map<String, dynamic> _$ProductWithPaginationResponseToJson(
+        ProductWithPaginationResponse instance) =>
     <String, dynamic>{
       'products': instance.products,
       'totalPages': instance.totalPages,
     };
 
-GetProductCatIdDataResponse _$GetProductCatIdDataResponseFromJson(
+ProductWithPaginationDataResponse _$ProductWithPaginationDataResponseFromJson(
         Map<String, dynamic> json) =>
-    GetProductCatIdDataResponse(
+    ProductWithPaginationDataResponse(
       json['data'] == null
           ? null
-          : GetProductCatIdResponse.fromJson(
+          : ProductWithPaginationResponse.fromJson(
               json['data'] as Map<String, dynamic>),
     )..statusCode = json['statusCode'] as int?;
 
-Map<String, dynamic> _$GetProductCatIdDataResponseToJson(
-        GetProductCatIdDataResponse instance) =>
+Map<String, dynamic> _$ProductWithPaginationDataResponseToJson(
+        ProductWithPaginationDataResponse instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'data': instance.data,
