@@ -7,9 +7,8 @@ import 'package:retrofit/retrofit.dart';
 import '../../app/constants.dart';
 import '../responses/home_response/home_response.dart';
 import '../responses/store_responses/categories_responses.dart';
-import '../responses/store_responses/get_products_by_cat_id_response.dart';
+import '../responses/store_responses/get_products_with_pagination_response.dart';
 import '../responses/store_responses/get_products_by_ids_responses.dart';
-import '../responses/store_responses/get_products_supplies_response.dart';
 import '../responses/store_responses/review/get_review_response.dart';
 import '../responses/store_responses/review/update_review_response.dart';
 import '../responses/support/get_about_data_response.dart';
@@ -93,7 +92,7 @@ abstract class AppServicesClient {
   // get Products Supplier
 
   @GET(Constants.getProductsSupplierUrl)
-  Future<GetProductsSuppliesResponse> getProductsSupplier(
+  Future<GetProductByIdsDataResponse> getProductsSupplier(
       @Query('categoryId') int categoryId);
 
   // get Products Review
@@ -116,7 +115,7 @@ abstract class AppServicesClient {
   // get Products By CatId
 
   @GET(Constants.getProductsByCatIdUrl)
-  Future<GetProductCatIdDataResponse> getProductsByCatId(
+  Future<ProductWithPaginationDataResponse> getProductsByCatId(
       @Query('catId') int catId);
 
   // get Category Data By Id
@@ -124,8 +123,12 @@ abstract class AppServicesClient {
   @GET(Constants.getCategoryDataByIdUrl)
   Future<GetCategoryDataByIdResponse> getCategoryDataById(
       @Query('catId') int catId);
-// get Category Data By Id
 
+// get Category Data By Id
   @GET(Constants.aboutUrl)
   Future<GetAboutDataResponse> getAbout();
+  // get Search Products
+  @GET(Constants.searchUrl)
+  Future<ProductWithPaginationDataResponse> getProductsBySearch(
+      @Query('name') String name, @Query('lang') String lang);
 }
