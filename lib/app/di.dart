@@ -25,7 +25,6 @@ import '../domain/use_case/users_case/forget_password_case.dart';
 import '../domain/use_case/users_case/login_use_case.dart';
 import '../domain/use_case/users_case/register_use_case.dart';
 import '../domain/use_case/users_case/reset_password_case.dart';
-import '../presentation/base/favorite_functions.dart';
 
 final instance = GetIt.instance;
 
@@ -74,7 +73,6 @@ Future initHomeModel() async {
     instance.registerFactory<GetFavoriteUseCase>(
         () => GetFavoriteUseCase(instance()));
 
-    instance.registerFactory(() => FavoriteFunctions());
     instance.registerFactory(() => GetCategoryDataByIdUseCase(instance()));
   }
 }

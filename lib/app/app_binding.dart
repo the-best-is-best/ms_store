@@ -1,8 +1,6 @@
 import 'package:get/instance_manager.dart';
-import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
-import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 import 'package:ms_store/presentation/products_views/details/controller/product_details_controller.dart';
 import 'package:ms_store/presentation/products_views/product_by_cat/controller/product_by_cat_controller.dart';
@@ -10,12 +8,12 @@ import '../presentation/contact_us/controller/contact_us_controller.dart';
 import '../presentation/main/pages/home/view_model/home_controller.dart';
 import '../presentation/main/controller/main_view_controller.dart';
 import '../presentation/on_boarding/on_boarding_view_model/on_boarding_view_model_getx.dart';
-
 import '../presentation/active_email/view_model/active_email_controller.dart';
 import '../presentation/forget_password/view_model/forget_password_controller.dart';
 import '../presentation/login/login_view_model/login_view_model.dart';
 import '../presentation/register/view_model/register_controller.dart';
 import '../presentation/rest_password/view_model/rest_password_controller.dart';
+import '../presentation/search/controller/search_controller.dart';
 import 'di.dart';
 
 class AppBinding implements Bindings {
@@ -51,6 +49,8 @@ class AppBinding implements Bindings {
     getProductByCatId();
     // contact us
     getContactUsController();
+    // search
+    getSearchController();
   }
 
   void getOnBoardingController() {
@@ -110,5 +110,9 @@ class AppBinding implements Bindings {
 
   void getContactUsController() {
     Get.lazyPut(() => ContactUsController(), fenix: true);
+  }
+
+  void getSearchController() {
+    Get.lazyPut(() => SearchController(), fenix: true);
   }
 }

@@ -39,9 +39,7 @@ class HomeController extends GetxController with BaseController {
       var result = await favController.getFavorite(
           instance(), userDataController.userModel.value!.id);
       result.fold((failure) {}, (data) async {
-        print("get data fav ${data.keys}");
         favController.favoriteModel.addAll(data);
-        await waitStateChanged();
 
         await favController.getProductsFavorite(data);
       });
@@ -49,6 +47,7 @@ class HomeController extends GetxController with BaseController {
       await cartController.getCart();
     }
     var resultHome = await _homeUseCase.execute(null);
+    await waitStateChanged();
 
     resultHome.fold((failure) {
       flowState.value = ErrorState(
@@ -98,9 +97,9 @@ class HomeController extends GetxController with BaseController {
     flowState.value = LoadingState(
         stateRendererType: StateRendererType.POPUP_LOADING_STATE,
         message: AppStrings.loading);
-    Map<String, int> data = {"id[$productId]": productId};
-    var result =
-        await _getProductByIdUseCase.execute(GetProductByIdUseCaseInput(data));
+    Map<String, int> dataSend = {"id[0]": productId};
+    var result = await _getProductByIdUseCase
+        .execute(GetProductByIdUseCaseInput(dataSend));
     await waitStateChanged();
 
     result.fold((failure) {

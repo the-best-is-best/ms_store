@@ -1,6 +1,5 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
@@ -10,7 +9,6 @@ import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
 import '../../../app/components/common/input_field.dart';
 import '../../../app/components/common/phone_form_field.dart';
-import '../../../core/resources/icons_manger.dart';
 import '../../../core/resources/values_manager.dart';
 import '../controller/contact_us_controller.dart';
 

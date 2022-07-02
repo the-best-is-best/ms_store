@@ -11,9 +11,7 @@ import '../../common/state_renderer/state_renderer_impl.dart';
 import '../view_model/active_email_controller.dart';
 
 class ActiveEmailView extends StatefulWidget {
-  final String email = Get.arguments['email'];
-
-  ActiveEmailView({Key? key}) : super(key: key);
+  const ActiveEmailView({Key? key}) : super(key: key);
 
   @override
   State<ActiveEmailView> createState() => _ActiveEmailViewState();
@@ -22,12 +20,13 @@ class ActiveEmailView extends StatefulWidget {
 class _ActiveEmailViewState extends State<ActiveEmailView> {
   late final GlobalKey<FormState> _formKey;
   final ActiveEmailController _activeEmailController = Get.find();
+  final String email = Get.arguments['email'];
 
   @override
   void initState() {
     _formKey = GlobalKey<FormState>();
     super.initState();
-    _activeEmailController.setEmailEvent(widget.email);
+    _activeEmailController.setEmailEvent(email);
   }
 
   @override

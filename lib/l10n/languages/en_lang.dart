@@ -111,6 +111,7 @@ established in 2022""",
       'submit': "Submit",
       'submitted': "Submitted",
       'thanks_for_contact_us': 'Thanks for contact us',
+      'search': 'Search',
     };
   }
 }

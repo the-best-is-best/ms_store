@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
 import '../../../app/components.dart';
 import '../../../app/components/common/build_logo.dart';
 import '../../../app/components/common/input_field.dart';
+import '../../../app/components/login/login_social.dart';
 import '../../../app/di.dart';
-import '../../../core/resources/color_manager.dart';
-import '../../../core/resources/font_manger.dart';
 import '../../../core/resources/icons_manger.dart';
 import '../../../core/resources/routes_manger.dart';
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/resources/values_manager.dart';
-import '../../../gen/assets.gen.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../login_view_model/login_view_model.dart';
 
 class LoginView extends StatefulWidget {
-  final bool canBack = Get.arguments['canBack'];
-  LoginView({Key? key}) : super(key: key);
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   State<LoginView> createState() => _LoginViewState();
 }
 
 class _LoginViewState extends State<LoginView> {
+  late final bool canBack;
+
   late final GlobalKey<FormState> _formKey;
   late final FocusNode _passwordNode;
   late final LoadingSignButtonController _loadingSignButtonGoogleController;
@@ -35,6 +33,9 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void initState() {
+    if (Get.arguments != null) {
+      canBack = Get.arguments['canBack'];
+    }
     _formKey = GlobalKey<FormState>();
     _passwordNode = FocusNode();
     _loginController = Get.find();
@@ -52,7 +53,7 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: !widget.canBack ? null : AppBar(leading: const ButtonBack()),
+      appBar: !canBack ? null : AppBar(leading: const ButtonBack()),
       body: Obx(() {
         return _loginController.flowState.value != null
             ? _loginController.flowState.value!.getScreenWidget(
@@ -181,19 +182,10 @@ class _LoginViewState extends State<LoginView> {
                 style: context.textTheme.labelMedium,
               ),
               const SizedBox(height: AppSpacing.ap12),
-              LoadingSignButton(
-                width: context.width,
-                height: 50,
+              BuildLoginSocialButton(
                 buttonType: ButtonType.facebook,
-                btnText: AppStrings.facebookTitle,
-                fontSize: FontSize.s18,
-                imageSize: AppSize.ap20,
+                title: AppStrings.facebookTitle,
                 controller: _loadingSignButtonFacebookController,
-                durationSuccess: const Duration(seconds: 1),
-                progressIndicatorColor: ColorManager.primaryColor,
-                successWidget: Lottie.asset(
-                  const $AssetsJsonGen().success,
-                ),
                 onSubmit: _loginController.loginBySocial.value == false
                     ? () {
                         _loginController.loginByFaceBook(
@@ -202,20 +194,10 @@ class _LoginViewState extends State<LoginView> {
                     : null,
               ),
               const SizedBox(height: AppSpacing.ap16),
-              LoadingSignButton(
-                width: context.width,
-                height: 50,
+              BuildLoginSocialButton(
                 buttonType: ButtonType.google,
-                btnText: AppStrings.googleTitle,
-                fontSize: FontSize.s18,
-                imageSize: AppSize.ap20,
+                title: AppStrings.googleTitle,
                 controller: _loadingSignButtonGoogleController,
-                errorColor: ColorManager.error,
-                durationSuccess: const Duration(seconds: 1),
-                progressIndicatorColor: ColorManager.primaryColor,
-                successWidget: Lottie.asset(
-                  const $AssetsJsonGen().success,
-                ),
                 onSubmit: _loginController.loginBySocial.value == false
                     ? () {
                         _loginController

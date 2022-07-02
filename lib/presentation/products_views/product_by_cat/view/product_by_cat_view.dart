@@ -13,9 +13,7 @@ import '../../../components/products/components.dart';
 import '../../../components/products/functions.dart';
 
 class ProductByCat extends StatefulWidget {
-  final CategoryDataModel categoryModel = Get.arguments['categoryData'];
-
-  ProductByCat({Key? key}) : super(key: key);
+  const ProductByCat({Key? key}) : super(key: key);
 
   @override
   State<ProductByCat> createState() => _ProductByCatState();
@@ -24,11 +22,13 @@ class ProductByCat extends StatefulWidget {
 class _ProductByCatState extends State<ProductByCat> {
   late final String _language;
   late final ProductByCatController _productByCatController;
+  final CategoryDataModel categoryModel = Get.arguments['categoryData'];
+
   @override
   void initState() {
     _language = Get.locale!.languageCode;
     _productByCatController = Get.find();
-    _productByCatController.getData(widget.categoryModel.id);
+    _productByCatController.getData(categoryModel.id);
     super.initState();
   }
 
@@ -101,7 +101,6 @@ class _ProductByCatState extends State<ProductByCat> {
 
   @override
   Widget build(BuildContext context) {
-    print("lalala - ${widget.categoryModel.nameAR}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -113,7 +112,7 @@ class _ProductByCatState extends State<ProductByCat> {
           child: FittedBox(
             fit: BoxFit.fitWidth,
             child: Text(
-              '${AppStrings.productsCategory} ( ${_language == "ar" ? widget.categoryModel.nameAR : widget.categoryModel.nameEN} )',
+              '${AppStrings.productsCategory} ( ${_language == "ar" ? categoryModel.nameAR : categoryModel.nameEN} )',
               style: context.textTheme.bodyMedium!.copyWith(fontSize: null),
             ),
           ),
@@ -122,7 +121,7 @@ class _ProductByCatState extends State<ProductByCat> {
       body: Obx(() => _productByCatController.flowState.value != null
           ? _productByCatController.flowState.value!
               .getScreenWidget(_getContentWidget(), retryActionFunction: () {
-              _productByCatController.getData(widget.categoryModel.id);
+              _productByCatController.getData(categoryModel.id);
             })
           : _getContentWidget()),
     );

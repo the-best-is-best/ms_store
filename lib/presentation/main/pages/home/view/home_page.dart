@@ -9,6 +9,7 @@ import 'package:ms_store/presentation/components/products/functions.dart';
 import '../../../../../app/components.dart';
 import '../../../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../../../app/components/common/input_field.dart';
+import '../../../../../core/resources/routes_manger.dart';
 import '../../../../../core/resources/styles_manger.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
@@ -33,11 +34,14 @@ class _HomePageState extends State<HomePage> {
   String locale = Get.locale!.languageCode;
 
   late final HomeController _homeController;
+  late final TextEditingController searchTextEditingController;
 
   @override
   void initState() {
     _homeController = Get.find();
     _homeController.getHomeData();
+    searchTextEditingController = TextEditingController();
+
     super.initState();
   }
 
@@ -211,10 +215,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60,
-        title: const InputField(
+        title: InputField(
+          controller: searchTextEditingController,
           keyBoardType: TextInputType.text,
-          label: 'Search',
+          label: AppStrings.search,
           prefixIcon: IconsManger.search,
+          onEditingComplete: () {
+            Get.toNamed(Routes.searchRoute,
+                arguments: {'searchTitle': searchTextEditingController.text});
+          },
         ),
       ),
       body: Padding(

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/di.dart';
 import 'package:ms_store/core/resources/strings_manager.dart';
@@ -9,8 +8,6 @@ import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
-import 'package:ms_store/presentation/main/pages/home/view_model/home_controller.dart';
-
 import '../../../../app/components.dart';
 import '../../../../core/resources/routes_manger.dart';
 import '../../../../domain/use_case/store/get_products_supplier_use_case.dart';

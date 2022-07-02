@@ -4,8 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
-import 'package:ms_store/presentation/base/favorite_functions.dart';
-
 import '../../../../../app/components.dart';
 import '../../../../../app/di.dart';
 import '../../../../../core/resources/routes_manger.dart';

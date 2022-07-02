@@ -20,8 +20,7 @@ import 'package:ms_store/presentation/products_views/details/controller/product_
 
 import '../../../../app/components.dart';
 import '../../../../app/components/common/build_circular_progress_indicator.dart';
-import '../../../../app/components/common/input_field.dart';
-import '../../../../app/components/products/comment_dialoig.dart';
+import '../../../../app/components/products/comment_dialog.dart';
 import '../../../../core/resources/font_manger.dart';
 import '../../../../core/resources/styles_manger.dart';
 import '../../../../domain/models/store/reviews_model.dart';

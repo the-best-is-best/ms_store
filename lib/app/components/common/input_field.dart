@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../core/resources/color_manager.dart';
 import '../../../core/resources/font_manger.dart';
 import '../../../core/resources/styles_manger.dart';
@@ -10,6 +8,8 @@ import '../../../core/util/get_device_type.dart';
 
 class InputField extends StatefulWidget {
   final Function(String)? onChanged;
+  final VoidCallback? onEditingComplete;
+
   final TextEditingController? controller;
   final String? errorText;
   final FocusNode? focusNode;
@@ -32,6 +32,7 @@ class InputField extends StatefulWidget {
     this.onChanged,
     required this.prefixIcon,
     this.suffixWidget,
+    this.onEditingComplete,
   }) : super(key: key);
 
   @override
@@ -82,6 +83,7 @@ class _InputFieldState extends State<InputField> {
           ),
           errorText: widget.errorText),
       onChanged: widget.onChanged,
+      onEditingComplete: widget.onEditingComplete,
     );
   }
 }

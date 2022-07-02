@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:ms_store/app/components.dart';
 import 'package:ms_store/core/resources/color_manager.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
 import 'package:ms_store/core/resources/icons_manger.dart';
@@ -12,7 +11,6 @@ import 'package:ms_store/core/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
-
 import '../../../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../../../core/resources/strings_manager.dart';
 import '../../../../components/products/components.dart';

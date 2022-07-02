@@ -64,8 +64,7 @@ dependencies:
   retrofit: ^3.0.1+1
   smooth_page_indicator: ^1.0.0+2
   tbib_loading_transition_button_and_social: ^1.0.0
-  tbib_phone_form_field: 
-     path: ../../../tbib_library/tbib_phone_form_field/
+  tbib_phone_form_field: ^0.0.3
   tbib_splash_screen: ^0.0.6
   url_launcher: ^6.1.4
 dev_dependencies:

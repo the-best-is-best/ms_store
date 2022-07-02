@@ -14,8 +14,7 @@ import '../../../core/resources/strings_manager.dart';
 import '../../../core/resources/values_manager.dart';
 
 class ResetPasswordView extends StatefulWidget {
-  final String email = Get.arguments['email'];
-  ResetPasswordView({Key? key}) : super(key: key);
+  const ResetPasswordView({Key? key}) : super(key: key);
 
   @override
   State<ResetPasswordView> createState() => _ResetPasswordViewState();
@@ -27,6 +26,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   late final FocusNode _passwordAgainNode;
   late final GlobalKey<FormState> _formKey;
   late final ResetPasswordController _resetPasswordController;
+  final String email = Get.arguments['email'];
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
     _resetPasswordController = Get.find();
     _formKey = GlobalKey<FormState>();
     super.initState();
-    _resetPasswordController.setEmailEvent(widget.email);
+    _resetPasswordController.setEmailEvent(email);
   }
 
   @override

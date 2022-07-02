@@ -8,6 +8,7 @@ import 'package:ms_store/presentation/login/view/login_view.dart';
 import 'package:ms_store/presentation/products_views/details/view/product_details_view.dart';
 import 'package:ms_store/presentation/register/view/register_view.dart';
 import 'package:ms_store/presentation/rest_password/view/rest_password_view.dart';
+import 'package:ms_store/presentation/search/view/search_view.dart';
 import 'package:ms_store/presentation/splash/splash_screen.dart';
 
 import '../../presentation/main/main_view.dart';
@@ -27,6 +28,7 @@ class Routes {
   static const productByCatIdRoute = "/productByCatId";
   static const aboutRoute = "/about";
   static const contactUsRoute = "/contactUsRoute";
+  static const searchRoute = "/searchRoute";
 }
 
 class RouteGeneratorGetX {
@@ -37,7 +39,7 @@ class RouteGeneratorGetX {
         ),
         GetPage(
           name: Routes.loginRoute,
-          page: () => LoginView(),
+          page: () => const LoginView(),
         ),
         GetPage(
           name: Routes.registerRoute,
@@ -49,11 +51,11 @@ class RouteGeneratorGetX {
         ),
         GetPage(
           name: Routes.resetPasswordRoute,
-          page: () => ResetPasswordView(),
+          page: () => const ResetPasswordView(),
         ),
         GetPage(
           name: Routes.activeEmailRoute,
-          page: () => ActiveEmailView(),
+          page: () => const ActiveEmailView(),
         ),
         GetPage(
           name: Routes.homeRoute,
@@ -65,7 +67,7 @@ class RouteGeneratorGetX {
         ),
         GetPage(
           name: Routes.productByCatIdRoute,
-          page: () => ProductByCat(),
+          page: () => const ProductByCat(),
         ),
         GetPage(
           name: Routes.aboutRoute,
@@ -74,6 +76,10 @@ class RouteGeneratorGetX {
         GetPage(
           name: Routes.contactUsRoute,
           page: () => const ContactUsView(),
+        ),
+        GetPage(
+          name: Routes.searchRoute,
+          page: () => const SearchView(),
         ),
       ];
 }

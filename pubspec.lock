@@ -995,10 +995,10 @@ packages:
   tbib_phone_form_field:
     dependency: "direct main"
     description:
-      path: "../../../tbib_library/tbib_phone_form_field"
-      relative: true
-    source: path
-    version: "0.0.2"
+      name: tbib_phone_form_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   tbib_splash_screen:
     dependency: "direct main"
     description:

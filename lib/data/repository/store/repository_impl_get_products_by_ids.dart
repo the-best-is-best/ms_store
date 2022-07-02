@@ -19,26 +19,22 @@ class RepositoryImplGetProductsByIds {
   ) async {
     if (await networkInfo.isConnected) {
       try {
-        return Right(await localDataSource.getProductFavData());
-      } catch (_) {
-        try {
-          GetProductByIdsDataResponse response =
-              await remoteDataSrc.getProductsByIds(getProductByIdsRequests);
+        GetProductByIdsDataResponse response =
+            await remoteDataSrc.getProductsByIds(getProductByIdsRequests);
 
-          if (response.statusCode! >= 200 && response.statusCode! <= 299) {
-            //success
-            // return either right
-            // return data
-            localDataSource.saveProductFavData(response.toDomain());
-            return Right(response.toDomain());
-          } else {
-            //failure
-            // return either left
-            return left(Failure(response.statusCode ?? 500, "Error server"));
-          }
-        } catch (error) {
-          return Left(ErrorHandler.handle(error).failure);
+        if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+          //success
+          // return either right
+          // return data
+          localDataSource.saveProductFavData(response.toDomain());
+          return Right(response.toDomain());
+        } else {
+          //failure
+          // return either left
+          return left(Failure(response.statusCode ?? 500, "Error server"));
         }
+      } catch (error) {
+        return Left(ErrorHandler.handle(error).failure);
       }
     } else {
       //failure

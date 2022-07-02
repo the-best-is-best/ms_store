@@ -206,7 +206,7 @@ class LoginViewModel extends GetxController
 
   Future getUserData(UserModel data) async {
     await AppPrefs().updateUserData(data);
-    await waitStateChanged();
+    await waitStateChanged(duration: 1100);
     bool homeRepaired = Get.isPrepared<HomeController>();
     if (!homeRepaired) {
       UserDataController userDataController = Get.find();

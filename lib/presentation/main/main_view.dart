@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/core/resources/font_manger.dart';
-import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
-
 import '../../../core/resources/icons_manger.dart';
 import '../../../core/resources/strings_manager.dart';
 import '../../../core/resources/values_manager.dart';
-import '../../app/di.dart';
 import 'controller/main_view_controller.dart';
 
 class MainView extends StatefulWidget {

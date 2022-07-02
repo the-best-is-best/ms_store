@@ -94,4 +94,5 @@ class AppStrings {
   static String get price => 'price'.tr;
   static String get aboutUsText => 'about_us_text'.tr;
   static String get submit => 'submit'.tr;
+  static String get search => 'search'.tr;
 }

@@ -104,7 +104,6 @@ class ContactUsController extends GetxController with BaseController {
 
   Rx<bool> isAllFieldsValid = Rx<bool>(false);
   void allFelidsValidEvent() {
-    print(alertEmailValid.value);
     if (contactUsObject.value.email.isNotEmpty &&
         contactUsObject.value.userName.isNotEmpty &&
         contactUsObject.value.phone.isNotEmpty &&

@@ -46,7 +46,13 @@ class _CategoryPageState extends State<CategoryPage> {
           style: context.textTheme.displayLarge,
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(IconsManger.search))
+          IconButton(
+              onPressed: () {
+                Get.toNamed(
+                  Routes.searchRoute,
+                );
+              },
+              icon: const Icon(IconsManger.search))
         ],
       ),
       body: Obx(() => _categoryController.flowState.value != null

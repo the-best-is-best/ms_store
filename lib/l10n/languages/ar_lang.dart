@@ -111,6 +111,7 @@ class ArLang {
       'submit': "إرسال",
       'submitted': "تم الارسال",
       'thanks_for_contact_us': 'Thanks for contact us',
+      'search': 'البحث',
     };
   }
 }
