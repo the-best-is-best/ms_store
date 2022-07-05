@@ -5,11 +5,11 @@ import 'package:ms_store/app/app_refs.dart';
 import 'package:ms_store/app/components/common/list_view.dart';
 import 'package:ms_store/app/di.dart';
 import 'package:ms_store/app/extensions.dart';
-import 'package:ms_store/core/resources/color_manager.dart';
-import 'package:ms_store/core/resources/icons_manger.dart';
-import 'package:ms_store/core/resources/routes_manger.dart';
-import 'package:ms_store/core/resources/strings_manager.dart';
-import 'package:ms_store/core/resources/values_manager.dart';
+import 'package:ms_store/app/resources/color_manager.dart';
+import 'package:ms_store/app/resources/icons_manger.dart';
+import 'package:ms_store/app/resources/routes_manger.dart';
+import 'package:ms_store/app/resources/strings_manager.dart';
+import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 
@@ -59,8 +59,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                       ListTile(
                         onTap: () {
-                          AppPrefs().clearUserData();
-                          _userDataController.userModel.value = null;
+                          // AppPrefs().clearUserData();
+                          // _userDataController.userModel.value = null;
+                          Get.toNamed(Routes.accountRoute);
                         },
                         title: BuildCondition(
                           condition:

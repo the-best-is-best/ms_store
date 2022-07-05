@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/core/resources/color_manager.dart';
-import 'package:ms_store/core/resources/font_manger.dart';
-import 'package:ms_store/core/resources/strings_manager.dart';
-import 'package:ms_store/core/resources/styles_manger.dart';
-import 'package:ms_store/core/resources/values_manager.dart';
+import 'package:ms_store/app/resources/color_manager.dart';
+import 'package:ms_store/app/resources/font_manger.dart';
+import 'package:ms_store/app/resources/strings_manager.dart';
+import 'package:ms_store/app/resources/styles_manger.dart';
+import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 
 class AboutView extends StatelessWidget {

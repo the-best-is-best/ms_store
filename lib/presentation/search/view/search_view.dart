@@ -2,12 +2,14 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
+import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
+import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 
 import '../../../app/components/common/input_field.dart';
-import '../../../core/resources/icons_manger.dart';
-import '../../../core/resources/strings_manager.dart';
-import '../../../core/resources/values_manager.dart';
-import '../../../core/util/get_device_type.dart';
+import '../../../app/resources/icons_manger.dart';
+import '../../../app/resources/strings_manager.dart';
+import '../../../app/resources/values_manager.dart';
+import '../../../app/util/get_device_type.dart';
 import '../../components/products/components.dart';
 import '../../components/products/functions.dart';
 import '../controller/search_controller.dart';
@@ -24,6 +26,8 @@ class _SearchViewState extends State<SearchView> {
 
   late final SearchController _searchController;
   late final TextEditingController _searchTextEditingController;
+  late final CartController _cartController;
+  late final FavController _favController;
 
   @override
   void initState() {
@@ -59,6 +63,8 @@ class _SearchViewState extends State<SearchView> {
             () => _searchController.flowState.value != null
                 ? _searchController.flowState.value!.getScreenWidget(
                     _GetContentWidget(
+                      cartController: _cartController,
+                      favController: _favController,
                       searchController: _searchController,
                     ), retryActionFunction: () {
                     _searchController.search(_searchTextEditingController.text);
@@ -67,6 +73,8 @@ class _SearchViewState extends State<SearchView> {
                     condition: _searchController.productSearch.value != null,
                     builder: (context) {
                       return _GetContentWidget(
+                          cartController: _cartController,
+                          favController: _favController,
                           searchController: _searchController);
                     },
                   ),
@@ -79,7 +87,14 @@ class _SearchViewState extends State<SearchView> {
 
 class _GetContentWidget extends StatelessWidget {
   final SearchController searchController;
-  const _GetContentWidget({Key? key, required this.searchController})
+  final CartController cartController;
+  final FavController favController;
+
+  const _GetContentWidget(
+      {Key? key,
+      required this.searchController,
+      required this.cartController,
+      required this.favController})
       : super(key: key);
 
   @override
@@ -107,6 +122,7 @@ class _GetContentWidget extends StatelessWidget {
                         searchController.productSearch.value?.products.length ??
                             0,
                     itemBuilder: (_, int index) => BuildProductItem(
+                        cartController: cartController,
                         locale: _language,
                         onTap: () {
                           goToProductDetails(searchController
@@ -115,6 +131,7 @@ class _GetContentWidget extends StatelessWidget {
                         productModel: searchController
                             .productSearch.value!.products[index],
                         favWidget: AddToFavoriteButton(
+                            favController: favController,
                             product: searchController
                                 .productSearch.value!.products[index])),
                   )),

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:ms_store/app/components/common/build_logo.dart';
 import '../../../app/components.dart';
 import '../../../app/components/active_code/build_pin_code.dart';
-import '../../../core/resources/strings_manager.dart';
-import '../../../core/resources/values_manager.dart';
+import '../../../app/resources/strings_manager.dart';
+import '../../../app/resources/values_manager.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../view_model/active_email_controller.dart';
 

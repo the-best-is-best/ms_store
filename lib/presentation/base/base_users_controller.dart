@@ -1,7 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:get/get.dart';
 import '../common/freezed/freezed_data.dart';
-import '../../../core/resources/strings_manager.dart';
+import '../../../app/resources/strings_manager.dart';
 
 mixin BaseUserController {
   void setEmailEvent(String email) {
@@ -22,7 +22,7 @@ mixin BaseUserController {
     }
   }
 
-  Rxn<String?> alertPasswordValid = Rxn<String>();
+  Rxn<String?> alertPasswordValid = Rxn<String?>();
 
   String? isPasswordValidEvent(String pass, {bool isLogin = false}) {
     if (pass.isEmpty) {
@@ -44,13 +44,12 @@ mixin BaseUserController {
 
   void setPasswordEvent(String password) {
     userDataObject.value = userDataObject.value.copyWith(password: password);
-
     alertPasswordValid.value = isPasswordValidEvent(password, isLogin: false);
     alertPasswordAgainValid.value =
         isPasswordAginValidEvent(userDataObject.value.passwordAgin);
   }
 
-  Rxn<String?> alertPasswordAgainValid = Rxn<String>();
+  Rxn<String?> alertPasswordAgainValid = Rxn<String?>();
 
   void setPasswordAgainEvent(String password) {
     userDataObject.value =
@@ -74,6 +73,6 @@ mixin BaseUserController {
   }
 
   Rx<UserDataObject> userDataObject =
-      UserDataObject("", "", "", '', ',', '', 0).obs;
+      UserDataObject("", "", "", "", '', ',', '', 0).obs;
   Rx<bool> isAllFieldsValid = false.obs;
 }

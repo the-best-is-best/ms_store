@@ -3,7 +3,7 @@ import 'package:ms_store/gen/assets.gen.dart';
 
 import '../../../app/app_refs.dart';
 import '../../../domain/models/on_boarding_model.dart';
-import '../../../core/resources/strings_manager.dart';
+import '../../../app/resources/strings_manager.dart';
 
 class OnBoardingController extends GetxController with DataScreen {
   @override

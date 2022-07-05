@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/resources/icons_manger.dart';
+import '../../../app/resources/icons_manger.dart';
 import '../../../presentation/products_views/details/controller/product_details_controller.dart';
 import '../common/input_field.dart';
 

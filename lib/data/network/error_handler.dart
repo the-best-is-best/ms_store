@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import '../../core/resources/strings_manager.dart';
+import '../../app/resources/strings_manager.dart';
 import 'error_response.dart';
 import 'failure.dart';
 

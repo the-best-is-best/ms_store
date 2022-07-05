@@ -5,7 +5,7 @@ import 'package:ms_store/app/components.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
 
-import '../../../core/resources/strings_manager.dart';
+import '../../../app/resources/strings_manager.dart';
 import '../../base/base_controller.dart';
 import '../../common/freezed/freezed_data.dart';
 

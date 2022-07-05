@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/core/resources/font_manger.dart';
+import 'package:ms_store/app/resources/font_manger.dart';
 import '../../../app/components/active_code/build_pin_code.dart';
 import '../../../app/components/common/build_logo.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../../app/di.dart';
 import '../view_model/rest_password_controller.dart';
 import '../../common/state_renderer/state_renderer.dart';
-import '../../../core/resources/icons_manger.dart';
-import '../../../core/resources/routes_manger.dart';
-import '../../../core/resources/strings_manager.dart';
-import '../../../core/resources/values_manager.dart';
+import '../../../app/resources/icons_manger.dart';
+import '../../../app/resources/routes_manger.dart';
+import '../../../app/resources/strings_manager.dart';
+import '../../../app/resources/values_manager.dart';
 
 class ResetPasswordView extends StatefulWidget {
   const ResetPasswordView({Key? key}) : super(key: key);
@@ -53,7 +53,11 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
       body: Obx(() {
         return _resetPasswordController.flowState.value != null
             ? _resetPasswordController.flowState.value!.getScreenWidget(
-                _getContentWidget(),
+                _GetContextWidget(
+                    formKey: _formKey,
+                    resetPasswordController: _resetPasswordController,
+                    passwordNode: _passwordNode,
+                    passwordAgainNode: _passwordAgainNode),
                 retryActionFunction: _resetPasswordController.flowState.value
                             ?.getStateRendererType() ==
                         StateRendererType.POPUP_SUCCESS_STATE
@@ -65,12 +69,36 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                         });
                       }
                     : null)
-            : _getContentWidget();
+            : _GetContextWidget(
+                formKey: _formKey,
+                resetPasswordController: _resetPasswordController,
+                passwordNode: _passwordNode,
+                passwordAgainNode: _passwordAgainNode);
       }),
     );
   }
+}
 
-  Widget _getContentWidget() {
+class _GetContextWidget extends StatelessWidget {
+  const _GetContextWidget({
+    Key? key,
+    required GlobalKey<FormState> formKey,
+    required ResetPasswordController resetPasswordController,
+    required FocusNode passwordNode,
+    required FocusNode passwordAgainNode,
+  })  : _formKey = formKey,
+        _resetPasswordController = resetPasswordController,
+        _passwordNode = passwordNode,
+        _passwordAgainNode = passwordAgainNode,
+        super(key: key);
+
+  final GlobalKey<FormState> _formKey;
+  final ResetPasswordController _resetPasswordController;
+  final FocusNode _passwordNode;
+  final FocusNode _passwordAgainNode;
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(

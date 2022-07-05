@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:ms_store/core/resources/routes_manger.dart';
+import 'package:ms_store/app/resources/routes_manger.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 
 import '../../../app/di.dart';

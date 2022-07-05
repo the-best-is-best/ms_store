@@ -2,11 +2,11 @@ import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/core/resources/color_manager.dart';
-import 'package:ms_store/core/resources/icons_manger.dart';
-import 'package:ms_store/core/resources/routes_manger.dart';
-import 'package:ms_store/core/resources/strings_manager.dart';
-import 'package:ms_store/core/resources/values_manager.dart';
+import 'package:ms_store/app/resources/color_manager.dart';
+import 'package:ms_store/app/resources/icons_manger.dart';
+import 'package:ms_store/app/resources/routes_manger.dart';
+import 'package:ms_store/app/resources/strings_manager.dart';
+import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
@@ -116,65 +116,67 @@ class _GetContentWidget extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 20.0),
-                        AnimatedOpacity(
-                          opacity:
-                              categoryController.selectedCategoryItem.value ==
-                                      categoryController.animateContainer.value
-                                  ? 1
-                                  : 0,
-                          duration: const Duration(milliseconds: 250),
-                          child: BuildCondition(
-                            condition: categoryController
-                                    .categoryModel
-                                    .value
-                                    ?.data?[categoryController
-                                        .selectedCategoryItem.value]
-                                    .childCat
-                                    .isNotEmpty ??
-                                false,
-                            builder: (context) => GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: categoryController
+                    child: Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20.0),
+                          AnimatedOpacity(
+                            opacity: categoryController
+                                        .selectedCategoryItem.value ==
+                                    categoryController.animateContainer.value
+                                ? 1
+                                : 0,
+                            duration: const Duration(milliseconds: 250),
+                            child: BuildCondition(
+                              condition: categoryController
                                       .categoryModel
                                       .value
                                       ?.data?[categoryController
                                           .selectedCategoryItem.value]
                                       .childCat
-                                      .length ??
-                                  0,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 10.0,
-                                crossAxisSpacing: 10.0,
-                                childAspectRatio: 1 / 2,
-                              ),
-                              itemBuilder: (context, index) => BuildGridCat(
-                                  categoryModel: categoryController
-                                      .categoryModel
-                                      .value!
-                                      .data![categoryController
-                                          .selectedCategoryItem.value]
-                                      .childCat[index]),
-                            ),
-                            fallback: (context) => Column(
-                              children: [
-                                Lottie.asset(const $AssetsJsonGen().empty,
-                                    width: 300),
-                                Text(
-                                  AppStrings.noProducts,
-                                  style: context.textTheme.labelLarge,
+                                      .isNotEmpty ??
+                                  false,
+                              builder: (context) => GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: categoryController
+                                        .categoryModel
+                                        .value
+                                        ?.data?[categoryController
+                                            .selectedCategoryItem.value]
+                                        .childCat
+                                        .length ??
+                                    0,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 10.0,
+                                  crossAxisSpacing: 10.0,
+                                  childAspectRatio: 1 / 2,
                                 ),
-                              ],
+                                itemBuilder: (context, index) => BuildGridCat(
+                                    categoryModel: categoryController
+                                        .categoryModel
+                                        .value!
+                                        .data![categoryController
+                                            .selectedCategoryItem.value]
+                                        .childCat[index]),
+                              ),
+                              fallback: (context) => Column(
+                                children: [
+                                  Lottie.asset(const $AssetsJsonGen().empty,
+                                      width: 300),
+                                  Text(
+                                    AppStrings.noProducts,
+                                    style: context.textTheme.labelLarge,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

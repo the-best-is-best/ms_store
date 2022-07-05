@@ -3,15 +3,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:ms_store/core/resources/color_manager.dart';
-import 'package:ms_store/core/resources/font_manger.dart';
-import 'package:ms_store/core/resources/icons_manger.dart';
-import 'package:ms_store/core/resources/values_manager.dart';
+import 'package:ms_store/app/resources/color_manager.dart';
+import 'package:ms_store/app/resources/font_manger.dart';
+import 'package:ms_store/app/resources/icons_manger.dart';
+import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import '../../../../../app/components/common/build_circular_progress_indicator.dart';
-import '../../../../../core/resources/strings_manager.dart';
+import '../../../../../app/resources/strings_manager.dart';
 import '../../../../components/products/components.dart';
 
 class CartPage extends StatefulWidget {
@@ -219,7 +219,10 @@ class _CartPageState extends State<CartPage> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           child: AddToCartButton(
-                              cartData, ColorManager.greyLight)),
+                            cartData,
+                            ColorManager.greyLight,
+                            cartController: _cartController,
+                          )),
                     ),
                   ],
                 ),

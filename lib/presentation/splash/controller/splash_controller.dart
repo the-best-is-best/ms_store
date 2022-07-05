@@ -47,16 +47,9 @@ class SplashController extends GetxController {
         AppPrefs().closeOnBoarding();
         await initHomeModel();
         nextPage = const MainView();
-        if (nextPage.runtimeType == MainView) {
-          UserDataController userDataController = Get.find();
-          await userDataController.getUserData();
-          HomeController homeController = Get.find();
-          homeController.getHomeData();
-
-          return;
-        }
       }
     });
+
     loaded.value = true;
     nextPage = const OnBoardingView();
 

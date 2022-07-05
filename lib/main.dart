@@ -14,5 +14,6 @@ void main() async {
   );
   initAppModel();
   await AppPrefs().initBox();
+
   runApp(const MyApp());
 }

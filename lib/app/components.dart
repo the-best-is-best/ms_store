@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/extensions.dart';
 
-import '../core/resources/font_manger.dart';
+import '../app/resources/font_manger.dart';
 
 Future<void> waitStateChanged({int? duration}) async {
   await Future.delayed(Duration(milliseconds: duration ?? 1000));

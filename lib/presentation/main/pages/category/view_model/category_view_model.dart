@@ -4,7 +4,7 @@ import 'package:ms_store/domain/use_case/store/category_use_case.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 
 import '../../../../../app/components.dart';
-import '../../../../../core/resources/strings_manager.dart';
+import '../../../../../app/resources/strings_manager.dart';
 import '../../../../common/state_renderer/state_renderer.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 

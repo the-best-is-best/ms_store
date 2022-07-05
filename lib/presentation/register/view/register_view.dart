@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/core/resources/font_manger.dart';
+import 'package:ms_store/app/resources/font_manger.dart';
 import '../../../app/components/common/build_logo.dart';
 import '../../../app/components/common/input_field.dart';
 import '../../../app/components/products/privacy_policy.dart';
 import '../../../app/di.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../../core/resources/routes_manger.dart';
+import '../../../app/resources/routes_manger.dart';
 import '../view_model/register_controller.dart';
 
 import '../../../app/components.dart';
-import '../../../core/resources/icons_manger.dart';
-import '../../../core/resources/strings_manager.dart';
-import '../../../core/resources/values_manager.dart';
+import '../../../app/resources/icons_manger.dart';
+import '../../../app/resources/strings_manager.dart';
+import '../../../app/resources/values_manager.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -41,8 +41,7 @@ class _RegisterViewState extends State<RegisterView> {
     _passwordNode = FocusNode();
     _emailNode = FocusNode();
     _passwordAgainNode = FocusNode();
-    // _controllerGoogle = LoadingSignButtonController();
-    // _controllerFacebook = LoadingSignButtonController();
+
     super.initState();
   }
 
@@ -53,7 +52,14 @@ class _RegisterViewState extends State<RegisterView> {
       body: Obx(() {
         return _registerController.flowState.value != null
             ? _registerController.flowState.value!.getScreenWidget(
-                _getContentWidget(),
+                _GetContentWidget(
+                    formKey: _formKey,
+                    emailNode: _emailNode,
+                    registerController: _registerController,
+                    emailController: _emailController,
+                    passwordNode: _passwordNode,
+                    passwordAgainNode: _passwordAgainNode,
+                    context: context),
                 retryActionFunction: _registerController.flowState.value
                             ?.getStateRendererType() ==
                         StateRendererType.POPUP_CHECK_EMAIL_STATE
@@ -66,12 +72,47 @@ class _RegisterViewState extends State<RegisterView> {
                         });
                       }
                     : null)
-            : _getContentWidget();
+            : _GetContentWidget(
+                formKey: _formKey,
+                emailNode: _emailNode,
+                registerController: _registerController,
+                emailController: _emailController,
+                passwordNode: _passwordNode,
+                passwordAgainNode: _passwordAgainNode,
+                context: context);
       }),
     );
   }
+}
 
-  Widget _getContentWidget() {
+class _GetContentWidget extends StatelessWidget {
+  const _GetContentWidget({
+    Key? key,
+    required GlobalKey<FormState> formKey,
+    required FocusNode emailNode,
+    required RegisterController registerController,
+    required TextEditingController emailController,
+    required FocusNode passwordNode,
+    required FocusNode passwordAgainNode,
+    required this.context,
+  })  : _formKey = formKey,
+        _emailNode = emailNode,
+        _registerController = registerController,
+        _emailController = emailController,
+        _passwordNode = passwordNode,
+        _passwordAgainNode = passwordAgainNode,
+        super(key: key);
+
+  final GlobalKey<FormState> _formKey;
+  final FocusNode _emailNode;
+  final RegisterController _registerController;
+  final TextEditingController _emailController;
+  final FocusNode _passwordNode;
+  final FocusNode _passwordAgainNode;
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Padding(
       padding: const EdgeInsets.only(

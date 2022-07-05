@@ -112,6 +112,9 @@ class ArLang {
       'submitted': "تم الارسال",
       'thanks_for_contact_us': 'Thanks for contact us',
       'search': 'البحث',
+      "note_update_profile":
+          "إذا كنت لا تريد تغيير كلمة المرور ، اترك الحقول فارغة.",
+      'update': 'تحديث',
     };
   }
 }

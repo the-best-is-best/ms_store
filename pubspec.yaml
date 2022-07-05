@@ -39,7 +39,8 @@ dependencies:
   email_validator: ^2.0.1
   expandable: ^5.0.1
   feather_icons: ^1.2.0
-  firebase_core: ^1.17.1
+  firebase_auth: ^3.4.1
+  firebase_core: ^1.19.1
   flutter:
     sdk: flutter
   flutter_facebook_auth: ^4.3.4+2
@@ -47,14 +48,14 @@ dependencies:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
   flutter_screenutil: ^5.5.3+2
-  flutter_svg: ^1.0.3
+  flutter_svg: ^1.1.1+1
   font_awesome_flutter: ^10.1.0
   freezed: ^2.0.3+1
   get: ^4.6.5
   get_it: ^7.2.0
   google_fonts: ^3.0.0
   google_sign_in: ^5.3.3
-  hive: ^2.2.1
+  hive: ^2.2.3
   hive_flutter: ^1.1.0
   internet_connection_checker: ^0.0.1+4
   json_serializable: ^6.2.0
@@ -63,7 +64,7 @@ dependencies:
   pretty_dio_logger: ^1.2.0-beta-1
   retrofit: ^3.0.1+1
   smooth_page_indicator: ^1.0.0+2
-  tbib_loading_transition_button_and_social: ^1.0.0
+  tbib_loading_transition_button_and_social: ^1.0.1
   tbib_phone_form_field: ^0.0.3
   tbib_splash_screen: ^0.0.6
   url_launcher: ^6.1.4

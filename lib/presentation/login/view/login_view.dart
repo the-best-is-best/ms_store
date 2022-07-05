@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/core/resources/font_manger.dart';
+import 'package:ms_store/app/resources/font_manger.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
 import '../../../app/components.dart';
@@ -8,10 +8,10 @@ import '../../../app/components/common/build_logo.dart';
 import '../../../app/components/common/input_field.dart';
 import '../../../app/components/login/login_social.dart';
 import '../../../app/di.dart';
-import '../../../core/resources/icons_manger.dart';
-import '../../../core/resources/routes_manger.dart';
-import '../../../core/resources/strings_manager.dart';
-import '../../../core/resources/values_manager.dart';
+import '../../../app/resources/icons_manger.dart';
+import '../../../app/resources/routes_manger.dart';
+import '../../../app/resources/strings_manager.dart';
+import '../../../app/resources/values_manager.dart';
 import '../login_view_model/login_view_model.dart';
 
 class LoginView extends StatefulWidget {

@@ -95,4 +95,7 @@ class AppStrings {
   static String get aboutUsText => 'about_us_text'.tr;
   static String get submit => 'submit'.tr;
   static String get search => 'search'.tr;
+  static String get updateProfile => 'update_profile'.tr;
+  static String get noteUpdateProfile => 'note_update_profile'.tr;
+  static String get update => 'update'.tr;
 }

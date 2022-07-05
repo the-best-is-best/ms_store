@@ -9,6 +9,7 @@ class UserDataObject with _$UserDataObject {
     String password,
     String passwordAgin,
     String userName,
+    String phone,
     String pin,
     String tokenSocial,
     int loginBySocial,

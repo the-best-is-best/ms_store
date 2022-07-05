@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ms_store/app/di.dart';
-import 'package:ms_store/core/resources/strings_manager.dart';
+import 'package:ms_store/app/resources/strings_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/domain/models/store/reviews_model.dart';
 import 'package:ms_store/domain/use_case/store/review/get_review_use_case.dart';
@@ -9,7 +9,7 @@ import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import '../../../../app/components.dart';
-import '../../../../core/resources/routes_manger.dart';
+import '../../../../app/resources/routes_manger.dart';
 import '../../../../domain/use_case/store/get_products_supplier_use_case.dart';
 import '../../../../domain/use_case/store/review/update_review_use_case.dart';
 import '../../../common/freezed/freezed_data.dart';

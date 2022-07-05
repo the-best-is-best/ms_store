@@ -6,7 +6,7 @@ import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 import '../../../../../app/components.dart';
 import '../../../../../app/di.dart';
-import '../../../../../core/resources/routes_manger.dart';
+import '../../../../../app/resources/routes_manger.dart';
 import '../../../../../data/data_src/local_data_source.dart';
 import '../../../../../data/network/failure.dart';
 import '../../../../../domain/use_case/store/add_favorite_use_case.dart';
@@ -59,7 +59,7 @@ class FavController extends GetxController with BaseController {
         await updateFavData(product);
         await waitStateChanged();
         productId.value = null;
-
+        favoriteModel.refresh();
         flowState.value = ContentState();
       });
     }

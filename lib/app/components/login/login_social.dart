@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:tbib_loading_transition_button_and_social/tbib_loading_transition_button_and_social.dart';
-import '../../../core/resources/color_manager.dart';
-import '../../../core/resources/font_manger.dart';
-import '../../../core/resources/values_manager.dart';
+import '../../../app/resources/color_manager.dart';
+import '../../../app/resources/font_manger.dart';
+import '../../../app/resources/values_manager.dart';
 import '../../../gen/assets.gen.dart';
 
 class BuildLoginSocialButton extends StatefulWidget {

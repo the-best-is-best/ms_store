@@ -49,7 +49,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '780487203873',
     projectId: 'fir-apps-a7dd4',
     authDomain: 'fir-apps-a7dd4.firebaseapp.com',
-    databaseURL: 'https://fir-apps-a7dd4-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://fir-apps-a7dd4-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'fir-apps-a7dd4.appspot.com',
     measurementId: 'G-2CT91GPBEK',
   );
@@ -59,7 +60,8 @@ class DefaultFirebaseOptions {
     appId: '1:780487203873:android:00c6b20682ff17f8bc5760',
     messagingSenderId: '780487203873',
     projectId: 'fir-apps-a7dd4',
-    databaseURL: 'https://fir-apps-a7dd4-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://fir-apps-a7dd4-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'fir-apps-a7dd4.appspot.com',
   );
 
@@ -68,10 +70,13 @@ class DefaultFirebaseOptions {
     appId: '1:780487203873:ios:61d03c5ded0f2502bc5760',
     messagingSenderId: '780487203873',
     projectId: 'fir-apps-a7dd4',
-    databaseURL: 'https://fir-apps-a7dd4-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://fir-apps-a7dd4-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'fir-apps-a7dd4.appspot.com',
-    androidClientId: '780487203873-bs89fv7it9mh3p21bqfhr87jhfp14deg.apps.googleusercontent.com',
-    iosClientId: '780487203873-fekohop6oraenvso3un2sjotudvog1vj.apps.googleusercontent.com',
+    androidClientId:
+        '780487203873-bs89fv7it9mh3p21bqfhr87jhfp14deg.apps.googleusercontent.com',
+    iosClientId:
+        '780487203873-fekohop6oraenvso3un2sjotudvog1vj.apps.googleusercontent.com',
     iosBundleId: 'com.tbib.demo.msStore',
   );
 
@@ -80,10 +85,13 @@ class DefaultFirebaseOptions {
     appId: '1:780487203873:ios:61d03c5ded0f2502bc5760',
     messagingSenderId: '780487203873',
     projectId: 'fir-apps-a7dd4',
-    databaseURL: 'https://fir-apps-a7dd4-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://fir-apps-a7dd4-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'fir-apps-a7dd4.appspot.com',
-    androidClientId: '780487203873-bs89fv7it9mh3p21bqfhr87jhfp14deg.apps.googleusercontent.com',
-    iosClientId: '780487203873-fekohop6oraenvso3un2sjotudvog1vj.apps.googleusercontent.com',
+    androidClientId:
+        '780487203873-bs89fv7it9mh3p21bqfhr87jhfp14deg.apps.googleusercontent.com',
+    iosClientId:
+        '780487203873-fekohop6oraenvso3un2sjotudvog1vj.apps.googleusercontent.com',
     iosBundleId: 'com.tbib.demo.msStore',
   );
 }

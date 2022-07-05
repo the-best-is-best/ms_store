@@ -10,9 +10,9 @@ import 'package:tbib_loading_transition_button_and_social/tbib_loading_transitio
 import '../../../app/app_refs.dart';
 import '../../../app/components.dart';
 import '../../../app/di.dart';
-import '../../../core/resources/color_manager.dart';
-import '../../../core/resources/routes_manger.dart';
-import '../../../core/resources/strings_manager.dart';
+import '../../../app/resources/color_manager.dart';
+import '../../../app/resources/routes_manger.dart';
+import '../../../app/resources/strings_manager.dart';
 import '../../../domain/models/users_model.dart';
 import '../../../domain/use_case/users_case/login_use_case.dart';
 import '../../base/base_controller.dart';
@@ -215,8 +215,7 @@ class LoginViewModel extends GetxController
       Get.back();
     } else {
       await initHomeModel();
-      UserDataController userDataController = Get.find();
-      await userDataController.getUserData();
+
       SchedulerBinding.instance.addPostFrameCallback((_) async {
         Get.offNamedUntil(Routes.homeRoute, (route) => false);
       });

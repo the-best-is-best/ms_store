@@ -3,24 +3,26 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/core/util/get_device_type.dart';
+import 'package:ms_store/app/util/get_device_type.dart';
 import 'package:ms_store/presentation/components/products/functions.dart';
+import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import '../../../../../app/components.dart';
 import '../../../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../../../app/components/common/input_field.dart';
 import '../../../../../app/di.dart';
-import '../../../../../core/resources/routes_manger.dart';
-import '../../../../../core/resources/styles_manger.dart';
+import '../../../../../app/resources/routes_manger.dart';
+import '../../../../../app/resources/styles_manger.dart';
 import '../../../../../domain/models/home_models/category_home_model.dart';
 import '../../../../../domain/models/home_models/data_home_model.dart';
 import '../../../../common/state_renderer/state_renderer_impl.dart';
 import '../../../../../domain/models/home_models/slider_model.dart';
 import '../../../../components/products/components.dart';
-import '../../../../../core/resources/color_manager.dart';
-import '../../../../../core/resources/font_manger.dart';
-import '../../../../../core/resources/icons_manger.dart';
-import '../../../../../core/resources/strings_manager.dart';
-import '../../../../../core/resources/values_manager.dart';
+import '../../../../../app/resources/color_manager.dart';
+import '../../../../../app/resources/font_manger.dart';
+import '../../../../../app/resources/icons_manger.dart';
+import '../../../../../app/resources/strings_manager.dart';
+import '../../../../../app/resources/values_manager.dart';
+import '../../cart/view_model/cart_controller.dart';
 import '../view_model/home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,6 +34,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String locale = Get.locale!.languageCode;
+  late final CartController _cartController;
+  late final FavController _favController;
 
   late final HomeController _homeController;
   late final TextEditingController searchTextEditingController;
@@ -39,10 +43,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _homeController = Get.find();
-    _homeController.getHomeData();
+    _cartController = Get.find();
+    _favController = Get.find();
+    //  _homeController.getHomeData();
     searchTextEditingController = TextEditingController();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -70,6 +81,8 @@ class _HomePageState extends State<HomePage> {
             child: Obx(() => _homeController.flowState.value != null
                 ? _homeController.flowState.value!.getScreenWidget(
                     _GetContentWidget(
+                      favController: _favController,
+                      cartController: _cartController,
                       homeController: _homeController,
                     ), retryActionFunction: () {
                     _homeController.getHomeData();
@@ -78,6 +91,8 @@ class _HomePageState extends State<HomePage> {
                     condition: _homeController.homeModel.value != null,
                     builder: (context) {
                       return _GetContentWidget(
+                        favController: _favController,
+                        cartController: _cartController,
                         homeController: _homeController,
                       );
                     })),
@@ -133,7 +148,14 @@ class _BuildCategory extends StatelessWidget {
 
 class _GetContentWidget extends StatelessWidget {
   final HomeController homeController;
-  const _GetContentWidget({Key? key, required this.homeController})
+  final CartController cartController;
+  final FavController favController;
+
+  const _GetContentWidget(
+      {Key? key,
+      required this.homeController,
+      required this.cartController,
+      required this.favController})
       : super(key: key);
 
   @override
@@ -146,9 +168,12 @@ class _GetContentWidget extends StatelessWidget {
         ),
         _GetSection(text: AppStrings.latestProducts),
         _GetProducts(
-            homeController: homeController,
-            dataHome: homeController.homeModel.value?.data.dataHome ??
-                const Iterable.empty().cast<DataHomeModel>().toList()),
+          homeController: homeController,
+          dataHome: homeController.homeModel.value?.data.dataHome ??
+              const Iterable.empty().cast<DataHomeModel>().toList(),
+          cartController: cartController,
+          favController: favController,
+        ),
       ],
     );
   }
@@ -263,9 +288,16 @@ class _GetSliderWidget extends StatelessWidget {
 
 class _GetProducts extends StatelessWidget {
   final HomeController homeController;
+  final FavController favController;
+  final CartController cartController;
+
   final List<DataHomeModel> dataHome;
   const _GetProducts(
-      {Key? key, required this.homeController, required this.dataHome})
+      {Key? key,
+      required this.homeController,
+      required this.dataHome,
+      required this.favController,
+      required this.cartController})
       : super(key: key);
 
   @override
@@ -291,6 +323,7 @@ class _GetProducts extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, indexPro) {
                 return BuildProductItem(
+                  cartController: cartController,
                   onTap: () {
                     goToProductDetails(
                         dataHome[indexCat].productModel[indexPro]);
@@ -298,6 +331,7 @@ class _GetProducts extends StatelessWidget {
                   productModel: dataHome[indexCat].productModel[indexPro],
                   locale: locale,
                   favWidget: AddToFavoriteButton(
+                      favController: favController,
                       product: dataHome[indexCat].productModel[indexPro]),
                 );
               },

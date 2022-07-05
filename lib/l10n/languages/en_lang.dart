@@ -112,6 +112,9 @@ established in 2022""",
       'submitted': "Submitted",
       'thanks_for_contact_us': 'Thanks for contact us',
       'search': 'Search',
+      "note_update_profile":
+          "If you do not want to change the password, leave the fields empty.",
+      'update': 'Update',
     };
   }
 }

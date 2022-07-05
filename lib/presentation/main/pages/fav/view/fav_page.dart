@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ms_store/app/components.dart';
-import 'package:ms_store/core/resources/color_manager.dart';
-import 'package:ms_store/core/resources/font_manger.dart';
-import 'package:ms_store/core/resources/values_manager.dart';
+import 'package:ms_store/app/resources/color_manager.dart';
+import 'package:ms_store/app/resources/font_manger.dart';
+import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/components/products/functions.dart';
+import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 
 import '../../../../../app/components/common/build_circular_progress_indicator.dart';
-import '../../../../../core/resources/strings_manager.dart';
+import '../../../../../app/resources/strings_manager.dart';
 import '../../../../../gen/assets.gen.dart';
 import '../../../../components/products/components.dart';
 
@@ -28,12 +29,11 @@ class FavPage extends StatefulWidget {
 class _FavPageState extends State<FavPage> {
   late final FavController _favController;
   late final UserDataController _userDataController;
+  late final CartController cartController;
 
-  late final String _language;
   @override
   void initState() {
     _favController = Get.find();
-    _language = Get.locale!.languageCode;
     _userDataController = Get.find();
     super.initState();
   }
@@ -52,10 +52,14 @@ class _FavPageState extends State<FavPage> {
         () => _favController.flowState.value != null
             ? _favController.flowState.value!.getScreenWidget(
                 _GetContentWidget(
+                  cartController: cartController,
+                  userDataController: _userDataController,
                   favController: _favController,
                 ),
               )
             : _GetContentWidget(
+                cartController: cartController,
+                userDataController: _userDataController,
                 favController: _favController,
               ),
       ),
@@ -64,9 +68,16 @@ class _FavPageState extends State<FavPage> {
 }
 
 class _GetContentWidget extends StatelessWidget {
-  final UserDataController userDataController = Get.find();
+  final UserDataController userDataController;
   final FavController favController;
-  _GetContentWidget({Key? key, required this.favController}) : super(key: key);
+  final CartController cartController;
+
+  _GetContentWidget(
+      {Key? key,
+      required this.favController,
+      required this.cartController,
+      required this.userDataController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +101,7 @@ class _GetContentWidget extends StatelessWidget {
                           itemBuilder: (context, index) => BuildProductsItem(
                             favController: favController,
                             productData: favController.productsInFav[index],
+                            cartController: cartController,
                           ),
                           separatorBuilder: (context, index) => Container(
                             width: double.infinity,
@@ -133,8 +145,13 @@ class _GetContentWidget extends StatelessWidget {
 class BuildProductsItem extends StatelessWidget {
   final FavController favController;
   final ProductModel productData;
+  final CartController cartController;
+
   const BuildProductsItem(
-      {Key? key, required this.productData, required this.favController})
+      {Key? key,
+      required this.productData,
+      required this.favController,
+      required this.cartController})
       : super(key: key);
 
   @override
@@ -242,7 +259,11 @@ class BuildProductsItem extends StatelessWidget {
                   const SizedBox(height: AppSize.ap14),
                   BuildPrice(productModel: productData),
                   const SizedBox(height: 20.0),
-                  AddToCartButton(productData, ColorManager.greyLight),
+                  AddToCartButton(
+                    productData,
+                    ColorManager.greyLight,
+                    cartController: cartController,
+                  ),
                 ],
               ),
             ),

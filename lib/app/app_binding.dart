@@ -4,6 +4,7 @@ import 'package:ms_store/presentation/main/pages/category/view_model/category_vi
 import 'package:ms_store/presentation/main/pages/settings/view_model/settings_controller.dart';
 import 'package:ms_store/presentation/products_views/details/controller/product_details_controller.dart';
 import 'package:ms_store/presentation/products_views/product_by_cat/controller/product_by_cat_controller.dart';
+import '../presentation/account/controller/account_controller.dart';
 import '../presentation/contact_us/controller/contact_us_controller.dart';
 import '../presentation/main/pages/home/view_model/home_controller.dart';
 import '../presentation/main/controller/main_view_controller.dart';
@@ -51,6 +52,8 @@ class AppBinding implements Bindings {
     getContactUsController();
     // search
     getSearchController();
+    // account
+    getAccountController();
   }
 
   void getOnBoardingController() {
@@ -114,5 +117,9 @@ class AppBinding implements Bindings {
 
   void getSearchController() {
     Get.lazyPut(() => SearchController(instance()), fenix: true);
+  }
+
+  void getAccountController() {
+    Get.lazyPut(() => AccountController(), fenix: true);
   }
 }

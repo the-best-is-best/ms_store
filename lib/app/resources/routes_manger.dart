@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/presentation/about/about_view.dart';
+import 'package:ms_store/presentation/account/view/account_view.dart';
 import 'package:ms_store/presentation/active_email/view/active_email_view.dart';
 import 'package:ms_store/presentation/contact_us/view/contact_us_view.dart';
 import 'package:ms_store/presentation/forget_password/view/forget_password_view.dart';
@@ -29,6 +30,7 @@ class Routes {
   static const aboutRoute = "/about";
   static const contactUsRoute = "/contactUsRoute";
   static const searchRoute = "/searchRoute";
+  static const accountRoute = "/accountRoute";
 }
 
 class RouteGeneratorGetX {
@@ -80,6 +82,10 @@ class RouteGeneratorGetX {
         GetPage(
           name: Routes.searchRoute,
           page: () => const SearchView(),
+        ),
+        GetPage(
+          name: Routes.accountRoute,
+          page: () => const AccountView(),
         ),
       ];
 }

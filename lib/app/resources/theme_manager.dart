@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../core/util/get_device_type.dart';
-import '../../core/resources/color_manager.dart';
-import '../../core/resources/font_manger.dart';
+import '../util/get_device_type.dart';
+import '../resources/font_manger.dart';
+import 'color_manager.dart';
 import 'styles_manger.dart';
-import '../../core/resources/values_manager.dart';
+import '../resources/values_manager.dart';
 
 ThemeData get themeDataLight {
   return ThemeData(
