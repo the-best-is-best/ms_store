@@ -15,6 +15,7 @@ UsersDataResponse _$UsersDataResponseFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       password: json['password'] as String?,
       phone: json['phone'] as String?,
+      phoneVerify: json['phoneVerify'] as int?,
       code: json['code'] as String?,
     );
 
@@ -26,6 +27,7 @@ Map<String, dynamic> _$UsersDataResponseToJson(UsersDataResponse instance) =>
       'userName': instance.userName,
       'email': instance.email,
       'phone': instance.phone,
+      'phoneVerify': instance.phoneVerify,
       'password': instance.password,
       'code': instance.code,
     };

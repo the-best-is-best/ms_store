@@ -32,6 +32,7 @@ import 'package:dartz/dartz.dart';
 import '../../domain/repository/repository.dart';
 
 import 'users_repository/repository_impl_forget_password.dart';
+import 'users_repository/repository_impl_update_user_data.dart';
 
 class RepositoryImpl extends Repository {
   final RemoteDataSrc _remoteDataSrc;
@@ -159,5 +160,12 @@ class RepositoryImpl extends Repository {
       GetProductsBySearchRequests getCategoryDataByIdRequests) async {
     return await RepositoryImplGetProductsBySearch.call(
         _remoteDataSrc, _networkInfo, getCategoryDataByIdRequests);
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateUserData(
+      UpdateUserRequests userRequests) async {
+    return await RepositoryImplUpdateUserData.call(
+        _remoteDataSrc, _networkInfo, userRequests);
   }
 }

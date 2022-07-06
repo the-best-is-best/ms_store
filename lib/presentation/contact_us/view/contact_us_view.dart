@@ -7,6 +7,7 @@ import 'package:ms_store/app/resources/strings_manager.dart';
 import 'package:ms_store/app/resources/styles_manger.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
+import '../../../app/components.dart';
 import '../../../app/components/common/input_field.dart';
 import '../../../app/components/common/phone_form_field.dart';
 import '../../../app/resources/values_manager.dart';
@@ -24,7 +25,7 @@ class _ContactUsViewState extends State<ContactUsView> {
   late final UserDataController _userDataController;
   late final TextEditingController _textUserNameEditingController;
   late final TextEditingController _textEmailEditingController;
-  late final TextEditingController _textPhoneEditingController;
+  late final PhoneController _textPhoneEditingController;
 
   late final FocusNode _emailNode;
   late final FocusNode _phoneNode;
@@ -41,13 +42,20 @@ class _ContactUsViewState extends State<ContactUsView> {
     _messageNode = FocusNode();
     _textEmailEditingController = TextEditingController();
     _textUserNameEditingController = TextEditingController();
-    _textPhoneEditingController = TextEditingController();
+
     _textEmailEditingController.text =
         _userDataController.userModel.value?.email ?? "";
     _textUserNameEditingController.text =
         _userDataController.userModel.value?.userName ?? "";
-    _textPhoneEditingController.text =
-        _userDataController.userModel.value?.phone ?? "";
+    List<String>? phoneData =
+        _userDataController.userModel.value?.phone.split('-');
+    if (phoneData != null && phoneData.length == 2) {
+      _textPhoneEditingController = PhoneController(
+          PhoneNumber.fromCountryCode(phoneData[0], phoneData[1]));
+    } else {
+      _textPhoneEditingController =
+          PhoneController(const PhoneNumber(isoCode: IsoCode.EG, nsn: ""));
+    }
 
     if (_textEmailEditingController.text.isNotEmpty) {
       _contactUsController.setEmailEvent(_textEmailEditingController.text);
@@ -108,6 +116,7 @@ class _ContactUsViewState extends State<ContactUsView> {
             ),
             const SizedBox(height: AppSpacing.ap30),
             BuildPhoneFormFieldAboveText(
+              phoneController: _textPhoneEditingController,
               phoneNode: _phoneNode,
               nextNode: _subjectNode,
               onChanged: (PhoneNumber? p) {
@@ -154,12 +163,7 @@ class _ContactUsViewState extends State<ContactUsView> {
             Obx(() => BuildCondition(
                   condition: _contactUsController.isButtonClicked.value,
                   builder: (context) {
-                    return const LinearProgressIndicator(
-                      minHeight: AppSpacing.ap8,
-                      backgroundColor: ColorManager.textColor,
-                      valueColor:
-                          AlwaysStoppedAnimation(ColorManager.darkColor),
-                    );
+                    return const BuildLinearProgressIndicator();
                   },
                   fallback: (_) => const SizedBox(),
                 )),

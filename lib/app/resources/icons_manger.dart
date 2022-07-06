@@ -16,6 +16,7 @@ class IconsManger {
   static const IconData stars = CommunityMaterialIcons.star_circle_outline;
   static const IconData settings = FeatherIcons.settings;
   static const IconData album = FeatherIcons.image;
+  static const IconData success = FeatherIcons.checkCircle;
 
   static const IconData addedToFavorite = Icons.favorite_sharp;
   static const IconData addToFavorite = Icons.favorite_border_outlined;

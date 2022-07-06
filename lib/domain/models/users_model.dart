@@ -20,6 +20,8 @@ class UserModel {
   String password;
   @HiveField(7)
   String code;
+  @HiveField(8)
+  int phoneVerify;
 
   UserModel({
     required this.id,
@@ -30,5 +32,6 @@ class UserModel {
     required this.password,
     required this.phone,
     required this.code,
+    required this.phoneVerify,
   });
 }

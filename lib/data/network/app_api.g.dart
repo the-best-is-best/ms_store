@@ -348,6 +348,33 @@ class _AppServicesClient implements AppServicesClient {
     return value;
   }
 
+  @override
+  Future<UpdateUserDataResponses> updateUserData(
+      {required id,
+      required userName,
+      required phone,
+      required phoneVerify,
+      required password}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'id': id,
+      'userName': userName,
+      'phone': phone,
+      'phoneVerify': phoneVerify,
+      'password': password
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdateUserDataResponses>(
+            Options(method: 'PUT', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/update_data/update_user.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UpdateUserDataResponses.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

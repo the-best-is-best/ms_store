@@ -39,7 +39,6 @@ class HomeController extends GetxController with BaseController {
         message: AppStrings.loading);
     UserDataController userDataController = Get.find();
     await userDataController.getUserData();
-    await waitStateChanged();
 
     if (userDataController.userModel.value != null) {
       FavController favController = Get.find();
@@ -50,11 +49,9 @@ class HomeController extends GetxController with BaseController {
         favController.favoriteModel.addAll(data);
 
         await favController.getProductsFavorite(data);
-        await waitStateChanged();
       });
 
       await cartController.getCart();
-      await waitStateChanged();
     }
     var resultHome = await _homeUseCase.execute(null);
     await waitStateChanged();

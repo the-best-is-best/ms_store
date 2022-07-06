@@ -7,6 +7,7 @@ import 'package:ms_store/domain/use_case/store/get_product_by_cat_id_use_case.da
 import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart';
 import 'package:ms_store/domain/use_case/store/review/get_review_use_case.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
+import 'package:ms_store/domain/use_case/users_case/update_user_data_case.dart';
 
 import '../data/data_src/remote_data_src.dart';
 import '../data/network/app_api.dart';
@@ -26,6 +27,7 @@ import '../domain/use_case/users_case/forget_password_case.dart';
 import '../domain/use_case/users_case/login_use_case.dart';
 import '../domain/use_case/users_case/register_use_case.dart';
 import '../domain/use_case/users_case/reset_password_case.dart';
+import '../presentation/base/user_data/user_data_controller.dart';
 
 final instance = GetIt.instance;
 
@@ -128,5 +130,12 @@ void initProductBySearch() {
   if (!GetIt.I.isRegistered<GetProductsBySearchUseCase>()) {
     instance.registerFactory<GetProductsBySearchUseCase>(
         () => GetProductsBySearchUseCase(instance()));
+  }
+}
+
+void initUpdateProfile() {
+  if (!GetIt.I.isRegistered<UpdateUserDataUserCase>()) {
+    instance.registerFactory<UpdateUserDataUserCase>(
+        () => UpdateUserDataUserCase(instance()));
   }
 }

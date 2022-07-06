@@ -9,6 +9,7 @@ extension UsersResponseMapper on UsersResponse? {
         userName: this?.data?.userName.orEmpty() ?? "",
         email: this?.data?.email.orEmpty() ?? "",
         phone: this?.data?.phone.orEmpty() ?? "",
+        phoneVerify: this?.data?.phoneVerify.orEmpty() ?? 0,
         loginBySocial: this?.data?.loginBySocial.orEmpty() ?? 0,
         tokenSocial: this?.data?.tokenSocial.orEmpty() ?? "",
         code: this?.data?.code.orEmpty() ?? "",

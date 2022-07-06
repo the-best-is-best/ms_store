@@ -1,7 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/app/app_refs.dart';
 import 'package:ms_store/app/components/common/list_view.dart';
 import 'package:ms_store/app/di.dart';
 import 'package:ms_store/app/extensions.dart';
@@ -61,6 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         onTap: () {
                           // AppPrefs().clearUserData();
                           // _userDataController.userModel.value = null;
+                          initUpdateProfile();
                           Get.toNamed(Routes.accountRoute);
                         },
                         title: BuildCondition(

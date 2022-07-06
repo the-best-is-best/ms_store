@@ -20,15 +20,14 @@ class LoginBySocialRequests {
 }
 
 class RegisterRequests {
+  final String email;
+  final String password;
+  final String userName;
   RegisterRequests({
     required this.email,
     required this.password,
     required this.userName,
   });
-
-  final String email;
-  final String password;
-  final String userName;
 }
 
 class ActiveEmailRequests {
@@ -54,4 +53,20 @@ class ResetPasswordRequests {
   final String email;
   final String password;
   final String pin;
+}
+
+class UpdateUserRequests {
+  final int id;
+  final String password;
+  final String userName;
+  final String phone;
+  final int phoneVerify;
+
+  UpdateUserRequests({
+    required this.id,
+    required this.userName,
+    required this.phoneVerify,
+    required this.password,
+    required this.phone,
+  });
 }

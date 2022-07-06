@@ -97,4 +97,9 @@ class FavController extends GetxController with BaseController {
       GetFavoriteUseCase getFavoriteUseCase, int userId) async {
     return await getFavoriteUseCase.execute(GetFavoriteUseCaseInput(userId));
   }
+
+  void clearData() {
+    favoriteModel.value = {};
+    productsInFav.value = [];
+  }
 }

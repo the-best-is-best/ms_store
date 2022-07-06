@@ -211,7 +211,8 @@ class LoginViewModel extends GetxController
     if (!homeRepaired) {
       UserDataController userDataController = Get.find();
       await userDataController.getUserData();
-
+      HomeController homeController = Get.find();
+      homeController.getHomeData();
       Get.back();
     } else {
       await initHomeModel();

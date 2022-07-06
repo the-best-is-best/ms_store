@@ -21,6 +21,7 @@ mixin _$UserDataObject {
   String get passwordAgin => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
+  int get phoneVerify => throw _privateConstructorUsedError;
   String get pin => throw _privateConstructorUsedError;
   String get tokenSocial => throw _privateConstructorUsedError;
   int get loginBySocial => throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ abstract class $UserDataObjectCopyWith<$Res> {
       String passwordAgin,
       String userName,
       String phone,
+      int phoneVerify,
       String pin,
       String tokenSocial,
       int loginBySocial});
@@ -62,6 +64,7 @@ class _$UserDataObjectCopyWithImpl<$Res>
     Object? passwordAgin = freezed,
     Object? userName = freezed,
     Object? phone = freezed,
+    Object? phoneVerify = freezed,
     Object? pin = freezed,
     Object? tokenSocial = freezed,
     Object? loginBySocial = freezed,
@@ -87,6 +90,10 @@ class _$UserDataObjectCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneVerify: phoneVerify == freezed
+          ? _value.phoneVerify
+          : phoneVerify // ignore: cast_nullable_to_non_nullable
+              as int,
       pin: pin == freezed
           ? _value.pin
           : pin // ignore: cast_nullable_to_non_nullable
@@ -116,6 +123,7 @@ abstract class _$$_UserDataObjectCopyWith<$Res>
       String passwordAgin,
       String userName,
       String phone,
+      int phoneVerify,
       String pin,
       String tokenSocial,
       int loginBySocial});
@@ -139,6 +147,7 @@ class __$$_UserDataObjectCopyWithImpl<$Res>
     Object? passwordAgin = freezed,
     Object? userName = freezed,
     Object? phone = freezed,
+    Object? phoneVerify = freezed,
     Object? pin = freezed,
     Object? tokenSocial = freezed,
     Object? loginBySocial = freezed,
@@ -164,6 +173,10 @@ class __$$_UserDataObjectCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneVerify == freezed
+          ? _value.phoneVerify
+          : phoneVerify // ignore: cast_nullable_to_non_nullable
+              as int,
       pin == freezed
           ? _value.pin
           : pin // ignore: cast_nullable_to_non_nullable
@@ -183,8 +196,16 @@ class __$$_UserDataObjectCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_UserDataObject implements _UserDataObject {
-  _$_UserDataObject(this.email, this.password, this.passwordAgin, this.userName,
-      this.phone, this.pin, this.tokenSocial, this.loginBySocial);
+  _$_UserDataObject(
+      this.email,
+      this.password,
+      this.passwordAgin,
+      this.userName,
+      this.phone,
+      this.phoneVerify,
+      this.pin,
+      this.tokenSocial,
+      this.loginBySocial);
 
   @override
   final String email;
@@ -197,6 +218,8 @@ class _$_UserDataObject implements _UserDataObject {
   @override
   final String phone;
   @override
+  final int phoneVerify;
+  @override
   final String pin;
   @override
   final String tokenSocial;
@@ -205,7 +228,7 @@ class _$_UserDataObject implements _UserDataObject {
 
   @override
   String toString() {
-    return 'UserDataObject(email: $email, password: $password, passwordAgin: $passwordAgin, userName: $userName, phone: $phone, pin: $pin, tokenSocial: $tokenSocial, loginBySocial: $loginBySocial)';
+    return 'UserDataObject(email: $email, password: $password, passwordAgin: $passwordAgin, userName: $userName, phone: $phone, phoneVerify: $phoneVerify, pin: $pin, tokenSocial: $tokenSocial, loginBySocial: $loginBySocial)';
   }
 
   @override
@@ -219,6 +242,8 @@ class _$_UserDataObject implements _UserDataObject {
                 .equals(other.passwordAgin, passwordAgin) &&
             const DeepCollectionEquality().equals(other.userName, userName) &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
+            const DeepCollectionEquality()
+                .equals(other.phoneVerify, phoneVerify) &&
             const DeepCollectionEquality().equals(other.pin, pin) &&
             const DeepCollectionEquality()
                 .equals(other.tokenSocial, tokenSocial) &&
@@ -234,6 +259,7 @@ class _$_UserDataObject implements _UserDataObject {
       const DeepCollectionEquality().hash(passwordAgin),
       const DeepCollectionEquality().hash(userName),
       const DeepCollectionEquality().hash(phone),
+      const DeepCollectionEquality().hash(phoneVerify),
       const DeepCollectionEquality().hash(pin),
       const DeepCollectionEquality().hash(tokenSocial),
       const DeepCollectionEquality().hash(loginBySocial));
@@ -251,6 +277,7 @@ abstract class _UserDataObject implements UserDataObject {
       final String passwordAgin,
       final String userName,
       final String phone,
+      final int phoneVerify,
       final String pin,
       final String tokenSocial,
       final int loginBySocial) = _$_UserDataObject;
@@ -265,6 +292,8 @@ abstract class _UserDataObject implements UserDataObject {
   String get userName => throw _privateConstructorUsedError;
   @override
   String get phone => throw _privateConstructorUsedError;
+  @override
+  int get phoneVerify => throw _privateConstructorUsedError;
   @override
   String get pin => throw _privateConstructorUsedError;
   @override

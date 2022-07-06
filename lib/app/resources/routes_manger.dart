@@ -11,6 +11,7 @@ import 'package:ms_store/presentation/register/view/register_view.dart';
 import 'package:ms_store/presentation/rest_password/view/rest_password_view.dart';
 import 'package:ms_store/presentation/search/view/search_view.dart';
 import 'package:ms_store/presentation/splash/splash_screen.dart';
+import 'package:ms_store/presentation/verify_phone/view/verify_phone_view.dart';
 
 import '../../presentation/main/main_view.dart';
 import '../../presentation/products_views/product_by_cat/view/product_by_cat_view.dart';
@@ -31,6 +32,7 @@ class Routes {
   static const contactUsRoute = "/contactUsRoute";
   static const searchRoute = "/searchRoute";
   static const accountRoute = "/accountRoute";
+  static const verifyPhoneRoute = "/verifyPhoneRoute";
 }
 
 class RouteGeneratorGetX {
@@ -86,6 +88,10 @@ class RouteGeneratorGetX {
         GetPage(
           name: Routes.accountRoute,
           page: () => const AccountView(),
+        ),
+        GetPage(
+          name: Routes.verifyPhoneRoute,
+          page: () => const VerifyPhoneView(),
         ),
       ];
 }

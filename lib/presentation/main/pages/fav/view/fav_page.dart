@@ -29,12 +29,13 @@ class FavPage extends StatefulWidget {
 class _FavPageState extends State<FavPage> {
   late final FavController _favController;
   late final UserDataController _userDataController;
-  late final CartController cartController;
+  late final CartController _cartController;
 
   @override
   void initState() {
     _favController = Get.find();
     _userDataController = Get.find();
+    _cartController = Get.find();
     super.initState();
   }
 
@@ -52,13 +53,13 @@ class _FavPageState extends State<FavPage> {
         () => _favController.flowState.value != null
             ? _favController.flowState.value!.getScreenWidget(
                 _GetContentWidget(
-                  cartController: cartController,
+                  cartController: _cartController,
                   userDataController: _userDataController,
                   favController: _favController,
                 ),
               )
             : _GetContentWidget(
-                cartController: cartController,
+                cartController: _cartController,
                 userDataController: _userDataController,
                 favController: _favController,
               ),
@@ -72,7 +73,7 @@ class _GetContentWidget extends StatelessWidget {
   final FavController favController;
   final CartController cartController;
 
-  _GetContentWidget(
+  const _GetContentWidget(
       {Key? key,
       required this.favController,
       required this.cartController,

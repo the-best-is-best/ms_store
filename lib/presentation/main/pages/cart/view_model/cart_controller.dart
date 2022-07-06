@@ -83,4 +83,9 @@ class CartController extends GetxController {
                 ? product.priceAfterDis * cartModel[product.id]!
                 : product.price * cartModel[product.id]!));
   }
+
+  void clearData() {
+    cartModel.value = {};
+    productsInCart.value = [];
+  }
 }

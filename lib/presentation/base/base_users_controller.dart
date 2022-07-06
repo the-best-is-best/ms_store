@@ -73,6 +73,6 @@ mixin BaseUserController {
   }
 
   Rx<UserDataObject> userDataObject =
-      UserDataObject("", "", "", "", '', ',', '', 0).obs;
+      UserDataObject("", "", "", "", '', 0, ',', '', 0).obs;
   Rx<bool> isAllFieldsValid = false.obs;
 }

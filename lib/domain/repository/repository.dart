@@ -43,4 +43,5 @@ abstract class Repository {
       GetCategoryDataByIdRequests getCategoryDataByIdRequests);
   Future<Either<Failure, ProductWithPaginationModel>> getProductBySearch(
       GetProductsBySearchRequests getCategoryDataByIdRequests);
+  Future<Either<Failure, bool>> updateUserData(UpdateUserRequests userRequests);
 }

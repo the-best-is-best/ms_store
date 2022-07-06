@@ -13,6 +13,7 @@ import '../responses/store_responses/review/update_review_response.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
+import '../responses/users_response/responses_update_user_data.dart';
 import '../responses/users_response/responses_users.dart';
 
 abstract class RemoteDataSrc {
@@ -46,6 +47,8 @@ abstract class RemoteDataSrc {
       GetCategoryDataByIdRequests getProductsByCatIdRequests);
   Future<ProductWithPaginationDataResponse> getProductsBySearch(
       GetProductsBySearchRequests getProductsBySearchRequests);
+  Future<UpdateUserDataResponses> updateUserData(
+      UpdateUserRequests updateUserRequests);
 }
 
 class RemoteDataSrcImpl implements RemoteDataSrc {
@@ -178,5 +181,16 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
       GetProductsBySearchRequests getProductsBySearchRequests) async {
     return await _appServicesClient.getProductsBySearch(
         getProductsBySearchRequests.name, getProductsBySearchRequests.lang);
+  }
+
+  @override
+  Future<UpdateUserDataResponses> updateUserData(
+      UpdateUserRequests updateUserRequests) async {
+    return await _appServicesClient.updateUserData(
+        id: updateUserRequests.id,
+        password: updateUserRequests.password,
+        userName: updateUserRequests.userName,
+        phone: updateUserRequests.phone,
+        phoneVerify: updateUserRequests.phoneVerify);
   }
 }

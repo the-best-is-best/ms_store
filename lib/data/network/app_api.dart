@@ -15,6 +15,7 @@ import '../responses/support/get_about_data_response.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
+import '../responses/users_response/responses_update_user_data.dart';
 import '../responses/users_response/responses_users.dart';
 
 part 'app_api.g.dart';
@@ -131,4 +132,14 @@ abstract class AppServicesClient {
   @GET(Constants.searchUrl)
   Future<ProductWithPaginationDataResponse> getProductsBySearch(
       @Query('name') String name, @Query('lang') String lang);
+
+  // get Search Products
+  @PUT(Constants.updateUrl)
+  Future<UpdateUserDataResponses> updateUserData({
+    @Field("id") required int id,
+    @Field("userName") required String userName,
+    @Field("phone") required String phone,
+    @Field("phoneVerify") required int phoneVerify,
+    @Field("password") required String password,
+  });
 }

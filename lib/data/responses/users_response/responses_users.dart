@@ -18,6 +18,7 @@ class UsersDataResponse {
   final String? email;
   @JsonKey(name: "phone")
   String? phone;
+  int? phoneVerify;
   @JsonKey(name: "password")
   String? password;
   @JsonKey(name: "code")
@@ -31,6 +32,7 @@ class UsersDataResponse {
     this.email,
     this.password,
     this.phone,
+    this.phoneVerify,
     this.code,
   });
 

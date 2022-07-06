@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:ms_store/domain/models/users_model.dart';
+import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
+import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import '../domain/models/cache/cache_data.dart';
 import '../domain/models/home_models/category_home_model.dart';
 import '../domain/models/home_models/data_home_model.dart';
@@ -9,6 +11,7 @@ import '../domain/models/home_models/product_home_model.dart';
 import '../domain/models/home_models/slider_model.dart';
 import '../domain/models/store/category_model.dart';
 import '../domain/models/store/product_model.dart';
+import '../presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'extensions.dart';
 
 class AppPrefs with OnBoardingAppPrefs, SettingsAppPrefs, UserAppPrefs {
@@ -140,5 +143,13 @@ mixin UserAppPrefs {
       await _userData.put('userData', data);
 
   Future<UserModel?> getUserData() async => await _userData.get('userData');
-  Future<void> clearUserData() async => await _userData.clear();
+  Future<void> clearUserData() async {
+    await _userData.clear();
+    UserDataController userDataController = Get.find();
+    userDataController.clearData();
+    FavController favController = Get.find();
+    favController.clearData();
+    CartController cartController = Get.find();
+    cartController.clearData();
+  }
 }

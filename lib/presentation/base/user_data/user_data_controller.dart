@@ -9,4 +9,8 @@ class UserDataController extends GetxController {
   Future getUserData() async {
     userModel.value = await AppPrefs().getUserData();
   }
+
+  void clearData() {
+    userModel.value = null;
+  }
 }

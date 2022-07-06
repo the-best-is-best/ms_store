@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:ms_store/app/extensions.dart';
 
 import '../app/resources/font_manger.dart';
+import 'resources/color_manager.dart';
+import 'resources/values_manager.dart';
 
 Future<void> waitStateChanged({int? duration}) async {
   await Future.delayed(Duration(milliseconds: duration ?? 1000));
@@ -46,4 +48,19 @@ Future<void> showMyDialog(
       paddingTitle: paddingTitle,
       content: content,
       actions: actions);
+}
+
+class BuildLinearProgressIndicator extends StatelessWidget {
+  const BuildLinearProgressIndicator({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const LinearProgressIndicator(
+      minHeight: AppSpacing.ap8,
+      backgroundColor: ColorManager.textColor,
+      valueColor: AlwaysStoppedAnimation(ColorManager.darkColor),
+    );
+  }
 }
