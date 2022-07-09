@@ -78,11 +78,16 @@
     <string>c65177f95cc17dee5ae6d3b468dd5d74</string>
     <key>FacebookDisplayName</key>
     <string>MS Store</string>
-  </dict>
+
   <!-- url support-->
   <key>LSApplicationQueriesSchemes</key>
    <array>
      <string>http</string>
      <string>https</string>
-  </array
+  </array>
+
+  <!-- geolocator-->
+   <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs access to location to display store place (you can reject it) or choose your location when make order (Mandatory).</string>
+ </dict>
 </plist>

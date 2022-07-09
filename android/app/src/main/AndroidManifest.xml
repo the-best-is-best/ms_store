@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tbib.demo.ms_store">
         <uses-permission android:name="android.permission.INTERNET" />
-       
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+        <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
+        <!-- <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> -->
    <application
         android:label="@string/application_name"
         android:name="${applicationName}"
@@ -13,6 +15,10 @@
        <meta-data 
            android:name="com.facebook.sdk.ClientToken" 
            android:value="@string/facebook_client_token"/>
+        
+        <!-- Google Map-->
+         <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBNPOSC5lqO6pR3ysE1kFhXcao5r7n2twI"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
