@@ -89,5 +89,6 @@
   <!-- geolocator-->
    <key>NSLocationWhenInUseUsageDescription</key>
     <string>This app needs access to location to display store place (you can reject it) or choose your location when make order (Mandatory).</string>
+
  </dict>
 </plist>

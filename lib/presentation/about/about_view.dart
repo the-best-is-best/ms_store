@@ -17,7 +17,7 @@ class AboutView extends StatefulWidget {
 
 class _AboutViewState extends State<AboutView> {
   final CameraPosition _kGooglePlex = const CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(30.0294308, 31.2294926),
     zoom: 14.4746,
   );
 
