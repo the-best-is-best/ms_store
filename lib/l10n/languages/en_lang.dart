@@ -115,6 +115,7 @@ established in 2022""",
       "note_update_profile":
           "If you do not want to change the password, leave the fields empty.",
       'update': 'Update',
+      "send_code": "Send Code",
     };
   }
 }

@@ -98,4 +98,5 @@ class AppStrings {
   static String get updateProfile => 'update_profile'.tr;
   static String get noteUpdateProfile => 'note_update_profile'.tr;
   static String get update => 'update'.tr;
+  static String get sendCode => 'send_code'.tr;
 }

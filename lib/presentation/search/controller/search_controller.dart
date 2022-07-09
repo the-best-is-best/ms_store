@@ -29,7 +29,6 @@ class SearchController extends GetxController with BaseController {
           message: failure.messages);
     }, (data) async {
       productSearch.value = data;
-      print(productSearch.value?.products.length);
       flowState.value = ContentState();
     });
   }

@@ -1,8 +1,5 @@
 import '../../../app/extensions.dart';
-
-import '../../../domain/models/store/product_with_pagination_model.dart';
 import '../../../domain/models/store/product_model.dart';
-import '../../responses/store_responses/get_products_with_pagination_response.dart';
 import '../../responses/store_responses/product_data_response.dart';
 import '../../responses/store_responses/get_products_by_ids_responses.dart';
 

@@ -1,7 +1,5 @@
-import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ms_store/app/components/common/build_circular_progress_indicator.dart';
 import 'package:ms_store/app/components/common/input_field.dart';
 import 'package:ms_store/app/components/common/phone_form_field.dart';
 import 'package:ms_store/app/resources/color_manager.dart';
@@ -10,7 +8,6 @@ import 'package:ms_store/presentation/account/controller/account_controller.dart
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
-
 import '../../../app/resources/font_manger.dart';
 import '../../../app/resources/icons_manger.dart';
 import '../../../app/resources/values_manager.dart';
@@ -311,7 +308,7 @@ class _SendCodeState extends State<SendCode> {
                   widget.accountController.verifyPhone();
                 },
                 child: Text(
-                  "Send Code",
+                  AppStrings.sendCode,
                   style: context.textTheme.labelMedium!
                       .copyWith(color: ColorManager.primaryColor),
                 ),

@@ -27,7 +27,6 @@ import '../domain/use_case/users_case/forget_password_case.dart';
 import '../domain/use_case/users_case/login_use_case.dart';
 import '../domain/use_case/users_case/register_use_case.dart';
 import '../domain/use_case/users_case/reset_password_case.dart';
-import '../presentation/base/user_data/user_data_controller.dart';
 
 final instance = GetIt.instance;
 

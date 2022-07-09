@@ -98,7 +98,7 @@ class _CartPageState extends State<CartPage> {
                             child: Row(
                               children: [
                                 Text(
-                                  "Total : ",
+                                  "${AppStrings.total} ",
                                   style: context.textTheme.labelMedium,
                                 ),
                                 const SizedBox(width: AppSpacing.ap8),

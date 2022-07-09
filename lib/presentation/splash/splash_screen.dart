@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/di.dart';
+import 'package:ms_store/app/resources/strings_manager.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import '../../app/resources/font_manger.dart';
 import '../on_boarding/view/on_boarding_view.dart';
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
           imageSrc: const $AssetsImagesGen().logoInLight.keyName,
           duration: const Duration(milliseconds: 750),
           text: WavyAnimatedText(
-            "MS Store",
+            AppStrings.appTitle,
             textStyle: TextStyle(
               color: ColorManager.textColor,
               fontSize: FontSize.s30,

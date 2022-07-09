@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ms_store/app/resources/strings_manager.dart';
 import '../../../app/di.dart';
 import '../../../app/resources/color_manager.dart';
 import '../../../app/resources/routes_manger.dart';
@@ -118,7 +119,7 @@ class PViewState extends State<OnBoardingView> {
                                 arguments: {'canBack': true});
                           },
                           child: Text(
-                            "Sign In",
+                            AppStrings.login,
                             style: themeData.textTheme.labelMedium,
                           ),
                         ),
@@ -136,7 +137,7 @@ class PViewState extends State<OnBoardingView> {
                             Get.toNamed(Routes.registerRoute);
                           },
                           child: Text(
-                            "Sign Up",
+                            AppStrings.registerTitle,
                             style: themeData.textTheme.labelMedium,
                           ),
                         ),
@@ -149,7 +150,7 @@ class PViewState extends State<OnBoardingView> {
                       Get.offAllNamed(Routes.homeRoute);
                     },
                     child: Text(
-                      "Skip",
+                      AppStrings.skip,
                       style: themeData.textTheme.labelMedium,
                     ),
                   ),

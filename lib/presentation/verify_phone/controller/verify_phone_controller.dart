@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-
 import '../../account/controller/account_controller.dart';
 
 class VerifyPhoneController extends GetxController {

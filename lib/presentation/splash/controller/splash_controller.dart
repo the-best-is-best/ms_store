@@ -4,9 +4,7 @@ import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
 import 'package:ms_store/presentation/on_boarding/view/on_boarding_view.dart';
 import '../../../app/app_refs.dart';
 import '../../../app/di.dart';
-import '../../base/user_data/user_data_controller.dart';
 import '../../main/main_view.dart';
-import '../../main/pages/home/view_model/home_controller.dart';
 
 class SplashController extends GetxController {
   final CacheUserCase _cacheUserCase;

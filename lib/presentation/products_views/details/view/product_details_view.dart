@@ -37,12 +37,10 @@ class ProductDetailsView extends StatefulWidget {
 }
 
 class _ProductDetailsViewState extends State<ProductDetailsView> {
-  late final String _language;
   late final ProductDetailsController _productDetailsController;
 
   @override
   void initState() {
-    _language = Get.locale!.languageCode;
     _productDetailsController = Get.find();
     _productDetailsController.currentProduct.add(widget.product);
     _productDetailsController.getData(widget.product.categoryId);

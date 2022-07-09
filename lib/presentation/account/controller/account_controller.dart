@@ -13,10 +13,7 @@ import 'package:ms_store/domain/use_case/users_case/update_user_data_case.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/base_users_controller.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
-import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
-import 'package:ms_store/presentation/splash/splash_screen.dart';
 import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
-
 import '../../../app/resources/strings_manager.dart';
 import '../../common/freezed/freezed_data.dart';
 import '../../common/state_renderer/state_renderer.dart';
