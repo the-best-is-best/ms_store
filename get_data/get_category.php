@@ -52,11 +52,7 @@ try {
             }
         }
     }
-    // for ($i = 0; $i < count($row); $i++) {
-    //     if (!empty($row[$i]['image'])) {
-    //         $row[$i]['image'] = DB::$urlSite .  $row[$i]['image'];
-    //     }
-    // }
+
 
     $returnData = $row;
     $response = new Response();

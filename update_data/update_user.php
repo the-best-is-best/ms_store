@@ -76,13 +76,17 @@ if (empty($jsonData->phone)) {
     $jsonData->phone = $row['phone'];
 }
 $password = trim($jsonData->password);
-$phone = $jsonData->phone??"";
+$phone = $jsonData->phone ?? "";
+$phoneVerify = $jsonData->phoneVerify ?? false;
+
 if (!empty($jsonData->password)) {
 
     $password = password_hash($password, PASSWORD_DEFAULT);
+} else {
+    $password  = $row['password'];
 }
 if (
-    strlen($userName) < 1 || strlen($userName) > 255 
+    strlen($userName) < 1 || strlen($userName) > 255
 ) {
     $response = new Response();
 
@@ -93,32 +97,23 @@ if (
     (strlen($userName) > 255 ?  $response->addMessage("User Name cannot be greater than 255 characters") : false);
 
 
-   // (strlen($phone) < 10 ?  $response->addMessage("Phone cannot be black or less than 10") : false);
+    // (strlen($phone) < 10 ?  $response->addMessage("Phone cannot be black or less than 10") : false);
     //(strlen($phone) > 15 ?  $response->addMessage("Phone error") : false);
 
     $response->send();
     exit;
 }
 try {
-    $query;
-    if (!empty($jsonData->password)) {
 
-        $query = $writeDB->prepare("UPDATE users_" . DB::$AppName . " SET userName = :userName , password=:password , phone=:phone WHERE id=:id ");
+    $query = $writeDB->prepare("UPDATE users_" . DB::$AppName . " SET userName = :userName , password=:password , phone=:phone , phoneVerify=:phoneVerify WHERE id=:id ");
 
-        $query->bindParam(':userName', $userName, PDO::PARAM_STR);
-        $query->bindParam(':password', $password, PDO::PARAM_STR);
-        $query->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $query->bindParam(':id', $userId, PDO::PARAM_STR);
+    $query->bindParam(':userName', $userName, PDO::PARAM_STR);
+    $query->bindParam(':password', $password, PDO::PARAM_STR);
+    $query->bindParam(':phone', $phone, PDO::PARAM_STR);
+    $query->bindParam(':phoneVerify', $phoneVerify, PDO::PARAM_STR);
+    $query->bindParam(':id', $userId, PDO::PARAM_STR);
 
-        $query->execute();
-    } else {
-        $query = $writeDB->prepare("UPDATE users_" . DB::$AppName . " SET userName = :userName , phone=:phone WHERE id=:id ");
-
-        $query->bindParam(':userName', $userName, PDO::PARAM_STR);
-        $query->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $query->bindParam(':id', $userId, PDO::PARAM_STR);
-        $query->execute();
-    }
+    $query->execute();
 
     $rowCount = $query->rowCount();
     if ($rowCount === 0) {

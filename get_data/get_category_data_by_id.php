@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD']  !== 'GET') {
     exit;
 }
 
+
 try {
     if (!isset($_GET['catId'])) {
         $response = new Response();
@@ -34,48 +35,20 @@ try {
         exit;
     }
     $catId = $_GET['catId'];
-    $rowsperpage = 20;
-    $query = $writeDB->prepare("SELECT id FROM products_" . DB::$AppName . " WHERE categoryId = '$catId' ORDER BY id DESC");
+    $query = $writeDB->prepare("SELECT id , nameEN , nameAR FROM category_" . DB::$AppName .  ' WHERE id=' . $catId);
     $query->execute();
-    $count = $query->rowCount();
-    $numrows = $count;
-    $totalpages = ceil($numrows / $rowsperpage);
-
-    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
-        $currentpage = (int) $_GET['currentpage'];
-    } else {
-        $currentpage = 1;  // default page number
-    }
-    // if current page is greater than total pages
-    if ($currentpage > $totalpages) {
-        // set current page to last page
-        $currentpage = $totalpages;
-    }
-    // if current page is less than first page
-    if ($currentpage < 1) {
-        // set current page to first page
-        $currentpage = 1;
-    }
-    // the offset of the list, based on current page
-    $offset = ($currentpage - 1) * $rowsperpage;
-    $query = $writeDB->prepare("SELECT * FROM products_" . DB::$AppName . " WHERE categoryId = '$catId' ORDER BY id DESC LIMIT $offset, $rowsperpage");
-    $query->execute();
-    $row = $query->fetchAll();
-    $returnData['products'] = [];
-    for ($i = 0; $i < count($row); $i++) {
-        $row[$i]['image'] = DB::$urlSite .  $row[$i]['image'];
-        array_push($returnData['products'], $row[$i]);
-    }
+    $row = $query->fetch();
     if (empty($row)) {
 
         $response = new Response();
         $response->setHttpStatusCode(201);
         $response->setSuccess(true);
-        $response->addMessage('No Products');
+        $response->addMessage('No Category');
         $response->send();
         exit;
     }
-    $returnData['totalPages'] = $totalpages;
+
+    $returnData = $row;
     $response = new Response();
     $response->setHttpStatusCode(200);
     $response->setSuccess(true);
@@ -87,7 +60,7 @@ try {
     $response = new Response();
     $response->setHttpStatusCode(500);
     $response->setSuccess(false);
-    $response->addMessage('There was an issue Get Products - please try again' . $ex);
+    $response->addMessage('There was an issue Get Category - please try again' . $ex);
     $response->send();
     exit;
 }

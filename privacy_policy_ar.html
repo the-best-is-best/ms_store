@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @charset "UTF-8";
+
+        /* these are overridden inline in the mustache compilation */
+        :root {
+            --background-color: #ffffff;
+            --poweredbybg-color: #f0f0f0;
+            --text-color: #000000;
+            --link-color: #008DD5;
+            --linkhover-color: #005A88;
+            --main-font: "Arvo";
+        }
+
+        .editing-active {
+            transition: all 0.2s ease-in-out;
+            border: 3px dotted rgba(0, 0, 0, 0.2);
+        }
+
+        .editing-active:hover {
+            border-color: rgba(31, 175, 132, 0.8);
+            background-color: rgba(31, 175, 132, 0.3);
+            cursor: pointer;
+        }
+
+        .placeholder-text {
+            font-style: italic;
+            opacity: 0.6;
+        }
+
+        * {
+            font-family: var(--main-font);
+            font-weight: 400;
+            color: var(--text-color);
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            -webkit-font-feature-settings: "pnum";
+            font-feature-settings: "pnum";
+            font-variant-numeric: proportional-nums;
+            position: relative;
+            background: #fff;
+        }
+
+        a {
+            color: var(--link-color);
+            transition: all 0.2s linear;
+        }
+
+        a:focus,
+        a:hover {
+            color: var(--linkhover-color);
+        }
+
+        a.nohover:hover {
+            text-decoration: none;
+        }
+
+        .claim-bar {
+            padding: 12px 0;
+            background: #fff;
+            color: #555;
+            font-family: "Oxygen", Helvetica, sans-serif;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .claim-bar * {
+            font-family: "Oxygen", Helvetica, sans-serif;
+        }
+
+        .claim-bar div {
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            font-size: 0.9em;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .claim-bar div span {
+            transition: all 0.3s ease-in-out;
+            color: #008DD5;
+        }
+
+        .claim-bar:hover {
+            text-decoration: none;
+            text-decoration: none;
+            background: #008DD5;
+            color: white;
+        }
+
+        .claim-bar:hover div {
+            color: white;
+        }
+
+        .claim-bar:hover div span {
+            color: white;
+        }
+
+        .whitelabel-badge-mobile {
+            background: white;
+            padding-left: 0.75em;
+            padding-right: 0.75em;
+            padding-top: 0.25em;
+            padding-bottom: 0.25em;
+            border-radius: 4px;
+            text-align: center;
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            transition: 0.2s all ease-in-out;
+        }
+
+        .whitelabel-badge-mobile .wl-label {
+            font-size: 0.8em;
+            color: #777;
+        }
+
+        .whitelabel-badge-mobile * {
+            transition: 0.2s all ease-in-out;
+        }
+
+        .whitelabel-badge-mobile .st0 {
+            fill: #1FAF84;
+        }
+
+        .whitelabel-badge-mobile:hover {
+            background: #1FAF84;
+        }
+
+        .whitelabel-badge-mobile:hover * {
+            color: white;
+        }
+
+        .whitelabel-badge-mobile:hover .st0 {
+            fill: #ffffff;
+        }
+
+        @media (min-width: 491px) {
+            .whitelabel-badge-mobile {
+                display: none;
+            }
+        }
+
+        .promo-badge {
+            display: block;
+            position: relative;
+            background: white;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            text-align: left;
+            transition: 0.2s all ease-in-out;
+            cursor: pointer;
+        }
+
+        .promo-badge * {
+            font-family: "Oxygen", Helvetica, sans-serif;
+            transition: 0.2s all ease-in-out;
+            line-height: normal;
+            text-align: left;
+        }
+
+        .promo-badge .pb-loading-container {
+            padding: 0.5em;
+        }
+
+        .promo-badge .pb-loading-container .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+
+        .promo-badge .pb-loading-container .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            margin: 4px;
+            border: 4px solid #ddd;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: #ddd transparent transparent transparent;
+        }
+
+        .promo-badge .pb-loading-container .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+
+        .promo-badge .pb-loading-container .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+
+        .promo-badge .pb-loading-container .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .promo-badge .pb-main-container {
+            display: none;
+            flex-direction: row;
+        }
+
+        .promo-badge .pb-main-container .pb-text-container {
+            flex: 1;
+            padding-right: 0.5em;
+            align-self: center;
+        }
+
+        .promo-badge .pb-main-container .pb-text-container .pb-h1 span {
+            color: #555;
+            font-size: 1.2em;
+            margin-right: 0.2em;
+        }
+
+        .promo-badge .pb-main-container .pb-text-container .pb-h1 .pb-ios {
+            width: 16px;
+            height: 16px;
+            fill: #ccc;
+            margin-bottom: -1px;
+            display: none;
+        }
+
+        .promo-badge .pb-main-container .pb-text-container .pb-h1 .pb-android {
+            width: 15px;
+            height: 15px;
+            fill: #ccc;
+            stroke: #ccc;
+            margin-bottom: -1px;
+            display: none;
+        }
+
+        .promo-badge .pb-main-container .pb-text-container .pb-h2 {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: -2px;
+        }
+
+        .promo-badge .pb-main-container .pb-text-container .pb-by {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            text-align: left;
+            margin-top: 4px;
+        }
+
+        .promo-badge .pb-main-container .pb-text-container .pb-by a {
+            color: #aaa;
+        }
+
+        .promo-badge .pb-main-container .pb-text-container .pb-by a:hover {
+            color: #25d5a1;
+            text-decoration: none;
+        }
+
+        .promo-badge .pb-main-container img {
+            width: 58px;
+            height: 58px;
+            border-radius: 8px;
+            margin-right: 0.75em;
+            align-self: center;
+            border: none;
+            display: none;
+        }
+
+        @media (min-width: 600px) {
+            .promo-badge {
+                position: fixed;
+                z-index: 999999999;
+                top: 10px;
+                right: 10px;
+                border-radius: 8px;
+                -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            }
+        }
+
+        footer {
+            background: #222;
+        }
+
+        footer .editing-active {
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        footer p {
+            color: #777 !important;
+        }
+
+        footer .social-icons {
+            background: #222;
+            width: auto;
+            display: inline-block;
+        }
+
+        footer .social-icons .social-icon {
+            transition: opacity 0.2s ease-in-out;
+            display: inline-block;
+            width: 32px;
+            margin-right: 12px;
+            opacity: 0.5;
+            padding-top: 30px;
+        }
+
+        footer .social-icons .social-icon path,
+        footer .social-icons .social-icon polygon {
+            transition: all 0.2s linear;
+            fill: white;
+        }
+
+        footer .social-icons .social-icon:hover {
+            opacity: 1;
+        }
+
+        footer .social-icons .social-icon.si-muted {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        footer .social-icons .social-icon.si-muted path,
+        footer .social-icons .social-icon.si-muted polygon {
+            transition: all 0.2s linear;
+            fill: rgba(255, 255, 255, 0.3);
+        }
+
+        footer .social-icons.editing-active {
+            margin-top: 30px;
+            padding: 10px;
+            margin-left: -10px;
+        }
+
+        footer .social-icons.editing-active .social-icon {
+            padding-top: 0;
+        }
+
+        footer .footer-store-button-container {
+            text-align: right;
+            margin: auto;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 767px) {
+            footer .footer-store-button-container {
+                text-align: center;
+            }
+        }
+
+        footer .footer-store-button-container .footer-store-button {
+            padding-top: 2em;
+            padding-bottom: 2em;
+            display: inline-block;
+        }
+
+        footer .footer-store-button-container .footer-store-button .store-button {
+            height: auto !important;
+            margin: 0 6px;
+        }
+
+        footer .footer-store-button-container .footer-store-button .store-button img {
+            height: 50px !important;
+        }
+
+        #header .store-button img {
+            height: 60px !important;
+        }
+
+        #attribution {
+            transition: all 0.2s ease-in-out;
+            padding: 2em 0;
+            font-size: 0.8em;
+            color: #888 !important;
+        }
+
+        #attribution p {
+            margin-bottom: 0.45em;
+            font-size: 1.1em;
+        }
+
+        #attribution a {
+            color: #aaa !important;
+            text-decoration: none;
+        }
+
+        #attribution a:hover {
+            color: #007bff !important;
+        }
+
+        h1 {
+            font-size: 3.2em;
+            margin-bottom: 0;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+
+        h2 {
+            margin-top: 0.2em;
+            margin-bottom: 0.3em;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            font-weight: normal;
+            font-size: 16px;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .cover-container {
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .cover {
+            padding: 0 1.5rem;
+        }
+
+        .cover .btn-lg {
+            padding: 0.75rem 1.25rem;
+            font-weight: 700;
+        }
+
+        p[id="text.line2"] {
+            margin-bottom: 0 !important;
+        }
+
+        .site-wrapper {
+            position: relative;
+            background-size: cover;
+            min-height: 100vh;
+        }
+
+        .site-wrapper .editing-active {
+            border-color: var(--text-color);
+        }
+
+        .site-wrapper .site-wrapper-background {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            opacity: 0.9;
+            background-color: var(--background-color);
+        }
+
+        .site-wrapper .site-wrapper-inner {
+            padding-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        @media (min-width: 767px) {
+            .site-wrapper .site-wrapper-inner {
+                padding-top: 0;
+            }
+        }
+
+        .site-wrapper .site-wrapper-inner .arrows {
+            width: 60px;
+            height: 32px;
+            position: absolute;
+            left: 50%;
+            margin-left: -30px;
+            bottom: 15px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 786px) {
+            .site-wrapper .site-wrapper-inner .arrows {
+                display: none;
+            }
+        }
+
+        .site-wrapper .site-wrapper-inner .arrows path {
+            stroke: var(--text-color);
+            fill: transparent;
+            stroke-width: 2px;
+        }
+
+        @media (min-width: 40em) {
+            .cover-container {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 786px) {
+            * {
+                text-align: center;
+            }
+        }
+
+        #header {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #header .text-container {
+            text-align: left;
+            position: relative;
+            display: block;
+            padding-left: 2em;
+            padding-right: 2em;
+            flex: 1;
+            max-width: 800px;
+        }
+
+        #header .text-container .tc-table {
+            width: 100%;
+            display: table;
+            height: auto;
+            padding-bottom: 5em;
+            padding-top: 2em;
+        }
+
+        @media (min-width: 787px) {
+            #header .text-container .tc-table {
+                height: 100%;
+                padding-bottom: 0;
+            }
+        }
+
+        #header .text-container .tc-table .editing-ttp {
+            padding: 1em;
+            font-size: 1.2em;
+        }
+
+        #header .text-container .tc-table .editing-app-button {
+            font-style: italic;
+            padding: 0.25em;
+            font-size: 1.2em;
+            display: inline-block;
+            border-radius: 1em;
+        }
+
+        #header .text-container .tc-table .editing-app-button:first-of-type {
+            margin-right: 0.5em;
+        }
+
+        #header .text-container h1 {
+            font-size: 2em;
+            margin-bottom: 0.25em;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            line-height: 1.1em;
+        }
+
+        @media (min-width: 787px) {
+            #header .text-container h1 {
+                font-size: 3.2em;
+            }
+        }
+
+        #header .text-container h2 {
+            margin-top: 0.2em;
+            margin-bottom: 0.3em;
+            font-size: 1.3em;
+        }
+
+        @media (min-width: 787px) {
+            #header .text-container h2 {
+                font-size: 1.8em;
+            }
+        }
+
+        #header .device-container {
+            padding-bottom: 2em;
+            width: 100%;
+        }
+
+        #header .device-container img {
+            max-height: 70vh;
+            max-width: 90%;
+            position: relative;
+            margin-top: 5em;
+        }
+
+        @media (min-width: 787px) {
+            #header .device-container {
+                width: auto;
+                max-width: 40vw;
+                padding-bottom: 0;
+            }
+
+            #header .device-container img {
+                margin-top: 0;
+            }
+        }
+
+        .store-button {
+            width: auto;
+            display: inline-block;
+        }
+
+        .store-button:first-of-type {
+            margin-right: 12px;
+        }
+
+        @media (max-width: 491px) {
+            .store-button:first-of-type {
+                margin-right: 0;
+                margin-bottom: 12px;
+            }
+        }
+
+        .store-button:hover {
+            transition: all 0.2s ease-in-out;
+            transform: scale(1.05);
+        }
+
+        .store-button svg {
+            width: auto;
+            height: 100%;
+            display: block;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .store-button {
+                margin: auto;
+            }
+        }
+
+        @media (max-width: 491px) {
+            .text-to-phone:not(.email-subscribe) {
+                display: none !important;
+            }
+        }
+
+        .text-to-phone input[type=tel],
+        .text-to-phone input[type=email] {
+            transition: all 0.2s linear;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            outline: none;
+            color: #333 !important;
+            text-align: left;
+        }
+
+        .text-to-phone input[type=tel]:focus,
+        .text-to-phone input[type=email]:focus {
+            border-color: var(--link-color);
+        }
+
+        .text-to-phone input[type=email] {
+            padding-left: 12px;
+            width: 230px;
+        }
+
+        .text-to-phone button,
+        .text-to-phone input[type=submit] {
+            border-radius: 4px;
+            background: var(--link-color);
+            color: white;
+            font-size: 14px;
+            border: 0;
+            padding: 6px 8px;
+            padding-top: 7px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            outline: none;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 5em 0;
+            background: white;
+        }
+
+        section:not(.text-section) * {
+            color: #333;
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            color: #333;
+            padding-bottom: 0.25em;
+            margin-bottom: 0;
+        }
+
+        #screenshots .owl-nav {
+            padding-top: 3em;
+        }
+
+        #screenshots .owl-nav button {
+            outline: none;
+        }
+
+        #screenshots .owl-nav .owl-next,
+        #screenshots .owl-nav .owl-prev {
+            font-size: 2em;
+        }
+
+        #screenshots .owl-nav .owl-next *,
+        #screenshots .owl-nav .owl-prev * {
+            color: rgba(0, 0, 0, 0.25);
+        }
+
+        #screenshots .owl-nav .owl-prev {
+            margin-right: 1em;
+        }
+
+        #screenshots img {
+            border-radius: 0.5em;
+            -webkit-box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 0.49);
+            -moz-box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 0.49);
+            box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.49);
+        }
+
+        #screenshots h2 {
+            padding-bottom: 0.5em;
+            margin-bottom: 2em;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            padding-left: 2em;
+            padding-right: 2em;
+        }
+
+        @media (max-width: 767px) {
+            #screenshots h2 {
+                padding-left: 0;
+                padding-right: 0;
+                display: block;
+            }
+        }
+
+        #features p {
+            font-size: 1.4em;
+        }
+
+        #features ul {
+            padding-left: 1em;
+            padding-top: 0.75em;
+        }
+
+        #features ul li {
+            list-style-type: circle;
+            font-size: 1.2em;
+            padding-bottom: 0.5em;
+        }
+
+        #features button {
+            transition: transform 0.2s ease-in-out;
+            padding: 0.75em 1.5em;
+            border: 0;
+            border-radius: 4px;
+            margin-top: 1em;
+            background-color: var(--background-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        #features button:hover {
+            transform: scale(1.1);
+        }
+
+        #features .feature-right {
+            text-align: left;
+            padding-top: 2em;
+        }
+
+        #features .feature-left {
+            text-align: center;
+            padding-right: 0;
+        }
+
+        #features .feature-left img {
+            max-width: 100%;
+            max-height: 575px;
+        }
+
+        @media (min-width: 767px) {
+            #features .feature-left {
+                margin: auto;
+                padding-right: 40px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #features .feature-right {
+                padding-top: 4em;
+            }
+
+            #features ul {
+                padding-left: 0;
+            }
+
+            #features ul li {
+                list-style: none;
+            }
+        }
+
+        #reviews .stars {
+            width: 100%;
+            padding-bottom: 1.5em;
+        }
+
+        #reviews .stars svg {
+            color: #eec643;
+            height: 34px;
+            width: 34px;
+        }
+
+        #reviews .stars svg path {
+            fill: #eec643;
+        }
+
+        #reviews #quote-carousel {
+            padding: 0 80px;
+        }
+
+        #reviews #quote-carousel .carousel-control svg {
+            width: 14px;
+        }
+
+        #reviews #quote-carousel .carousel-control path {
+            fill: #999;
+        }
+
+        #reviews #quote-carousel .carousel-indicators {
+            margin-bottom: -1em;
+        }
+
+        #reviews #quote-carousel .carousel-indicators li {
+            background: #c0c0c0;
+        }
+
+        #reviews #quote-carousel .carousel-indicators .active {
+            background: #666;
+        }
+
+        #reviews blockquote {
+            position: relative;
+            font-size: 1em;
+            font-style: italic;
+            color: #666;
+            padding: 0 5%;
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 768px) {
+            #reviews blockquote {
+                font-size: 1.6em;
+                line-height: 1.5em;
+                padding: 0 10%;
+            }
+        }
+
+        #reviews blockquote footer {
+            background: none !important;
+            font-size: 0.6em;
+            font-weight: 700;
+            color: #c7c6c1;
+        }
+
+        #reviews blockquote footer:before {
+            content: "―";
+        }
+
+        a.contact {
+            color: #999;
+        }
+
+        a.contact:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 767px) {
+            * {
+                text-align: center;
+            }
+
+            section.text-section .col-xs-12 {
+                padding: 0 15px;
+            }
+        }
+
+        #dl-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            padding-top: 5em;
+            display: none;
+        }
+
+        #dl-loader .coffee_cup {
+            width: 20px;
+            height: 24px;
+            border: 1px #999 solid;
+            border-radius: 0px 0px 5px 5px;
+            position: relative;
+            margin: 12px auto;
+        }
+
+        #dl-loader .coffee_cup:after,
+        #dl-loader .coffee_cup:before {
+            position: absolute;
+            content: "";
+        }
+
+        #dl-loader .coffee_cup:after {
+            width: 5px;
+            height: 12px;
+            border: 1px #999 solid;
+            border-left: none;
+            border-radius: 0px 20px 20px 0px;
+            left: 20px;
+        }
+
+        #dl-loader .coffee_cup:before {
+            width: 1px;
+            height: 6px;
+            background-color: #999;
+            top: -10px;
+            left: 4px;
+            box-shadow: 5px 0px 0px 0px #999, 5px -5px 0px 0px #999, 10px 0px 0px 0px #999;
+            -webkit-animation: steam 1s linear infinite alternate;
+            -moz-animation: steam 1s linear infinite alternate;
+            animation: steam 1s linear infinite alternate;
+        }
+
+        @-webkit-keyframes steam {
+            0% {
+                height: 0px;
+            }
+
+            100% {
+                height: 6px;
+            }
+        }
+
+        @-moz-keyframes steam {
+            0% {
+                height: 0px;
+            }
+
+            100% {
+                height: 6px;
+            }
+        }
+
+        @keyframes steam {
+            0% {
+                height: 0px;
+            }
+
+            100% {
+                height: 6px;
+            }
+        }
+
+        #dl-loader div {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+    <style>
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                width: 750px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                width: 970px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                width: 1170px;
+            }
+        }
+    </style>
+    <style id="global_style">
+        :root {
+            --background-color: #004AC5;
+            --text-color: #ffffff;
+            --link-color: #EEC643;
+            --linkhover-color: #005A88;
+            --main-font: 'Oxygen';
+            --backgroundgradient: True;
+            --backgroundopacity: 0.9;
+        }
+    </style>
+    <style>
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+
+        .main-container {
+            color: #222;
+            padding: 2em 0;
+            padding-bottom: 4em;
+            text-align: left !important;
+            padding: 2em;
+            background: #fff;
+            min-height: 400px;
+            -webkit-box-shadow: 0 0 3px 0 rgba(0, 0, 0, .25);
+            -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, .25);
+            box-shadow: 0 0 3px 0 rgba(0, 0, 0, .25)
+        }
+
+        .main-container * {
+            text-align: left !important
+        }
+
+        .main-container :not(a) {
+            color: #222
+        }
+
+        .main-container #content p {
+            margin-top: 1rem;
+            margin-bottom: 1rem
+        }
+
+        a {
+            color: #009c9c
+        }
+
+        a:hover {
+            color: #007bff
+        }
+
+        h2 {
+            font-size: 1.2em
+        }
+
+        @media only screen and (max-width:600px) {
+            h2 {
+                font-size: 1.2em
+            }
+        }
+
+        a.nohover {
+            color: #fff;
+            text-decoration: none
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+
+        .fc123-promoclass {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: linear-gradient(to right bottom, #4BB3FD, #45A3E6);
+            color: #fff
+        }
+
+        .fc123-promoclass * {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+        }
+
+        .fc123-promoclass img {
+            display: inline-block;
+            margin-right: 20px;
+            border-radius: 8px;
+            max-height: 50px
+        }
+
+        .fc123-promoclass .fc123-button {
+            padding: 10px 30px;
+            border-radius: 6px;
+            font-weight: 700;
+            transition: all .2s ease-in-out;
+            cursor: pointer
+        }
+
+        .fc123-promoclass .fc123-button:hover {
+            background: #357ded
+        }
+
+        .fc123-promoclass h1 {
+            width: 100%;
+            text-align: center;
+            font-size: 1.8em;
+            margin: 0
+        }
+
+        .fc123-promoclass h2 {
+            text-align: center;
+            font-size: 2em;
+            margin: 0
+        }
+
+        .fc123-promoclass .subheader {
+            font-size: 1.1em;
+        }
+
+        .fc123-pr {
+            font-size: .7em;
+            text-align: right;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            opacity: .8;
+            margin-right: 4px;
+            transition: all .2s ease-in-out
+        }
+
+        .fc123-pr:hover {
+            opacity: 1
+        }
+
+        .fc123-promoclass .fc123-pc-action {
+            display: inline-block;
+        }
+
+        @media only screen and (max-width:768px) {
+            .fc123-promoclass h2 {
+                font-size: 1.6em
+            }
+
+            .fc123-promoclass .subheader {
+                font-size: 1.0em
+            }
+
+            .fc123-promoclass {
+                text-align: center !important
+            }
+
+            .fc123-promoclass .fc123-pc-action {
+                width: 100%;
+            }
+        }
+
+        @media only screen and (max-width:600px) {
+            .fc123-promoclass h1 {
+                font-size: 1.25em;
+                text-align: center
+            }
+        }
+    </style>
+    <title>MS Store - Privacy Policy</title>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main-container">
+        <h2>ام ستور &gt; سياسة الخصوصية</h2>
+        <hr>
+        <div id="">
+            <p> قامت ميشيل رؤوف ببناء تطبيق ام ستور كتطبيق مجاني. يتم تقديم هذه الخدمة من قبل ميشيل رؤوف في لا
+                التكلفة ومخصصة للاستخدام كما هي. </p>
+            <p> يتم استخدام هذه الصفحة لإبلاغ الزوار بخصوص سياساتي مع جمع واستخدام وكشف عن
+                المعلومات الشخصية إذا قرر أي شخص استخدام خدمتي. </p>
+            <p> إذا اخترت استخدام خدمتي ، فأنت توافق على جمع المعلومات واستخدامها فيما يتعلق
+                هذه السياسة. يتم استخدام المعلومات الشخصية التي أجمعها لتوفير الخدمة وتحسينها. أنا
+                لن تستخدم أو تشارك معلوماتك مع أي شخص باستثناء ما هو موضح في سياسة الخصوصية هذه. </p>
+            <p> الشروط المستخدمة في سياسة الخصوصية هذه لها نفس المعاني كما هو الحال في الشروط والأحكام الخاصة بنا
+                يمكن الوصول إليها في ام سنور ما لم يتم تحديدها خلاف ذلك في سياسة الخصوصية هذه. </p>
+            <p> <strong> جمع المعلومات واستخدامه </strong> </p>
+            <p> للحصول على تجربة أفضل ، أثناء استخدام خدمتنا ، قد أطلب منك أن تزودنا ببعض
+                معلومات محددة. سيتم الاحتفاظ بالمعلومات التي أطلبه على جهازك وليس كذلك
+                جمعت من قبلي بأي شكل من الأشكال. </p>
+            <viv>
+                <p> يستخدم التطبيق خدمات الجهات الخارجية التي قد تجمع المعلومات المستخدمة لتحديد هويتك. </p>
+                <p> رابط لسياسة الخصوصية لمقدمي خدمات الطرف الثالث يستخدمهم التطبيق </p>
+                <ul>
+                    <li> <a href="https://www.google.com/policies/privacy/" rel="noopener noreferrer" Target="_ Blank">
+                            Google Play Services </a> </li>
+                    <li> <a href="https://firebase.google.com/policies/analytics" rel="noopener noreferrer"
+                            Target="_ Blank"> Google Analytics for Firebase </a> </li>
+                    <li> <a href="https://firebase.google.com/support/privacy/" rel="noopener noreferrer"
+                            Target="_ Blank"> firebase crashlytics </a> </li>
+                    <li> <a href="https://www.facebook.com/about/privacy/update/printable" rel="noopener noreferrer"
+                            Target="_ Blank"> Facebook </a> </li>
+                </ul>
+        </div>
+        <p> <strong> بيانات السجل </strong> </p>
+        <p> أريد أن أبلغكم أنه كلما استخدمت خدمتي ، في حالة خطأ في التطبيق أقوم بجمع البيانات
+            والمعلومات (من خلال منتجات الطرف الثالث) على هاتفك تسمى بيانات السجل.قد تتضمن بيانات السجل هذه
+            معلومات مثل بروتوكول إنترنت جهازك (& ldquo ؛ ip & rdquo ؛) ، اسم الجهاز ، التشغيل
+            إصدار النظام ، تكوين التطبيق عند استخدام خدمتي ، وقت وتاريخ استخدامك
+            الخدمة والإحصائيات الأخرى. </p>
+        <p> <strong> ملفات تعريف الارتباط </strong> </p>
+        <p> ملفات تعريف الارتباط عبارة عن ملفات تحتوي على كمية صغيرة من البيانات التي يتم استخدامها عادة كمعرفات فريدة
+            مجهولة.
+            يتم إرسالها إلى متصفحك من مواقع الويب التي تزورها وتخزينها على جهازك & apos ؛
+            الذاكرة الداخلية. </p>
+        <p> لا تستخدم هذه الخدمة هذه & ldquo ؛ ملفات تعريف الارتباط & rdquo ؛صراحة.ومع ذلك ، قد يستخدم التطبيق طرفًا
+            ثالثًا
+            الكود والمكتبات التي تستخدم & ldquo ؛ ملفات تعريف الارتباط & rdquo ؛لجمع المعلومات وتحسين خدماتهم.أنت
+            احصل على خيار قبول أو رفض ملفات تعريف الارتباط هذه ومعرفة متى يتم إرسال ملف تعريف الارتباط الخاص بك
+            جهاز.إذا اخترت رفض ملفات تعريف الارتباط الخاصة بنا ، فقد لا تتمكن من استخدام بعض أجزاء هذه الخدمة.
+        </p>
+        <p> <strong> مقدمي الخدمات </strong> </p>
+        <p> قد أستخدم شركات وأفراد طرف ثالث بسبب الأسباب التالية: </p>
+        <ul>
+            <li> لتسهيل خدمتنا ؛ </li>
+            <li> لتقديم الخدمة نيابة عنا ؛ </li>
+            <li> لأداء الخدمات المتعلقة بالخدمة ؛ أو </li>
+            <li> لمساعدتنا في تحليل كيفية استخدام خدمتنا. </li>
+        </ul>
+        <p> أريد إبلاغ المستخدمين بهذه الخدمة أن هذه الأطراف الثالثة يمكنها الوصول إلى الشخصية
+            معلومة. والسبب هو أداء المهام المخصصة لهم نيابة عنا. ومع ذلك ، هم
+            ملزم بعدم الكشف عن المعلومات أو استخدامها لأي غرض آخر. </p>
+        <p> <strong> الأمان </strong> </p>
+        <p> أقدر ثقتك في تزويدنا بمعلوماتك الشخصية ، وبالتالي نحن نسعى جاهدين لاستخدامها تجاريًا
+            وسائل مقبولة لحمايتها. لكن تذكر أنه لا توجد طريقة للإرسال عبر الإنترنت ، أو
+            طريقة التخزين الإلكتروني آمنة وموثوقة بنسبة 100 ٪ ، ولا يمكنني ضمان أمانها المطلق.
+        </p>
+        <p> <strong> روابط إلى مواقع أخرى </strong> </p>
+        <p> قد تحتوي هذه الخدمة على روابط لمواقع أخرى. إذا قمت بالنقر فوق رابط طرف ثالث ، فسيتم توجيهك
+            لهذا الموقع. لاحظ أن هذه المواقع الخارجية لا يتم تشغيلها من قبلي. لذلك ، أنصحك بشدة
+            راجع سياسة الخصوصية لهذه المواقع. ليس لدي أي سيطرة على عدم المسؤولية عن
+            محتوى أو سياسات الخصوصية أو ممارسات أي مواقع أو خدمات طرف ثالث. </p>
+        <p> <strong> خصوصية الأطفال & rsquo </strong> </p>
+        <viv>
+            <p> هذه الخدمات لا تعالج أي شخص دون سن 13 عامًا.
+                معلومات محددة من الأطفال الذين تقل أعمارهم عن 13 عامًا. في حالة اكتشفت أن الطفل
+                لقد زودني أقل من 13 عامًا بمعلومات شخصية ، وأحذف هذا على الفور من خوادمنا. إذا
+                أنت أحد الوالدين أو الوصي وأنت تدرك أن طفلك قد زودنا بالشخصية
+                معلومات ، يرجى الاتصال بي حتى أتمكن من القيام بالإجراءات اللازمة. </p>
+    </div>
+    <p> <strong> تغييرات على سياسة الخصوصية هذه </strong> </p>
+    <p> قد أقوم بتحديث سياسة الخصوصية الخاصة بنا من وقت لآخر. وبالتالي ، يُنصح بمراجعة هذه الصفحة بشكل دوري
+        لأي تغييرات. سأعلمك بأي تغييرات عن طريق نشر سياسة الخصوصية الجديدة على هذه الصفحة. </p>
+    <p> هذه السياسة فعالة اعتبارًا من 2022-06-27 </p>
+    </div>
+    </div>
+    <div class="main-container">
+        <H1> التفسير والتعاريف </h1>
+        <h2> التفسير </h2>
+        <p> الكلمات التي يتم رسملة الرسالة الأولية لها معاني محددة في الشروط التالية.
+            يجب أن يكون للتعاريف التالية نفس المعنى بغض النظر عما إذا كانت تظهر في المفرد أو في
+            الجمع. </p>
+        <h2> التعريفات </h2>
+        <p> لأغراض سياسة الخصوصية هذه: </p>
+        <ul>
+            <li>
+                <p> <strong> حساب </strong> يعني حساب فريد تم إنشاؤه لك للوصول إلى خدمتنا أو أجزاء من لدينا
+                    الخدمة. </p>
+            </li>
+            <li>
+                <p> <strong> Affiliate </strong> تعني كيانًا يتحكم في أو يتم التحكم فيه بواسطة أو تحت سيطرة مشتركة
+                    مع حفلة ، أين & quot ؛ التحكم & quot ؛ تعني ملكية 50 ٪ أو أكثر من الأسهم ، الأسهم
+                    الفائدة أو غيرها من الأوراق المالية التي يحق لها التصويت للاختراق من المديرين أو غيرها من السلطة
+                    الإدارة.
+                </p>
+            </li>
+            <li>
+                <p> <strong> Application </strong> يعني البرنامج الذي توفره الشركة التي تم تنزيلها من قبلك عليها
+                    أي جهاز إلكتروني يدعى MS Store </p>
+            </li>
+            <li>
+                <p> <strong> شركة </strong> (يشار إليها باسم & quot ؛ الشركة & quot ؛ ، & quot ؛ we & quot ؛ ،
+                    & quot ؛ لنا & quot ؛ أو & quot ؛ في هذه الاتفاقية) يشير إلى متجر MS. </p>
+            </li>
+            <li>
+                <p> <strong> البلد </strong> يشير إلى: مصر </p>
+            </li>
+            <li>
+                <p> <strong> الجهاز </strong> يعني أي جهاز يمكنه الوصول إلى الخدمة مثل الكمبيوتر والهاتف المحمول
+                    أو جهاز لوحي رقمي. </p>
+            </li>
+            <li>
+                <p> <strong> البيانات الشخصية </strong> هي أي معلومات تتعلق بمحدد أو محدد
+                    فرد. </p>
+            </li>
+            <li>
+                <p> <strong> الخدمة </strong> تشير إلى التطبيق. </p>
+            </li>
+            <li>
+                <p> <strong> مزود الخدمة </strong> يعني أي شخص طبيعي أو قانوني يعالج البيانات نيابة
+                    الشركة. ويشير إلى شركات الطرف الثالث أو الأفراد العاملين في الشركة
+                    تسهيل الخدمة ، لتوفير الخدمة نيابة عن الشركة ، لأداء الخدمات ذات الصلة
+                    إلى الخدمة أو لمساعدة الشركة في تحليل كيفية استخدام الخدمة. </p>
+            </li>
+            <li>
+                <p> <strong> تشير خدمة الوسائط الاجتماعية لجهة خارجية </strong> إلى أي موقع ويب أو أي موقع شبكة اجتماعي
+                    من خلاله يمكن للمستخدم تسجيل الدخول أو إنشاء حساب لاستخدام الخدمة. </p>
+            </li>
+            <li>
+                <p> <strong> تشير بيانات الاستخدام </strong> إلى البيانات التي تم جمعها تلقائيًا ، إما تم إنشاؤها عن
+                    طريق استخدام
+                    الخدمة أو من البنية التحتية للخدمة نفسها (على سبيل المثال ، مدة زيارة الصفحة).
+                </p>
+            </li>
+            <li>
+                <p> <strong> أنت </strong> تعني الفرد للوصول أو استخدام الخدمة أو الشركة أو غيرها
+                    الكيان القانوني نيابة عن هذا الفرد الذي يصل أو يستخدم الخدمة ، حسب الاقتضاء.
+                </p>
+            </li>
+        </ul>
+        <h1> جمع واستخدام بياناتك الشخصية </h1>
+        <h2> أنواع البيانات التي تم جمعها </h2>
+        <h3> البيانات الشخصية </h3>
+        <p> أثناء استخدام خدمتنا ، قد نطلب منك تزويدنا ببعض المعلومات التعريف الشخصية
+            يمكن استخدامها للاتصال بك أو تحديد هويتك.قد تتضمن المعلومات التعريف الشخصية ، على سبيل المثال لا الحصر
+            إلى: </p>
+        <ul>
+            <li>
+                <p> عنوان البريد الإلكتروني </p>
+            </li>
+            <li>
+                <p> الاسم الأول والاسم الأخير </p>
+            </li>
+            <li>
+                <p> رقم الهاتف </p>
+            </li>
+            <li>
+                <p> العنوان ، الولاية ، المقاطعة ، الرمز البريدي/الكود البريدي ، المدينة </p>
+            </li>
+            <li>
+                <p> بيانات الاستخدام </p>
+            </li>
+        </ul>
+        <h3> بيانات الاستخدام </h3>
+        <p> يتم جمع بيانات الاستخدام تلقائيًا عند استخدام الخدمة. </p>
+        <p> قد تتضمن بيانات الاستخدام معلومات مثل عنوان بروتوكول الإنترنت الخاص بك (مثل عنوان IP) ،
+            نوع المتصفح ، إصدار المتصفح ، صفحات خدمتنا التي تزورها ، وقت وتاريخ زيارتك ،
+            الوقت الذي يقضيه على تلك الصفحات ومعرفات الجهاز الفريدة وغيرها من البيانات التشخيصية. </p>
+        <p> عند الوصول إلى الخدمة عن طريق أو من خلال جهاز محمول ، قد نقوم بجمع معلومات معينة تلقائيًا ،
+            بما في ذلك ، على سبيل المثال لا الحصر ، نوع الجهاز المحمول الذي تستخدمه ، معرف الجهاز المحمول الخاص بك ، IP
+            عنوان جهازك المحمول ، نظام تشغيل الهاتف المحمول ، نوع متصفح الإنترنت المحمول الذي تستخدمه ،
+            معرفات الجهاز الفريدة والبيانات التشخيصية الأخرى. </p>
+        <p> قد نجمع أيضًا المعلومات التي يرسلها متصفحك كلما قمت بزيارة خدمتنا أو عند الوصول إلى
+            الخدمة بواسطة أو من خلال جهاز محمول. </p>
+        <h3> معلومات من خدمات التواصل الاجتماعي من طرف ثالث </h3>
+        <p> تسمح لك الشركة بإنشاء حساب وتسجيل الدخول لاستخدام الخدمة من خلال الطرف الثالث التالي
+            خدمات التواصل الاجتماعي: </p>
+        <ul>
+            <li> Google </li>
+            <li> Facebook </li>
+        </ul>
+        <p> إذا قررت التسجيل من خلال أو تمنحنا الوصول إلى خدمة التواصل الاجتماعي من طرف ثالث ، فيمكننا
+            اجمع البيانات الشخصية المرتبطة بالفعل بخدمة وسائل التواصل الاجتماعي الخاصة بجهة خارجية وحساب apos ؛
+            مثل اسمك أو عنوان بريدك الإلكتروني أو أنشطتك أو قائمة جهات الاتصال الخاصة بك المرتبطة بهذا الحساب.
+        </p>
+        <p> قد يكون لديك أيضًا خيار مشاركة معلومات إضافية مع الشركة من خلال الطرف الثالث
+            خدمة التواصل الاجتماعي وحساب apos ؛. إذا اخترت تقديم مثل هذه المعلومات والبيانات الشخصية ، أثناء
+            التسجيل أو غير ذلك ، فأنت تمنح الشركة إذنًا لاستخدامها ومشاركتها وتخزينها بطريقة
+            تمشيا مع سياسة الخصوصية هذه. </p>
+        <h3> المعلومات التي تم جمعها أثناء استخدام التطبيق </h3>
+        <p> أثناء استخدام تطبيقنا ، من أجل توفير ميزات لتطبيقنا ، قد نجمع ، مع مسبقك
+            إذن: </p>
+        <ul>
+            <li> المعلومات المتعلقة بموقعك </li>
+        </ul>
+        <p> نستخدم هذه المعلومات لتوفير ميزات خدمتنا ، لتحسين وتخصيص خدمتنا. ال
+            قد يتم تحميل المعلومات على خوادم الشركة و/أو خادم الخدمة أو الخادم
+            تكون ببساطة مخزنة على جهازك. </p>
+        <p> يمكنك تمكين أو تعطيل الوصول إلى هذه المعلومات في أي وقت ، من خلال إعدادات جهازك. </p>
+        <h2> استخدام بياناتك الشخصية </h2>
+        <p> يجوز للشركة استخدام البيانات الشخصية للأغراض التالية: </p>
+        <ul>
+            <li>
+                <p> <strong> لتوفير وصيانة خدمتنا </strong> ، بما في ذلك مراقبة استخدام خدمتنا.
+                </p>
+            </li>
+            <li>
+                <p> <strong> لإدارة حسابك: </strong> لإدارة التسجيل الخاص بك كمستخدم للخدمة. ال
+                    يمكن أن تمنحك البيانات الشخصية التي تقدمها إمكانية الوصول إلى وظائف مختلفة للخدمة
+                    متاح لك كمستخدم مسجل. </p>
+            </li>
+            <li>
+                <p> <strong> لأداء العقد: </strong> التطوير والامتثال والتعهد
+                    عقد الشراء للمنتجات أو العناصر أو الخدمات التي اشتريتها أو من أي شخص آخر
+                    عقد معنا من خلال الخدمة. </p>
+            </li>
+            <li>
+                <p> <strong> للاتصال بك: </strong> للاتصال بك عن طريق البريد الإلكتروني أو المكالمات الهاتفية أو الرسائل
+                    القصيرة أو أي ما يعادلها الآخر
+                    أشكال الاتصال الإلكتروني ، مثل تطبيق الأجهزة المحمولة وإخطارات الدفع المتعلقة
+                    التحديثات أو الاتصالات المفيدة المتعلقة بالوظائف أو المنتجات أو التعاقد
+                    الخدمات ، بما في ذلك تحديثات الأمان ، عند الضرورة أو معقولة لتنفيذها. </p>
+            </li>
+            <li>
+                <p> <strong> لتزويدك </strong> بالأخبار والعروض الخاصة والمعلومات العامة حول السلع الأخرى ،
+                    الخدمات والأحداث التي نقدمها تشبه تلك التي اشتريتها بالفعل أو
+                    استفسر عنها ما لم تكن قد اخترت عدم تلقي مثل هذه المعلومات. </p>
+            </li>
+            <li>
+                <p> <strong> لإدارة طلباتك: </strong> لحضور وإدارة طلباتك إلينا. </p>
+            </li>
+            <li>
+                <p> <strong> لنقل الأعمال: </strong> قد نستخدم معلوماتك لتقييم أو إجراء عملية دمج ،
+                    تجريد أو إعادة هيكلة أو إعادة تنظيم أو حل أو غير آخر بيع أو نقل بعض أو كل
+                    أصولنا ، سواء كانت مصدر قلق مستمر أو كجزء من الإفلاس أو التصفية أو إجراءات مماثلة ،
+                    حيث تكون البيانات الشخصية التي يحتفظ بها لنا مستخدمي الخدمات لدينا من بين الأصول المنقولة. </p>
+            </li>
+            <li>
+                <p> <strong> لأغراض أخرى </strong>: قد نستخدم معلوماتك لأغراض أخرى ، مثل البيانات
+                    التحليل ، تحديد اتجاهات الاستخدام ، تحديد فعالية حملاتنا الترويجية و
+                    لتقييم وتحسين خدمتنا والمنتجات والخدمات والتسويق وتجربتك. </p>
+            </li>
+        </ul>
+        <p> قد نشارك معلوماتك الشخصية في المواقف التالية: </p>
+        <ul>
+            <li> <strong> مع مقدمي الخدمات: </strong> قد نشارك معلوماتك الشخصية مع مقدمي الخدمات
+                لمراقبة وتحليل استخدام خدمتنا ، للاتصال بك. </li>
+            <li> <strong> لنقل الأعمال: </strong> قد نشارك أو نقل معلوماتك الشخصية في
+                التواصل مع أو أثناء مفاوضات أي عملية دمج أو بيع أصول الشركة أو التمويل أو
+                الحصول على جميع أو جزء من أعمالنا إلى شركة أخرى. </li>
+            <li> <strong> مع الشركات التابعة: </strong> قد نشارك معلوماتك مع الشركات التابعة لنا ، وفي هذه الحالة نحن
+                سوف تتطلب تلك الشركات التابعة لتكريم سياسة الخصوصية هذه. وتشمل الشركات التابعة شركتنا الأم و
+                أي شركات تابعة أخرى أو شركاء مشروع مشترك أو شركات أخرى نتحكم بها أو التي يتم تحليها
+                السيطرة المشتركة معنا. </li>
+            <li> <strong> مع شركاء الأعمال: </strong> قد نشارك معلوماتك مع شركاء الأعمال لدينا
+                قدم لك منتجات أو خدمات أو عروض ترويجية معينة. </li>
+            <li> <strong> مع المستخدمين الآخرين: </strong> عند مشاركة المعلومات الشخصية أو التفاعل بطريقة أخرى في
+                المناطق العامة مع مستخدمين آخرين ، قد يتم عرض هذه المعلومات من قبل جميع المستخدمين وقد تكون علنًا
+                موزعة في الخارج. إذا كنت تتفاعل مع المستخدمين الآخرين أو التسجيل من خلال وسائل التواصل الاجتماعي من طرف
+                ثالث
+                الخدمة ، جهات الاتصال الخاصة بك على خدمة التواصل الاجتماعي التابعة لجهة خارجية قد ترى اسمك وملفك الشخصي
+                والصور و
+                وصف نشاطك. وبالمثل ، سيتمكن المستخدمون الآخرون من عرض أوصاف نشاطك ،
+                تواصل معك وعرض ملفك الشخصي. </li>
+            <li> <strong> بموافقتك </strong>: قد نكشف عن معلوماتك الشخصية لأي غرض آخر مع
+                موافقتك. </li>
+        </ul>
+        <h2> الاحتفاظ ببياناتك الشخصية </h2>
+        <p> ستحتفظ الشركة ببياناتك الشخصية فقط طالما ضرورية للأغراض المنصوص عليها في هذا
+            سياسة الخصوصية. سنحتفظ ونستخدم بياناتك الشخصية بالقدر اللازم للامتثال لقانوننا
+            الالتزامات (على سبيل المثال ، إذا كنا مطالبين بالاحتفاظ ببياناتك للامتثال للقوانين المعمول بها) ، فإن حلها
+            النزاعات ، وفرض اتفاقياتنا وسياساتنا القانونية. </p>
+        <p> ستحتفظ الشركة أيضًا ببيانات الاستخدام لأغراض التحليل الداخلي. يتم الاحتفاظ ببيانات الاستخدام بشكل عام
+            فترة زمنية أقصر ، إلا عند استخدام هذه البيانات لتعزيز الأمن أو لتحسين
+            وظائف خدمتنا ، أو أننا ملزمون قانونًا بالاحتفاظ بهذه البيانات لفترات زمنية أطول. </p>
+        <h2> نقل بياناتك الشخصية </h2>
+        <p> تتم معالجة معلوماتك ، بما في ذلك البيانات الشخصية ، في المكاتب التشغيلية للشركة وفي أي
+            أماكن أخرى حيث توجد الأطراف المشاركة في المعالجة. وهذا يعني أن هذه المعلومات قد تكون
+            نقل إلى & mdash ؛ والاحتفاظ بها على & mdash ؛ أجهزة الكمبيوتر الموجودة خارج ولايتك ، المقاطعة ، البلد
+            أو اختصاص حكومي آخر حيث قد تختلف قوانين حماية البيانات عن قوانينك
+            اختصاص. </p>
+        <p> موافقتك على سياسة الخصوصية هذه تليها تقديم هذه المعلومات تمثل اتفاقك
+            إلى هذا النقل. </p>
+        <p> ستتخذ الشركة جميع الخطوات ضرورية بشكل معقول لضمان معاملة بياناتك بشكل آمن وفي
+            وفقًا لسياسة الخصوصية هذه ولن يتم نقل بياناتك الشخصية إلى مؤسسة
+            أو بلد ما لم تكن هناك عناصر تحكم كافية بما في ذلك أمان بياناتك وغيرها
+            المعلومات الشخصية. </p>
+        <h2> الكشف عن بياناتك الشخصية </h2>
+        <h3> المعاملات التجارية </h3>
+        <p> إذا كانت الشركة متورطة في عملية الدمج أو الاستحواذ أو بيع الأصول ، فقد يتم نقل بياناتك الشخصية. نحن
+            سيقدم إشعارًا قبل نقل بياناتك الشخصية ويصبح خاضعًا لخصوصية مختلفة
+            السياسة. </p>
+        <h3> إنفاذ القانون </h3>
+        <p> في ظل ظروف معينة ، قد يُطلب من الشركة الكشف عن بياناتك الشخصية إذا لزم الأمر
+            بموجب القانون أو استجابة لطلبات صالحة من السلطات العامة (مثل محكمة أو وكالة حكومية). </p>
+        <h3> المتطلبات القانونية الأخرى </h3>
+        <p> يجوز للشركة الكشف عن بياناتك الشخصية في اعتقاد حسن النية بأن هذا الإجراء ضروري ل: </p>
+        <ul>
+            <li> الامتثال للالتزام القانوني </li>
+            <li> حماية والدفاع عن حقوق أو ممتلكات الشركة </li>
+            <li> منع أو التحقيق في ارتكاب مخالفات محتملة فيما يتعلق بالخدمة </li>
+            <li> حماية السلامة الشخصية لمستخدمي الخدمة أو الجمهور </li>
+            <li> حماية من المسؤولية القانونية </li>
+        </ul>
+        <h2> أمان بياناتك الشخصية </h2>
+        <p> أمان بياناتك الشخصية أمر مهم بالنسبة لنا ، ولكن تذكر أنه لا توجد طريقة للإرسال على
+            الإنترنت ، أو طريقة التخزين الإلكتروني آمنة بنسبة 100 ٪. بينما نسعى جاهدين لاستخدام مقبول تجاري
+            تعني حماية بياناتك الشخصية ، لا يمكننا ضمان أمانها المطلق. </p>
+        <H1> الأطفال و privacy </h1>
+        <p> لا تعالج خدمتنا أي شخص يقل عمره عن 13 عامًا. نحن لا نجمع عن قصد التعريف الشخصي
+            معلومات من أي شخص دون سن 13 عامًا. إذا كنت أحد الوالدين أو الوصي وأنت تدرك أن
+            لقد زودنا الطفل بالبيانات الشخصية ، يرجى الاتصال بنا. إذا أدركنا أننا جمعنا
+            البيانات الشخصية من أي شخص دون سن 13 عامًا دون التحقق من موافقة الوالدين ، نأخذ خطوات إلى
+            قم بإزالة هذه المعلومات من خوادمنا. </p>
+        <p> إذا كنا بحاجة إلى الاعتماد على الموافقة كأساس قانوني لمعالجة معلوماتك ويتطلب بلدك
+            الموافقة من أحد الوالدين ، قد نطلب موافقة الوالدين و APOS قبل أن نجمع هذه المعلومات واستخدامها.
+        </p>
+        <H1> روابط لمواقع الويب الأخرى </h1>
+        <p> قد تحتوي خدمتنا على روابط لمواقع الويب الأخرى التي لا يتم تشغيلها من قبلنا. إذا قمت بالنقر فوق طرف ثالث
+            رابط ، سيتم توجيهك إلى موقع الطرف الثالث & apos ؛. ننصحك بشدة بمراجعة الخصوصية
+            سياسة كل موقع تزوره. </p>
+        <p> ليس لدينا أي سيطرة على أي مسؤولية عن المحتوى أو سياسات الخصوصية أو ممارساتها
+            مواقع أو خدمات الجهات الخارجية. </p>
+        <h1> التغييرات في سياسة الخصوصية هذه </h1>
+        <p> قد نقوم بتحديث سياسة الخصوصية الخاصة بنا من وقت لآخر. سنقوم بإعلامك بأي تغييرات عن طريق نشر الجديد
+            سياسة الخصوصية في هذه الصفحة. </p>
+        <p> سنخبرك عبر البريد الإلكتروني و/أو إشعار بارز في خدمتنا ، قبل أن يصبح التغيير
+            فعالة وتحديث & quot ؛ آخر تحديث & quot ؛ التاريخ في الجزء العلوي من سياسة الخصوصية هذه. </p>
+        <p> يُنصح بمراجعة سياسة الخصوصية هذه بشكل دوري لأي تغييرات. التغييرات في سياسة الخصوصية هذه
+            تكون فعالة عند نشرها في هذه الصفحة. </p>
+        <h1> اتصل بنا </h1>
+        <p> إذا كان لديك أي أسئلة حول سياسة الخصوصية هذه ، يمكنك الاتصال بنا: </p>
+        <ul>
+            <li> عبر البريد الإلكتروني: eng.michelle.raouf@gmail.com </li>
+        </ul>
+    </div>
+</body>
+
+</html>

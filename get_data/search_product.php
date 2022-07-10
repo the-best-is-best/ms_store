@@ -24,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD']  !== 'GET') {
 }
 
 try {
-    if(!isset($_GET['name']) &&!isset($_GET['lang'])){
+    if (!isset($_GET['name']) && !isset($_GET['lang'])) {
         $response = new Response();
         $response->setHttpStatusCode(400);
         $response->setSuccess(false);
-    
+
         (!isset($_GET['name']) ?  $response->addMessage("Name not supplied") : false);
         (!isset($_GET['lang']) ?  $response->addMessage("Language not supplied") : false);
 
@@ -37,12 +37,37 @@ try {
     }
     $name = $_GET['name'];
     $lang = $_GET['lang'];
-    $search =$lang=="en"? "nameEN": "nameAR";
-    $query = $writeDB->prepare("SELECT * FROM products_ " . DB::$AppName . " WHERE $search LIKE '$name'");
+    $rowsperpage = 20;
+    $searchByName = $lang == "en" ? "nameEN" : "nameAR";
+    $query = $writeDB->prepare("SELECT * FROM products_" . DB::$AppName . " WHERE $searchByName LIKE '%$name%'");
     $query->execute();
+    $count = $query->rowCount();
+    $numrows = $count;
+    $totalpages = ceil($numrows / $rowsperpage);
+
+    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
+        $currentpage = (int) $_GET['currentpage'];
+    } else {
+        $currentpage = 1;  // default page number
+    }
+    // if current page is greater than total pages
+    if ($currentpage > $totalpages) {
+        // set current page to last page
+        $currentpage = $totalpages;
+    }
+    // if current page is less than first page
+    if ($currentpage < 1) {
+        // set current page to first page
+        $currentpage = 1;
+    }
+    // the offset of the list, based on current page
+    $offset = ($currentpage - 1) * $rowsperpage;
     $row = $query->fetchAll();
+    $returnData['products'] = [];
+
     for ($i = 0; $i < count($row); $i++) {
         $row[$i]['image'] = DB::$urlSite .  $row[$i]['image'];
+        array_push($returnData['products'], $row[$i]);
     }
     if (empty($row)) {
 
@@ -53,7 +78,8 @@ try {
         $response->send();
         exit;
     }
-    $returnData = $row;
+    $returnData['totalPages'] = $totalpages;
+
     $response = new Response();
     $response->setHttpStatusCode(201);
     $response->setSuccess(true);

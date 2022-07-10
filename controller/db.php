@@ -2,7 +2,7 @@
 
 class DB
 {
-    public static $urlSite = "http://192.168.1.5/tbib_store_2022/large_store/";
+    public static $urlSite = "http://192.168.1.6/tbib_store_2022/large_store/";
     public static $AppName = "tbib_store";
     private static $DBConnection;
     private static $DBHost = "localhost";
