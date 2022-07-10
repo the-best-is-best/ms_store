@@ -87,5 +87,6 @@ class CartController extends GetxController {
   void clearData() {
     cartModel.value = {};
     productsInCart.value = [];
+    getTotalPrice();
   }
 }

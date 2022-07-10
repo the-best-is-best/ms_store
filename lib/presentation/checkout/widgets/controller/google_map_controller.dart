@@ -7,8 +7,8 @@ import '../../../../app/resources/strings_manager.dart';
 import '../../repository/repository_map.dart';
 
 class GoogleMapsController extends GetxController {
-  final DirectionsRepository _directionsRepository;
-  GoogleMapsController(this._directionsRepository);
+  // final DirectionsRepository _directionsRepository;
+  //GoogleMapsController(this._directionsRepository);
 
   final CheckoutController _checkoutController = Get.find();
   Rx<Marker?> origin = Rx<Marker?>(null);
@@ -40,9 +40,9 @@ class GoogleMapsController extends GetxController {
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
         position: latLng);
   }
-
+/*
   void getDirections(LatLng destination) async {
     info.value = await _directionsRepository.getDirections(
         origin: origin.value!.position, destination: destination);
-  }
+  }*/
 }

@@ -52,8 +52,9 @@ class _GoogleMapViewState extends State<GoogleMapView> {
                 _googleMapsController.addMarker(latLng);
                 String address = await _checkoutController
                     .getAddressFromLatLong(marker: latLng);
-                _googleMapsController.getDirections(latLng);
+                //  _googleMapsController.getDirections(latLng);
                 textEditingController.text = address;
+                _checkoutController.addressMethodChange(address);
               },
             ),
             // if (_googleMapsController.info.value != null)

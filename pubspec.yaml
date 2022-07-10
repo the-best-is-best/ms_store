@@ -33,6 +33,8 @@ dependencies:
   carousel_slider: ^4.1.1
   checkbox_formfield: ^0.2.0
   community_material_icon: ^5.9.55
+ # country_state_city_picker: ^1.2.8
+  csc_picker: ^0.2.6
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   dio: ^4.0.6
