@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:ms_store/app/resources/color_manager.dart';
 import 'package:ms_store/app/resources/font_manger.dart';
 import 'package:ms_store/app/resources/icons_manger.dart';
+import 'package:ms_store/app/resources/routes_manger.dart';
 import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/gen/assets.gen.dart';
@@ -113,7 +114,11 @@ class _CartPageState extends State<CartPage> {
                         ),
                         Expanded(
                           child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: _cartController.productsInCart.isEmpty
+                                  ? null
+                                  : () {
+                                      Get.toNamed(Routes.checkoutRoute);
+                                    },
                               child: Text(
                                 AppStrings.checkout,
                               )),

@@ -8,6 +8,8 @@ import 'package:ms_store/app/resources/styles_manger.dart';
 import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 
+import '../../services/location_services.dart';
+
 class AboutView extends StatefulWidget {
   const AboutView({Key? key}) : super(key: key);
 
@@ -16,8 +18,8 @@ class AboutView extends StatefulWidget {
 }
 
 class _AboutViewState extends State<AboutView> {
-  final CameraPosition _kGooglePlex = const CameraPosition(
-    target: LatLng(30.0294308, 31.2294926),
+  final CameraPosition _kGooglePlex = CameraPosition(
+    target: storePlace,
     zoom: 14.4746,
   );
 

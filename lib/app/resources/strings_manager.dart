@@ -99,4 +99,6 @@ class AppStrings {
   static String get noteUpdateProfile => 'note_update_profile'.tr;
   static String get update => 'update'.tr;
   static String get sendCode => 'send_code'.tr;
+  static String get address => 'address'.tr;
+  static String get deliveryAddress => 'delivery_address'.tr;
 }

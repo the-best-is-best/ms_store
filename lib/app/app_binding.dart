@@ -6,6 +6,8 @@ import 'package:ms_store/presentation/products_views/details/controller/product_
 import 'package:ms_store/presentation/products_views/product_by_cat/controller/product_by_cat_controller.dart';
 import 'package:ms_store/presentation/verify_phone/controller/verify_phone_controller.dart';
 import '../presentation/account/controller/account_controller.dart';
+import '../presentation/checkout/controller/checkout_controller.dart';
+import '../presentation/checkout/widgets/controller/google_map_controller.dart';
 import '../presentation/contact_us/controller/contact_us_controller.dart';
 import '../presentation/main/pages/home/view_model/home_controller.dart';
 import '../presentation/main/controller/main_view_controller.dart';
@@ -57,6 +59,10 @@ class AppBinding implements Bindings {
     getAccountController();
     // verify phone
     getVerifyPhoneController();
+    // checkout
+    getCheckoutController();
+    // map
+    getGoogleMapController();
   }
 
   void getOnBoardingController() {
@@ -128,5 +134,13 @@ class AppBinding implements Bindings {
 
   void getVerifyPhoneController() {
     Get.lazyPut(() => VerifyPhoneController(), fenix: true);
+  }
+
+  void getCheckoutController() {
+    Get.lazyPut(() => CheckoutController(), fenix: true);
+  }
+
+  void getGoogleMapController() {
+    Get.lazyPut(() => GoogleMapsController(instance()), fenix: true);
   }
 }

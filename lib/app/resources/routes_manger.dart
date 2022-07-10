@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:ms_store/presentation/about/about_view.dart';
 import 'package:ms_store/presentation/account/view/account_view.dart';
 import 'package:ms_store/presentation/active_email/view/active_email_view.dart';
+import 'package:ms_store/presentation/checkout/view/checkout_view.dart';
+import 'package:ms_store/presentation/checkout/widgets/google_map.dart';
 import 'package:ms_store/presentation/contact_us/view/contact_us_view.dart';
 import 'package:ms_store/presentation/forget_password/view/forget_password_view.dart';
 import 'package:ms_store/presentation/login/view/login_view.dart';
@@ -33,6 +35,8 @@ class Routes {
   static const searchRoute = "/searchRoute";
   static const accountRoute = "/accountRoute";
   static const verifyPhoneRoute = "/verifyPhoneRoute";
+  static const checkoutRoute = "/checkoutRoute";
+  static const googleMapViewRoute = "/GoogleMapViewRoute";
 }
 
 class RouteGeneratorGetX {
@@ -92,6 +96,14 @@ class RouteGeneratorGetX {
         GetPage(
           name: Routes.verifyPhoneRoute,
           page: () => const VerifyPhoneView(),
+        ),
+        GetPage(
+          name: Routes.checkoutRoute,
+          page: () => const CheckOutView(),
+        ),
+        GetPage(
+          name: Routes.googleMapViewRoute,
+          page: () => const GoogleMapView(),
         ),
       ];
 }

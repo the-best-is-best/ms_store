@@ -27,6 +27,7 @@ import '../domain/use_case/users_case/forget_password_case.dart';
 import '../domain/use_case/users_case/login_use_case.dart';
 import '../domain/use_case/users_case/register_use_case.dart';
 import '../domain/use_case/users_case/reset_password_case.dart';
+import '../presentation/checkout/repository/repository_map.dart';
 
 final instance = GetIt.instance;
 
@@ -136,5 +137,12 @@ void initUpdateProfile() {
   if (!GetIt.I.isRegistered<UpdateUserDataUserCase>()) {
     instance.registerFactory<UpdateUserDataUserCase>(
         () => UpdateUserDataUserCase(instance()));
+  }
+}
+
+void initDirectionRepository() {
+  if (!GetIt.I.isRegistered<DirectionsRepository>()) {
+    instance
+        .registerFactory<DirectionsRepository>(() => DirectionsRepository());
   }
 }

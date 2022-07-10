@@ -52,4 +52,6 @@ class Constants {
   static const String aboutUrl = '/$_getDataUrlPath/get_about_us.php';
   static const String searchUrl = '/$_getDataUrlPath/search_product.php';
   static const String updateUrl = '/$_updateUrlPath/update_user.php';
+  static const String mapUrl =
+      'https://maps.googleapis.com/maps/api/directions/json?';
 }

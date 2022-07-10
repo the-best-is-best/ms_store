@@ -20,6 +20,7 @@ class InputField extends StatefulWidget {
   final IconData prefixIcon;
   final Widget? suffixWidget;
   final bool? enable;
+  final GestureTapCallback? onTap;
 
   const InputField({
     Key? key,
@@ -35,6 +36,7 @@ class InputField extends StatefulWidget {
     this.suffixWidget,
     this.onEditingComplete,
     this.enable = true,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -87,6 +89,7 @@ class _InputFieldState extends State<InputField> {
           errorText: widget.errorText),
       onChanged: widget.onChanged,
       onEditingComplete: widget.onEditingComplete,
+      onTap: widget.onTap,
     );
   }
 }

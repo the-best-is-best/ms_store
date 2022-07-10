@@ -8,8 +8,3 @@ void goToProductDetails(ProductModel product) {
   initProductDetailsModel();
   Get.toNamed(Routes.productDetailsRoute, arguments: {'product': product});
 }
-
-// void openProductFromProductDetails(ProductModel product) {
-//   Get.offAndToNamed(Routes.productDetailsRoute,
-//       arguments: {'product': product});
-// }
