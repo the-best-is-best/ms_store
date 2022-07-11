@@ -56,9 +56,11 @@ class UpdateReviewRequests {
 
 class GetProductsByCatIdRequests {
   final int catId;
+  final int currentPage;
 
   GetProductsByCatIdRequests(
     this.catId,
+    this.currentPage,
   );
 }
 

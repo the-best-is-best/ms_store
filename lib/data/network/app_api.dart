@@ -117,7 +117,7 @@ abstract class AppServicesClient {
 
   @GET(Constants.getProductsByCatIdUrl)
   Future<ProductWithPaginationDataResponse> getProductsByCatId(
-      @Query('catId') int catId);
+      @Query('catId') int catId, @Query('currentPage') int currentPage);
 
   // get Category Data By Id
 

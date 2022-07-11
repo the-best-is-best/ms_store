@@ -284,9 +284,13 @@ class _AppServicesClient implements AppServicesClient {
   }
 
   @override
-  Future<ProductWithPaginationDataResponse> getProductsByCatId(catId) async {
+  Future<ProductWithPaginationDataResponse> getProductsByCatId(
+      catId, currentPage) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'catId': catId};
+    final queryParameters = <String, dynamic>{
+      r'catId': catId,
+      r'currentPage': currentPage
+    };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

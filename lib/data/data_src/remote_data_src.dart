@@ -165,8 +165,9 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
   @override
   Future<ProductWithPaginationDataResponse> getProductsByCatId(
       GetProductsByCatIdRequests getProductsByCatIdRequests) async {
-    return await _appServicesClient
-        .getProductsByCatId(getProductsByCatIdRequests.catId);
+    return await _appServicesClient.getProductsByCatId(
+        getProductsByCatIdRequests.catId,
+        getProductsByCatIdRequests.currentPage);
   }
 
   @override

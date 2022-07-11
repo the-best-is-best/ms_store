@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/domain/models/store/product_with_pagination_model.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
@@ -13,13 +14,18 @@ class ProductByCatController extends GetxController with BaseController {
   ProductByCatController(this._getProductByCatIdUseCase);
   Rx<ProductWithPaginationModel?> productCatIdModel =
       Rx<ProductWithPaginationModel?>(null);
+  int page = 1;
+  late int catId;
+  void setCatId(int setCatId) {
+    catId = setCatId;
+  }
 
-  void getData(int catId) async {
+  void getData() async {
     flowState.value = LoadingState(
         stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
         message: AppStrings.loading);
     var result = await _getProductByCatIdUseCase
-        .execute(GetProductByCatIdUseCaseInput(catId));
+        .execute(GetProductByCatIdUseCaseInput(catId, currentPage: page));
 
     await waitStateChanged();
 
@@ -32,5 +38,33 @@ class ProductByCatController extends GetxController with BaseController {
 
       flowState.value = ContentState();
     });
+  }
+
+  RxBool getMoreProducts = false.obs;
+
+  void getMoreProduct(ScrollController _scrollController) async {
+    if (productCatIdModel.value?.totalPages != page) {
+      page++;
+      getMoreProducts.value = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 150), curve: Curves.ease);
+      });
+      var result = await _getProductByCatIdUseCase
+          .execute(GetProductByCatIdUseCaseInput(catId, currentPage: page));
+
+      await waitStateChanged();
+
+      result.fold((failure) {
+        flowState.value = ErrorState(
+            stateRendererType: StateRendererType.FULLSCREEN_ERROR_STATE,
+            message: failure.messages);
+      }, (data) async {
+        productCatIdModel.value?.products.addAll(data.products);
+
+        flowState.value = ContentState();
+      });
+      getMoreProducts.value = false;
+    }
   }
 }

@@ -13,13 +13,13 @@ class GetProductByCatIdUseCase extends BaseCase<GetProductByCatIdUseCaseInput,
   @override
   Future<Either<Failure, ProductWithPaginationModel>> execute(
       GetProductByCatIdUseCaseInput input) async {
-    return await _repository
-        .getProductsByCatId(GetProductsByCatIdRequests(input.catId));
+    return await _repository.getProductsByCatId(
+        GetProductsByCatIdRequests(input.catId, input.currentPage));
   }
 }
 
 class GetProductByCatIdUseCaseInput {
   final int catId;
-
-  GetProductByCatIdUseCaseInput(this.catId);
+  final int currentPage;
+  GetProductByCatIdUseCaseInput(this.catId, {required this.currentPage});
 }
