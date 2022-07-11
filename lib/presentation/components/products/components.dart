@@ -1,6 +1,7 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/components.dart';
 import 'package:ms_store/app/resources/color_manager.dart';
@@ -160,8 +161,8 @@ class BuildPrice extends StatelessWidget {
           children: [
             Text(
               '${productModel.price} EG',
-              style: context.textTheme.labelMedium!
-                  .copyWith(color: ColorManager.darkColor),
+              style: context.textTheme.labelMedium!.copyWith(
+                  color: ColorManager.darkColor, fontSize: FontSize.s16),
             ),
           ],
         );
@@ -174,13 +175,14 @@ class BuildPrice extends StatelessWidget {
             children: [
               Text(
                 '${productModel.priceAfterDis} EG',
-                style: context.textTheme.labelMedium!
-                    .copyWith(color: ColorManager.darkColor),
+                style: context.textTheme.labelMedium!.copyWith(
+                    color: ColorManager.darkColor, fontSize: FontSize.s16),
               ),
               Text(
                 '${productModel.price} EG',
                 style: context.textTheme.labelSmall!.copyWith(
                   color: ColorManager.darkColor,
+                  fontSize: 12.sp,
                   decoration: TextDecoration.lineThrough,
                 ),
               ),
@@ -188,12 +190,11 @@ class BuildPrice extends StatelessWidget {
           );
         },
         fallback: (_) => Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               '${productModel.priceAfterDis} EG',
-              style: context.textTheme.labelMedium!
-                  .copyWith(color: ColorManager.darkColor),
+              style: context.textTheme.labelMedium!.copyWith(
+                  color: ColorManager.darkColor, fontSize: FontSize.s16),
             ),
           ],
         ),
@@ -244,7 +245,7 @@ class BuildProductItem extends StatelessWidget {
                     errorWidget: (context, url, error) => const ErrorIcon(),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(AppSize.ap12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -32,6 +32,8 @@ class _SearchViewState extends State<SearchView> {
   @override
   void initState() {
     _searchController = Get.find();
+    _cartController = Get.find();
+    _favController = Get.find();
     _searchTextEditingController = TextEditingController();
     if (Get.arguments != null) {
       _searchTextEditingController.text = Get.arguments['searchText'];

@@ -11,9 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // if (defaultTargetPlatform == TargetPlatform.android) {
-  //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
-  // }
+
   initAppModel();
   await AppPrefs().initBox();
 

@@ -285,7 +285,7 @@ class _GetContentWidgetState extends State<_GetContentWidget> {
                                       .productDetailsController.currentIndex]
                                   .descriptionEN,
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 6,
+                          maxLines: 2,
                           softWrap: true,
                           style: context.textTheme.labelSmall,
                         ),
