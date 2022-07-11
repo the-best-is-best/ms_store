@@ -1,6 +1,7 @@
 <?php
 require_once('../controller/db.php');
 require_once('../models/response.php');
+require_once '../controller/generate_key.php';
 
 try {
     $writeDB = DB::connectionDB();
@@ -49,7 +50,7 @@ if (
     strlen($jsonData->nameEN) < 1 || strlen($jsonData->nameEN) > 255 ||
     strlen($jsonData->nameAR) < 1 || strlen($jsonData->nameAR) > 255 ||
 
-   
+
     strlen($jsonData->descriptionEN) < 10 ||
     strlen($jsonData->descriptionAR) < 10
 
@@ -66,7 +67,7 @@ if (
     (strlen($jsonData->nameAR) > 255 ?  $response->addMessage("Name AR cannot be greater than 255 characters") : false);
 
 
-   
+
     (strlen($jsonData->descriptionEN) < 10 ?  $response->addMessage("Description EN cannot be black or less than 10") : false);
 
     (strlen($jsonData->descriptionAR) < 10 ?  $response->addMessage("Description AR cannot be black or less than 10") : false);
@@ -80,7 +81,7 @@ if ($price_after_dis > $jsonData->price) {
     $response = new Response();
     $response->setHttpStatusCode(409);
     $response->setSuccess(false);
-    $response->addMessage('How price after descount > original price');
+    $response->addMessage('How price after discount > original price');
     $response->send();
     exit;
 }
@@ -99,16 +100,29 @@ $offers = $jsonData->offers ?? 0;
 $sale = $jsonData->sale ?? 0;
 
 try {
+
+    $json['cacheKeyServer'] =  randomKey();
+
+    file_put_contents('../cache/cache.json', json_encode($json));
+} catch (Exception $ex) {
+    $response = new Response();
+    $response->setHttpStatusCode(500);
+    $response->setSuccess(false);
+    $response->addMessage('File save error' . $ex);
+    $response->send();
+    exit;
+}
+try {
     $query = $writeDB->prepare("SELECT image FROM products_" . DB::$AppName . " WHERE id = :id ");
     $query->bindParam(':id', $productId, PDO::PARAM_STR);
     $query->execute();
 
     $imageOld = $query->fetch();
- if(empty($jsonData->image )){
-    $jsonData->image= $imageOld['image'];
-    $image=  $imageOld['image'];
-}
-  
+    if (empty($jsonData->image)) {
+        $jsonData->image = $imageOld['image'];
+        $image =  $imageOld['image'];
+    }
+
     $query = $writeDB->prepare("UPDATE products_" . DB::$AppName . " SET nameEN = :nameEN
      , nameAR=:nameAR , image=:image , descriptionEN =:descriptionEN ,descriptionAR = :descriptionAR
       , price=:price , price_after_dis=:price_after_dis , categoryId=:categoryId , sale=:sale , offers=:offers  WHERE id=:id ");
@@ -140,11 +154,11 @@ try {
         $response->send();
         exit;
     }
-if (!empty($image) && !empty($imageOld['image']) && $imageOld['image'] != $image ) {
-   
+    if (!empty($image) && !empty($imageOld['image']) && $imageOld['image'] != $image) {
+
         $removeImage = str_replace(DB::$urlSite, "", $imageOld['image']);
         unlink("../" . $removeImage);
-   }
+    }
 
     $response = new Response();
     $response->setHttpStatusCode(201);

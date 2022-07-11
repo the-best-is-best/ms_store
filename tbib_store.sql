@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2022 at 08:01 PM
+-- Generation Time: Jul 11, 2022 at 04:43 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -171,7 +171,10 @@ INSERT INTO `products_tbib_store` (`id`, `nameEN`, `nameAR`, `image`, `price`, `
 (10, 'AKAI Cotton Printed T-Shirt - Light Grey', 'AKAI تي شيرت قطن مطبوع - رمادي فاتح', 'storage/products/img/62a3a32dc1e5b7.65160173.png', 149, 0, 'Made of pure cotton and non-blended with transfer printing to withstand the harshest conditions of consumption and washing.', 'مصنوع من القطن الخالص وغير مخلوط بطباعة منقولة لتحمل أقسى ظروف الاستهلاك والغسيل.', 2, 0, 0, 0),
 (11, 'Ho Holland Round Neck White T-shirt - 2 Line', 'تيشيرت أبيض بياقة دائرية من هو هولاند - خطان', 'storage/products/img/62a48d33bb1bb6.28172256.png', 199, 0, 'In Ho Holland Marketplace we have a collection of the best product that are made of the best quality pure cotton.', 'في سوق Ho Holland ، لدينا مجموعة من أفضل المنتجات المصنوعة من أفضل أنواع القطن الخالص.', 2, 0, 0, 0),
 (12, 'Lumex Sea And Sand Baby Dress Embroidered', 'فستان أطفال من Lumex Sea And Sand مطرز', 'storage/products/img/62a3a706d034b4.65981603.png', 199, 0, 'Baby Girl dress \n baby straps dress \n embroidery sea star \n sea creatures print \n Dark blue baby dress \n Sea star embroidery on the back.', 'فستان طفلة \n فستان بأشرطة للأطفال \n مطرز بنجمة البحر \n طباعة مخلوقات بحرية \n فستان أطفال أزرق داكن \n مطرز بنجمة البحر على الظهر.', 10, 0, 0, 0),
-(13, 'BBRITTA BLACK', 'أسود ببريتا', 'storage/products/img/62a9d8b565fa83.80397956.png', 299, 0, 'Best bag for women ms-store', 'أفضل حقيبة للنساء متجر ام-ستور', 9, 0, 0, 0);
+(13, 'BBRITTA BLACK', 'أسود ببريتا', 'storage/products/img/62a9d8b565fa83.80397956.png', 299, 0, 'Best bag for women ms-store', 'أفضل حقيبة للنساء متجر ام-ستور', 9, 0, 0, 0),
+(14, 'Skechers Go Walk Max Mesh Notched Vamp Slip-On Running Sneakers for Kids', 'حذاء رياضي سكيتشرز Go Walk Max Mesh Notched Vamp سهل الارتداء للأطفال', 'storage/products/img/62cc1dc85e98b6.57776245.png', 829.99, 0, 'About this item\n\n    100% Textile\n    Low-top design\n    Made in China\n\n    Date First Available: 9 July 2021\n    Manufacturer: Skechers\n    ASIN: B099326JLW', 'حول هذا البند\n\n     100٪ نسيج\n     تصميم منخفض القمة\n     صنع بالصين\n\n     تاريخ توفر أول منتج: 9 يوليو 2021\n     الشركة المصنعة: سكيتشرز\n     ASIN: B099326JLW', 5, 0, 0, 0),
+(15, 'GoWalk Max Slip-On Shoes Charcoal/Orange', 'حذاء GoWalk Max سهل الارتداء فحم / برتقالي', 'storage/products/img/62cc29bd202b24.92328346.png', 3089.99, 1589.99, 'Highlights\n\n    Breathable athletic air-mesh upper\n    Easy slip-on construction\n    Padded heel with pull-on loop\n    Lightweight, responsive 5GEN cushioning midsole and outsole\n    Goga Max cushioned comfort insole\n    Flexible rubber outsole\n    Skechers initial logo branding', 'يسلط الضوء\n\n     جزء علوي رياضي شبكي للتنفس\n     سهل التركيب\n     كعب مبطن بحلقة قابلة للسحب\n     نعل اوسط ونعل خارجي خفيف الوزن وسريع الاستجابة 5GEN\n     نعل داخلي مبطن ومريح من Goga Max\n     نعل خارجي مطاطي مرن\n     وضع شعار Skechers المبدئي', 5, 0, 0, 0),
+(16, 'SKECHERS FASHION FIT SPORTS Collection for WOMEN color', 'مجموعة SKECHERS FASHION FIT SPORTS للون نسائي', 'storage/products/img/62cc36459116d7.44698776.png', 2139.99, 999.99, 'About this item\n\n    Skechers Memory Foam cushioned comfort insole\n    Crafted with 100% vegan materials\n    Flexible traction outsole\n    comfort fit\n    Breathable\n\n    Date First Available: 21 March 2022\n    Manufacturer: Skechers\n    ASIN: B09W34YJFB\n    Item model number: 149277\n    Department: Womens', 'حول هذا البند\n\n     نعل داخلي مبطن بتقنية ميموري فوم من سكيتشرز\n     مصنوع من مواد نباتية 100٪\n     نعل خارجي مرن للجر\n     تناسب راحة\n     تنفس\n\n     تاريخ توفر أول منتج: 21 مارس 2022\n     الشركة المصنعة: سكيتشرز\n     ASIN: B09W34YJFB\n     رقم موديل السلعة: 149277\n     القسم: نسائي', 5, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -387,7 +390,7 @@ ALTER TABLE `favorite_tbib_store`
 -- AUTO_INCREMENT for table `products_tbib_store`
 --
 ALTER TABLE `products_tbib_store`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `rating_tbib_store`

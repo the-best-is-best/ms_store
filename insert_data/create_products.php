@@ -120,9 +120,8 @@ $image = trim($jsonData->image);
 $descriptionEN = trim($jsonData->descriptionEN);
 $descriptionAR = trim($jsonData->descriptionAR);
 
-$price = trim($jsonData->price);
-$price_after_dis = trim($price_after_dis);
-$categoryId = trim($jsonData->categoryId);
+$price = $jsonData->price;
+$categoryId = $jsonData->categoryId;
 $sale = $jsonData->sale ?? 0;
 $offers = $jsonData->offers ?? 0;
 

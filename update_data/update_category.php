@@ -1,6 +1,7 @@
 <?php
 require_once('../controller/db.php');
 require_once('../models/response.php');
+require_once '../controller/generate_key.php';
 
 try {
     $writeDB = DB::connectionDB();
@@ -46,7 +47,7 @@ if (!$jsonData = json_decode($rowPostData)) {
     exit;
 }
 if (
-    !isset($jsonData->id) ||  !isset($jsonData->nameEN) || !isset($jsonData->nameAR) 
+    !isset($jsonData->id) ||  !isset($jsonData->nameEN) || !isset($jsonData->nameAR)
 ) {
 
     $response = new Response();
@@ -64,21 +65,34 @@ if (
 $categoryId = $jsonData->id;
 $nameEN = trim($jsonData->nameEN);
 $nameAR = trim($jsonData->nameAR);
-$parent= $jsonData->parent;
+$parent = $jsonData->parent;
 
 $image =  $jsonData->image;
 $displayInHome = $jsonData->displayInHome;
+try {
+
+    $json['cacheKeyServer'] =  randomKey();
+
+    file_put_contents('../cache/cache.json', json_encode($json));
+} catch (Exception $ex) {
+    $response = new Response();
+    $response->setHttpStatusCode(500);
+    $response->setSuccess(false);
+    $response->addMessage('File save error' . $ex);
+    $response->send();
+    exit;
+}
 try {
     $query = $writeDB->prepare("SELECT image FROM category_" . DB::$AppName . " WHERE id = :id ");
     $query->bindParam(':id', $categoryId, PDO::PARAM_STR);
     $query->execute();
 
     $imageOld = $query->fetch();
-    
-if(empty($jsonData->image )){
-    $jsonData->image= $imageOld['image'];
-    $image=  $imageOld['image'];
-}
+
+    if (empty($jsonData->image)) {
+        $jsonData->image = $imageOld['image'];
+        $image =  $imageOld['image'];
+    }
     $query = $writeDB->prepare("UPDATE category_" . DB::$AppName . " SET nameEN = :nameEN , nameAR=:nameAR , image=:image , displayInHome=:displayInHome WHERE id=:id ");
 
     $query->bindParam(':nameEN', $nameEN, PDO::PARAM_STR);
@@ -87,7 +101,7 @@ if(empty($jsonData->image )){
     $query->bindParam(':displayInHome', $displayInHome, PDO::PARAM_STR);
 
     $query->bindParam(':id', $categoryId, PDO::PARAM_STR);
-    
+
 
     $query->execute();
 
@@ -99,15 +113,14 @@ if(empty($jsonData->image )){
         $response->addMessage('There was an issue update Category data updated - please try again .');
         $response->send();
         exit;
-    }    
-    
+    }
 
 
-if (!empty($imageOld['image']) &&  !empty($image) &&  $imageOld['image'] != $image) {
+
+    if (!empty($imageOld['image']) &&  !empty($image) &&  $imageOld['image'] != $image) {
         $removeImage = str_replace(DB::$urlSite, "", $imageOld['image']);
-    
-        unlink("../" . $removeImage);
 
+        unlink("../" . $removeImage);
     }
 
     $response = new Response();
