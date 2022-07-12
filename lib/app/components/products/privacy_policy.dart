@@ -22,7 +22,6 @@ class PrivacyAndTerms extends StatelessWidget {
       checkColor: ColorManager.primaryColorLight,
       context: context,
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             AppStrings.iAgreeWith,

@@ -192,7 +192,8 @@ class _GetContentPage extends StatelessWidget {
                             label: "${AppStrings.emailTitle} *",
                             errorText: _accountController.alertEmailValid.value,
                             onChanged: (String? val) {
-                              _accountController.setEmailEvent(val ?? "");
+                              _accountController
+                                  .setEmailEvent(val?.toLowerCase() ?? "");
                             },
                           ),
                         ),

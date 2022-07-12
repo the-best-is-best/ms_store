@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/components/common/build_logo.dart';
+import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import '../../../app/components.dart';
 import '../../../app/components/active_code/build_pin_code.dart';
 import '../../../app/resources/strings_manager.dart';
 import '../../../app/resources/values_manager.dart';
-import '../../common/state_renderer/state_renderer_impl.dart';
 import '../view_model/active_email_controller.dart';
 
 class ActiveEmailView extends StatefulWidget {
@@ -22,7 +22,6 @@ class _ActiveEmailViewState extends State<ActiveEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: const ButtonBack()),
       body: Obx(() {
         return _activeEmailController.flowState.value != null
             ? _activeEmailController.flowState.value!.getScreenWidget(

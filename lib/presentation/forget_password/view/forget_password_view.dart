@@ -50,7 +50,9 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                           initResetPasswordModel();
                           Get.offNamedUntil(
                               Routes.resetPasswordRoute, (route) => false,
-                              arguments: {'email': _emailController.text});
+                              arguments: {
+                                'email': _emailController.text.toLowerCase()
+                              });
                         });
                       }
                     : null)
@@ -116,7 +118,7 @@ class _GetContentWidgetState extends State<_GetContentWidget> {
                           widget.forgetPasswordController.alertEmailValid.value,
                       onChanged: (String? val) {
                         widget.forgetPasswordController
-                            .setEmailEvent(val ?? "");
+                            .setEmailEvent(val?.toLowerCase() ?? "");
                       },
                     );
                   }),

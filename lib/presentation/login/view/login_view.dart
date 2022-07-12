@@ -117,7 +117,8 @@ class _GetContentWidgetState extends State<_GetContentWidget> {
                           onChanged: (String? val) {
                             if (widget.loginController.loginBySocial.value ==
                                 false) {
-                              widget.loginController.setEmailEvent(val ?? "");
+                              widget.loginController
+                                  .setEmailEvent(val?.toLowerCase() ?? "");
                             }
                           });
                     }),

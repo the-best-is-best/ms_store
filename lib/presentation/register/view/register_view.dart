@@ -68,7 +68,9 @@ class _RegisterViewState extends State<RegisterView> {
                           initActiveEmailModel();
                           Get.offNamedUntil(
                               Routes.activeEmailRoute, (route) => false,
-                              arguments: {'email': _emailController.text});
+                              arguments: {
+                                'email': _emailController.text.toLowerCase()
+                              });
                         });
                       }
                     : null)
@@ -151,7 +153,8 @@ class _GetContentWidget extends StatelessWidget {
                     label: "${AppStrings.emailTitle} *",
                     errorText: _registerController.alertEmailValid.value,
                     onChanged: (String? val) {
-                      _registerController.setEmailEvent(val ?? "");
+                      _registerController
+                          .setEmailEvent(val?.toLowerCase() ?? "");
                     },
                   ),
                 ),

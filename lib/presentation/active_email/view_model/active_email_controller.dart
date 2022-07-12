@@ -1,15 +1,20 @@
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import '../../../app/app_refs.dart';
+import '../../../app/components.dart';
 import '../../../app/di.dart';
+import '../../../domain/models/users_model.dart';
 import '../../../domain/use_case/users_case/active_email_case.dart';
 import '../../base/base_controller.dart';
 import '../../base/base_users_controller.dart';
+import '../../base/user_data/user_data_controller.dart';
 import '../../common/freezed/freezed_data.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../../app/resources/color_manager.dart';
 import '../../../app/resources/routes_manger.dart';
 import '../../../app/resources/strings_manager.dart';
+import '../../main/pages/home/view_model/home_controller.dart';
 
 class ActiveEmailController extends GetxController
     with BaseController, BaseUserController {
@@ -76,11 +81,21 @@ class ActiveEmailController extends GetxController
             stateRendererType: StateRendererType.POPUP_ERROR_STATE,
             message: failure.messages);
       }
-    }, (data) {
-      SchedulerBinding.instance.addPostFrameCallback((_) async {
-        await initHomeModel();
-        Get.offNamedUntil(Routes.homeRoute, (route) => false);
-      });
+    }, (data) async {
+      await getUserData(data);
+    });
+  }
+
+  Future getUserData(UserModel data) async {
+    await AppPrefs().updateUserData(data);
+    await waitStateChanged(duration: 1100);
+
+    UserDataController userDataController = Get.find();
+    await userDataController.getUserData();
+    await initHomeModel();
+
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      Get.offNamedUntil(Routes.homeRoute, (route) => false);
     });
   }
 }

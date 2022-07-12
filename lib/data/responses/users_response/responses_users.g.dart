@@ -17,12 +17,14 @@ UsersDataResponse _$UsersDataResponseFromJson(Map<String, dynamic> json) =>
       phone: json['phone'] as String?,
       phoneVerify: json['phoneVerify'] as int?,
       code: json['code'] as String?,
+      emailActive: json['email_active'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$UsersDataResponseToJson(UsersDataResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'loginBySocial': instance.loginBySocial,
+      'email_active': instance.emailActive,
       'tokenSocial': instance.tokenSocial,
       'userName': instance.userName,
       'email': instance.email,

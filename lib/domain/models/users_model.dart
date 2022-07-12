@@ -6,6 +6,7 @@ part 'users_model.g.dart';
 class UserModel {
   @HiveField(0)
   final int id;
+
   @HiveField(1)
   final int loginBySocial;
   @HiveField(2)
@@ -22,16 +23,18 @@ class UserModel {
   String code;
   @HiveField(8)
   int phoneVerify;
+  @HiveField(9)
+  final int emailActive;
 
-  UserModel({
-    required this.id,
-    required this.loginBySocial,
-    required this.tokenSocial,
-    required this.userName,
-    required this.email,
-    required this.password,
-    required this.phone,
-    required this.code,
-    required this.phoneVerify,
-  });
+  UserModel(
+      {required this.id,
+      required this.loginBySocial,
+      required this.tokenSocial,
+      required this.userName,
+      required this.email,
+      required this.password,
+      required this.phone,
+      required this.code,
+      required this.phoneVerify,
+      required this.emailActive});
 }

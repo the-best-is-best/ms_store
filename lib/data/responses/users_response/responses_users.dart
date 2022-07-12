@@ -10,6 +10,8 @@ class UsersDataResponse {
   final int? id;
   @JsonKey(name: "loginBySocial", defaultValue: 0)
   final int? loginBySocial;
+  @JsonKey(name: "email_active", defaultValue: 0)
+  final int? emailActive;
   @JsonKey(name: "tokenSocial")
   final String? tokenSocial;
   @JsonKey(name: "userName")
@@ -34,6 +36,7 @@ class UsersDataResponse {
     this.phone,
     this.phoneVerify,
     this.code,
+    this.emailActive,
   });
 
   factory UsersDataResponse.fromJson(Map<String, dynamic> json) {

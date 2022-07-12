@@ -56,13 +56,13 @@ void initAppModel() {
       () => RemoteDataSrcImpl(instance()));
   instance.registerLazySingleton<GetProductByIdUseCase>(
       () => GetProductByIdUseCase(instance()));
+  instance.registerFactory<LoginBySocialUserCase>(
+      () => LoginBySocialUserCase(instance()));
 }
 
 void initLoginModel() {
   if (!GetIt.I.isRegistered<LoginUserCase>()) {
     instance.registerFactory<LoginUserCase>(() => LoginUserCase(instance()));
-    instance.registerFactory<LoginBySocialUserCase>(
-        () => LoginBySocialUserCase(instance()));
   }
 }
 

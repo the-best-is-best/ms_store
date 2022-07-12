@@ -110,7 +110,7 @@ class _ContactUsViewState extends State<ContactUsView> {
                 label: "${AppStrings.emailTitle} *",
                 errorText: _contactUsController.alertEmailValid.value,
                 onChanged: (String? val) {
-                  _contactUsController.setEmailEvent(val ?? "");
+                  _contactUsController.setEmailEvent(val?.toLowerCase() ?? "");
                 },
               ),
             ),

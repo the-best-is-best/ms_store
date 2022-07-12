@@ -13,6 +13,7 @@ extension UsersResponseMapper on UsersResponse? {
         loginBySocial: this?.data?.loginBySocial.orEmpty() ?? 0,
         tokenSocial: this?.data?.tokenSocial.orEmpty() ?? "",
         code: this?.data?.code.orEmpty() ?? "",
-        password: this?.data?.password.orEmpty() ?? "");
+        password: this?.data?.password.orEmpty() ?? "",
+        emailActive: this?.data?.emailActive.orEmpty() ?? 0);
   }
 }

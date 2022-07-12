@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UserDataController>(
-      init: UserDataController(),
+      init: UserDataController(instance()),
       builder: (_) => GetBuilder<FavController>(
           init: FavController(instance(), instance()),
           builder: (context) {

@@ -68,8 +68,16 @@ class LoginViewModel extends GetxController
             message: failure.messages);
       }
     }, (data) async {
-      flowState.value = ContentState();
-      await getUserData(data);
+      if (data.emailActive == 0) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          initActiveEmailModel();
+          Get.offNamedUntil(Routes.activeEmailRoute, (route) => false,
+              arguments: {'email': data.email});
+        });
+      } else {
+        flowState.value = ContentState();
+        await getUserData(data);
+      }
     });
   }
 
