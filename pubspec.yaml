@@ -27,7 +27,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  #analyzer: ^3.3.1
   buildcondition: ^0.0.4
   cached_network_image: ^3.2.1
   carousel_slider: ^4.1.1
@@ -37,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   dio: ^4.0.6
+ # double_back_to_close: ^2.0.0
   email_validator: ^2.0.1
   expandable: ^5.0.1
   feather_icons: ^1.2.0

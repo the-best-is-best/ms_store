@@ -120,6 +120,10 @@ established in 2022""",
       "send_code": "Send Code",
       "address": "Address",
       "delivery_address": "Delivery Address",
+      "close_app_title": "Are you sure?",
+      "close_app_message": "Do you want to exit an App",
+      "no": "No",
+      "yes": "Yes",
     };
   }
 }

@@ -103,4 +103,9 @@ class AppStrings {
   static String get sendCode => 'send_code'.tr;
   static String get address => 'address'.tr;
   static String get deliveryAddress => 'delivery_address'.tr;
+
+  static String get closeAppTitle => 'close_app_title'.tr;
+  static String get closeAppMessage => 'close_app_message'.tr;
+  static String get no => 'no'.tr;
+  static String get yes => 'yes'.tr;
 }

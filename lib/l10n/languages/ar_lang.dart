@@ -120,6 +120,10 @@ class ArLang {
       "send_code": "ارسل الكود",
       "address": "العنوان",
       "delivery_address": "عنوان التوصيل",
+      "close_app_title": "هل أنت واثق؟",
+      "close_app_message": "هل تريد الخروج من التطبيق",
+      "no": "لا",
+      "yes": "نعم",
     };
   }
 }

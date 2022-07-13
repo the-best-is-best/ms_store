@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
                 onGenerateTitle: (BuildContext context) => AppStrings.appTitle,
                 theme: Get.isDarkMode ? themeDataDark : themeDataLight,
                 getPages: RouteGeneratorGetX.getRoutes(),
-                initialRoute: '/splash',
+                initialRoute: Routes.splashRoute,
                 unknownRoute: GetPage(
                   name: '/',
                   page: () => unDefinedRoute(),
