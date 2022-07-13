@@ -5,11 +5,10 @@ import 'package:get/get.dart';
 import 'package:ms_store/app/di.dart';
 import 'package:tbib_phone_form_field/l10n/generated/phone_field_localization.dart';
 
-import '../app/resources/theme_manager.dart';
-import '../l10n/lang_controller.dart';
-
 import '../app/resources/routes_manger.dart';
 import '../app/resources/strings_manager.dart';
+import '../app/resources/theme_manager.dart';
+import '../l10n/lang_controller.dart';
 import '../main.dart';
 import '../presentation/base/user_data/user_data_controller.dart';
 import '../presentation/main/pages/fav/view_model/fav_controller.dart';

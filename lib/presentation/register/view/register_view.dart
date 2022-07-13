@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/resources/font_manger.dart';
+
+import '../../../app/components.dart';
 import '../../../app/components/common/build_logo.dart';
 import '../../../app/components/common/input_field.dart';
 import '../../../app/components/products/privacy_policy.dart';
 import '../../../app/di.dart';
-import '../../common/state_renderer/state_renderer.dart';
-import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../../app/resources/routes_manger.dart';
-import '../view_model/register_controller.dart';
-
-import '../../../app/components.dart';
 import '../../../app/resources/icons_manger.dart';
+import '../../../app/resources/routes_manger.dart';
 import '../../../app/resources/strings_manager.dart';
 import '../../../app/resources/values_manager.dart';
+import '../../common/state_renderer/state_renderer.dart';
+import '../../common/state_renderer/state_renderer_impl.dart';
+import '../view_model/register_controller.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);

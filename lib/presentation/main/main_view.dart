@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/resources/color_manager.dart';
 import 'package:ms_store/app/resources/font_manger.dart';
+
 import '../../../app/resources/icons_manger.dart';
 import '../../../app/resources/strings_manager.dart';
 import '../../../app/resources/values_manager.dart';

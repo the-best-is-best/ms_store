@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
+
+import '../../../app/resources/color_manager.dart';
+import '../../../app/resources/strings_manager.dart';
 import '../../../domain/use_case/users_case/register_use_case.dart';
 import '../../base/base_controller.dart';
 import '../../base/base_users_controller.dart';
 import '../../common/freezed/freezed_data.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../../app/resources/color_manager.dart';
-import '../../../app/resources/strings_manager.dart';
 
 class RegisterController extends GetxController
     with BaseController, BaseUserController {

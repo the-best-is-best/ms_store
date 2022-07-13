@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../app/resources/strings_manager.dart';
 import '../../../domain/use_case/users_case/reset_password_case.dart';
 import '../../base/base_controller.dart';
 import '../../base/base_users_controller.dart';
 import '../../common/state_renderer/state_renderer.dart';
 import '../../common/state_renderer/state_renderer_impl.dart';
-import '../../../app/resources/strings_manager.dart';
 
 class ResetPasswordController extends GetxController
     with BaseController, BaseUserController {

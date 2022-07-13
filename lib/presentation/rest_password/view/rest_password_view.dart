@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/resources/font_manger.dart';
+
 import '../../../app/components/active_code/build_pin_code.dart';
 import '../../../app/components/common/build_logo.dart';
-import '../../common/state_renderer/state_renderer_impl.dart';
 import '../../../app/di.dart';
-import '../view_model/rest_password_controller.dart';
-import '../../common/state_renderer/state_renderer.dart';
 import '../../../app/resources/icons_manger.dart';
 import '../../../app/resources/routes_manger.dart';
 import '../../../app/resources/strings_manager.dart';
 import '../../../app/resources/values_manager.dart';
+import '../../common/state_renderer/state_renderer.dart';
+import '../../common/state_renderer/state_renderer_impl.dart';
+import '../view_model/rest_password_controller.dart';
 
 class ResetPasswordView extends StatefulWidget {
   const ResetPasswordView({Key? key}) : super(key: key);
