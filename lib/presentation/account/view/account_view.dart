@@ -143,14 +143,24 @@ class _GetContentPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional.topEnd,
-                    child: ElevatedButton(
-                      child: const Text("Logout"),
-                      onPressed: () {
-                        _accountController.logout();
-                      },
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: ColorManager.error),
+                        onPressed: () {
+                          _accountController.delete();
+                        },
+                        child: Text(AppStrings.delete),
+                      ),
+                      ElevatedButton(
+                        child: Text(AppStrings.logout),
+                        onPressed: () {
+                          _accountController.logout();
+                        },
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -173,7 +183,7 @@ class _GetContentPage extends StatelessWidget {
                           controller: _textUserController,
                           keyBoardType: TextInputType.name,
                           nextNode: _emailNode,
-                          label: AppStrings.userName,
+                          label: "${AppStrings.userName} *",
                           prefixIcon: IconsManger.user,
                           errorText: _accountController.alertUserValid.value,
                           onChanged: (String? val) {

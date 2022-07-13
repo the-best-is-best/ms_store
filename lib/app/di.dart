@@ -23,6 +23,7 @@ import '../domain/use_case/store/get_products_by_search_use_case.dart';
 import '../domain/use_case/store/get_products_supplier_use_case.dart';
 import '../domain/use_case/store/review/update_review_use_case.dart';
 import '../domain/use_case/users_case/active_email_case.dart';
+import '../domain/use_case/users_case/delete_user_case.dart';
 import '../domain/use_case/users_case/forget_password_case.dart';
 import '../domain/use_case/users_case/login_use_case.dart';
 import '../domain/use_case/users_case/register_use_case.dart';
@@ -137,6 +138,7 @@ void initUpdateProfile() {
   if (!GetIt.I.isRegistered<UpdateUserDataUserCase>()) {
     instance.registerFactory<UpdateUserDataUserCase>(
         () => UpdateUserDataUserCase(instance()));
+    instance.registerFactory<DeleteUserCase>(() => DeleteUserCase(instance()));
   }
 }
 

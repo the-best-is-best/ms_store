@@ -10,6 +10,7 @@ import '../responses/store_responses/categories_responses.dart';
 import '../responses/store_responses/get_category_data_by_id.dart';
 import '../responses/store_responses/review/get_review_response.dart';
 import '../responses/store_responses/review/update_review_response.dart';
+import '../responses/users_response/response_delete_user.dart';
 import '../responses/users_response/responses_forget_password.dart';
 import '../responses/users_response/responses_register.dart';
 import '../responses/users_response/responses_reset_password.dart';
@@ -25,6 +26,7 @@ abstract class RemoteDataSrc {
   Future<UsersResponse> activeEmail(ActiveEmailRequests registerRequests);
   Future<ForgetPasswordResponse> forgetPassword(
       ForgetPasswordRequests forgetPasswordRequests);
+  Future<DeleteUserResponse> deleteUser(DeleteUserRequests deleteUserRequests);
   Future<ResetPasswordResponse> resetPassword(
       ResetPasswordRequests resetPasswordRequests);
   Future<HomeResponse> getHomeData();
@@ -193,5 +195,11 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
         userName: updateUserRequests.userName,
         phone: updateUserRequests.phone,
         phoneVerify: updateUserRequests.phoneVerify);
+  }
+
+  @override
+  Future<DeleteUserResponse> deleteUser(
+      DeleteUserRequests deleteUserRequests) async {
+    return await _appServicesClient.deleteUser(deleteUserRequests.userId);
   }
 }

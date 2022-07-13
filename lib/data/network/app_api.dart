@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
 import 'package:ms_store/data/responses/store_responses/get_category_data_by_id.dart';
+import 'package:ms_store/data/responses/users_response/response_delete_user.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../app/constants.dart';
@@ -55,6 +56,14 @@ abstract class AppServicesClient {
     @Field("email") required String email,
     @Field("pin") required String pin,
   });
+
+  // delete User
+
+  @POST(Constants.deleteUser)
+  Future<DeleteUserResponse> deleteUser(
+    @Field("id") int userId,
+  );
+
   // forget password
 
   @POST(Constants.forgetPasswordUrl)

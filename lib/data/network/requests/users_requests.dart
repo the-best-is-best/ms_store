@@ -40,6 +40,12 @@ class ActiveEmailRequests {
   });
 }
 
+class DeleteUserRequests {
+  DeleteUserRequests(this.userId);
+
+  final int userId;
+}
+
 class ForgetPasswordRequests {
   ForgetPasswordRequests(this.email);
 

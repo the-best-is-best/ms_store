@@ -10,6 +10,7 @@ import '../l10n/lang_controller.dart';
 
 import '../app/resources/routes_manger.dart';
 import '../app/resources/strings_manager.dart';
+import '../main.dart';
 import '../presentation/base/user_data/user_data_controller.dart';
 import '../presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'app_binding.dart';
@@ -44,6 +45,8 @@ class _MyAppState extends State<MyApp> {
                   Locale('en', ''),
                   Locale('ar', ''),
                 ],
+                navigatorObservers:
+                    observer != null ? <NavigatorObserver>[observer!] : [],
                 fallbackLocale: const Locale('en', ''),
                 initialBinding: AppBinding(),
                 debugShowCheckedModeBanner: false,

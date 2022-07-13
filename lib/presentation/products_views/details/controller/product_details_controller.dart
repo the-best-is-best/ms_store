@@ -105,32 +105,6 @@ class ProductDetailsController extends GetxController with BaseController {
     });
   }
 
-  // void addToFavorite(ProductModel product) async {
-  //   UserDataController userDataController = Get.find();
-  //   if (userDataController.userModel.value == null) {
-  //     initLoginModel();
-  //     Get.toNamed(Routes.loginRoute, arguments: {'canBack': true});
-  //   } else {
-  //     flowState.value = LoadingState(
-  //         stateRendererType: StateRendererType.FULLSCREEN_LOADING_STATE,
-  //         message: AppStrings.loading);
-  //     var result = await instance<FavoriteFunctions>()
-  //         .addToFavorite(userDataController.userModel.value!.id, product.id);
-  //     await waitStateChanged();
-
-  //     result.fold((failure) {
-  //       flowState.value = ErrorState(
-  //           stateRendererType: StateRendererType.POPUP_ERROR_STATE,
-  //           message: failure.messages);
-  //     }, (data) async {
-  //       await instance<FavoriteFunctions>().updateFavData(product);
-  //       await waitStateChanged();
-
-  //       flowState.value = ContentState();
-  //     });
-  //   }
-  // }
-
   Rx<ReviewObject> reviewObject = ReviewObject(0, false, 0, 0, "").obs;
   void addRating(double rate) {
     reviewObject.value = reviewObject.value.copyWith(rating: rate);

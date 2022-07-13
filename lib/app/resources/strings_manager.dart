@@ -28,6 +28,8 @@ class AppStrings {
   static String get passwordLengthError => 'password_length_error'.tr;
   static String get notHaveAccount =>
       "${'donot_have_account_title'.tr} ${'sign_up_button_text'.tr}";
+  static String get logout => 'logout'.tr;
+  static String get delete => 'delete'.tr;
   static String get iHaveAccount => 'i_have_account_title'.tr;
   static String get loading => 'loading'.tr;
   static String get ok => 'ok'.tr;

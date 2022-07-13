@@ -574,7 +574,7 @@ class _GetContentWidgetState extends State<_GetContentWidget> {
               onPressed: () async {
                 FocusManager.instance.primaryFocus?.unfocus();
 
-                await waitStateChanged(duration: 540);
+                await waitStateChanged(duration: 250);
                 Get.back();
 
                 widget.productDetailsController.updateReview();

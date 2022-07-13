@@ -129,7 +129,7 @@ class AppBinding implements Bindings {
   }
 
   void getAccountController() {
-    Get.lazyPut(() => AccountController(instance()), fenix: true);
+    Get.lazyPut(() => AccountController(instance(), instance()), fenix: true);
   }
 
   void getVerifyPhoneController() {

@@ -33,6 +33,8 @@ class ArLang {
       "register_title": "تسجيل",
       "skip_title": "تخطي",
       "donot_have_account_title": "لا امتلك حساب ؟",
+      'logout': "تسجيل خروج",
+      "delete": "حذف",
       "i_have_account_title": "امتلك حساب ?",
       "facebook_title": "تسجيل عبر الفيس بوك",
       "google_title": "تسجيل عبر جوجل",

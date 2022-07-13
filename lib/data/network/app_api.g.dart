@@ -112,6 +112,22 @@ class _AppServicesClient implements AppServicesClient {
   }
 
   @override
+  Future<DeleteUserResponse> deleteUser(userId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'id': userId};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UsersResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/delete/delete_user.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = DeleteUserResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ForgetPasswordResponse> forgetPassword(email) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

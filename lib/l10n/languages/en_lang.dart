@@ -35,6 +35,8 @@ class EnLang {
       "or_title": "or",
       "i_have_account_title": "I have an account ?",
       "donot_have_account_title": "Don't have account ?",
+      'logout': "Logout",
+      "delete": "Delete",
       "facebook_title": "Sign in with Facebook",
       "google_title": "Sign in with Google",
       "full_name_title": "Full Name",

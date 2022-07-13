@@ -9,6 +9,7 @@ import 'package:ms_store/app/app_refs.dart';
 import 'package:ms_store/app/components.dart';
 import 'package:ms_store/app/resources/routes_manger.dart';
 import 'package:ms_store/domain/models/users_model.dart';
+import 'package:ms_store/domain/use_case/users_case/delete_user_case.dart';
 import 'package:ms_store/domain/use_case/users_case/update_user_data_case.dart';
 import 'package:ms_store/presentation/base/base_controller.dart';
 import 'package:ms_store/presentation/base/base_users_controller.dart';
@@ -22,21 +23,13 @@ import '../../common/state_renderer/state_renderer_impl.dart';
 class AccountController extends GetxController
     with BaseController, BaseUserController {
   final UpdateUserDataUserCase _updateUserDataUserCase;
-  AccountController(this._updateUserDataUserCase);
+  final DeleteUserCase _deleteUserCase;
+  AccountController(this._updateUserDataUserCase, this._deleteUserCase);
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final facebookSignIn = FacebookAuth.instance;
 
   Rxn<String?> alertUserValid = Rxn<String?>();
   UserDataController userDataController = Get.find();
-
-  // void checkPhone() {
-  //   if (userDataController.userModel.value!.phone.isNotEmpty) {
-  //     if (userDataController.userModel.value!.phoneVerify == 1) {
-  //       isVerifiedPhone.value = true;
-  //     }
-  //   }
-  //   super.onReady();
-  // }
 
   void setUserNameEvent(String user) {
     userDataObject.value = userDataObject.value.copyWith(userName: user);
@@ -226,5 +219,35 @@ class AccountController extends GetxController
     await AppPrefs().clearUserData();
     await AppPrefs().clearCacheData();
     Get.back();
+  }
+
+  void delete() async {
+    flowState.value = LoadingState(
+        stateRendererType: StateRendererType.POPUP_LOADING_STATE,
+        message: AppStrings.loading);
+    var result = await _deleteUserCase.execute(DeleteUserCaseInput(
+      userDataController.userModel.value!.id,
+    ));
+    await waitStateChanged();
+    result.fold((failure) {
+      if (failure.statusCode == -6) {
+        flowState.value = ErrorState(
+            stateRendererType: StateRendererType.POPUP_NETWORK_ERROR_STATE,
+            message: failure.messages,
+            color: Colors.white);
+      } else {
+        flowState.value = ErrorState(
+            stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+            message: failure.messages);
+      }
+    }, (data) async {
+      flowState.value = SuccessState(
+          stateRendererType: StateRendererType.POPUP_SUCCESS_STATE,
+          message: AppStrings.passwordChanged,
+          color: Colors.white);
+
+      flowState.value = ContentState();
+      logout();
+    });
   }
 }

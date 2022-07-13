@@ -20,6 +20,7 @@ import 'store/repository_impl_get_products_supplier.dart';
 import 'store/review/repository_impl_get_review.dart';
 import 'store/review/repository_impl_update_review.dart';
 import 'users_repository/repository_impl_active_email.dart';
+import 'users_repository/repository_impl_delete_user.dart';
 import 'users_repository/repository_impl_register.dart';
 import 'users_repository/repository_impl_login.dart';
 import 'users_repository/repository_impl_reset_password.dart';
@@ -167,5 +168,12 @@ class RepositoryImpl extends Repository {
       UpdateUserRequests userRequests) async {
     return await RepositoryImplUpdateUserData.call(
         _remoteDataSrc, _networkInfo, userRequests);
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteUser(
+      DeleteUserRequests deleteUserRequests) async {
+    return await RepositoryImplDeleteUser.call(
+        _remoteDataSrc, _networkInfo, deleteUserRequests);
   }
 }

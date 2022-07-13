@@ -4,6 +4,7 @@ class Constants {
   static const _postDataUrlPath = "insert_data";
   static const _updateUrlPath = "update_data";
   static const _userControllerUrlPath = "users_controller";
+  static const _deleteUrlPath = "delete";
 
   static const int timeOut = 60 * 100;
   static const String token = "";
@@ -20,6 +21,7 @@ class Constants {
 
   static const String registerUrl = '/$_postDataUrlPath/create_users.php';
   static const String activeEmail = '/$_userControllerUrlPath/active_email.php';
+  static const String deleteUser = '/$_deleteUrlPath/delete_user.php';
 
   static const String forgetPasswordUrl =
       '/$_userControllerUrlPath/forget_password.php';

@@ -21,6 +21,8 @@ abstract class Repository {
       ActiveEmailRequests activeEmailRequests);
   Future<Either<Failure, bool>> forgetPassword(
       ForgetPasswordRequests forgetPasswordRequests);
+  Future<Either<Failure, bool>> deleteUser(
+      DeleteUserRequests deleteUserRequests);
   Future<Either<Failure, bool>> resetPassword(
       ResetPasswordRequests resetPasswordRequests);
   Future<Either<Failure, HomeModel>> getHomeData();
