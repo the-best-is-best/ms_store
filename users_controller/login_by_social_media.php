@@ -54,12 +54,13 @@ $query = $writeDB->prepare("SELECT * FROM users_" . DB::$AppName . " WHERE token
 
 $query->execute();
 $row = $query->fetch();
+$email = trim($jsonData->email);
+
 if (empty($row)) {
 
 
 
     $userName = trim($jsonData->userName);
-    $email = trim($jsonData->email);
     require_once '../controller/generate_key.php';
 
     $password = trim(randomKey());
@@ -68,20 +69,6 @@ if (empty($row)) {
     $email_active = 1;
 
     try {
-        // $query = $writeDB->prepare("SELECT id FROM users_" . DB::$AppName . " WHERE email = :email AND loginBySocial=$loginBySocial");
-        // $query->bindParam(':email', $email, PDO::PARAM_STR);
-        // $query->execute();
-
-        // $rowCount = $query->rowCount();
-        // if ($rowCount !== 0) {
-        //     $response = new Response();
-        //     $response->setHttpStatusCode(409);
-        //     $response->setSuccess(false);
-        //     $response->addMessage('Email already exists');
-        //     $response->send();
-        //     exit;
-        // }
-
 
         $query = $writeDB->prepare("INSERT into users_" . DB::$AppName . "(userName , password , email , email_active , loginBySocial , tokenSocial)
         VALUES (:userName , :password  , :email , :email_active , :loginBySocial , :tokenSocial)");
@@ -116,6 +103,15 @@ if (empty($row)) {
         $row = $query->fetch();
 
 
+
+        if ($email != $row['email']) {
+            $query = $writeDB->prepare("UPDATE users_" . DB::$AppName . " SET  email = :email where  tokenSocial = :tokenSocial  ");
+            $query->bindParam(':email', $jsonData->email, PDO::PARAM_STR);
+            $query->bindParam(':tokenSocial', $tokenSocial, PDO::PARAM_STR);
+
+            $query->execute();
+        }
+        $row['email'] = $email;
         $response = new Response();
         $response->setHttpStatusCode(200);
         $response->setSuccess(true);

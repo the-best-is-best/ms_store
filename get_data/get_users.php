@@ -39,7 +39,7 @@ try {
 
 
 
-    $query = $writeDB->prepare("SELECT * FROM users_" . DB::$AppName . " WHERE email = :email AND email_active=1  AND loginBySocial=0");
+    $query = $writeDB->prepare("SELECT * FROM users_" . DB::$AppName . " WHERE email = :email AND loginBySocial=0");
     $query->bindParam(':email', $_GET['email'], PDO::PARAM_STR);
 
     $query->execute();
@@ -54,15 +54,50 @@ try {
     }
 
     if (password_verify($_GET['password'], $row['password'])) {
+        if ($row['email_active'] == 0) {
+            $num = rand(10000, 99999);
+            $msg = "
+            <html>
+             <head>
+               <title> MS Store  </title>
+             </head>
+                <body>
+                    <h3> This is an automated email - do'nt replay </h3>
+                    <h4> Please follow this Link to active your account </h4>
+                    <h4> Code Number : $num </h4>
+                </body> 
+            </html>";
+            $num = "r" . $num;
 
-        $returnData = $row;
-        $response = new Response();
-        $response->setHttpStatusCode(200);
-        $response->setSuccess(true);
-        $response->setData($returnData);
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= "From: meshoraouf500@gmail.com";
+            if (mail($_GET['email'], "MS Store - Please Active Your Email", $msg, $headers)) {
+                $query = $writeDB->prepare("UPDATE users_" . DB::$AppName . " SET  code = :code where  email = :email  ");
+                $query->bindParam(':code', $num, PDO::PARAM_STR);
+                $query->bindParam(':email', $_GET['email'], PDO::PARAM_STR);
 
-        $response->send();
-        exit;
+                $query->execute();
+                $returnData = $row;
+                $response = new Response();
+                $response->setHttpStatusCode(200);
+                $response->setSuccess(true);
+                $response->setData($returnData);
+                $response->addMessage('Active Email');
+
+                $response->send();
+                exit;
+            }
+        } else {
+            $returnData = $row;
+            $response = new Response();
+            $response->setHttpStatusCode(200);
+            $response->setSuccess(true);
+            $response->setData($returnData);
+
+            $response->send();
+            exit;
+        }
     } else {
         $response = new Response();
         $response->setHttpStatusCode(409);

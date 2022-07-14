@@ -40,7 +40,7 @@ try {
     $query->execute();
     $rowCat = $query->fetchAll();
 
-    $query = $writeDB->prepare("SELECT id, nameEN , nameAR FROM category_" . DB::$AppName . " WHERE displayInHome=1 ");
+    $query = $writeDB->prepare("SELECT id, nameEN , nameAR FROM category_" . DB::$AppName . " WHERE displayInHome=1");
     $query->execute();
     $rowMainCat = $query->fetchAll();
 
@@ -49,9 +49,9 @@ try {
         $row['dataHome'][$i]['category'] = $rowMainCat[$i];
 
         $row['dataHome'][$i]['productsInCategory'] = [];
-        for ($j = 0; $j < count($rowCat); $j++) {
+        for ($j = count($rowCat) - 1; $j >= 0; $j--) {
             if ($rowCat[$j]['parent'] ==  $rowMainCat[$i]['id']) {
-                $query = $writeDB->prepare("SELECT * FROM products_" . DB::$AppName . " WHERE categoryId=" . $rowCat[$j]['id']   . " ORDER BY id DESC LIMIT 4");
+                $query = $writeDB->prepare("SELECT * FROM products_" . DB::$AppName . " WHERE categoryId=" . $rowCat[$j]['id']   . " ORDER BY id DESC LIMIT 2");
                 $query->execute();
                 $rowProduct = $query->fetchAll();
                 for ($p = 0; $p < count($rowProduct); $p++) {

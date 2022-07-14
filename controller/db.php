@@ -6,7 +6,7 @@ class DB
     public static $AppName = "tbib_store";
     private static $DBConnection;
     private static $DBHost = "localhost";
-    private static $DBName = "tbib_store";
+    private static $DBName = "ms_store";
     private static $DBUser = "root";
     private static $DBPass = "";
 

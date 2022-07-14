@@ -38,7 +38,7 @@ try {
     $msg = "
     <html>
      <head>
-       <title> TBIB Store  </title>
+       <title> MS Store  </title>
      </head>
         <body>
             <h3> This is an automated email - do'nt replay </h3>
@@ -51,7 +51,7 @@ try {
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $headers .= "From: meshoraouf500@gmail.com";
-    if (mail($jsonData->email, "TBIB Store - Please Active Your Email", $msg, $headers)) {
+    if (mail($jsonData->email, "MS Store - Please Active Your Email", $msg, $headers)) {
         $query = $writeDB->prepare("INSERT into users_" . DB::$AppName . "(userName , password  , email , code)
         VALUES (:userName , :password  , :email , :code)");
 

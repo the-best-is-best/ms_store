@@ -37,31 +37,31 @@ try {
     }
     $name = $_GET['name'];
     $lang = $_GET['lang'];
-    $rowsperpage = 20;
+    $rowsPerPage = 20;
     $searchByName = $lang == "en" ? "nameEN" : "nameAR";
     $query = $writeDB->prepare("SELECT * FROM products_" . DB::$AppName . " WHERE $searchByName LIKE '%$name%'");
     $query->execute();
     $count = $query->rowCount();
     $numrows = $count;
-    $totalpages = ceil($numrows / $rowsperpage);
+    $totalPages = ceil($numrows / $rowsPerPage);
 
-    if (isset($_GET['currentpage']) && is_numeric($_GET['currentpage'])) {
-        $currentpage = (int) $_GET['currentpage'];
+    if (isset($_GET['currentPage']) && is_numeric($_GET['currentPage'])) {
+        $currentPage = (int) $_GET['currentPage'];
     } else {
-        $currentpage = 1;  // default page number
+        $currentPage = 1;  // default page number
     }
     // if current page is greater than total pages
-    if ($currentpage > $totalpages) {
+    if ($currentPage > $totalPages) {
         // set current page to last page
-        $currentpage = $totalpages;
+        $currentPage = $totalPages;
     }
     // if current page is less than first page
-    if ($currentpage < 1) {
+    if ($currentPage < 1) {
         // set current page to first page
-        $currentpage = 1;
+        $currentPage = 1;
     }
     // the offset of the list, based on current page
-    $offset = ($currentpage - 1) * $rowsperpage;
+    $offset = ($currentPage - 1) * $rowsPerPage;
     $row = $query->fetchAll();
     $returnData['products'] = [];
 
@@ -78,7 +78,7 @@ try {
         $response->send();
         exit;
     }
-    $returnData['totalPages'] = $totalpages;
+    $returnData['totalPages'] = $totalPages;
 
     $response = new Response();
     $response->setHttpStatusCode(201);

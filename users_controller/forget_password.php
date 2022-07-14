@@ -86,7 +86,7 @@ $num = rand(10000, 99999);
 $msg = "
 <html>
  <head>
-   <title> TBIB Store  </title>
+   <title> MS Store  </title>
  </head>
     <body>
         <h3> This is an automated email - do'nt replay </h3>
@@ -99,7 +99,7 @@ $num = "l" . $num;
 $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= "From: meshoraouf500@gmail.com";
-if (mail($jsonData->email, "TBIB Store - Please Active Your Email", $msg, $headers)) {
+if (mail($jsonData->email, "MS Store - Please Active Your Email", $msg, $headers)) {
     $query = $writeDB->prepare("UPDATE users_" . DB::$AppName . "  SET code = :code WHERE email = :email AND loginBySocial=0");
     $query->bindParam(':email', $jsonData->email, PDO::PARAM_STR);
 
