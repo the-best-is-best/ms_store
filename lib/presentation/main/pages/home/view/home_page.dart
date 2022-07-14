@@ -60,7 +60,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 60,
         title: InputField(
           controller: searchTextEditingController,
           keyBoardType: TextInputType.text,
@@ -316,7 +315,9 @@ class _GetProducts extends StatelessWidget {
               mainCatModel: dataHome[indexCat].categoryModel,
               homeController: homeController),
           SizedBox(
-            height: Device.get().isTablet ? AppSize.ap350 : AppSize.ap300,
+            height: getDeviceType() == DeviceType.Tablet
+                ? AppSize.ap350
+                : AppSize.ap300,
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,

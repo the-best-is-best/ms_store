@@ -111,7 +111,7 @@ class _AddToFavoriteButtonState extends State<AddToFavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-        radius: Device.get().isTablet ? 40 : 20,
+        radius: 20,
         backgroundColor: Colors.grey[400],
         child: Obx(() => BuildCondition(
               condition:
@@ -134,7 +134,7 @@ class _AddToFavoriteButtonState extends State<AddToFavoriteButton> {
                           ? IconsManger.addedToFavorite
                           : IconsManger.addToFavorite,
                       color: inFav ? ColorManager.error : Colors.white,
-                      size: Device.get().isTablet ? 40 : 25.0,
+                      size: 25.0,
                     );
                   }),
                 );
@@ -224,7 +224,7 @@ class BuildProductItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: SizedBox(
-        width: Device.get().isTablet ? AppSize.ap400 : AppSize.ap300,
+        width: AppSize.ap300,
         child: Stack(
           children: [
             Card(

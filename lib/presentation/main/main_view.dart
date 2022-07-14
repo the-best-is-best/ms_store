@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/resources/color_manager.dart';
 import 'package:ms_store/app/resources/font_manger.dart';
@@ -54,7 +55,7 @@ class _MainViewState extends State<MainView> {
                 .pages[_mainController.currentIndex.value]!['page']),
           ),
           bottomNavigationBar: Container(
-              height: AppSize.ap80,
+              height: 80.h,
               decoration: const BoxDecoration(
                 boxShadow: [
                   BoxShadow(

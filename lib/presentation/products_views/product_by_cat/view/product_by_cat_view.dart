@@ -136,11 +136,13 @@ class _GetContentWidget extends StatelessWidget {
                           shrinkWrap: true,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: Device.get().isTablet ? 3 : 2,
+                            crossAxisCount: 2,
                             mainAxisSpacing: 1.0,
                             crossAxisSpacing: 1.0,
                             childAspectRatio:
-                                Device.get().isTablet ? 1 / 2.2 : 1 / 1.6,
+                                getDeviceType() == DeviceType.Tablet
+                                    ? 1 / 1
+                                    : 1 / 1.6,
                           ),
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: _productByCatController

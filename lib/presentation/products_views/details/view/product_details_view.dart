@@ -452,8 +452,9 @@ class _GetContentWidgetState extends State<_GetContentWidget> {
                     ),
                     const SizedBox(height: AppSize.ap8),
                     SizedBox(
-                      height:
-                          Device.get().isTablet ? AppSize.ap350 : AppSize.ap300,
+                      height: getDeviceType() == DeviceType.Tablet
+                          ? AppSize.ap350
+                          : AppSize.ap300,
                       child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,

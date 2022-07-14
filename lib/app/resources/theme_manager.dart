@@ -91,8 +91,7 @@ ThemeData get themeDataLight {
           color: ColorManager.textColor, fontSize: FontSize.s20),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: EdgeInsets.all(
-          Device.get().isTablet ? AppSize.ap30 : AppSpacing.ap12),
+      contentPadding: const EdgeInsets.all(AppSpacing.ap12),
       iconColor: ColorManager.darkColor,
       hintStyle: getRegularStyle(
         fontSize: FontSize.s16,

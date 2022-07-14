@@ -55,6 +55,9 @@ class _AboutViewState extends State<AboutView> {
                 mapType: MapType.normal,
                 initialCameraPosition: _kGooglePlex,
                 onMapCreated: (GoogleMapController controller) {},
+                markers: {
+                  Marker(markerId: MarkerId('place'), position: storePlace)
+                },
               ),
             ),
           ],

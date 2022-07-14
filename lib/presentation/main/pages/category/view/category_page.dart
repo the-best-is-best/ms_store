@@ -7,6 +7,7 @@ import 'package:ms_store/app/resources/icons_manger.dart';
 import 'package:ms_store/app/resources/routes_manger.dart';
 import 'package:ms_store/app/resources/strings_manager.dart';
 import 'package:ms_store/app/resources/values_manager.dart';
+import 'package:ms_store/app/util/get_device_type.dart';
 import 'package:ms_store/gen/assets.gen.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/main/pages/category/view_model/category_view_model.dart';
@@ -30,7 +31,6 @@ class _CategoryPageState extends State<CategoryPage> {
   void initState() {
     _categoryController = Get.find();
     _categoryController.getData();
-
     super.initState();
   }
 
@@ -149,11 +149,14 @@ class _GetContentWidget extends StatelessWidget {
                                         .length ??
                                     0,
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                    SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 3,
-                                  mainAxisSpacing: 10.0,
-                                  crossAxisSpacing: 10.0,
-                                  childAspectRatio: 1 / 2,
+                                  mainAxisSpacing: 5.0,
+                                  crossAxisSpacing: 15.0,
+                                  childAspectRatio:
+                                      getDeviceType() == DeviceType.Tablet
+                                          ? 1 / 1.2
+                                          : 1 / 1.6,
                                 ),
                                 itemBuilder: (context, index) => BuildGridCat(
                                     categoryModel: categoryController
@@ -256,7 +259,6 @@ class BuildGridCat extends StatelessWidget {
             height: 100,
             fit: BoxFit.contain,
           ),
-          const SizedBox(height: 5.0),
           Flexible(
             child: Text(
               locale == "ar" ? categoryModel.nameAR : categoryModel.nameEN,

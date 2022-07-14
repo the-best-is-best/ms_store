@@ -1,5 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
@@ -47,7 +48,6 @@ class _SearchViewState extends State<SearchView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 60,
           title: InputField(
             controller: _searchTextEditingController,
             keyBoardType: TextInputType.text,
@@ -113,11 +113,12 @@ class _GetContentWidget extends StatelessWidget {
               Obx(() => GridView.builder(
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: Device.get().isTablet ? 3 : 2,
+                      crossAxisCount: 2,
                       mainAxisSpacing: 1.0,
                       crossAxisSpacing: 1.0,
-                      childAspectRatio:
-                          Device.get().isTablet ? 1 / 2.2 : 1 / 1.6,
+                      childAspectRatio: getDeviceType() == DeviceType.Tablet
+                          ? 1 / 1
+                          : 1 / 1.6,
                     ),
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount:

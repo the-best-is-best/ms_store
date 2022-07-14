@@ -175,6 +175,8 @@ class BuildProductsItem extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: CachedNetworkImage(
                       imageUrl: productData.image,
+                      height: 150,
+                      width: double.infinity,
                       fit: BoxFit.contain,
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) =>

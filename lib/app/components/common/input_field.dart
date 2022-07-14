@@ -76,7 +76,7 @@ class _InputFieldState extends State<InputField> {
               size: FontSize.s30,
             ),
           ),
-          suffixIcon: Device.get().isTablet
+          suffixIcon: getDeviceType() == DeviceType.Tablet
               ? Padding(
                   padding: const EdgeInsets.only(right: 60),
                   child: widget.suffixWidget,
