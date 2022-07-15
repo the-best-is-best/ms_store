@@ -281,11 +281,49 @@ class BuildProductItem extends StatelessWidget {
               right: 20,
               child: favWidget,
             ),
-
-            //  displaySaleText(dataModel),
+            DisplaySaleText(productModel),
           ],
         ),
       ),
     );
+  }
+}
+
+class DisplaySaleText extends StatelessWidget {
+  final ProductModel productModel;
+  const DisplaySaleText(
+    this.productModel, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BuildCondition(
+        condition: productModel.priceAfterDis != 0,
+        builder: (context) {
+          return Positioned(
+            top: 5,
+            left: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                width: DeviceType.Tablet == getDeviceType() ? 50.w : 65.w,
+                height: 30.h,
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Center(
+                  child: Text(
+                    AppStrings.sale,
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.labelMedium!
+                        .copyWith(color: ColorManager.white),
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

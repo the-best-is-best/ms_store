@@ -163,115 +163,98 @@ class BuildProductsItem extends StatelessWidget {
       onTap: () {
         goToProductDetails(productData);
       },
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Stack(
-              children: [
-                Card(
-                  color: ColorManager.greyLight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: CachedNetworkImage(
-                      imageUrl: productData.image,
-                      height: 150,
-                      width: double.infinity,
-                      fit: BoxFit.contain,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              BuildCircularProgressIndicatorWithDownload(
-                                  downloadProgress),
-                      errorWidget: (context, url, error) => const ErrorIcon(),
-                    ),
-                  ),
-                ),
-                //if (productData.sale == 1)
-                // Padding(
-                //   padding: const EdgeInsets.all(10.0),
-                //   child: Container(
-                //     width: 30.w,
-                //     height: 25.h,
-                //     decoration: BoxDecoration(
-                //       color: Colors.deepOrange,
-                //       borderRadius: BorderRadius.circular(10.0),
-                //     ),
-                //     child: Center(
-                //       child: Text(
-                //         'SALE',
-                //         style: TBIBFontStyle.h2.copyWith(
-                //           fontSize: 10.0.sp,
-                //           color: Colors.white70,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
-          ),
-          const SizedBox(width: AppSize.ap12),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.ap12),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Stack(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          _language == "ar"
-                              ? productData.nameAR
-                              : productData.nameEN,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: context.textTheme.labelMedium,
-                        ),
+                  Card(
+                    color: ColorManager.greyLight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: CachedNetworkImage(
+                        imageUrl: productData.image,
+                        height: 150,
+                        width: double.infinity,
+                        fit: BoxFit.contain,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                BuildCircularProgressIndicatorWithDownload(
+                                    downloadProgress),
+                        errorWidget: (context, url, error) => const ErrorIcon(),
                       ),
-                      Expanded(
-                        child: CircleAvatar(
-                          radius: 25.0,
-                          backgroundColor: Colors.grey[400],
-                          child: BuildCondition(
-                            condition:
-                                favController.productId.value != productData.id,
-                            builder: (context) {
-                              return IconButton(
-                                onPressed: favController.productId.value != null
-                                    ? null
-                                    : () {
-                                        favController
-                                            .addToFavoriteEvent(productData);
-                                      },
-                                icon: Icon(
-                                  Icons.favorite_sharp,
-                                  color: Colors.red,
-                                  size: FontSize.s30,
-                                ),
-                              );
-                            },
-                            fallback: (_) =>
-                                const BuildCircularProgressIndicator(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: AppSize.ap14),
-                  BuildPrice(productModel: productData),
-                  const SizedBox(height: 20.0),
-                  AddToCartButton(
-                    productData,
-                    ColorManager.greyLight,
-                    cartController: cartController,
+                    ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: AppSize.ap12),
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            _language == "ar"
+                                ? productData.nameAR
+                                : productData.nameEN,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.textTheme.labelMedium,
+                          ),
+                        ),
+                        Expanded(
+                          child: CircleAvatar(
+                            radius: 25.0,
+                            backgroundColor: Colors.grey[400],
+                            child: BuildCondition(
+                              condition: favController.productId.value !=
+                                  productData.id,
+                              builder: (context) {
+                                return IconButton(
+                                  onPressed: favController.productId.value !=
+                                          null
+                                      ? null
+                                      : () {
+                                          favController
+                                              .addToFavoriteEvent(productData);
+                                        },
+                                  icon: Icon(
+                                    Icons.favorite_sharp,
+                                    color: Colors.red,
+                                    size: FontSize.s30,
+                                  ),
+                                );
+                              },
+                              fallback: (_) =>
+                                  const BuildCircularProgressIndicator(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: AppSize.ap14),
+                    BuildPrice(productModel: productData),
+                    const SizedBox(height: 20.0),
+                    AddToCartButton(
+                      productData,
+                      ColorManager.greyLight,
+                      cartController: cartController,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

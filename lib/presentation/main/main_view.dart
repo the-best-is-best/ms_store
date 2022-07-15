@@ -20,6 +20,7 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   late final MainViewController _mainController;
+
   @override
   void initState() {
     _mainController = Get.find();
@@ -28,6 +29,8 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
+    final String lang = Get.locale!.languageCode;
+
     return Obx(
       () => WillPopScope(
         onWillPop: () async {
@@ -55,7 +58,7 @@ class _MainViewState extends State<MainView> {
                 .pages[_mainController.currentIndex.value]!['page']),
           ),
           bottomNavigationBar: Container(
-              height: 80.h,
+              height: lang == "ar" ? 90.h : 80.h,
               decoration: const BoxDecoration(
                 boxShadow: [
                   BoxShadow(

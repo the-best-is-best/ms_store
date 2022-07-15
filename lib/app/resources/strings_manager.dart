@@ -108,4 +108,5 @@ class AppStrings {
   static String get closeAppMessage => 'close_app_message'.tr;
   static String get no => 'no'.tr;
   static String get yes => 'yes'.tr;
+  static String get sale => 'sale'.tr;
 }

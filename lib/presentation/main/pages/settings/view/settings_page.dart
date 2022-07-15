@@ -1,5 +1,6 @@
 import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/components/common/list_view.dart';
 import 'package:ms_store/app/di.dart';
@@ -58,8 +59,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                       ListTile(
                         onTap: () {
-                          // AppPrefs().clearUserData();
-                          // _userDataController.userModel.value = null;
                           initUpdateProfile();
                           Get.toNamed(Routes.accountRoute);
                         },
@@ -109,13 +108,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                 _userDataController.userModel.value != null,
                             builder: (context) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.only(top: AppSize.ap16),
-                                child: Obx(() => Icon(
-                                    _settingsController.language.value != "en"
-                                        ? IconsManger.arrowLeft
-                                        : IconsManger.arrowRight)),
-                              );
+                                  padding:
+                                      const EdgeInsets.only(top: AppSize.ap16),
+                                  child: ArrowIcon(
+                                    settingsController: _settingsController,
+                                  ));
                             },
                             fallback: (_) => const SizedBox()),
                       ),
@@ -189,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           style: themeData.textTheme.labelMedium,
                         ),
                         trailing: SizedBox(
-                          width: 50,
+                          width: 50.w,
                           child: Obx(() => Row(
                                 children: [
                                   Expanded(
@@ -201,11 +198,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                     ),
                                   ),
                                   Expanded(
-                                    child: Icon(
-                                        _settingsController.language.value !=
-                                                "en"
-                                            ? IconsManger.arrowLeft
-                                            : IconsManger.arrowRight),
+                                    child: ArrowIcon(
+                                        settingsController:
+                                            _settingsController),
                                   ),
                                 ],
                               )),
@@ -219,6 +214,25 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ArrowIcon extends StatelessWidget {
+  const ArrowIcon({
+    Key? key,
+    required SettingsController settingsController,
+  })  : _settingsController = settingsController,
+        super(key: key);
+
+  final SettingsController _settingsController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Icon(_settingsController.language.value != "en"
+          ? IconsManger.arrowLeft
+          : IconsManger.arrowRight),
     );
   }
 }

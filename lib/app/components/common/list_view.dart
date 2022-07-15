@@ -4,7 +4,7 @@ import 'package:ms_store/presentation/main/pages/settings/view_model/settings_co
 
 import '../../../app/resources/icons_manger.dart';
 
-class BuildListTile extends StatelessWidget {
+class BuildListTile extends StatefulWidget {
   final String nextPage;
   final String label;
 
@@ -12,18 +12,24 @@ class BuildListTile extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<BuildListTile> createState() => _BuildListTileState();
+}
+
+class _BuildListTileState extends State<BuildListTile> {
+  final SettingsController _settingsController = Get.find();
+
+  @override
   Widget build(BuildContext context) {
-    SettingsController _settingsController = Get.find();
-    return ListTile(
+    return Obx(() => ListTile(
         onTap: () {
-          Get.toNamed(nextPage);
+          Get.toNamed(widget.nextPage);
         },
         title: Text(
-          label,
+          widget.label,
           style: context.textTheme.labelMedium,
         ),
         trailing: Icon(_settingsController.language.value != "en"
             ? IconsManger.arrowLeft
-            : IconsManger.arrowRight));
+            : IconsManger.arrowRight)));
   }
 }

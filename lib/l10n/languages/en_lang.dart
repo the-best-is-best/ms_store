@@ -124,6 +124,7 @@ established in 2022""",
       "close_app_message": "Do you want to exit an App",
       "no": "No",
       "yes": "Yes",
+      "sale": "SALE"
     };
   }
 }
