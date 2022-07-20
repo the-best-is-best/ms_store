@@ -18,6 +18,7 @@ class IconsManger {
   static const IconData album = FeatherIcons.image;
   static const IconData success = FeatherIcons.checkCircle;
   static const IconData map = FeatherIcons.mapPin;
+  static const IconData filter = FeatherIcons.filter;
 
   static const IconData addedToFavorite = Icons.favorite_sharp;
   static const IconData addToFavorite = Icons.favorite_border_outlined;

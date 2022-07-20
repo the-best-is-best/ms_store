@@ -90,4 +90,22 @@ extension ExtensionBuildContext on BuildContext {
   void back() {
     Navigator.of(this).pop();
   }
+
+  // void openDrawer({bool endDrawer = false}) {
+  //   if (endDrawer) {
+  //     Scaffold.of(this).openDrawer();
+  //   } else {
+  //     Scaffold.of(this).openEndDrawer();
+  //   }
+  // }
+}
+
+extension ExtensionScaffoldState on GlobalKey<ScaffoldState> {
+  void openDrawer({bool endDrawer = false}) {
+    if (!endDrawer) {
+      currentState!.openDrawer();
+    } else {
+      currentState!.openEndDrawer();
+    }
+  }
 }

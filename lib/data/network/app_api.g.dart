@@ -10,7 +10,7 @@ part of 'app_api.dart';
 
 class _AppServicesClient implements AppServicesClient {
   _AppServicesClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://192.168.1.6/tbib_store_2022/large_store';
+    baseUrl ??= 'http://192.168.1.4/tbib_store_2022/adv_store';
   }
 
   final Dio _dio;
@@ -118,7 +118,7 @@ class _AppServicesClient implements AppServicesClient {
     final _headers = <String, dynamic>{};
     final _data = {'id': userId};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<UsersResponse>(
+        _setStreamType<DeleteUserResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/delete/delete_user.php',
                     queryParameters: queryParameters, data: _data)
@@ -301,12 +301,16 @@ class _AppServicesClient implements AppServicesClient {
 
   @override
   Future<ProductWithPaginationDataResponse> getProductsByCatId(
-      catId, currentPage) async {
+      catId, currentPage,
+      {minPrice, maxPrice}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'catId': catId,
-      r'currentPage': currentPage
+      r'currentPage': currentPage,
+      r'minPrice': minPrice,
+      r'maxPrice': maxPrice
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

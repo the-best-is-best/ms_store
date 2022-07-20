@@ -15,8 +15,11 @@ class RepositoryImplGetProductByCatId {
     if (await networkInfo.isConnected) {
       try {
         var response = await remoteDataSrc.getProductsByCatId(
-            GetProductsByCatIdRequests(getProductsByCatIdRequests.catId,
-                getProductsByCatIdRequests.currentPage));
+            GetProductsByCatIdRequests(
+                getProductsByCatIdRequests.catId,
+                getProductsByCatIdRequests.currentPage,
+                getProductsByCatIdRequests.minPrice,
+                getProductsByCatIdRequests.maxPrice));
         if (response.statusCode! >= 200 && response.statusCode! <= 299) {
           //success
           // return either right

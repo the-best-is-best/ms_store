@@ -10,8 +10,7 @@ class Constants {
   static const String token = "";
   static const String contentType = "application/json";
 
-  static const String baseUrl =
-      "http://192.168.1.6/tbib_store_2022/large_store";
+  static const String baseUrl = "http://192.168.1.4/tbib_store_2022/adv_store";
 
   static const String cacheUrl = '/cache/get_cache.php';
 

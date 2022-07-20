@@ -17,6 +17,7 @@ import 'package:ms_store/presentation/verify_phone/view/verify_phone_view.dart';
 
 import '../../presentation/main/main_view.dart';
 import '../../presentation/products_views/product_by_cat/view/product_by_cat_view.dart';
+import '../../presentation/products_views/product_by_cat/widgets/end_drawer.dart';
 
 class Routes {
   static const non = "/";
@@ -37,6 +38,7 @@ class Routes {
   static const verifyPhoneRoute = "/verifyPhoneRoute";
   static const checkoutRoute = "/checkoutRoute";
   static const googleMapViewRoute = "/GoogleMapViewRoute";
+  static const filterRoute = "/filterRoute";
 }
 
 class RouteGeneratorGetX {
@@ -104,6 +106,10 @@ class RouteGeneratorGetX {
         GetPage(
           name: Routes.googleMapViewRoute,
           page: () => const GoogleMapView(),
+        ),
+        GetPage(
+          name: Routes.filterRoute,
+          page: () => const FilterScreen(),
         ),
       ];
 }

@@ -57,10 +57,13 @@ class UpdateReviewRequests {
 class GetProductsByCatIdRequests {
   final int catId;
   final int currentPage;
-
+  final num? minPrice;
+  final num? maxPrice;
   GetProductsByCatIdRequests(
     this.catId,
     this.currentPage,
+    this.minPrice,
+    this.maxPrice,
   );
 }
 

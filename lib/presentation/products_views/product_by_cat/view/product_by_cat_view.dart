@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ms_store/app/components/common/build_circular_progress_indicator.dart';
+import 'package:ms_store/app/extensions.dart';
+import 'package:ms_store/app/resources/font_manger.dart';
+import 'package:ms_store/app/resources/icons_manger.dart';
 import 'package:ms_store/app/resources/strings_manager.dart';
 import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/app/util/get_device_type.dart';
@@ -11,9 +14,11 @@ import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import 'package:ms_store/presentation/main/pages/fav/view_model/fav_controller.dart';
 import 'package:ms_store/presentation/products_views/product_by_cat/controller/product_by_cat_controller.dart';
+import '../../../../app/resources/routes_manger.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../components/products/components.dart';
 import '../../../components/products/functions.dart';
+import '../widgets/end_drawer.dart';
 
 class ProductByCat extends StatefulWidget {
   const ProductByCat({Key? key}) : super(key: key);
@@ -29,6 +34,7 @@ class _ProductByCatState extends State<ProductByCat> {
   late final FavController _favController;
   final ScrollController _scrollController = ScrollController();
   final CategoryDataModel categoryModel = Get.arguments['categoryData'];
+  //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -56,11 +62,23 @@ class _ProductByCatState extends State<ProductByCat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
         centerTitle: true,
         leading: const BackButton(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.toNamed(Routes.filterRoute);
+            },
+            icon: Icon(
+              IconsManger.filter,
+              size: FontSize.s20,
+            ),
+          ),
+        ],
         title: SizedBox(
           width: context.width,
           child: FittedBox(
@@ -72,6 +90,7 @@ class _ProductByCatState extends State<ProductByCat> {
           ),
         ),
       ),
+      //endDrawer: const EndDrawer(),
       body: Obx(() => _productByCatController.flowState.value != null
           ? _productByCatController.flowState.value!.getScreenWidget(
               _GetContentWidget(

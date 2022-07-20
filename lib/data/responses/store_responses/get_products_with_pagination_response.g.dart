@@ -13,6 +13,8 @@ ProductWithPaginationResponse _$ProductWithPaginationResponseFromJson(
           ?.map((e) => ProductDataResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['totalPages'] as int?,
+      json['minPrice'] as num?,
+      json['maxPrice'] as num?,
     );
 
 Map<String, dynamic> _$ProductWithPaginationResponseToJson(
@@ -20,6 +22,8 @@ Map<String, dynamic> _$ProductWithPaginationResponseToJson(
     <String, dynamic>{
       'products': instance.products,
       'totalPages': instance.totalPages,
+      'minPrice': instance.minPrice,
+      'maxPrice': instance.maxPrice,
     };
 
 ProductWithPaginationDataResponse _$ProductWithPaginationDataResponseFromJson(

@@ -169,7 +169,9 @@ class RemoteDataSrcImpl implements RemoteDataSrc {
       GetProductsByCatIdRequests getProductsByCatIdRequests) async {
     return await _appServicesClient.getProductsByCatId(
         getProductsByCatIdRequests.catId,
-        getProductsByCatIdRequests.currentPage);
+        getProductsByCatIdRequests.currentPage,
+        minPrice: getProductsByCatIdRequests.minPrice,
+        maxPrice: getProductsByCatIdRequests.maxPrice);
   }
 
   @override

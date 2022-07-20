@@ -8,8 +8,11 @@ extension ProductWithPaginationDataResponseMapper
     on ProductWithPaginationDataResponse? {
   ProductWithPaginationModel toDomain() {
     return ProductWithPaginationModel(
-        products: this?.data?.products?.map((e) => e.toDomain()).toList() ??
-            const Iterable.empty().cast<ProductModel>().toList(),
-        totalPages: this?.data?.totalPages?.orEmpty() ?? 0);
+      products: this?.data?.products?.map((e) => e.toDomain()).toList() ??
+          const Iterable.empty().cast<ProductModel>().toList(),
+      totalPages: this?.data?.totalPages?.orEmpty() ?? 0,
+      minPrice: this?.data?.minPrice?.orEmpty() ?? 0,
+      maxPrice: this?.data?.maxPrice?.orEmpty() ?? 0,
+    );
   }
 }

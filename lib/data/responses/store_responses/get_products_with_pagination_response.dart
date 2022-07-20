@@ -8,7 +8,10 @@ part 'get_products_with_pagination_response.g.dart';
 class ProductWithPaginationResponse {
   final List<ProductDataResponse>? products;
   final int? totalPages;
-  ProductWithPaginationResponse(this.products, this.totalPages);
+  final num? minPrice;
+  final num? maxPrice;
+  ProductWithPaginationResponse(
+      this.products, this.totalPages, this.minPrice, this.maxPrice);
   factory ProductWithPaginationResponse.fromJson(Map<String, dynamic> json) {
     return _$ProductWithPaginationResponseFromJson(json);
   }
