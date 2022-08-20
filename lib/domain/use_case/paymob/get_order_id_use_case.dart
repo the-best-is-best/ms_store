@@ -14,7 +14,7 @@ class PayMobGetOrderIdUseCase
   @override
   Future<Either<Failure, int>> execute(
       PayMobGetOrderIdUseCaseInput input) async {
-    return await paymobRepository.getOrderId(PayMobCreateOrdersRequests(
+    return await paymobRepository.getOrderId(PayMobRequestCreateOrdersRequests(
         authToken: input.authToken,
         amountCents: input.amountCents,
         items: input.items));

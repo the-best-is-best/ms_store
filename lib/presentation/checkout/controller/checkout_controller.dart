@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ms_store/app/components.dart';
 import 'package:ms_store/app/constants.dart';
 import 'package:ms_store/app/resources/strings_manager.dart';
+import 'package:ms_store/domain/use_case/paymob/buy_use_case.dart';
 import 'package:ms_store/domain/use_case/paymob/get_order_id_use_case.dart';
 import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
@@ -16,6 +16,7 @@ import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
 
 import '../../../app/resources/color_manager.dart';
 import '../../../app/resources/routes_manger.dart';
+import '../../../domain/use_case/paymob/create_order_use_case.dart';
 import '../../../domain/use_case/paymob/get_first_token_use_case.dart';
 import '../../../services/location_services.dart';
 import '../../base/base_controller.dart';
@@ -28,8 +29,11 @@ class CheckoutController extends GetxController with BaseController {
 
   final PayMobGetFirstTokenUseCase _getFirstTokenUseCase;
   final PayMobGetOrderIdUseCase _getOrderIdUseCase;
+  final PayMobCreateOrderUseCase _createOrderUseCase;
+  final BuyUseCase _buyUseCase;
 
-  CheckoutController(this._getFirstTokenUseCase, this._getOrderIdUseCase);
+  CheckoutController(this._getFirstTokenUseCase, this._getOrderIdUseCase,
+      this._createOrderUseCase, this._buyUseCase);
 
   double? latitude;
   double? longitude;
@@ -110,17 +114,11 @@ class CheckoutController extends GetxController with BaseController {
           .validate();
       String countryCode = phone?.countryCode ?? '0';
       String phoneNum = phone?.nsn ?? '0';
-      ordersObject.value =
-          ordersObject.value.copyWith(phone: "+$countryCode-$phoneNum");
       phoneValueLocal = "+$countryCode$phoneNum";
 
-      if (userDataController.userModel.value!.phone ==
-              ordersObject.value.phone &&
-          userDataController.userModel.value!.phoneVerify == 1) {
-        isVerifiedPhone.value = true;
-      } else {
-        isVerifiedPhone.value = false;
-      }
+      ordersObject.value = ordersObject.value.copyWith(phone: phoneValueLocal);
+
+      isVerifiedPhone.value = true;
     } else {
       ordersObject.value = ordersObject.value.copyWith(phone: "");
       alertPhoneValid.value = null;
@@ -214,9 +212,19 @@ class CheckoutController extends GetxController with BaseController {
   }
 
   Future buy() async {
+    int integrationId = 0;
+    if (ordersObject.value.paymentMethod == 1) {
+      integrationId = Constants.integrationIdCash;
+    } else if (ordersObject.value.paymentMethod == 2) {
+      integrationId = Constants.integrationIdCard;
+    } else if (ordersObject.value.paymentMethod == 3) {
+      integrationId = Constants.integrationIdKiosk;
+    }
+
     flowState.value = LoadingState(
         stateRendererType: StateRendererType.POPUP_LOADING_STATE,
         message: AppStrings.loading);
+
     var firstTokenResponse = await _getFirstTokenUseCase
         .execute(PayMobGetFirstTokenUseCaseInput(Constants.payMobApiKey));
     firstTokenResponse.fold((error) {
@@ -233,16 +241,73 @@ class CheckoutController extends GetxController with BaseController {
         flowState.value = LoadingState(
             stateRendererType: StateRendererType.POPUP_ERROR_STATE,
             message: AppStrings.serverError);
-      }, (int orderId) async {});
+      }, (int orderId) async {
+        // toJson
+        var orderJson = {
+          'email': ordersObject.value.email,
+          "first_name": ordersObject.value.firstName,
+          "last_name": ordersObject.value.lastName,
+          "phone_number": ordersObject.value.phone,
+          "street": ordersObject.value.address,
+          "country": ordersObject.value.country,
+          "state": ordersObject.value.state,
+          "city": ordersObject.value.city,
+          "floor": "NA",
+          "building": "NA",
+          "apartment": "NA",
+          "postal_code": "NA",
+        };
+        var orderCreatedResponse = await _createOrderUseCase.execute(
+            PayMobCreateOrderUseCaseInput(
+                authToken: firstToken,
+                orderId: orderId,
+                billingData: orderJson,
+                amountCents: price,
+                integrationId: integrationId));
+        orderCreatedResponse.fold((error) {
+          flowState.value = LoadingState(
+              stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+              message: AppStrings.serverError);
+        }, (lastToken) async {
+          if (ordersObject.value.paymentMethod == 1) {
+            var paymentResponse = await _buyUseCase.execute(
+                BuyUseCaseUseCasInput(
+                    authToken: lastToken,
+                    source: {"identifier": "cash", "subtype": "CASH"}));
+            paymentResponse.fold((l) => printError(info: l.messages),
+                (r) => printInfo(info: r.toString()));
+            CartController _cartController = Get.find();
+            _cartController.clearData();
+
+            flowState.value = SuccessState(
+              stateRendererType: StateRendererType.POPUP_SUCCESS_STATE,
+              message: AppStrings.success,
+              color: ColorManager.white,
+            );
+          } else if (ordersObject.value.paymentMethod == 2) {
+            Get.offAllNamed(Routes.payWithVisaCardView,
+                arguments: {'token': lastToken});
+            CartController _cartController = Get.find();
+            _cartController.clearData();
+          } else {
+            var paymentResponse = await _buyUseCase.execute(
+                BuyUseCaseUseCasInput(authToken: lastToken, source: {
+              "identifier": "AGGREGATOR",
+              "subtype": "AGGREGATOR"
+            }));
+            paymentResponse.fold((l) => printError(info: l.messages), (r) {
+              CartController _cartController = Get.find();
+              _cartController.clearData();
+              flowState.value = SuccessState(
+                stateRendererType: StateRendererType.POPUP_SUCCESS_STATE,
+                message: r.toString(),
+                color: ColorManager.white,
+              );
+            });
+          }
+        });
+      });
     });
-    await waitStateChanged();
-    CartController _cartController = Get.find();
-    _cartController.clearData();
-    flowState.value = SuccessState(
-      stateRendererType: StateRendererType.POPUP_SUCCESS_STATE,
-      message: AppStrings.success,
-      color: ColorManager.white,
-    );
   }
 
   List<String> paymentMethods = [

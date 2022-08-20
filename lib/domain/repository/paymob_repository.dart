@@ -6,5 +6,9 @@ import '../../data/network/failure.dart';
 abstract class PayMobRepository {
   Future<Either<Failure, String>> getFirstToken(String apiKey);
   Future<Either<Failure, int>> getOrderId(
-      PayMobCreateOrdersRequests createOrdersRequests);
+      PayMobRequestCreateOrdersRequests createRequestOrdersRequests);
+  Future<Either<Failure, String>> getLastToken(
+      PayMobCreateOrdersRequests createRequestOrdersRequests);
+
+  Future<Either<Failure, int>> buyRequest(BuyRequest bayRequest);
 }

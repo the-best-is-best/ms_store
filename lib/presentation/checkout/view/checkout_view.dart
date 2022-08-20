@@ -311,15 +311,10 @@ class _SendCodeState extends State<SendCode> {
         if (widget.checkoutController.alertPhoneValid.value == true) {
           if (widget.checkoutController.loadingVerifyPhone.value == false) {
             if (widget.checkoutController.isVerifiedPhone.value == false) {
-              return InkWell(
-                onTap: () {
-                  widget.checkoutController.verifyPhone();
-                },
-                child: Text(
-                  AppStrings.sendCode,
-                  style: context.textTheme.labelMedium!
-                      .copyWith(color: ColorManager.primaryColor),
-                ),
+              return Icon(
+                IconsManger.error,
+                size: FontSize.s30,
+                color: ColorManager.error,
               );
             } else {
               return Icon(

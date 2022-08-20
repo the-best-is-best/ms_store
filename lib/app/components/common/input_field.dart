@@ -45,20 +45,6 @@ class InputField extends StatefulWidget {
 
 class _InputFieldState extends State<InputField> {
   @override
-  void dispose() {
-    try {
-      widget.focusNode?.dispose();
-    } catch (e) {}
-    widget.controller?.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
       enabled: widget.enable,
@@ -124,20 +110,6 @@ class InputFieldAboveTitle extends StatefulWidget {
 
 class _InputFieldAboveTitleState extends State<InputFieldAboveTitle> {
   @override
-  void dispose() {
-    try {
-      widget.focusNode?.dispose();
-    } catch (e) {}
-    widget.controller?.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,20 +169,6 @@ class InputFieldExpanded extends StatefulWidget {
 }
 
 class _InputFieldExpanded extends State<InputFieldExpanded> {
-  @override
-  void dispose() {
-    try {
-      widget.focusNode?.dispose();
-    } catch (e) {}
-    widget.controller?.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(

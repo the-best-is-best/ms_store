@@ -16,6 +16,7 @@ import 'package:ms_store/presentation/splash/splash_screen.dart';
 import 'package:ms_store/presentation/verify_phone/view/verify_phone_view.dart';
 
 import '../../presentation/main/main_view.dart';
+import '../../presentation/pay_with_visa_card/view/pay_with_visa_card_view.dart';
 import '../../presentation/products_views/product_by_cat/view/product_by_cat_view.dart';
 import '../../presentation/products_views/product_by_cat/widgets/end_drawer.dart';
 
@@ -39,6 +40,7 @@ class Routes {
   static const checkoutRoute = "/checkoutRoute";
   static const googleMapViewRoute = "/GoogleMapViewRoute";
   static const filterRoute = "/filterRoute";
+  static const payWithVisaCardView = "/payWithVisaCardView";
 }
 
 class RouteGeneratorGetX {
@@ -110,6 +112,10 @@ class RouteGeneratorGetX {
         GetPage(
           name: Routes.filterRoute,
           page: () => const FilterScreen(),
+        ),
+        GetPage(
+          name: Routes.payWithVisaCardView,
+          page: () => const PayWithVisaCardView(),
         ),
       ];
 }

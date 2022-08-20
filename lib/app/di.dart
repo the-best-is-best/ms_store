@@ -5,6 +5,8 @@ import 'package:ms_store/data/data_src/remote_data_pay_mob_src.dart';
 import 'package:ms_store/data/repository/paymob/paymob_repository_impl.dart';
 import 'package:ms_store/domain/repository/paymob_repository.dart';
 import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
+import 'package:ms_store/domain/use_case/paymob/buy_use_case.dart';
+import 'package:ms_store/domain/use_case/paymob/create_order_use_case.dart';
 import 'package:ms_store/domain/use_case/paymob/get_first_token_use_case.dart';
 import 'package:ms_store/domain/use_case/paymob/get_order_id_use_case.dart';
 import 'package:ms_store/domain/use_case/store/category_use_case.dart';
@@ -165,5 +167,8 @@ void initCheckout() {
         () => PayMobGetFirstTokenUseCase(instance()));
     instance.registerFactory<PayMobGetOrderIdUseCase>(
         () => PayMobGetOrderIdUseCase(instance()));
+    instance.registerFactory<PayMobCreateOrderUseCase>(
+        () => PayMobCreateOrderUseCase(instance()));
+    instance.registerFactory<BuyUseCase>(() => BuyUseCase(instance()));
   }
 }

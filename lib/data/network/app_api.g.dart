@@ -494,6 +494,53 @@ class _PayMobClient implements PayMobClient {
     return value;
   }
 
+  @override
+  Future<PayMobRequestCreateOrderResponse> createOrder(
+      {required authToken,
+      required amountCents,
+      required expiration,
+      required orderId,
+      currency = "EGP",
+      required billingData,
+      required integrationId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'auth_token': authToken,
+      'amount_cents': amountCents,
+      'expiration': expiration,
+      'order_id': orderId,
+      'currency': currency,
+      'billing_data': billingData,
+      'integration_id': integrationId
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PayMobRequestCreateOrderResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/acceptance/payment_keys',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PayMobRequestCreateOrderResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BuyResponse> puyRequest({required source, required authToken}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'source': source, 'payment_token': authToken};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BuyResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/acceptance/payments/pay',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BuyResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

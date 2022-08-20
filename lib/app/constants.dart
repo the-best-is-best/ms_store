@@ -65,18 +65,16 @@ class Constants {
 
   static const String orderRegistrationUrl = '/ecommerce/orders';
 
-  static const String paymentKeyUrl = '/payment_keys';
+  static const String paymentKeyUrl = '/acceptance/payment_keys';
+  static const String paymentRequest = '/acceptance/payments/pay';
 
   static const String payMobApiKey =
       """ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRjeE5URXpMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuUGZMcTM0SzlzeXRONTVSQ1hIaV9nSUFUZEU0bFJNbThRNnE0VGd6ZGJKVFNmcHVhQno1eGNUVEFEaUNtNnB4WmFBNl9kODQ0THZvMFdwUGswVzhkX1E=""";
-  static String payMobFirstToken = "";
-  static String payMobOrderId = "";
+  static const int integrationIdCash = 2630578;
 
-  static const String integrationIdCard = "2017540";
-  static String finalTokenCard = "";
+  static const int integrationIdCard = 2017540;
 
-  static const String integrationIdKiosk = "2627391";
-  static String finalTokenKiosk = "";
+  static const int integrationIdKiosk = 2627391;
 
   static String refCode = "";
 }
