@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ms_store/app/di.dart';
 import 'package:tbib_phone_form_field/l10n/generated/phone_field_localization.dart';
-
 import '../app/resources/routes_manger.dart';
 import '../app/resources/strings_manager.dart';
 import '../app/resources/theme_manager.dart';
@@ -38,7 +37,7 @@ class _MyAppState extends State<MyApp> {
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
-                  PhoneFieldLocalization.delegate
+                  PhoneFieldLocalization.delegate,
                 ],
                 supportedLocales: const [
                   Locale('en', ''),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../util/get_device_type.dart';
 import '../resources/font_manger.dart';
 import 'color_manager.dart';
 import 'styles_manger.dart';

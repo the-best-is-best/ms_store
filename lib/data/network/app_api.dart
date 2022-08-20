@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:ms_store/data/responses/cache/cache_server_response.dart';
+import 'package:ms_store/data/responses/paymob/create_order_response.dart';
 import 'package:ms_store/data/responses/store_responses/favorite_response.dart';
 import 'package:ms_store/data/responses/store_responses/get_category_data_by_id.dart';
 import 'package:ms_store/data/responses/users_response/response_delete_user.dart';
 import 'package:retrofit/retrofit.dart';
-
 import '../../app/constants.dart';
 import '../responses/home_response/home_response.dart';
+import '../responses/paymob/buy_response.dart';
 import '../responses/paymob/get_first_token_response.dart';
 import '../responses/paymob/order_registration_response.dart';
 import '../responses/store_responses/categories_responses.dart';
@@ -182,5 +183,20 @@ abstract class PayMobClient {
     @Field("items") List<Map<String, dynamic>>? items,
     @Field("shipping_data") Map<String, dynamic>? shippingData,
     @Field("merchant_order_id") int? merchantOrderId,
+  });
+  @POST(Constants.paymentKeyUrl)
+  Future<PayMobRequestCreateOrderResponse> createOrder({
+    @Field("auth_token") required String authToken,
+    @Field("amount_cents") required int amountCents,
+    @Field("expiration") required int expiration,
+    @Field("order_id") required int orderId,
+    @Field("currency") String currency = "EGP",
+    @Field("billing_data") required Map<String, String> billingData,
+    @Field("integration_id") required int integrationId,
+  });
+  @POST(Constants.paymentRequest)
+  Future<BuyResponse> puyRequest({
+    @Field("source") required Map<String, String> source,
+    @Field("payment_token") required String authToken,
   });
 }
