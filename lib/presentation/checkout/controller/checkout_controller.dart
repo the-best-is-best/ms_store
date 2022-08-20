@@ -6,21 +6,34 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ms_store/app/components.dart';
+import 'package:ms_store/app/constants.dart';
 import 'package:ms_store/app/resources/strings_manager.dart';
+import 'package:ms_store/domain/use_case/paymob/get_order_id_use_case.dart';
+import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
 
 import '../../../app/resources/color_manager.dart';
 import '../../../app/resources/routes_manger.dart';
+import '../../../domain/use_case/paymob/get_first_token_use_case.dart';
 import '../../../services/location_services.dart';
 import '../../base/base_controller.dart';
 import '../../common/freezed/freezed_orders.dart';
 import '../../common/state_renderer/state_renderer.dart';
 
 class CheckoutController extends GetxController with BaseController {
+  final UserDataController userDataController = Get.find();
+  final CartController cartController = Get.find();
+
+  final PayMobGetFirstTokenUseCase _getFirstTokenUseCase;
+  final PayMobGetOrderIdUseCase _getOrderIdUseCase;
+
+  CheckoutController(this._getFirstTokenUseCase, this._getOrderIdUseCase);
+
   double? latitude;
   double? longitude;
+
   Future<String> getAddressFromLatLong({LatLng? marker}) async {
     Position? position;
     if (marker == null) {
@@ -42,11 +55,7 @@ class CheckoutController extends GetxController with BaseController {
 
   Rx<OrdersObject> ordersObject =
       OrdersObject('', '', '', '', '', '', '', '', 0).obs;
-  // RxInt paymentMethod = 0.obs;
-  // String address = "";
-  // String country = "";
-  // String states = "";
-  // String city = "";
+
   Rx<String?> paymentMethodAlert = Rx<String?>(null);
 
   Rx<String?> addressAlert = Rx<String?>(null);
@@ -55,7 +64,8 @@ class CheckoutController extends GetxController with BaseController {
   Rx<bool> allFieldsValid = Rx<bool>(false);
 
   void paymentMethodChange(int val) {
-    ordersObject = ordersObject.value.copyWith(paymentMethod: val).obs;
+    ordersObject.value = ordersObject.value.copyWith(paymentMethod: val);
+    print(ordersObject.value.paymentMethod);
     if (val == 0) {
       paymentMethodAlert.value = AppStrings.required;
     } else {
@@ -64,9 +74,13 @@ class CheckoutController extends GetxController with BaseController {
     validAllFields();
   }
 
+  void setEmailEvent(String val) {
+    ordersObject.value = ordersObject.value.copyWith(email: val);
+  }
+
   Rx<String?> firstNameAlert = Rx<String?>(null);
   void addFirstName(String val) {
-    ordersObject = ordersObject.value.copyWith(firstName: val).obs;
+    ordersObject.value = ordersObject.value.copyWith(firstName: val);
     if (val.isEmpty) {
       firstNameAlert.value = AppStrings.required;
     } else {
@@ -77,7 +91,7 @@ class CheckoutController extends GetxController with BaseController {
 
   Rx<String?> lastNameAlert = Rx<String?>(null);
   void addLastName(String val) {
-    ordersObject = ordersObject.value.copyWith(lastName: val).obs;
+    ordersObject.value = ordersObject.value.copyWith(lastName: val);
     if (val.isEmpty) {
       lastNameAlert.value = AppStrings.required;
     } else {
@@ -99,6 +113,14 @@ class CheckoutController extends GetxController with BaseController {
       ordersObject.value =
           ordersObject.value.copyWith(phone: "+$countryCode-$phoneNum");
       phoneValueLocal = "+$countryCode$phoneNum";
+
+      if (userDataController.userModel.value!.phone ==
+              ordersObject.value.phone &&
+          userDataController.userModel.value!.phoneVerify == 1) {
+        isVerifiedPhone.value = true;
+      } else {
+        isVerifiedPhone.value = false;
+      }
     } else {
       ordersObject.value = ordersObject.value.copyWith(phone: "");
       alertPhoneValid.value = null;
@@ -137,7 +159,7 @@ class CheckoutController extends GetxController with BaseController {
   }
 
   void addressMethodChange(String val) {
-    ordersObject = ordersObject.value.copyWith(address: val).obs;
+    ordersObject.value = ordersObject.value.copyWith(address: val);
     if (val.isEmpty) {
       addressAlert.value = AppStrings.required;
     } else {
@@ -147,7 +169,7 @@ class CheckoutController extends GetxController with BaseController {
   }
 
   void countryMethodChange(String val) {
-    ordersObject = ordersObject.value.copyWith(country: val).obs;
+    ordersObject.value = ordersObject.value.copyWith(country: val);
     if (val.isEmpty) {
       cscAlert.value = AppStrings.required;
     } else {
@@ -157,7 +179,7 @@ class CheckoutController extends GetxController with BaseController {
   }
 
   void statesMethodChange(String val) {
-    ordersObject = ordersObject.value.copyWith(state: val).obs;
+    ordersObject.value = ordersObject.value.copyWith(state: val);
     if (val.isEmpty) {
       cscAlert.value = AppStrings.required;
     } else {
@@ -167,7 +189,7 @@ class CheckoutController extends GetxController with BaseController {
   }
 
   void cityMethodChange(String val) {
-    ordersObject = ordersObject.value.copyWith(city: val).obs;
+    ordersObject.value = ordersObject.value.copyWith(city: val);
     if (val.isEmpty) {
       cscAlert.value = AppStrings.required;
     } else {
@@ -195,7 +217,24 @@ class CheckoutController extends GetxController with BaseController {
     flowState.value = LoadingState(
         stateRendererType: StateRendererType.POPUP_LOADING_STATE,
         message: AppStrings.loading);
-
+    var firstTokenResponse = await _getFirstTokenUseCase
+        .execute(PayMobGetFirstTokenUseCaseInput(Constants.payMobApiKey));
+    firstTokenResponse.fold((error) {
+      flowState.value = LoadingState(
+          stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+          message: AppStrings.serverError);
+    }, (String firstToken) async {
+      // price to cents
+      int price = (cartController.totalPrice * 100).toInt();
+      var orderResponse = await _getOrderIdUseCase.execute(
+          PayMobGetOrderIdUseCaseInput(
+              authToken: firstToken, amountCents: price));
+      orderResponse.fold((error) {
+        flowState.value = LoadingState(
+            stateRendererType: StateRendererType.POPUP_ERROR_STATE,
+            message: AppStrings.serverError);
+      }, (int orderId) async {});
+    });
     await waitStateChanged();
     CartController _cartController = Get.find();
     _cartController.clearData();
