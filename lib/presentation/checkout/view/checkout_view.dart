@@ -6,6 +6,7 @@ import 'package:ms_store/app/components/common/input_field.dart';
 import 'package:ms_store/app/resources/color_manager.dart';
 import 'package:ms_store/app/resources/font_manger.dart';
 import 'package:ms_store/app/resources/values_manager.dart';
+import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/checkout/controller/checkout_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
@@ -27,6 +28,41 @@ class _CheckOutViewState extends State<CheckOutView> {
       TextEditingController();
   final CheckoutController _checkoutController = Get.find();
   final CartController _cartController = Get.find();
+  final UserDataController _userDataController = Get.find();
+  final TextEditingController _firstNameTextEditingController =
+      TextEditingController();
+  final TextEditingController _lastNameTextEditingController =
+      TextEditingController();
+  final TextEditingController _emailTextEditingController =
+      TextEditingController();
+  PhoneController _phoneTextEditingController =
+      PhoneController(const PhoneNumber(isoCode: IsoCode.EG, nsn: ""));
+
+  @override
+  void initState() {
+    _firstNameTextEditingController.text =
+        _userDataController.userModel.value!.userName.split(' ')[0];
+    _lastNameTextEditingController.text =
+        _userDataController.userModel.value!.userName.split(' ')[1];
+    _emailTextEditingController.text =
+        _userDataController.userModel.value!.email;
+    List<String>? phoneData =
+        _userDataController.userModel.value?.phone.split('-');
+    if (phoneData != null && phoneData.length == 2) {
+      _phoneTextEditingController = PhoneController(
+          PhoneNumber.fromCountryCode(phoneData[0], phoneData[1]));
+    } else {
+      _phoneTextEditingController =
+          PhoneController(const PhoneNumber(isoCode: IsoCode.EG, nsn: ""));
+    }
+    _checkoutController.setEmailEvent(_emailTextEditingController.text);
+    _checkoutController.addFirstName(_firstNameTextEditingController.text);
+    _checkoutController.addLastName(_lastNameTextEditingController.text);
+    _checkoutController.setAlertPhoneEvent(_phoneTextEditingController.value);
+
+    super.initState();
+  }
+
   final FocusNode _lastName = FocusNode();
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _address = FocusNode();
@@ -44,12 +80,17 @@ class _CheckOutViewState extends State<CheckOutView> {
       body: Obx(() => _checkoutController.flowState.value != null
           ? _checkoutController.flowState.value!.getScreenWidget(
               BuildContent(
-                  checkoutController: _checkoutController,
-                  mapTextEditingController: _mapTextEditingController,
-                  cartController: _cartController,
-                  lastName: _lastName,
-                  phoneNode: _phoneNode,
-                  address: _address), retryActionFunction: () {
+                checkoutController: _checkoutController,
+                mapTextEditingController: _mapTextEditingController,
+                cartController: _cartController,
+                lastName: _lastName,
+                phoneNode: _phoneNode,
+                address: _address,
+                emailTextEditingController: _emailTextEditingController,
+                firstNameTextEditingController: _firstNameTextEditingController,
+                lastNameTextEditingController: _lastNameTextEditingController,
+                phoneTextEditingController: _phoneTextEditingController,
+              ), retryActionFunction: () {
               Get.back();
             })
           : BuildContent(
@@ -59,6 +100,10 @@ class _CheckOutViewState extends State<CheckOutView> {
               phoneNode: _phoneNode,
               lastName: _lastName,
               address: _address,
+              firstNameTextEditingController: _firstNameTextEditingController,
+              lastNameTextEditingController: _lastNameTextEditingController,
+              phoneTextEditingController: _phoneTextEditingController,
+              emailTextEditingController: _emailTextEditingController,
             )),
     );
   }
@@ -73,6 +118,10 @@ class BuildContent extends StatelessWidget {
     required this.phoneNode,
     required this.lastName,
     required this.address,
+    required this.firstNameTextEditingController,
+    required this.lastNameTextEditingController,
+    required this.emailTextEditingController,
+    required this.phoneTextEditingController,
   })  : _checkoutController = checkoutController,
         _mapTextEditingController = mapTextEditingController,
         _cartController = cartController,
@@ -84,7 +133,10 @@ class BuildContent extends StatelessWidget {
   final FocusNode phoneNode;
   final FocusNode lastName;
   final FocusNode address;
-
+  final TextEditingController firstNameTextEditingController;
+  final TextEditingController lastNameTextEditingController;
+  final TextEditingController emailTextEditingController;
+  final PhoneController phoneTextEditingController;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -133,6 +185,7 @@ class BuildContent extends StatelessWidget {
                 )),
             const SizedBox(height: 20),
             InputField(
+              controller: firstNameTextEditingController,
               label: AppStrings.firstName,
               keyBoardType: TextInputType.name,
               prefixIcon: IconsManger.user,
@@ -144,6 +197,7 @@ class BuildContent extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             InputField(
+              controller: lastNameTextEditingController,
               label: AppStrings.lastName,
               keyBoardType: TextInputType.name,
               prefixIcon: IconsManger.user,
@@ -156,7 +210,7 @@ class BuildContent extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             BuildPhoneFormField(
-              //   phoneController: _textPhoneController,
+              phoneController: phoneTextEditingController,
               phoneNode: phoneNode,
               onChanged: (PhoneNumber? p) {
                 _checkoutController.setAlertPhoneEvent(p);

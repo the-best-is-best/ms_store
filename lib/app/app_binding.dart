@@ -137,7 +137,7 @@ class AppBinding implements Bindings {
   }
 
   void getCheckoutController() {
-    Get.lazyPut(() => CheckoutController(), fenix: true);
+    Get.lazyPut(() => CheckoutController(instance(), instance()), fenix: true);
   }
 
   void getGoogleMapController() {

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'get_first_token.g.dart';
+part 'get_first_token_response.g.dart';
 
 @JsonSerializable()
 class GetFirstTokenResponse {

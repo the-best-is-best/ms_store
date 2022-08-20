@@ -7,7 +7,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../app/constants.dart';
 import '../responses/home_response/home_response.dart';
-import '../responses/paymob/get_first_token.dart';
+import '../responses/paymob/get_first_token_response.dart';
 import '../responses/paymob/order_registration_response.dart';
 import '../responses/store_responses/categories_responses.dart';
 import '../responses/store_responses/get_products_with_pagination_response.dart';
@@ -154,6 +154,12 @@ abstract class AppServicesClient {
     @Field("phoneVerify") required int phoneVerify,
     @Field("password") required String password,
   });
+  @POST(Constants.createOrder)
+  Future<UpdateReviewResponse> createOrder({
+    @Field('userId') required int userId,
+    @Field('orders') required String orders,
+    @Field('paymentMethod') required int paymentMethod,
+  });
 }
 
 @RestApi(baseUrl: Constants.basePayMobUrl)
@@ -162,8 +168,8 @@ abstract class PayMobClient {
 
   //api get paymob token
 
-  @POST(Constants.paymobTokenUrl)
-  Future<GetFirstTokenResponse> getPaymobToken({
+  @POST(Constants.getFirstToken)
+  Future<GetFirstTokenResponse> getFirstToken({
     @Field("api_key") required String apiKey,
   });
   // Order Registration API
@@ -173,10 +179,8 @@ abstract class PayMobClient {
     @Field("delivery_needed") required bool deliveryNeeded,
     @Field("amount_cents") required int amountCents,
     @Field("currency") String currency = "EGP",
-    @Field("items") required List<Map<String, dynamic>> items,
+    @Field("items") List<Map<String, dynamic>>? items,
     @Field("shipping_data") Map<String, dynamic>? shippingData,
     @Field("merchant_order_id") int? merchantOrderId,
-    //@Field("integration_id") int integrationId = 1,
-    //  @Field("lock_order_when_paid") String lockOrderWhenPaid,
   });
 }

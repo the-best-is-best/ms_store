@@ -53,15 +53,17 @@ class Constants {
   static const String aboutUrl = '/$_getDataUrlPath/get_about_us.php';
   static const String searchUrl = '/$_getDataUrlPath/search_product.php';
   static const String updateUrl = '/$_updateUrlPath/update_user.php';
+  static const String createOrder = '/$_postDataUrlPath/create_order.php';
+
   static const String mapUrl =
       'https://maps.googleapis.com/maps/api/directions/json?';
 
 // PayMob Api Integration
   static const String basePayMobUrl = "https://accept.paymob.com/api";
 
-  static const String paymobTokenUrl = '/tokens';
+  static const String getFirstToken = '/auth/tokens';
 
-  static const String orderRegistrationUrl = '/orders';
+  static const String orderRegistrationUrl = '/ecommerce/orders';
 
   static const String paymentKeyUrl = '/payment_keys';
 

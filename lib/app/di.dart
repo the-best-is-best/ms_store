@@ -1,7 +1,12 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ms_store/data/data_src/local_data_source.dart';
+import 'package:ms_store/data/data_src/remote_data_pay_mob_src.dart';
+import 'package:ms_store/data/repository/paymob/paymob_repository_impl.dart';
+import 'package:ms_store/domain/repository/paymob_repository.dart';
 import 'package:ms_store/domain/use_case/cache/cache_use_case.dart';
+import 'package:ms_store/domain/use_case/paymob/get_first_token_use_case.dart';
+import 'package:ms_store/domain/use_case/paymob/get_order_id_use_case.dart';
 import 'package:ms_store/domain/use_case/store/category_use_case.dart';
 import 'package:ms_store/domain/use_case/store/get_product_by_cat_id_use_case.dart';
 import 'package:ms_store/domain/use_case/store/get_products_by_ids_use_case.dart';
@@ -28,7 +33,6 @@ import '../domain/use_case/users_case/forget_password_case.dart';
 import '../domain/use_case/users_case/login_use_case.dart';
 import '../domain/use_case/users_case/register_use_case.dart';
 import '../domain/use_case/users_case/reset_password_case.dart';
-import '../presentation/checkout/repository/repository_map.dart';
 
 final instance = GetIt.instance;
 
@@ -148,3 +152,18 @@ void initUpdateProfile() {
 //         .registerFactory<DirectionsRepository>(() => DirectionsRepository());
 //   }
 // }
+void initCheckout() {
+  if (!GetIt.I.isRegistered<PayMobRepository>()) {
+// PayMobClient
+    instance.registerLazySingleton<PayMobClient>(
+        () => PayMobClient(DioManger.dioApi));
+    instance.registerLazySingleton<RemoteDataPayMobSrc>(
+        () => RemoteDataPayMobSrcImpl(instance()));
+    instance.registerFactory<PayMobRepository>(
+        () => PayMobRepositoryImpl(instance(), instance()));
+    instance.registerFactory<PayMobGetFirstTokenUseCase>(
+        () => PayMobGetFirstTokenUseCase(instance()));
+    instance.registerFactory<PayMobGetOrderIdUseCase>(
+        () => PayMobGetOrderIdUseCase(instance()));
+  }
+}

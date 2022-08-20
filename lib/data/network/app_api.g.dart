@@ -399,6 +399,27 @@ class _AppServicesClient implements AppServicesClient {
     return value;
   }
 
+  @override
+  Future<UpdateReviewResponse> createOrder(
+      {required userId, required orders, required paymentMethod}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'userId': userId,
+      'orders': orders,
+      'paymentMethod': paymentMethod
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdateReviewResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/insert_data/create_order.php',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = UpdateReviewResponse.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
@@ -425,7 +446,7 @@ class _PayMobClient implements PayMobClient {
   String? baseUrl;
 
   @override
-  Future<GetFirstTokenResponse> getPaymobToken({required apiKey}) async {
+  Future<GetFirstTokenResponse> getFirstToken({required apiKey}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -433,7 +454,7 @@ class _PayMobClient implements PayMobClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<GetFirstTokenResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/tokens',
+                .compose(_dio.options, '/auth/tokens',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = GetFirstTokenResponse.fromJson(_result.data!);
@@ -446,7 +467,7 @@ class _PayMobClient implements PayMobClient {
       required deliveryNeeded,
       required amountCents,
       currency = "EGP",
-      required items,
+      items,
       shippingData,
       merchantOrderId}) async {
     const _extra = <String, dynamic>{};
@@ -466,7 +487,7 @@ class _PayMobClient implements PayMobClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OrderRegistrationResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/orders',
+                .compose(_dio.options, '/ecommerce/orders',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = OrderRegistrationResponse.fromJson(_result.data!);

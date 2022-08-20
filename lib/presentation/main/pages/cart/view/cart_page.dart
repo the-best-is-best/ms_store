@@ -123,7 +123,7 @@ class _CartPageState extends State<CartPage> {
                                           Get.find();
                                       if (userDataController.userModel.value !=
                                           null) {
-                                        initUpdateProfile();
+                                        initCheckout();
                                         Get.toNamed(Routes.checkoutRoute);
                                       } else {
                                         Get.showSnackbar(GetSnackBar(
