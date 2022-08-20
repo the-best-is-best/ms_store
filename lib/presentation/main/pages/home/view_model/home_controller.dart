@@ -42,7 +42,6 @@ class HomeController extends GetxController with BaseController {
 
     if (userDataController.userModel.value != null) {
       FavController favController = Get.find();
-      CartController cartController = Get.find();
       var result = await favController.getFavorite(
           instance(), userDataController.userModel.value!.id);
       result.fold((failure) {}, (data) async {
@@ -50,9 +49,10 @@ class HomeController extends GetxController with BaseController {
 
         await favController.getProductsFavorite(data);
       });
-
-      await cartController.getCart();
     }
+    CartController cartController = Get.find();
+
+    await cartController.getCart();
     var resultHome = await _homeUseCase.execute(null);
     await waitStateChanged();
 

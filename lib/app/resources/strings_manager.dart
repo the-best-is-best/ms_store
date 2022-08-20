@@ -20,6 +20,8 @@ class AppStrings {
   static String get passwordAgain => 'password_again_title'.tr;
 
   static String get login => 'login_title'.tr;
+  static String get loginRequired => 'login_required'.tr;
+  static String get loginRequiredMsg => 'login_required_message'.tr;
   static String get skip => 'skip_title'.tr;
 
   static String get forgetPassword => 'lost_password_title'.tr;
@@ -109,4 +111,14 @@ class AppStrings {
   static String get no => 'no'.tr;
   static String get yes => 'yes'.tr;
   static String get sale => 'sale'.tr;
+
+  // payment methods
+  static String get firstName => 'first_name'.tr;
+  static String get lastName => 'last_name'.tr;
+
+  static String get choosePaymentMethod => 'choose_payment_method'.tr;
+  static String get cash => 'cash'.tr;
+  static String get creditCard => 'credit_card'.tr;
+  // static String get payPal => 'pay_pal'.tr;
+  static String get kiosk => 'kiosk'.tr;
 }

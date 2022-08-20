@@ -142,9 +142,9 @@ void initUpdateProfile() {
   }
 }
 
-void initDirectionRepository() {
-  if (!GetIt.I.isRegistered<DirectionsRepository>()) {
-    instance
-        .registerFactory<DirectionsRepository>(() => DirectionsRepository());
-  }
-}
+// void initDirectionRepository() {
+//   if (!GetIt.I.isRegistered<DirectionsRepository>()) {
+//     instance
+//         .registerFactory<DirectionsRepository>(() => DirectionsRepository());
+//   }
+// }

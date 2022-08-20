@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ms_store/app/app_refs.dart';
 import 'package:ms_store/domain/use_case/users_case/login_social_use_case.dart';
-import 'package:ms_store/domain/use_case/users_case/login_use_case.dart';
-
 import '../../../domain/models/users_model.dart';
 
 class UserDataController extends GetxController {

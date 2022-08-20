@@ -30,6 +30,8 @@ class EnLang {
       "email_title": "Email",
       "password_title": "Password",
       "login_title": "Login",
+      "login_required": "Login Required",
+      "login_required_message": "You must login to access this page",
       "register_title": "Register",
       "skip_title": "Skip",
       "or_title": "or",
@@ -124,7 +126,13 @@ established in 2022""",
       "close_app_message": "Do you want to exit an App",
       "no": "No",
       "yes": "Yes",
-      "sale": "SALE"
+      "sale": "SALE",
+      'choose_payment_method': 'Choose Payment Method',
+      'cash': 'Cash',
+      'credit_card': 'Credit Card',
+      'kiosk': 'Kiosk',
+      'first_name': 'First Name',
+      'last_name': 'Last Name',
     };
   }
 }

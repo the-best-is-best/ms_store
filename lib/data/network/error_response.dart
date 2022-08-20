@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-
 import '../../app/resources/strings_manager.dart';
 import 'error_handler.dart';
 import 'failure.dart';

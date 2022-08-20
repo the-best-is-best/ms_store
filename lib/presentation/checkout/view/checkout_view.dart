@@ -9,6 +9,8 @@ import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/presentation/checkout/controller/checkout_controller.dart';
 import 'package:ms_store/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
+import 'package:tbib_phone_form_field/tbib_phone_form_field.dart';
+import '../../../app/components/common/phone_form_field.dart';
 import '../../../app/resources/icons_manger.dart';
 import '../../../app/resources/routes_manger.dart';
 import '../../../app/resources/strings_manager.dart';
@@ -25,6 +27,9 @@ class _CheckOutViewState extends State<CheckOutView> {
       TextEditingController();
   final CheckoutController _checkoutController = Get.find();
   final CartController _cartController = Get.find();
+  final FocusNode _lastName = FocusNode();
+  final FocusNode _phoneNode = FocusNode();
+  final FocusNode _address = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +46,20 @@ class _CheckOutViewState extends State<CheckOutView> {
               BuildContent(
                   checkoutController: _checkoutController,
                   mapTextEditingController: _mapTextEditingController,
-                  cartController: _cartController), retryActionFunction: () {
+                  cartController: _cartController,
+                  lastName: _lastName,
+                  phoneNode: _phoneNode,
+                  address: _address), retryActionFunction: () {
               Get.back();
             })
           : BuildContent(
               checkoutController: _checkoutController,
               mapTextEditingController: _mapTextEditingController,
-              cartController: _cartController)),
+              cartController: _cartController,
+              phoneNode: _phoneNode,
+              lastName: _lastName,
+              address: _address,
+            )),
     );
   }
 }
@@ -58,6 +70,9 @@ class BuildContent extends StatelessWidget {
     required CheckoutController checkoutController,
     required TextEditingController mapTextEditingController,
     required CartController cartController,
+    required this.phoneNode,
+    required this.lastName,
+    required this.address,
   })  : _checkoutController = checkoutController,
         _mapTextEditingController = mapTextEditingController,
         _cartController = cartController,
@@ -66,6 +81,9 @@ class BuildContent extends StatelessWidget {
   final CheckoutController _checkoutController;
   final TextEditingController _mapTextEditingController;
   final CartController _cartController;
+  final FocusNode phoneNode;
+  final FocusNode lastName;
+  final FocusNode address;
 
   @override
   Widget build(BuildContext context) {
@@ -79,26 +97,25 @@ class BuildContent extends StatelessWidget {
             const SizedBox(height: 20),
             Obx(() => DropdownButton<int>(
                 hint: Text(
-                  'Choose Payment method',
+                  AppStrings.choosePaymentMethod,
                   style: context.textTheme.labelMedium,
                 ),
                 isExpanded: true,
-                value: _checkoutController.paymentMethod.value,
+                value: _checkoutController.ordersObject.value.paymentMethod,
                 items: [
-                  DropdownMenuItem<int>(
-                    value: 0,
-                    child: Text(
-                      'Choose Payment Methods',
-                      style: context.textTheme.labelSmall,
-                    ),
-                  ),
-                  DropdownMenuItem(
-                    value: 1,
-                    child: Text(
-                      'Payment cash',
-                      style: context.textTheme.labelMedium,
-                    ),
-                  ),
+                  ..._checkoutController.paymentMethods
+                      .asMap()
+                      .map((index, element) => MapEntry(
+                          index,
+                          DropdownMenuItem(
+                            onTap: index == 0 ? null : () {},
+                            value: index,
+                            child: Text(
+                              element,
+                              style: context.textTheme.labelMedium,
+                            ),
+                          )))
+                      .values
                 ],
                 onChanged: (int? val) {
                   _checkoutController.paymentMethodChange(val ?? 0);
@@ -114,37 +131,75 @@ class BuildContent extends StatelessWidget {
                             .copyWith(color: ColorManager.error)),
                   ),
                 )),
-            const SizedBox(height: 50),
-            Obx(() => InputField(
-                  controller: _mapTextEditingController,
-                  label: AppStrings.address,
-                  keyBoardType: TextInputType.none,
-                  prefixIcon: IconsManger.map,
-                  errorText: _checkoutController.addressAlert.value,
-                  suffixWidget: IconButton(
-                    icon: Icon(
-                      IconsManger.edit,
-                      size: FontSize.s30,
-                    ),
-                    onPressed: () async {
-                      _mapTextEditingController.text =
-                          await _checkoutController.getAddressFromLatLong();
-                      if (_mapTextEditingController.text == "") {
-                        return;
-                      } else {
-                        // initDirectionRepository();
-                        Get.toNamed(Routes.googleMapViewRoute, arguments: {
-                          'mapTextEditing': _mapTextEditingController
-                        });
-                      }
-                    },
+            const SizedBox(height: 20),
+            InputField(
+              label: AppStrings.firstName,
+              keyBoardType: TextInputType.name,
+              prefixIcon: IconsManger.user,
+              onChanged: (value) {
+                _checkoutController.addFirstName(value);
+              },
+              errorText: _checkoutController.firstNameAlert.value,
+              nextNode: lastName,
+            ),
+            const SizedBox(height: 20),
+            InputField(
+              label: AppStrings.lastName,
+              keyBoardType: TextInputType.name,
+              prefixIcon: IconsManger.user,
+              onChanged: (value) {
+                _checkoutController.addLastName(value);
+              },
+              errorText: _checkoutController.lastNameAlert.value,
+              focusNode: lastName,
+              nextNode: phoneNode,
+            ),
+            const SizedBox(height: 20),
+            BuildPhoneFormField(
+              //   phoneController: _textPhoneController,
+              phoneNode: phoneNode,
+              onChanged: (PhoneNumber? p) {
+                _checkoutController.setAlertPhoneEvent(p);
+              },
+              suffix: SendCode(
+                checkoutController: _checkoutController,
+              ),
+              nextNode: address,
+            ),
+            const SizedBox(height: 20),
+            Obx(
+              () => InputField(
+                controller: _mapTextEditingController,
+                label: AppStrings.address,
+                keyBoardType: TextInputType.none,
+                prefixIcon: IconsManger.map,
+                errorText: _checkoutController.addressAlert.value,
+                suffixWidget: IconButton(
+                  icon: Icon(
+                    IconsManger.edit,
+                    size: FontSize.s30,
                   ),
-                  onTap: () async {
+                  onPressed: () async {
                     _mapTextEditingController.text =
                         await _checkoutController.getAddressFromLatLong();
+                    if (_mapTextEditingController.text == "") {
+                      return;
+                    } else {
+                      // initDirectionRepository();
+                      Get.toNamed(Routes.googleMapViewRoute, arguments: {
+                        'mapTextEditing': _mapTextEditingController
+                      });
+                    }
                   },
-                )),
-            const SizedBox(height: 50),
+                ),
+                onTap: () async {
+                  _mapTextEditingController.text =
+                      await _checkoutController.getAddressFromLatLong();
+                },
+                focusNode: address,
+              ),
+            ),
+            const SizedBox(height: 20),
             CSCPicker(
               onCountryChanged: (value) {
                 _checkoutController.countryMethodChange(value);
@@ -181,6 +236,56 @@ class BuildContent extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class SendCode extends StatefulWidget {
+  final CheckoutController checkoutController;
+  const SendCode({Key? key, required this.checkoutController})
+      : super(key: key);
+
+  @override
+  State<SendCode> createState() => _SendCodeState();
+}
+
+class _SendCodeState extends State<SendCode> {
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () {
+        if (widget.checkoutController.alertPhoneValid.value == true) {
+          if (widget.checkoutController.loadingVerifyPhone.value == false) {
+            if (widget.checkoutController.isVerifiedPhone.value == false) {
+              return InkWell(
+                onTap: () {
+                  widget.checkoutController.verifyPhone();
+                },
+                child: Text(
+                  AppStrings.sendCode,
+                  style: context.textTheme.labelMedium!
+                      .copyWith(color: ColorManager.primaryColor),
+                ),
+              );
+            } else {
+              return Icon(
+                IconsManger.success,
+                size: FontSize.s30,
+                color: ColorManager.darkColor,
+              );
+            }
+          } else {
+            return const SizedBox(
+              height: 20,
+              width: 20,
+              child:
+                  CircularProgressIndicator(color: ColorManager.primaryColor),
+            );
+          }
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 }

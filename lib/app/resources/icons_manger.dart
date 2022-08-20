@@ -49,6 +49,7 @@ class IconsManger {
   static const IconData visibility = Icons.visibility;
   static const IconData subject = Icons.subject;
   static const IconData message = Icons.message;
+  static const IconData error = Icons.error_outline_rounded;
 
   static const IconData google = CommunityMaterialIcons.google;
 

@@ -283,23 +283,23 @@ abstract class _UserDataObject implements UserDataObject {
       final int loginBySocial) = _$_UserDataObject;
 
   @override
-  String get email => throw _privateConstructorUsedError;
+  String get email;
   @override
-  String get password => throw _privateConstructorUsedError;
+  String get password;
   @override
-  String get passwordAgin => throw _privateConstructorUsedError;
+  String get passwordAgin;
   @override
-  String get userName => throw _privateConstructorUsedError;
+  String get userName;
   @override
-  String get phone => throw _privateConstructorUsedError;
+  String get phone;
   @override
-  int get phoneVerify => throw _privateConstructorUsedError;
+  int get phoneVerify;
   @override
-  String get pin => throw _privateConstructorUsedError;
+  String get pin;
   @override
-  String get tokenSocial => throw _privateConstructorUsedError;
+  String get tokenSocial;
   @override
-  int get loginBySocial => throw _privateConstructorUsedError;
+  int get loginBySocial;
   @override
   @JsonKey(ignore: true)
   _$$_UserDataObjectCopyWith<_$_UserDataObject> get copyWith =>
@@ -482,15 +482,15 @@ abstract class _ReviewObject implements ReviewObject {
       final String comment) = _$_ReviewObject;
 
   @override
-  int get userId => throw _privateConstructorUsedError;
+  int get userId;
   @override
-  bool get status => throw _privateConstructorUsedError;
+  bool get status;
   @override
-  int get productId => throw _privateConstructorUsedError;
+  int get productId;
   @override
-  double get rating => throw _privateConstructorUsedError;
+  double get rating;
   @override
-  String get comment => throw _privateConstructorUsedError;
+  String get comment;
   @override
   @JsonKey(ignore: true)
   _$$_ReviewObjectCopyWith<_$_ReviewObject> get copyWith =>
@@ -682,15 +682,15 @@ abstract class _ContactUsObject implements ContactUsObject {
       final String message) = _$_ContactUsObject;
 
   @override
-  String get email => throw _privateConstructorUsedError;
+  String get email;
   @override
-  String get userName => throw _privateConstructorUsedError;
+  String get userName;
   @override
-  String get phone => throw _privateConstructorUsedError;
+  String get phone;
   @override
-  String get subject => throw _privateConstructorUsedError;
+  String get subject;
   @override
-  String get message => throw _privateConstructorUsedError;
+  String get message;
   @override
   @JsonKey(ignore: true)
   _$$_ContactUsObjectCopyWith<_$_ContactUsObject> get copyWith =>

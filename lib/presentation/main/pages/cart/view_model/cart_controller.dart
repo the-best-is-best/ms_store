@@ -11,7 +11,7 @@ class CartController extends GetxController {
   RxDouble totalPrice = 0.0.obs;
   CartController(this._localDataSource);
 
-  Future getCart() async {
+  Future<void> getCart() async {
     try {
       cartModel.value = await _localDataSource.getCartData();
       productsInCart.value = await _localDataSource.getProductCartData();

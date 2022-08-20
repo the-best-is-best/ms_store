@@ -6,7 +6,7 @@ part of 'app_api.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
 class _AppServicesClient implements AppServicesClient {
   _AppServicesClient(this._dio, {this.baseUrl}) {
@@ -396,6 +396,80 @@ class _AppServicesClient implements AppServicesClient {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = UpdateUserDataResponses.fromJson(_result.data!);
+    return value;
+  }
+
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
+    if (T != dynamic &&
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
+      if (T == String) {
+        requestOptions.responseType = ResponseType.plain;
+      } else {
+        requestOptions.responseType = ResponseType.json;
+      }
+    }
+    return requestOptions;
+  }
+}
+
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+
+class _PayMobClient implements PayMobClient {
+  _PayMobClient(this._dio, {this.baseUrl}) {
+    baseUrl ??= 'https://accept.paymob.com/api';
+  }
+
+  final Dio _dio;
+
+  String? baseUrl;
+
+  @override
+  Future<GetFirstTokenResponse> getPaymobToken({required apiKey}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {'api_key': apiKey};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetFirstTokenResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/tokens',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetFirstTokenResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<OrderRegistrationResponse> orderRegistration(
+      {required authToken,
+      required deliveryNeeded,
+      required amountCents,
+      currency = "EGP",
+      required items,
+      shippingData,
+      merchantOrderId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'auth_token': authToken,
+      'delivery_needed': deliveryNeeded,
+      'amount_cents': amountCents,
+      'currency': currency,
+      'items': items,
+      'shipping_data': shippingData,
+      'merchant_order_id': merchantOrderId
+    };
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<OrderRegistrationResponse>(
+            Options(method: 'POST', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/orders',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = OrderRegistrationResponse.fromJson(_result.data!);
     return value;
   }
 

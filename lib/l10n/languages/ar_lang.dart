@@ -30,6 +30,8 @@ class ArLang {
       "email_title": "البريد الالكتروني",
       "password_title": "الباسورد",
       "login_title": "تسجيل الدخول",
+      "login_required": "الرجاء تسجيل الدخول",
+      "login_required_message": "الرجاء تسجيل الدخول للمتابعة",
       "register_title": "تسجيل",
       "skip_title": "تخطي",
       "donot_have_account_title": "لا امتلك حساب ؟",
@@ -124,7 +126,13 @@ class ArLang {
       "close_app_message": "هل تريد الخروج من التطبيق",
       "no": "لا",
       "yes": "نعم",
-      "sale": "تخفيض السعر"
+      "sale": "تخفيض السعر",
+      'choose_payment_method': 'اختر طريقة الدفع',
+      'cash': 'كاش',
+      'credit_card': 'بطاقة الائتمان',
+      'kiosk': 'دفع عبر الكشك',
+      'first_name': 'الاسم الاول',
+      'last_name': 'الاسم الاخير',
     };
   }
 }

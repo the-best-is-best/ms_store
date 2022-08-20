@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:ms_store/app/di.dart';
 import 'package:ms_store/app/resources/color_manager.dart';
 import 'package:ms_store/app/resources/font_manger.dart';
 import 'package:ms_store/app/resources/icons_manger.dart';
@@ -10,6 +11,7 @@ import 'package:ms_store/app/resources/routes_manger.dart';
 import 'package:ms_store/app/resources/values_manager.dart';
 import 'package:ms_store/domain/models/store/product_model.dart';
 import 'package:ms_store/gen/assets.gen.dart';
+import 'package:ms_store/presentation/base/user_data/user_data_controller.dart';
 import 'package:ms_store/presentation/main/pages/cart/view_model/cart_controller.dart';
 import '../../../../../app/components/common/build_circular_progress_indicator.dart';
 import '../../../../../app/resources/strings_manager.dart';
@@ -117,7 +119,22 @@ class _CartPageState extends State<CartPage> {
                               onPressed: _cartController.productsInCart.isEmpty
                                   ? null
                                   : () {
-                                      Get.toNamed(Routes.checkoutRoute);
+                                      UserDataController userDataController =
+                                          Get.find();
+                                      if (userDataController.userModel.value !=
+                                          null) {
+                                        initUpdateProfile();
+                                        Get.toNamed(Routes.checkoutRoute);
+                                      } else {
+                                        Get.showSnackbar(GetSnackBar(
+                                          title: AppStrings.loginRequired,
+                                          message: AppStrings.loginRequiredMsg,
+                                          icon: const Icon(IconsManger.error),
+                                          backgroundColor: ColorManager.error,
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          duration: const Duration(seconds: 3),
+                                        ));
+                                      }
                                     },
                               child: Text(
                                 AppStrings.checkout,
